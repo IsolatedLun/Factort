@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
 .clr-background-400 {
-  color: #131720;
+  color: #17191c;
+}
+
+.clr-background-500 {
+  color: #26282c;
 }
 
 .clr-text-accent {
@@ -1547,7 +1551,11 @@ img[data-profile=true] {
 }
 
 .clr-background-400 {
-  color: #131720;
+  color: #17191c;
+}
+
+.clr-background-500 {
+  color: #26282c;
 }
 
 .clr-text-accent {
@@ -1555,7 +1563,8 @@ img[data-profile=true] {
 }
 
 :root {
-  --clr-background-400: #131720;
+  --clr-background-400: #17191c;
+  --clr-background-500: #26282c;
   --clr-text-accent: white;
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
@@ -1571,7 +1580,11 @@ img[data-profile=true] {
 
 @media (prefers-color-scheme: dark) {
   .clr-background-400 {
-    color: #131720;
+    color: #17191c;
+  }
+
+  .clr-background-500 {
+    color: #26282c;
   }
 
   .clr-text-accent {
@@ -1579,7 +1592,8 @@ img[data-profile=true] {
   }
 
   :root {
-    --clr-background-400: #131720;
+    --clr-background-400: #17191c;
+    --clr-background-500: #26282c;
     --clr-text-accent: white;
   }
 }
@@ -1652,6 +1666,10 @@ li::marker {
 
 ul[role=list] {
   list-style: none;
+}
+
+ul {
+  margin-left: 5rem;
 }
 
 input,

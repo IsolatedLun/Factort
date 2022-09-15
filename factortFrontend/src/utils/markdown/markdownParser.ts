@@ -3,9 +3,6 @@
  * @summary A simple markdown parser that works with start/end tag like syntax.
  */
 export function parseMarkdown(markdownText: string) {
-	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags
-	markdownText = markdownText.replaceAll(/\r?\n/g, '<br data-newline="true" />');
-
 	let out = '';
 	let i = 0;
 
@@ -14,6 +11,11 @@ export function parseMarkdown(markdownText: string) {
 
 		if (chr === '#') {
 			const res = parseMarkdownHeading(markdownText.slice(i));
+
+			out += res[0];
+			i += res[1];
+		} else if (chr === '-') {
+			const res = parseMarkdownList(markdownText.slice(i));
 
 			out += res[0];
 			i += res[1];
@@ -28,6 +30,9 @@ export function parseMarkdown(markdownText: string) {
 
 		i++;
 	}
+
+	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags (when parsing)
+	out = out.replaceAll(/\r?\n/g, '<br data-newline="true" />');
 	return out;
 }
 
@@ -72,4 +77,36 @@ function parseMarkdownAsterisks(subText: string): [string, number] {
 	}
 
 	return [`<${tag}>${subText.slice(start, end)}</${tag}>`, end + 1];
+}
+
+/**
+ * @param subText
+ * @summary A markdown list parser. - Hello \n - World => <ul><li>Hello</li><li>World</li></ul>
+ */
+function parseMarkdownList(subText: string): [string, number] {
+	function partitionList(): [string[], number] {
+		const items = subText.split('\n');
+		let listItems = [];
+		let offset = 0;
+
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].startsWith('-')) {
+				listItems.push(items[i]);
+				offset += items[i].length;
+			} else {
+				break;
+			}
+		}
+
+		return [listItems, offset];
+	}
+
+	let out = '';
+	const [listElements, offset] = partitionList();
+
+	out += '<ul>';
+	listElements.forEach((listElement) => (out += `<li>${listElement.slice(1).trim()}</li>`));
+	out += '</ul>';
+
+	return [out, offset];
 }
