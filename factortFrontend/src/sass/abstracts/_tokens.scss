@@ -1,0 +1,35 @@
+@use './_colors.scss' as *;
+
+
+// =================
+// Containers
+// =================
+$main-container-width: 100%;
+$main-container-padding: 1rem;
+
+$secondary-container-width: 900px;
+
+// =================
+// Utilities
+// =================
+$border-radius-cubed: 9px;
+
+// =================
+// Animations
+// =================
+$animation-background-color-highlight: var(--clr-blue-hover);
+
+// =================
+// Composition
+// =================
+$clr-column-split-border: var(--clr-hover-400);
+
+// Media scroller
+$media-scroller-max-width: 92vw;
+
+// =================
+// Misc
+// =================
+$flow-spacing: 0.5em;
+
+$fw-heading: 500;

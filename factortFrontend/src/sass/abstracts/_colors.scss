@@ -1,0 +1,20 @@
+$colors-dark: (
+	background: (
+		'400': hsl(220 24% 10%)
+	),
+	text: (
+		'accent': white
+	)
+);
+
+$colors-light: ();
+
+$active-theme: $colors-dark;
+
+@each $keyName, $key in $active-theme {
+	@each $valKey, $val in $key {
+		.clr-#{$keyName}-#{$valKey} {
+			color: $val;
+		}
+	}
+}

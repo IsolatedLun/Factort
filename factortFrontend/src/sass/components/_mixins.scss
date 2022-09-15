@@ -1,0 +1,70 @@
+@use '../abstracts/' as *;
+
+@mixin createInput(
+	$font-size: $def-input-font-size,
+	$padding: $def-input-padding,
+	$background-color: $def-input-background-color,
+	$border: $def-input-border,
+	$border-radius: $def-input-border-radius,
+	$border-color-on-hov: $def-input-border-color-on-hov
+) {
+	font-size: $font-size;
+
+	padding: $padding;
+	background-color: $background-color;
+	border: $border;
+	border-radius: $border-radius;
+
+	&:is(:focus-visible, :hover) {
+		border-color: $border-color-on-hov;
+	}
+}
+
+@mixin createButton(
+	$font-size: $def-button-font-size,
+	$padding: $def-button-padding,
+	$background-color: $def-button-background-color,
+	$color: $def-button-color,
+	$border: none,
+	$border-radius: $def-button-border-radius,
+	$background-color-on-hov: $def-button-background-color-on-hov,
+	$color-on-hov: $def-button-color
+) {
+	font-size: $font-size;
+
+	padding: $padding;
+	background-color: $background-color;
+	color: $color;
+
+	border: $border;
+	border-radius: $border-radius;
+
+	cursor: pointer;
+	transition: background-color 95ms ease-in-out, color 95ms ease-in-out;
+
+	& > .icon {
+		font-size: $font-size;
+		color: $color;
+	}
+
+	&:not([data-selected='true']):is(:focus-visible, :hover) {
+		background-color: $background-color-on-hov;
+		color: $color-on-hov;
+		border-color: $background-color-on-hov;
+	}
+}
+
+@mixin createCard(
+	$background-color: $def-card-background-color,
+	$border: none,
+	$border-radius: $def-card-border-radius,
+	$border-color-on-hov: none
+) {
+	background-color: $background-color;
+	border: $border;
+	border-radius: $border-radius;
+
+	&:is(:focus-visible, :hover) {
+		border-color: $border-color-on-hov;
+	}
+}

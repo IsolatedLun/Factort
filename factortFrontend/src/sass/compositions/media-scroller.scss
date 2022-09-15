@@ -1,0 +1,12 @@
+@use '../abstracts/' as *;
+
+.media-scroller {
+	display: grid;
+	max-width: $media-scroller-max-width;
+
+	grid-auto-flow: column;
+	grid-auto-columns: auto;
+
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+}

@@ -1,0 +1,1 @@
+cd .. && cd factortBackend && python manage.py runserver

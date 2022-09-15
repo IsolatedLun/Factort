@@ -1,0 +1,1 @@
+cd .. && cd factortFrontend &&  npm run postcss-run

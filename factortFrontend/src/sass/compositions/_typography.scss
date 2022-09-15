@@ -1,0 +1,87 @@
+@use '../abstracts/' as *;
+
+.icon {
+	font-family: 'Font Awesome 5 Free';
+	font-size: var(--fs-500);
+	color: inherit;
+}
+
+.icon:not([data-custom-weight='true']) {
+	font-weight: bold;
+}
+
+.text-muted {
+	color: var(--clr-text-muted);
+}
+
+.text-capital {
+	text-transform: capitalize;
+}
+
+.text-elliptic {
+	max-width: var(--_max-width, 64ch);
+	--webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+@for $i from 1 through 5 {
+	.text-ellipsis-#{$i} {
+		display: -webkit-box;
+		-webkit-line-clamp: $i;
+		-webkit-box-orient: vertical;
+
+		word-break: break-all;
+		overflow: hidden;
+		hyphens: auto;
+	}
+}
+
+// Borders
+.upper-border {
+	border-top: 1px solid var(--clr-hover-400);
+	padding-block-start: 0.5em;
+}
+
+.under-border {
+	border-bottom: 1px solid var(--clr-hover-400);
+	padding-block-end: 0.5em;
+}
+
+.long-bar {
+	display: inline-block;
+	width: 1.25rem;
+	height: 1px;
+	margin-bottom: 0.2em;
+	background-color: var(--clr-text-400);
+}
+
+// Fonts
+$ops: bold, bolder, light, lighter, normal, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+@each $op in $ops {
+	.fw-#{$op} {
+		font-weight: $op;
+	}
+}
+
+// Misc
+*[data-sr='true'] {
+	font-size: 0px;
+}
+
+.whitespace-nowrap {
+	white-space: nowrap;
+}
+
+// Screen readers
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}

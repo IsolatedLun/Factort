@@ -1,0 +1,7 @@
+@use '../abstracts/' as *;
+
+img[data-profile='true'] {
+	width: 2rem;
+	aspect-ratio: 1;
+	border-radius: 100vmax;
+}
