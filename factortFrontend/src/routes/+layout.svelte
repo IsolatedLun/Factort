@@ -1,12 +1,9 @@
 <script>
-	import VisuallyHidden from "../components/Modules/Accessiblity/VisuallyHidden.svelte";
+	import Navbar from "../components/Layouts/Navbar.svelte";
 
 </script>
-<navbar class="[ padding-2 display-inline-block ]" aria-labelledby="primaryNavigation">
-    <h1>Factort <VisuallyHidden id='primaryNavigation'>Primary navigation</VisuallyHidden></h1>
-    <ul></ul>
-</navbar>
 
+<Navbar />
 <div class="[ main-container ]">
     <slot />
 </div>

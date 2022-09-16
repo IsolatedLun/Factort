@@ -1,0 +1,7 @@
+@use '../../abstracts/' as *;
+
+.profile {
+	width: $profile-scale;
+	aspect-ratio: 1;
+	background-color: var(--clr-background-card);
+}

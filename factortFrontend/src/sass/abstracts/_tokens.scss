@@ -1,5 +1,18 @@
 @use './_colors.scss' as *;
 
+// =================
+// Important
+// =================
+$clr-body-text: var(--clr-text-accent);
+$border-radius-cubed: 9px;
+
+$profile-scale: clamp(2.55em, 6vw, 3.25em);
+
+// =================
+// Colors
+// =================
+$clr-body-background: var(--clr-background-400);
+$clr-navbar-background: var(--clr-background-300);
 
 // =================
 // Containers
@@ -10,9 +23,28 @@ $main-container-padding: 1rem;
 $secondary-container-width: 900px;
 
 // =================
+// Inputs
+// =================
+$def-input-font-size: var(--fs-400);
+$def-input-padding: 0.55em 0.9em;
+$def-input-background-color: var(--clr-input-background);
+$def-input-border: 2px solid var(--clr-input-border);
+$def-input-border-radius: $border-radius-cubed;
+$def-input-border-color-on-hov: var(--clr-input-border-hover);
+
+// =================
+// Buttons
+// =================
+$def-button-font-size: var(--fs-400);
+$def-button-padding: 0.5em 0.85em;
+$def-button-background-color: var(--clr-button-background);
+$def-button-color: $clr-body-text;
+$def-button-border-radius: $border-radius-cubed;
+$def-button-background-color-on-hov: var(--clr-button-background-hover);
+
+// =================
 // Utilities
 // =================
-$border-radius-cubed: 9px;
 
 // =================
 // Animations

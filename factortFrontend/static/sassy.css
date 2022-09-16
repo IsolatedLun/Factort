@@ -1,14 +1,50 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
-.clr-background-400 {
-  color: #17191c;
+.clr-background-300 {
+  color: #e4e3e8;
 }
 
-.clr-background-500 {
-  color: #26282c;
+.clr-background-400 {
+  color: white;
+}
+
+.clr-background-card {
+  color: #b3b2bd;
+}
+
+.clr-text-difference {
+  color: white;
 }
 
 .clr-text-accent {
-  color: white;
+  color: #0d0d0d;
+}
+
+.clr-input-background {
+  color: #e9e9ec;
+}
+
+.clr-input-border {
+  color: #cecdd5;
+}
+
+.clr-input-border-hover {
+  color: #adacb9;
+}
+
+.clr-button-background {
+  color: #b3b2bd;
+}
+
+.clr-button-background-hover {
+  color: #c3c2cb;
+}
+
+.clr-misc-selection {
+  color: #8ccfd9;
+}
+
+.clr-misc-selection-shadow {
+  color: rgba(0, 221, 255, 0.26);
 }
 
 .margin-block-end-05 {
@@ -1033,6 +1069,47 @@
   margin-inline: auto;
 }
 
+.primary-navbar {
+  background-color: var(--clr-background-300);
+}
+
+.profile {
+  width: clamp(2.55em, 6vw, 3.25em);
+  aspect-ratio: 1;
+  background-color: var(--clr-background-card);
+}
+
+.input[data-variant=default] {
+  font-size: var(--fs-400);
+  padding: 0.55em 0.9em;
+  background-color: var(--clr-input-background);
+  border: 2px solid var(--clr-input-border);
+  border-radius: 9px;
+}
+.input[data-variant=default]:is(:focus-visible, :hover) {
+  border-color: var(--clr-input-border-hover);
+}
+
+.button {
+  font-size: var(--fs-400);
+  padding: 0.5em 0.85em;
+  background-color: var(--clr-button-background);
+  color: var(--clr-text-accent);
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 95ms ease-in-out, color 95ms ease-in-out;
+}
+.button > .icon {
+  font-size: var(--fs-400);
+  color: var(--clr-text-accent);
+}
+.button:not([data-selected=true]):is(:focus-visible, :hover) {
+  background-color: var(--clr-button-background-hover);
+  color: var(--clr-text-accent);
+  border-color: var(--clr-button-background-hover);
+}
+
 .media-scroller {
   display: grid;
   max-width: 92vw;
@@ -1550,22 +1627,67 @@ img[data-profile=true] {
   border-bottom-right-radius: 9px;
 }
 
+.clr-background-300 {
+  color: #e4e3e8;
+}
+
 .clr-background-400 {
-  color: #17191c;
-}
-
-.clr-background-500 {
-  color: #26282c;
-}
-
-.clr-text-accent {
   color: white;
 }
 
+.clr-background-card {
+  color: #b3b2bd;
+}
+
+.clr-text-difference {
+  color: white;
+}
+
+.clr-text-accent {
+  color: #0d0d0d;
+}
+
+.clr-input-background {
+  color: #e9e9ec;
+}
+
+.clr-input-border {
+  color: #cecdd5;
+}
+
+.clr-input-border-hover {
+  color: #adacb9;
+}
+
+.clr-button-background {
+  color: #b3b2bd;
+}
+
+.clr-button-background-hover {
+  color: #c3c2cb;
+}
+
+.clr-misc-selection {
+  color: #8ccfd9;
+}
+
+.clr-misc-selection-shadow {
+  color: rgba(0, 221, 255, 0.26);
+}
+
 :root {
-  --clr-background-400: #17191c;
-  --clr-background-500: #26282c;
-  --clr-text-accent: white;
+  --clr-background-300: #e4e3e8;
+  --clr-background-400: white;
+  --clr-background-card: #b3b2bd;
+  --clr-text-difference: white;
+  --clr-text-accent: #0d0d0d;
+  --clr-input-background: #e9e9ec;
+  --clr-input-border: #cecdd5;
+  --clr-input-border-hover: #adacb9;
+  --clr-button-background: #b3b2bd;
+  --clr-button-background-hover: #c3c2cb;
+  --clr-misc-selection: #8ccfd9;
+  --clr-misc-selection-shadow: rgba(0, 221, 255, 0.26);
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
   --fs-350: 0.782rem;
@@ -1579,22 +1701,67 @@ img[data-profile=true] {
 }
 
 @media (prefers-color-scheme: dark) {
-  .clr-background-400 {
-    color: #17191c;
+  .clr-background-300 {
+    color: #302f37;
   }
 
-  .clr-background-500 {
-    color: #26282c;
+  .clr-background-400 {
+    color: #202026;
+  }
+
+  .clr-background-card {
+    color: #575665;
+  }
+
+  .clr-text-difference {
+    color: black;
   }
 
   .clr-text-accent {
     color: white;
   }
 
+  .clr-input-background {
+    color: #43424d;
+  }
+
+  .clr-input-border {
+    color: #77758a;
+  }
+
+  .clr-input-border-hover {
+    color: #c3c2cb;
+  }
+
+  .clr-button-background {
+    color: rgba(100, 99, 116, 0.88);
+  }
+
+  .clr-button-background-hover {
+    color: #6d6c7f;
+  }
+
+  .clr-misc-selection {
+    color: #8ccfd9;
+  }
+
+  .clr-misc-selection-shadow {
+    color: rgba(0, 221, 255, 0.26);
+  }
+
   :root {
-    --clr-background-400: #17191c;
-    --clr-background-500: #26282c;
+    --clr-background-300: #302f37;
+    --clr-background-400: #202026;
+    --clr-background-card: #575665;
+    --clr-text-difference: black;
     --clr-text-accent: white;
+    --clr-input-background: #43424d;
+    --clr-input-border: #77758a;
+    --clr-input-border-hover: #c3c2cb;
+    --clr-button-background: rgba(100, 99, 116, 0.88);
+    --clr-button-background-hover: #6d6c7f;
+    --clr-misc-selection: #8ccfd9;
+    --clr-misc-selection-shadow: rgba(0, 221, 255, 0.26);
   }
 }
 *,
@@ -1660,8 +1827,8 @@ li::marker {
 }
 
 ::selection {
-  background-color: red;
-  color: black;
+  background-color: var(--clr-misc-selection-shadow);
+  color: var(--clr-misc-selection);
 }
 
 ul[role=list] {
@@ -1678,7 +1845,7 @@ button,
 *.button {
   font-size: calc(var(--fs-350) * 1.05);
   font-family: "Poppins", sans-serif;
-  color: black;
+  color: var(--clr-text-accent);
 }
 
 input[type=checkbox] {

@@ -17,9 +17,9 @@ html {
 body {
 	font-family: 'Poppins', sans-serif;
 	font-size: var(--fs-400);
-	background-color: var(--clr-background-400);
+	background-color: $clr-body-background;
 
-	color: var(--clr-text-accent);
+	color: $clr-body-text;
 
 	overflow-x: hidden;
 	text-rendering: optimizeLegibility;
@@ -68,8 +68,8 @@ li::marker {
 }
 
 ::selection {
-	background-color: red;
-	color: black;
+	background-color: var(--clr-misc-selection-shadow);
+	color: var(--clr-misc-selection);
 }
 
 ul[role='list'] {
@@ -87,7 +87,7 @@ button,
 	font-size: calc(var(--fs-350) * 1.05);
 	font-family: 'Poppins', sans-serif;
 
-	color: black;
+	color: $clr-body-text;
 }
 
 input[type='checkbox'] {

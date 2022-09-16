@@ -1,16 +1,54 @@
 $colors-dark: (
 	background: (
-		'400': hsl(220 8% 10%),
-		'500': hsl(220 8% 16%)
+		'300': hsl(245 8% 20%),
+		'400': hsl(245 8% 13.65%),
+		'card': hsl(245 8% 36.65%)
 	),
 	text: (
-		'accent': white
+		'difference': black,
+		'accent': hsl(0 0% 100%)
+	),
+	input: (
+		'background': hsl(245 8% 28%),
+		'border': hsl(245 8% 50%),
+		'border-hover': hsl(245 8% 78%)
+	),
+	button: (
+		'background': hsl(245 8% 42% / 0.88),
+		'background-hover': hsl(245 8% 46%)
+	),
+	misc: (
+		'selection': hsl(188 50% 70%),
+		'selection-shadow': hsl(188 100% 50% / 0.26)
 	)
 );
 
-$colors-light: ();
+$colors-light: (
+	background: (
+		'300': hsl(245 8% 90%),
+		'400': white,
+		'card': hsl(245 8% 72%)
+	),
+	text: (
+		'difference': white,
+		'accent': hsl(0 0% 5%)
+	),
+	input: (
+		'background': hsl(245 8% 92%),
+		'border': hsl(245 8% 82%),
+		'border-hover': hsl(245 8% 70%)
+	),
+	button: (
+		'background': hsl(245 8% 72%),
+		'background-hover': hsl(245 8% 78%)
+	),
+	misc: (
+		'selection': hsl(188 50% 70%),
+		'selection-shadow': hsl(188 100% 50% / 0.26)
+	)
+);
 
-$active-theme: $colors-dark;
+$active-theme: $colors-light;
 
 @each $keyName, $key in $active-theme {
 	@each $valKey, $val in $key {
