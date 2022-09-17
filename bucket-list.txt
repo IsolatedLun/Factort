@@ -1,0 +1,2 @@
+- Creates fully functional/dynamic (depending on the object right-clicked) context menu with toggleable 
+options.

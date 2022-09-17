@@ -18,7 +18,7 @@
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		compostClass: 'button',
-		utilClass: 'pos-relative'
+		utilClass: 'pos-relative cursor-pointer'
 	});
 
 	let _this: HTMLButtonElement;

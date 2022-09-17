@@ -1,7 +1,21 @@
+@use '../../abstracts/' as *;
 @use '../mixins' as *;
 
-.input[data-variant='default'] {
-	@include createInput();
+.input-container {
+	.input[data-variant='default'] {
+		@include createInput();
 
-	// box-shadow: 0px 0px 8px 1px hsl(0 50% 0 / 0.26);
+		// box-shadow: 0px 0px 8px 1px hsl(0 50% 0 / 0.26);
+	}
+
+	// ===========
+	// Misc
+	// ===========
+	.container__end-icon {
+		@include transformCenter($left: 92%);
+	}
+
+	&:has(input:where(:hover, :focus)) .container__end-icon {
+		color: var(--clr-input-border-hover);
+	}
 }

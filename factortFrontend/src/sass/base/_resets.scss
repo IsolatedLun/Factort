@@ -76,10 +76,6 @@ ul[role='list'] {
 	list-style: none;
 }
 
-ul {
-	margin-left: 5rem;
-}
-
 input,
 textarea,
 button,
@@ -139,6 +135,11 @@ img[data-small='true'] {
 
 [data-hide='true'] {
 	display: none !important;
+}
+
+[data-work-condition='false'] {
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 :where(.flow > * + *) {

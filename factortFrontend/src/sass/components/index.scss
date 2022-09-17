@@ -3,8 +3,10 @@
 @forward './layouts/navbar';
 @forward './layouts/home';
 @forward './layouts/footer';
+@forward './layouts/context-menu';
 
 @forward './modules/profile';
+@forward './modules/card';
 
 @forward './interactibles/input';
 @forward './interactibles/button';

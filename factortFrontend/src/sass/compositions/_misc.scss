@@ -5,3 +5,11 @@ img[data-profile='true'] {
 	aspect-ratio: 1;
 	border-radius: 100vmax;
 }
+
+.hoverable {
+	transition: background-color 95ms ease-in-out;
+}
+
+.hoverable:is(:hover) {
+	background-color: var(--clr-hoverable-400);
+}

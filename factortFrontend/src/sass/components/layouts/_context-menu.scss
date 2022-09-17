@@ -1,0 +1,10 @@
+.context-menu {
+	outline: 0;
+	pointer-events: none;
+	opacity: 0;
+
+	&:is(:focus, :focus-within) {
+		pointer-events: all;
+		opacity: 1;
+	}
+}

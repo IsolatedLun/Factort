@@ -1,6 +1,5 @@
 <script>
 	import Navbar from "../components/Layouts/Navbar.svelte";
-
 </script>
 
 <Navbar />

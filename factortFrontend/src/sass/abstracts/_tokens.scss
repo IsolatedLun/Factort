@@ -8,6 +8,8 @@ $border-radius-cubed: 9px;
 
 $profile-scale: clamp(2.55em, 6vw, 3.25em);
 
+$theme-border: 2px solid var(--clr-input-border);
+
 // =================
 // Colors
 // =================
@@ -26,9 +28,10 @@ $secondary-container-width: 900px;
 // Inputs
 // =================
 $def-input-font-size: var(--fs-400);
-$def-input-padding: 0.55em 0.9em;
+$def-input-padding: 0.475em 0.9em;
 $def-input-background-color: var(--clr-input-background);
-$def-input-border: 2px solid var(--clr-input-border);
+$def-input-border-color: var(--clr-input-border);
+$def-input-border: $theme-border;
 $def-input-border-radius: $border-radius-cubed;
 $def-input-border-color-on-hov: var(--clr-input-border-hover);
 
@@ -36,11 +39,28 @@ $def-input-border-color-on-hov: var(--clr-input-border-hover);
 // Buttons
 // =================
 $def-button-font-size: var(--fs-400);
-$def-button-padding: 0.5em 0.85em;
+$def-button-padding: 0.5em 0.55em;
 $def-button-background-color: var(--clr-button-background);
 $def-button-color: $clr-body-text;
+$def-button-border: $theme-border;
 $def-button-border-radius: $border-radius-cubed;
 $def-button-background-color-on-hov: var(--clr-button-background-hover);
+
+$primary-button-font-size: var(--fs-400);
+$primary-button-padding: 0.575em 0.55em;
+$primary-button-background-color: var(--clr-button-primary-background);
+$primary-button-color: $clr-body-text;
+$primary-button-border: none;
+$primary-button-border-radius: $border-radius-cubed;
+$primary-button-background-color-on-hov: var(--clr-button-primary-background-hover);
+
+// =================
+// Cards
+// =================
+$def-card-background-color: var(--clr-background-card);
+$def-card-border: $theme-border;
+$def-card-border-radius: $border-radius-cubed;
+$def-card-border-color-on-hov: none;
 
 // =================
 // Utilities

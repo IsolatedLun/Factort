@@ -23,8 +23,8 @@ export function createStringCubeCSSClass(self: Props_CubeCSS, other: Props_CubeC
 export function createObjectCubeClass(self: Props_CubeCSS = {}): Props_CubeCSS {
 	return {
 		blockClass: '' + propOrDefault(self.blockClass, ''),
-		compostClass: '' + propOrDefault(self.blockClass, ''),
-		utilClass: '' + propOrDefault(self.blockClass, '')
+		compostClass: '' + propOrDefault(self.compostClass, ''),
+		utilClass: '' + propOrDefault(self.utilClass, '')
 	};
 }
 

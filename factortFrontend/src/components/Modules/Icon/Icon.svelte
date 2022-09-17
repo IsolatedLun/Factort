@@ -6,7 +6,8 @@
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
 
 	const _class = createStringCubeCSSClass(cubeClass, {
-		compostClass: 'icon'
+		compostClass: 'icon',
+		utilClass: 'ignore-self'
 	});
 </script>
 

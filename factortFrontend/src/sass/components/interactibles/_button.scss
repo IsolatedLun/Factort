@@ -1,5 +1,18 @@
+@use '../../abstracts/' as *;
 @use '../mixins' as *;
 
-.button {
+.button[data-variant='default'] {
 	@include createButton();
+}
+
+.button[data-variant='primary'] {
+	@include createButton(
+		$background-color: $primary-button-background-color,
+		$background-color-on-hov: $primary-button-background-color-on-hov,
+		$border: $primary-button-border,
+		$border-radius: $primary-button-border-radius,
+		$color: $primary-button-color,
+		$font-size: $primary-button-font-size,
+		$padding: $primary-button-padding
+	);
 }
