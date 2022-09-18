@@ -5,6 +5,7 @@ PRIORITY 1
 options. [DONE]
 
 - Make navbar change it's location (top/left) [DONE]
+- Add link parsing in markdown [DONE]
 
 - Grid like layout that supports: [DONE]
     - sideNavigation | Posts | Miscellaneous [DONE]

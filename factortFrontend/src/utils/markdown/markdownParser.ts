@@ -1,6 +1,6 @@
 /**
  * @param markdownText
- * @summary A simple markdown parser that works with start/end tag like syntax.
+ * @summary A simple markdown parser that works with a start/end tag like syntax.
  */
 export function parseMarkdown(markdownText: string) {
 	let out = '';
@@ -24,6 +24,11 @@ export function parseMarkdown(markdownText: string) {
 
 			out += res[0];
 			i += res[1];
+		} else if (chr === '[') {
+			const res = parseMarkdownLink(markdownText.slice(i));
+
+			out += res[0];
+			i += res[1];
 		} else {
 			out += chr;
 		}
@@ -31,7 +36,8 @@ export function parseMarkdown(markdownText: string) {
 		i++;
 	}
 
-	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags (when parsing)
+	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags
+	// (when parsing)
 	out = out.replaceAll(/\r?\n/g, '<br data-newline="true" />');
 	return out;
 }
@@ -109,4 +115,34 @@ function parseMarkdownList(subText: string): [string, number] {
 	out += '</ul>';
 
 	return [out, offset];
+}
+
+/**
+ * @param subText
+ * @summary A markdown link parser. [Minecraft](https://www.google.com) =>
+ * <a href="https://www.google.com">Minecraft</a>
+ */
+function parseMarkdownLink(subText: string): [string, number] {
+	function parseLinkName(): [string, number] {
+		let end = subText.indexOf(']');
+
+		if (end == -1) return ['', 0];
+		return [subText.slice(1, end), end];
+	}
+
+	function parseLinkUrl(_subText: string): [string, number] {
+		let start = subText.indexOf('(');
+		let end = subText.indexOf(')');
+
+		if (end === -1 || start === -1) return ['', 0];
+		return [subText.slice(start + 1, end), end];
+	}
+
+	let [linkName, _offset] = parseLinkName();
+	let [linkUrl, __offset] = parseLinkUrl(subText.slice(_offset));
+
+	if (!(linkName && linkUrl)) return ['', 0];
+
+	let out = `<a target="_blank" href="${linkUrl}">${linkName}</a>`;
+	return [out, __offset + 2];
 }
