@@ -4,6 +4,8 @@
 	width: min(#{$main-container-width}, calc(100% - #{$main-container-padding}));
 	padding-inline: $main-container-padding * 0.5;
 	margin-inline: auto;
+
+	grid-area: mainContainer;
 }
 
 .secondary-container {

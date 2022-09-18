@@ -5,6 +5,8 @@ export const ICON_CARET_LEFT = '\uf0d9';
 export const ICON_CARET_RIGHT = '\uf0da';
 
 export const ICON_SEARCH = '\uf002';
+export const ICON_TIMES = '\uf00d';
+export const ICON_CHECK = '\uf00c';
 
 export const POINTS_ALIAS_NAME = 'reputation';
 

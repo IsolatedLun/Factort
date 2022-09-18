@@ -2,4 +2,51 @@
 
 .primary-navbar {
 	background-color: $clr-navbar-background;
+
+	grid-area: navigation;
+
+	&[data-row-layout='true'] *.flex {
+		align-items: center;
+	}
+
+	// =====================
+	// Dynamic search input
+	// =====================
+	&[data-row-layout='true'] {
+		*[data-show-sticky-input] {
+			.navbar__search-input {
+				position: absolute;
+				min-width: 24ch;
+			}
+
+			&[data-show-sticky-input='false'] .navbar__search-input {
+				animation: slideBackwards 0.15s ease-in-out forwards;
+				pointer-events: none;
+			}
+
+			&[data-show-sticky-input='true'] .navbar__search-input {
+				animation: slideForwards 0.15s ease-in-out forwards;
+			}
+		}
+	}
+}
+
+@keyframes slideForwards {
+	from {
+		@include transformCenter($left: -100vmax);
+	}
+
+	to {
+		@include transformCenter($left: 200%, $top: 32%);
+	}
+}
+
+@keyframes slideBackwards {
+	from {
+		@include transformCenter($left: 200%, $top: 32%);
+	}
+
+	to {
+		@include transformCenter($left: -100vmax);
+	}
 }

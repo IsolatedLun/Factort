@@ -1,0 +1,12 @@
+.main-layout[data-layout='column'] {
+	grid-template-areas:
+		'navigation'
+		'mainContainer';
+}
+
+.main-layout[data-layout='row'] {
+	grid-template-columns: max-content 1fr;
+	grid-template-rows: 100vh;
+
+	grid-template-areas: 'navigation mainContainer';
+}

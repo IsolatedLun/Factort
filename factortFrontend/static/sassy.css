@@ -19,6 +19,10 @@
   color: white;
 }
 
+.clr-text-muted {
+  color: #adacb9;
+}
+
 .clr-text-accent {
   color: #0d0d0d;
 }
@@ -57,6 +61,10 @@
 
 .clr-misc-selection-shadow {
   color: rgba(0, 177, 204, 0.26);
+}
+
+.clr-misc-shadow {
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .margin-block-end-05 {
@@ -1073,6 +1081,7 @@
   width: min(100%, calc(100% - 1rem));
   padding-inline: 0.5rem;
   margin-inline: auto;
+  grid-area: mainContainer;
 }
 
 .secondary-container {
@@ -1083,12 +1092,63 @@
 
 .primary-navbar {
   background-color: var(--clr-background-300);
+  grid-area: navigation;
+}
+.primary-navbar[data-row-layout=true] *.flex {
+  align-items: center;
+}
+.primary-navbar[data-row-layout=true] *[data-show-sticky-input] .navbar__search-input {
+  position: absolute;
+  min-width: 24ch;
+}
+.primary-navbar[data-row-layout=true] *[data-show-sticky-input][data-show-sticky-input=false] .navbar__search-input {
+  animation: slideBackwards 0.15s ease-in-out forwards;
+  pointer-events: none;
+}
+.primary-navbar[data-row-layout=true] *[data-show-sticky-input][data-show-sticky-input=true] .navbar__search-input {
+  animation: slideForwards 0.15s ease-in-out forwards;
+}
+
+@keyframes slideForwards {
+  from {
+    top: 50%;
+    left: -100vmax;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    top: 32%;
+    left: 200%;
+    transform: translate(-50%, -50%);
+  }
+}
+@keyframes slideBackwards {
+  from {
+    top: 32%;
+    left: 200%;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    top: 50%;
+    left: -100vmax;
+    transform: translate(-50%, -50%);
+  }
+}
+.main-layout[data-layout=column] {
+  grid-template-areas: "navigation" "mainContainer";
+}
+
+.main-layout[data-layout=row] {
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: 100vh;
+  grid-template-areas: "navigation mainContainer";
 }
 
 .context-menu {
   outline: 0;
   pointer-events: none;
   opacity: 0;
+  box-shadow: 0 0 16px 2px var(--clr-misc-shadow);
+  z-index: 999999999999999;
 }
 .context-menu:is(:focus, :focus-within) {
   pointer-events: all;
@@ -1143,7 +1203,7 @@
   font-size: var(--fs-400);
   color: var(--clr-text-accent);
 }
-.button[data-variant=default]:not([data-selected=true]):is(:focus-visible, :hover) {
+.button[data-variant=default]:is(:focus-visible, :hover, [data-selected=true]) {
   background-color: var(--clr-button-background-hover);
   color: var(--clr-text-accent);
   border-color: var(--clr-button-background-hover);
@@ -1163,7 +1223,7 @@
   font-size: var(--fs-400);
   color: var(--clr-text-accent);
 }
-.button[data-variant=primary]:not([data-selected=true]):is(:focus-visible, :hover) {
+.button[data-variant=primary]:is(:focus-visible, :hover, [data-selected=true]) {
   background-color: var(--clr-button-primary-background-hover);
   color: var(--clr-text-accent);
   border-color: var(--clr-button-primary-background-hover);
@@ -1668,15 +1728,15 @@ img[data-profile=true] {
 }
 
 .border-radius-100 {
-  border-radius: 100%;
+  border-radius: 100% !important;
 }
 
 .border-radius-100vw {
-  border-radius: 100vw;
+  border-radius: 100vw !important;
 }
 
 .border-radius-cubed {
-  border-radius: 9px;
+  border-radius: 9px !important;
 }
 
 .border-radius-top-cubed {
@@ -1712,6 +1772,10 @@ img[data-profile=true] {
 
 .clr-text-difference {
   color: white;
+}
+
+.clr-text-muted {
+  color: #adacb9;
 }
 
 .clr-text-accent {
@@ -1754,12 +1818,17 @@ img[data-profile=true] {
   color: rgba(0, 177, 204, 0.26);
 }
 
+.clr-misc-shadow {
+  color: rgba(0, 0, 0, 0.65);
+}
+
 :root {
   --clr-background-300: #e4e3e8;
   --clr-background-400: white;
   --clr-background-card: #b3b2bd;
   --clr-hoverable-400: rgba(97, 95, 112, 0.38);
   --clr-text-difference: white;
+  --clr-text-muted: #adacb9;
   --clr-text-accent: #0d0d0d;
   --clr-input-background: #e9e9ec;
   --clr-input-border: #cecdd5;
@@ -1770,6 +1839,7 @@ img[data-profile=true] {
   --clr-button-primary-background-hover: #0bbad5;
   --clr-misc-selection: #1a464d;
   --clr-misc-selection-shadow: rgba(0, 177, 204, 0.26);
+  --clr-misc-shadow: rgba(0, 0, 0, 0.65);
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
   --fs-350: 0.782rem;

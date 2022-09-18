@@ -1,2 +1,55 @@
-- Creates fully functional/dynamic (depending on the object right-clicked) context menu with toggleable 
-options.
+============
+PRIORITY 1
+============
+- Create fully functional/dynamic (depending on the object right-clicked) context menu with toggleable 
+options. [DONE]
+
+- Make navbar change it's location (top/left) [DONE]
+
+- Grid like layout that supports: [DONE]
+    - sideNavigation | Posts | Miscellaneous [DONE]
+    - Posts | Miscellaneous (when navbar is located on the top) [DONE]
+
+============
+PRIORITY 2
+============
+- Add Post component that supports multiple types of data
+    - Text post
+    - Image post (up to 12 images)
+    - Video post
+    - Voice post (with cool wavelength animation)
+    - Link post (with the preview of the link's page)
+
+    - Voting system like reddit
+    - Users can post individually or in their communities
+    - Posts can be public, unlisted and editable
+
+    => Displays comments count, votes and poster
+
+- Post creation page
+
+- Add Community component
+    - Displays all posts
+    - Admins
+    - About section (created with customized markdown)
+
+    - Communities can be private (only joined users can access it) or public
+
+- Community creation page
+
+- Search system
+
+============
+PRIORITY 3
+============
+- Display history of visited posts on navbar (next/previous buttons that preview the post)
+- Authentication
+    - Add cool feature where users can choose to draw their own profile and mark it as such on their profile
+
+- User page
+
+============
+PRIORITY 4
+============
+- Custom bot system like reddit
+- Awards system

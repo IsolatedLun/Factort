@@ -3,6 +3,9 @@
 	pointer-events: none;
 	opacity: 0;
 
+	box-shadow: 0 0 16px 2px var(--clr-misc-shadow);
+	z-index: 999999999999999;
+
 	&:is(:focus, :focus-within) {
 		pointer-events: all;
 		opacity: 1;

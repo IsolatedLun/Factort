@@ -1,22 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../../utils/cubeCss/cubeCss';
+	import {
+		createObjectCubeClass,
+		createStringCubeCSSClass
+	} from '../../../../utils/cubeCss/cubeCss';
 	import type { Props_CubeCSS } from '../../../../utils/cubeCss/types';
 	import Icon from '../../Icon/Icon.svelte';
 	import type { InputTypes } from './types';
 
 	onMount(() => {
 		id = window.crypto.randomUUID();
-	})
+	});
 
 	function setType(node: HTMLInputElement) {
 		node.type = type;
 	}
 
-	export let cubeClass: Props_CubeCSS = createObjectCubeClass({
-		blockClass: 'input-container',
-		utilClass: 'width-100 pos-relative'
-	});
+	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
 
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
@@ -28,7 +28,11 @@
 
 	export let showLabel = false;
 	export let endIcon = '';
-	const _class = createStringCubeCSSClass(cubeClass, {});
+
+	const _class = createStringCubeCSSClass(cubeClass, {
+		blockClass: 'input-container',
+		utilClass: 'width-100 pos-relative'
+	});
 </script>
 
 <div class={_class}>
@@ -47,8 +51,10 @@
 		{placeholder}
 	/>
 	{#if endIcon}
-		<Icon cubeClass={{ blockClass: 'container__end-icon', utilClass: 'pos-absolute clr-input-border' }}>
-			{ endIcon }
+		<Icon
+			cubeClass={{ blockClass: 'container__end-icon', utilClass: 'pos-absolute clr-input-border' }}
+		>
+			{endIcon}
 		</Icon>
 	{/if}
 	<slot />

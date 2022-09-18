@@ -9,6 +9,9 @@
         } else if (layout === 'columnCenter') {
             align = 'center';
             useColumn = true;
+        } else if (layout === 'columnStart') {
+            align = 'start';
+            useColumn = true;
         }
 
     })
@@ -22,7 +25,7 @@
     export let cubeClass = createObjectCubeClass();
 
     let _class = createStringCubeCSSClass(cubeClass, {
-        utilClass: `flex align-items-${align} justify-content-${justify} gap-${gap}`
+        utilClass: `flex align-items-${align} justify-content-${justify} gap-${gap} ${useColumn ? 'flex-direction-column' : ''}`
     })
 </script>
 

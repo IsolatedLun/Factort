@@ -1,1 +1,1 @@
-export type FlexyLayoutTypes = 'between' | 'center' | 'columnCenter' | 'default';
+export type FlexyLayoutTypes = 'between' | 'center' | 'columnCenter' | 'columnStart' | 'default';

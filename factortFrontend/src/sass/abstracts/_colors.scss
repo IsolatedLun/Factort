@@ -39,6 +39,7 @@ $colors-light: (
 	),
 	text: (
 		'difference': white,
+		'muted': hsl(245 8% 70%),
 		'accent': hsl(0 0% 5%)
 	),
 	input: (
@@ -54,7 +55,8 @@ $colors-light: (
 	),
 	misc: (
 		'selection': hsl(188 50% 20%),
-		'selection-shadow': hsl(188 100% 40% / 0.26)
+		'selection-shadow': hsl(188 100% 40% / 0.26),
+		'shadow': hsl(0 50% 0% / 0.65)
 	)
 );
 

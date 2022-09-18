@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { Props_CubeCSS } from '../../../../utils/cubeCss/types';
-	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../../utils/cubeCss/cubeCss';
+	import {
+		createObjectCubeClass,
+		createStringCubeCSSClass
+	} from '../../../../utils/cubeCss/cubeCss';
 	import { onMount } from 'svelte';
 	import type { EventFunction } from '../../../../types';
 
@@ -11,9 +14,10 @@
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
-	export let workCondition = true;
 	export let ariaLabel = 'Button';
+	export let workCondition = true;
 	export let isFetching = false;
+	export let selected = false;
 	export let use: EventFunction<HTMLButtonElement> = (e) => null;
 
 	const _class = createStringCubeCSSClass(cubeClass, {
@@ -30,6 +34,7 @@
 	class={_class}
 	data-variant={variant}
 	data-secondary-variant={secondaryVariant}
+	data-selected={selected}
 	data-work-condition={workCondition && !isFetching}
 	data-async-loading={isFetching}
 	aria-label={ariaLabel}
