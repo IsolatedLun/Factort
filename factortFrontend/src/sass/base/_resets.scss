@@ -91,7 +91,9 @@ input[type='checkbox'] {
 }
 
 textarea {
-	color: black;
+	max-width: 100%;
+	min-width: 16ch;
+	min-height: 4ch;
 }
 
 button {
