@@ -1,5 +1,14 @@
 import { TEXTAREA_TAB_SIZE } from '../../consts';
 
+// ===========
+// Tags
+// ===========
+// # {...} /# 									=> Heading (up to h6, ###### {...} /#)
+// *** {...} /* 								=> Italic/Bold/Bold+Italic
+// [Meow](https://www.youtube.com) 				=> Link
+// - Item 1 									=> List
+// ====================================================================================
+
 /**
  * @param markdownText
  * @param ignores - A list of character for the parser to ignore

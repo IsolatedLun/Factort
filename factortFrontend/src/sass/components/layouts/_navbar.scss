@@ -17,6 +17,12 @@
 			.navbar__search-input {
 				position: absolute;
 				min-width: 24ch;
+
+				.input {
+					box-shadow: $theme-shadow;
+				}
+
+				z-index: 9999999999999;
 			}
 
 			&[data-show-sticky-input='false'] .navbar__search-input {

@@ -4,11 +4,17 @@
 // Important
 // =================
 $clr-body-text: var(--clr-text-accent);
+
 $border-radius-cubed: 9px;
+$border-radius-pentagon: 5px;
 
 $profile-scale: clamp(2.55em, 6vw, 3.25em);
 
+$theme-border-light: 2px solid var(--clr-input-border-hover);
 $theme-border: 2px solid var(--clr-input-border);
+$theme-border-dark: 2px solid var(--clr-card-400);
+
+$theme-shadow: 0px 0px 8px 1px hsl(0 50% 0 / 0.75);
 
 // =================
 // Colors
@@ -38,6 +44,9 @@ $def-input-border-color-on-hov: var(--clr-input-border-hover);
 // =================
 // Buttons
 // =================
+$button-font-size-small: var(--fs-350);
+$button-padding-small: 0.4em 0.45em;
+
 $def-button-font-size: var(--fs-400);
 $def-button-padding: 0.5em 0.55em;
 $def-button-background-color: var(--clr-button-background);
@@ -54,13 +63,22 @@ $primary-button-border: none;
 $primary-button-border-radius: $border-radius-cubed;
 $primary-button-background-color-on-hov: var(--clr-button-primary-background-hover);
 
+$difference-button-background-color: var(--clr-button-difference);
+$difference-button-border: $theme-border-dark;
+$difference-button-background-color-on-hov: var(--clr-button-difference-hover);
+
 // =================
 // Cards
 // =================
-$def-card-background-color: var(--clr-background-card);
+$def-card-background-color: var(--clr-card-400);
 $def-card-border: $theme-border;
 $def-card-border-radius: $border-radius-cubed;
 $def-card-border-color-on-hov: none;
+
+$difference-card-background-color: var(--clr-card-300);
+$difference-card-border: $theme-border-dark;
+$difference-card-border-radius: $border-radius-cubed;
+$difference-card-border-color-on-hov: none;
 
 // =================
 // Utilities
@@ -84,4 +102,4 @@ $media-scroller-max-width: 92vw;
 // =================
 $flow-spacing: 0.5em;
 
-$fw-heading: 500;
+$fw-heading: 400;

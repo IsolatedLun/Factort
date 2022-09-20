@@ -1,0 +1,23 @@
+@use '../../abstracts/' as *;
+
+.post {
+	border: $theme-border;
+	max-width: 512px;
+
+	border-radius: $border-radius-pentagon;
+
+	&:is([data-collapse='true']) {
+		.post__title {
+			margin-block-end: 0;
+		}
+
+		.post__content,
+		.post__footer {
+			display: none;
+		}
+	}
+
+	&:is(:hover) {
+		border: $theme-border-light;
+	}
+}

@@ -13,6 +13,11 @@
 	});
 </script>
 
-<Typography tag="{tag ? tag : `h${h}`}" cubeClass="{{ ...combinedCubeClass }}" fontWeight="heading" fontSize={fontHeadingSize}>
+<Typography
+	tag={tag ? tag : `h${h}`}
+	cubeClass={{ ...combinedCubeClass }}
+	fontWeight="heading"
+	fontSize={fontHeadingSize}
+>
 	<slot />
 </Typography>

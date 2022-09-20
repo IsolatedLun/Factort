@@ -4,3 +4,15 @@
 .card[data-variant='default'] {
 	@include createCard();
 }
+
+.card[data-variant='difference'] {
+	@include createCard(
+		$background-color: $difference-card-background-color,
+		$border: $difference-card-border
+	);
+}
+
+.card:is([data-secondary-variant='default-background']) {
+	border: none;
+	border-radius: 0px;
+}

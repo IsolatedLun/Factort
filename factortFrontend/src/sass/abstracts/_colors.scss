@@ -1,8 +1,11 @@
 $colors-dark: (
 	background: (
 		'300': hsl(245 8% 20%),
-		'400': hsl(245 8% 13.65%),
-		'card': hsl(245 8% 36.65%)
+		'400': hsl(245 8% 13.65%)
+	),
+	card: (
+		'300': hsl(245 8% 28.65%),
+		'400': hsl(245 8% 36.65%)
 	),
 	hoverable: (
 		'400': hsl(245 8% 67.65% / 0.38)
@@ -19,48 +22,20 @@ $colors-dark: (
 	button: (
 		'background': hsl(245 8% 32% / 0.88),
 		'background-hover': hsl(245 8% 46%),
-		'primary-background': hsl(188 90% 40%),
-		'primary-background-hover': hsl(188 90% 44%)
+		'primary-background': hsl(188 90% 30.5%),
+		'primary-background-hover': hsl(188 90% 36%),
+		'background-dark': hsl(245 8% 20%),
+		'background-dark-hover': hsl(245 8% 24%),
+		'difference': hsl(245 8% 32% / 0.26),
+		'difference-hover': hsl(245 8% 40%)
 	),
 	misc: (
-		'selection': hsl(188 50% 70%),
-		'selection-shadow': hsl(188 100% 50% / 0.26)
+		'selection': hsl(188 50% 95%),
+		'selection-shadow': hsl(188 100% 26% / 0.36)
 	)
 );
 
-$colors-light: (
-	background: (
-		'300': hsl(245 8% 90%),
-		'400': white,
-		'card': hsl(245 8% 72%)
-	),
-	hoverable: (
-		'400': hsl(245 8% 40.65% / 0.38)
-	),
-	text: (
-		'difference': white,
-		'muted': hsl(245 8% 70%),
-		'accent': hsl(0 0% 5%)
-	),
-	input: (
-		'background': hsl(245 8% 92%),
-		'border': hsl(245 8% 82%),
-		'border-hover': hsl(245 8% 70%)
-	),
-	button: (
-		'background': hsl(245 8% 92%),
-		'background-hover': hsl(245 8% 78%),
-		'primary-background': hsl(188 90% 40%),
-		'primary-background-hover': hsl(188 90% 44%)
-	),
-	misc: (
-		'selection': hsl(188 50% 20%),
-		'selection-shadow': hsl(188 100% 40% / 0.26),
-		'shadow': hsl(0 50% 0% / 0.65)
-	)
-);
-
-$active-theme: $colors-light;
+$active-theme: $colors-dark;
 
 @each $keyName, $key in $active-theme {
 	@each $valKey, $val in $key {

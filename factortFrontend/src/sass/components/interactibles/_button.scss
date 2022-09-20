@@ -16,3 +16,21 @@
 		$padding: $primary-button-padding
 	);
 }
+
+.button[data-variant='difference'] {
+	@include createButton(
+		$background-color: $difference-button-background-color,
+		$background-color-on-hov: $difference-button-background-color-on-hov,
+		$border: $difference-button-border,
+
+		$border-radius: $primary-button-border-radius,
+		$color: $primary-button-color,
+		$font-size: $primary-button-font-size,
+		$padding: $primary-button-padding
+	);
+}
+
+.button:is([data-secondary-variant='small']) {
+	font-size: $button-font-size-small;
+	padding: $button-padding-small;
+}

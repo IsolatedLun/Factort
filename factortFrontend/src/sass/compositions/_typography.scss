@@ -58,12 +58,8 @@
 }
 
 // Fonts
-$ops: bold, bolder, light, lighter, normal, 100, 200, 300, 400, 500, 600, 700, 800, 900;
-
-@each $op in $ops {
-	.fw-#{$op} {
-		font-weight: $op;
-	}
+.fw-heading {
+	font-weight: $fw-heading;
 }
 
 // Misc

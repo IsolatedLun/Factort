@@ -1,12 +1,15 @@
 <script>
-	import Image from "../../../components/Misc/MediaElements/Image.svelte";
-	import { combineObjectCubeClasses, createObjectCubeClass } from "../../../utils/cubeCss/cubeCss";
+	import Image from '../../../components/Misc/MediaElements/Image.svelte';
+	import { combineObjectCubeClasses, createObjectCubeClass } from '../../../utils/cubeCss/cubeCss';
 
-    export let cubeClass = createObjectCubeClass();
+	export let src = '';
+	export let alt = '';
+	export let cubeClass = createObjectCubeClass();
 
-    const _class = combineObjectCubeClasses(cubeClass, 
-        { compostClass: 'profile', utilClass: 'border-radius-cubed' }
-    )
+	const _class = combineObjectCubeClasses(cubeClass, {
+		compostClass: 'profile',
+		utilClass: 'border-radius-cubed'
+	});
 </script>
 
-<Image cubeClass={{ ..._class }} />
+<Image props={{ src, alt }} isProfile={true} cubeClass={{ ..._class }} />

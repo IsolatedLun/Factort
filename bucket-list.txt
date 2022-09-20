@@ -6,6 +6,7 @@ options. [DONE]
 
 - Make navbar change it's location (top/left) [DONE]
 - Add link parsing in markdown [DONE]
+- Add nested markdown parsing [DONE]
 
 - Grid like layout that supports: [DONE]
     - sideNavigation | Posts | Miscellaneous [DONE]
@@ -14,7 +15,7 @@ options. [DONE]
 ============
 PRIORITY 2
 ============
-- Add Post component that supports multiple types of data
+- Add Post component that supports multiple types of data [Started]
     - Text post
     - Image post (up to 12 images)
     - Video post

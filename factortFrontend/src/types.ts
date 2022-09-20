@@ -6,6 +6,8 @@ export interface Props_DB_Model {
 export interface Props_User extends Props_DB_Model {
 	username: string;
 	profile: string;
+
+	prestige: number;
 }
 
 export type EventFunction<EventT> = (e: EventT) => void;
