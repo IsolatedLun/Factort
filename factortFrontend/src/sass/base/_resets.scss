@@ -55,10 +55,10 @@ a {
 	}
 }
 
-:focus[data-target],
+:focus:where([data-target], [data-allow-outline='true']),
 :focus:not([data-variant], [data-secondary-variant]),
 :target {
-	outline: 3px solid var(--clr-primary-shadow);
+	outline: 3px solid var(--clr-input-border);
 	border-radius: 2px;
 	outline-offset: 4px;
 }
@@ -122,7 +122,7 @@ img[data-small='true'] {
 	object-fit: contain;
 }
 
-:not([data-target]):where(.button, .input, body):focus {
+:not([data-target], [data-allow-outline='true']):where(.button, .input, body, [data-allow-outline='false']):focus {
 	outline: 0;
 }
 

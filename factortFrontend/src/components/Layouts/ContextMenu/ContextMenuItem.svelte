@@ -21,7 +21,10 @@
 			if (useSelected) selected = !selected;
 		}}
 		variant="none"
-		cubeClass={{ compostClass: 'hoverable', utilClass: 'padding-inline-2 padding-block-1 fs-350' }}
+		cubeClass={{
+			compostClass: 'hoverable',
+			utilClass: 'width-100 padding-inline-2 padding-block-1 fs-350'
+		}}
 	>
 		<Flexy align="center">
 			<slot />

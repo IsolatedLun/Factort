@@ -18,6 +18,7 @@
 	export let workCondition = true;
 	export let isFetching = false;
 	export let selected = false;
+	export let allowOutline = false;
 	export let use: EventFunction<HTMLButtonElement> = (e) => null;
 
 	const _class = createStringCubeCSSClass(cubeClass, {
@@ -37,6 +38,7 @@
 	data-selected={selected}
 	data-work-condition={workCondition && !isFetching}
 	data-async-loading={isFetching}
+	data-allow-outline={allowOutline}
 	aria-label={ariaLabel}
 >
 	<slot />

@@ -30,6 +30,32 @@
 	);
 }
 
+.button[data-variant='upvote-difference'] {
+	@include createButton(
+		$background-color: $difference-upvote-button-background-color,
+		$background-color-on-hov: $difference-upvote-button-background-color-on-hov,
+		$border: $difference-upvote-button-border,
+		$color: $difference-upvote-button-color,
+
+		$border-radius: $primary-button-border-radius,
+		$font-size: $primary-button-font-size,
+		$padding: $primary-button-padding
+	);
+}
+
+.button[data-variant='downvote-difference'] {
+	@include createButton(
+		$background-color: $difference-downvote-button-background-color,
+		$background-color-on-hov: $difference-downvote-button-background-color-on-hov,
+		$border: $difference-downvote-button-border,
+		$color: $difference-downvote-button-color,
+
+		$border-radius: $primary-button-border-radius,
+		$font-size: $primary-button-font-size,
+		$padding: $primary-button-padding
+	);
+}
+
 .button:is([data-secondary-variant='small']) {
 	font-size: $button-font-size-small;
 	padding: $button-padding-small;

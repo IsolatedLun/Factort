@@ -7,9 +7,10 @@
 	export let tag = '';
 	export let cubeClass = createObjectCubeClass();
 	export let spacing = 1;
+	export let spacingPosition: 'start' | 'end' = 'end';
 
 	let combinedCubeClass = combineObjectCubeClasses(cubeClass, {
-		utilClass: ` margin-block-end-${spacing} `
+		utilClass: ` margin-block-${spacingPosition}-${spacing} `
 	});
 </script>
 

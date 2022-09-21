@@ -20,4 +20,39 @@
 	&:is(:hover) {
 		border: $theme-border-light;
 	}
+
+	// Content types
+	.post__images {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+
+		img {
+			background-color: black;
+		}
+
+		.images__dots {
+			@include transformCenter($top: 92%);
+
+			display: flex;
+			gap: 0.8rem;
+
+			.dot {
+				width: 0.85rem;
+				aspect-ratio: 1;
+
+				border: $theme-border;
+
+				&:is(:hover) {
+					border: $theme-border-light;
+				}
+
+				&:is([data-selected='true']) {
+					border: $theme-border-light;
+					background-color: var(--clr-input-border-hover);
+				}
+			}
+
+			z-index: 9999;
+		}
+	}
 }

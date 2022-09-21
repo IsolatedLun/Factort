@@ -26,8 +26,16 @@ $colors-dark: (
 		'primary-background-hover': hsl(188 90% 36%),
 		'background-dark': hsl(245 8% 20%),
 		'background-dark-hover': hsl(245 8% 24%),
-		'difference': hsl(245 8% 32% / 0.26),
-		'difference-hover': hsl(245 8% 40%)
+		'difference': hsl(245 8% 36% / 0.5),
+		'difference-hover': hsl(245 8% 40%),
+		'difference-upvote': hsl(220 97% 62% / 0.3),
+		'difference-upvote-color': hsl(220 97% 80%),
+		'difference-upvote-hover': hsl(220 97% 62%),
+		'difference-upvote-border': hsl(220 97% 62%),
+		'difference-downvote': hsl(2 97% 62% / 0.3),
+		'difference-downvote-color': hsl(2 97% 80%),
+		'difference-downvote-hover': hsl(2 97% 62%),
+		'difference-downvote-border': hsl(2 97% 62%)
 	),
 	misc: (
 		'selection': hsl(188 50% 95%),
