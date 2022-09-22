@@ -1,4 +1,5 @@
-import type { Props_DB_Model, Props_User } from 'src/types';
+import type { Props_DB_Model, Props_User } from '../../../types';
+import type { Props_PostImage } from './_/types';
 
 export interface Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	user: Props_User;
@@ -16,10 +17,15 @@ type Post_Data_Type<T, O> = { type: T; data: O };
 
 // Content types
 type Post_Content_Text = Post_Data_Type<'text', string>;
-type Post_Content_Images = Post_Data_Type<'images', string[]>;
+type Post_Content_Images = Post_Data_Type<'images', Props_PostImage[]>;
 type Post_Content_Video = Post_Data_Type<'video', string>;
+type Post_Content_Link = Post_Data_Type<'link', string>;
 
-type Post_Content_Complex_Type = Post_Content_Text | Post_Content_Images | Post_Content_Video;
+type Post_Content_Complex_Type =
+	| Post_Content_Text
+	| Post_Content_Images
+	| Post_Content_Video
+	| Post_Content_Link;
 // ==================
 
 // Community types

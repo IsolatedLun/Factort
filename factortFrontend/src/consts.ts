@@ -9,6 +9,8 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'>': '&gt;'
 };
 export let SLIDESHOW_INTERVAL = 2500;
+export let CREATE_YOUTUBE_IFRAME = (link: string) =>
+	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
 // ==============
 // Icons

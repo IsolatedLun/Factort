@@ -14,6 +14,7 @@
 
 	import PostUser from './_/PostUser.svelte';
 	import PostImages from './_/PostImages.svelte';
+	import PostVideo from './_/PostVideo.svelte';
 
 	onMount(() => {
 		postElementId = crypto.randomUUID();
@@ -36,7 +37,10 @@
 		doReRender++;
 	}
 
-	export let props: Props_Post<number, number> = createDefaultPost({ type: 'images', data: [] });
+	export let props: Props_Post<number, number> = createDefaultPost({
+		type: 'video',
+		data: 'https://www.youtube.com/watch?v=ZSaAHb5dRwQ&t=188s'
+	});
 
 	let postElementId = '';
 	let collapsePost = false;
@@ -80,17 +84,14 @@
 		{:else if props.content.type === 'images'}
 			<PostImages
 				on:keyChange={(e) => (imageKeyEventIdx = e.detail.value)}
-				images={[
-					{ id: 1, image: '' },
-					{ id: 2, image: '' },
-					{ id: 3, image: '' },
-					{ id: 4, image: '' }
-				]}
+				images={props.content.data}
 				{slideshowMode}
 				{imageKeyEventIdx}
 			/>
 		{:else if props.content.type === 'video'}
-			<p>video</p>
+			<PostVideo videoSrc={props.content.data} />
+		{:else if props.content.type === 'link'}
+			<p>link</p>
 		{/if}
 	</section>
 	<Card

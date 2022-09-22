@@ -7,10 +7,10 @@
 
 	function startSlideShow() {
 		clearInterval(slideShowInterval);
-		selectedIdx = 1;
+		selectedIdx = 0;
 
 		slideShowInterval = setInterval(() => {
-			if (selectedIdx < images.length) selectedIdx++;
+			if (selectedIdx < images.length - 1) selectedIdx++;
 			else endSlideShow();
 		}, SLIDESHOW_INTERVAL);
 	}
@@ -26,9 +26,9 @@
 	}
 
 	export let images: Props_PostImage[] = [];
-	export let selectedIdx = 1;
+	export let selectedIdx = 0;
 	export let slideshowMode = false;
-	export let imageKeyEventIdx: number = 1;
+	export let imageKeyEventIdx: number = 0;
 
 	let slideShowInterval: NodeJS.Timeout;
 
@@ -36,24 +36,26 @@
 		if (slideshowMode) startSlideShow();
 		else endSlideShow();
 
-		if (imageKeyEventIdx > images.length) imageKeyEventIdx = 1;
-		else if (imageKeyEventIdx < 1) imageKeyEventIdx = images.length;
+		if (!slideshowMode) {
+			if (imageKeyEventIdx > images.length - 1) imageKeyEventIdx = 0;
+			else if (imageKeyEventIdx < 0) imageKeyEventIdx = images.length - 1;
 
-		selectedIdx = imageKeyEventIdx;
-		dispatchKeyboardIdx(imageKeyEventIdx);
+			selectedIdx = imageKeyEventIdx;
+			dispatchKeyboardIdx(imageKeyEventIdx);
+		}
 	}
 
 	const dispatch = createEventDispatcher();
 </script>
 
 <div class="[ post__images ] [ pos-relative ]">
-	<img src={images[selectedIdx - 1].image} alt={`${selectedIdx}/${images.length}`} />
+	<img src={images[selectedIdx].image} alt={`${selectedIdx}/${images.length}`} />
 	<Flexy align="center" cubeClass={{ blockClass: 'images__dots', utilClass: 'pos-absolute' }}>
 		{#each images as image, i}
 			<Button
 				ariaLabel={`Select image ${i + 1}`}
-				on:click={() => (selectedIdx = image.id)}
-				selected={selectedIdx === image.id}
+				on:click={() => (selectedIdx = i)}
+				selected={selectedIdx === i}
 				variant="none"
 				allowOutline={true}
 				cubeClass={{ blockClass: 'dot', utilClass: 'border-radius-100vw' }}

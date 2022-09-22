@@ -1205,7 +1205,7 @@
 
 .post {
   border: 2px solid var(--clr-input-border);
-  max-width: 512px;
+  max-width: 768px;
   border-radius: 5px;
 }
 .post:is([data-collapse=true]) .post__title {
@@ -1230,7 +1230,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  gap: 0.8rem;
+  mix-blend-mode: difference;
+  gap: 0.75em;
   z-index: 9999;
 }
 .post .post__images .images__dots .dot {
@@ -1244,6 +1245,10 @@
 .post .post__images .images__dots .dot:is([data-selected=true]) {
   border: 2px solid var(--clr-input-border-hover);
   background-color: var(--clr-input-border-hover);
+}
+.post .post__video iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
 }
 
 .profile {

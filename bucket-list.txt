@@ -18,7 +18,7 @@ PRIORITY 2
 - Add Post component that supports multiple types of data [Started]
     - Text post [DONE]
     - Image post (up to 12 images) [DONE]
-    - Video post
+    - Video post [DONE]
     - Voice post (with cool wavelength animation)
     - Link post (with the preview of the link's page)
 

@@ -2,7 +2,7 @@
 
 .post {
 	border: $theme-border;
-	max-width: 512px;
+	max-width: 768px;
 
 	border-radius: $border-radius-pentagon;
 
@@ -21,7 +21,8 @@
 		border: $theme-border-light;
 	}
 
-	// Content types
+	// Image Post
+	// ============
 	.post__images {
 		width: 100%;
 		aspect-ratio: 16 / 9;
@@ -34,10 +35,11 @@
 			@include transformCenter($top: 92%);
 
 			display: flex;
-			gap: 0.8rem;
+			mix-blend-mode: difference;
+			gap: $post-images-dots-gap;
 
 			.dot {
-				width: 0.85rem;
+				width: $post-dot-width;
 				aspect-ratio: 1;
 
 				border: $theme-border;
@@ -53,6 +55,15 @@
 			}
 
 			z-index: 9999;
+		}
+	}
+
+	// Video Post
+	// ============
+	.post__video {
+		iframe {
+			width: 100%;
+			aspect-ratio: 16 / 9;
 		}
 	}
 }
