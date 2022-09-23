@@ -23,7 +23,8 @@ export function createDefaultUser() {
 	return {
 		id: 0,
 		username: 'Default User',
-		profile: '',
+		profile:
+			'https://yt3.ggpht.com/ytc/AMLnZu_rvCitwUFPXMuxQN7ovCZVHYReLWmUXstUSGd__g=s88-c-k-c0x00ffffff-no-rj',
 		prestige: 0,
 		date_created: ''
 	} as Props_User;

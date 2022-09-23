@@ -19,3 +19,5 @@ export type EventFunction<EventT> = (e: EventT) => void;
 export interface KeyValue<T> {
 	[key: string]: T;
 }
+
+export type Complex_Data_Type<T, O> = { type: T; data: O };

@@ -3,5 +3,5 @@
 .profile {
 	width: $profile-scale;
 	aspect-ratio: 1;
-	background-color: var(--clr-background-card);
+	background-color: $profile-background-color;
 }

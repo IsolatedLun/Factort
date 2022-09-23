@@ -48,10 +48,10 @@ p {
 
 a {
 	text-decoration: none;
-	color: blue;
+	color: var(--clr-misc-link);
 
 	&:hover {
-		color: var(--clr-primary-400);
+		color: var(--clr-misc-link-hover);
 	}
 }
 
@@ -61,6 +61,10 @@ a {
 	outline: 3px solid var(--clr-input-border);
 	border-radius: 2px;
 	outline-offset: 4px;
+}
+
+:not([data-target], [data-allow-outline='true']):where(.button, .input, body, iframe, [data-allow-outline='false']):focus {
+	outline: 0;
 }
 
 li::marker {
@@ -120,10 +124,6 @@ video {
 img[data-small='true'] {
 	width: auto;
 	object-fit: contain;
-}
-
-:not([data-target], [data-allow-outline='true']):where(.button, .input, body, [data-allow-outline='false']):focus {
-	outline: 0;
 }
 
 // Misc

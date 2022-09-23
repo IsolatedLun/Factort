@@ -9,19 +9,16 @@
 	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
 	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import { ICON_COMMENTS, ICON_DOWNVOTE, ICON_UPVOTE } from '../../../consts';
+	import { ICON_COMMENTS } from '../../../consts';
 	import Icon from '../../../components/Modules/Icon/Icon.svelte';
 
-	import PostUser from './_/PostUser.svelte';
 	import PostImages from './_/PostImages.svelte';
 	import PostVideo from './_/PostVideo.svelte';
+	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
+	import VoteController from '../../../components/Modules/VoteController/VoteController.svelte';
 
 	onMount(() => {
 		postElementId = crypto.randomUUID();
-
-		_this.addEventListener('keypress', handleKeyPress);
-		_this.addEventListener('mouseenter', () => _this.focus());
-		_this.addEventListener('mouseleave', () => _this.blur());
 	});
 
 	function handleContextMenu(e: MouseEvent) {
@@ -38,8 +35,8 @@
 	}
 
 	export let props: Props_Post<number, number> = createDefaultPost({
-		type: 'video',
-		data: 'https://www.youtube.com/watch?v=ZSaAHb5dRwQ&t=188s'
+		type: 'text',
+		data: 'https://www.google.com'
 	});
 
 	let postElementId = '';
@@ -65,7 +62,7 @@
 		secondaryVariant="default-background"
 		cubeClass={{ utilClass: 'padding-inline-2 padding-block-start-1' }}
 	>
-		<PostUser />
+		<DynamicLabel props={{ type: 'user', data: props.user }} />
 		<TypoHeader
 			h={2}
 			fontHeadingSize={500}
@@ -78,7 +75,7 @@
 	<section class="[ post__content ]">
 		<h2 class="[ visually-hidden ]">Post content</h2>
 		{#if props.content.type === 'text'}
-			<article class="[ padding-inline-2 padding-block-end-2 ]">
+			<article class="[ padding-2 ]">
 				{props.content.data}
 			</article>
 		{:else if props.content.type === 'images'}
@@ -89,9 +86,14 @@
 				{imageKeyEventIdx}
 			/>
 		{:else if props.content.type === 'video'}
-			<PostVideo videoSrc={props.content.data} />
+			<PostVideo
+				videoSrc={props.content.data.url}
+				isThirdParty={props.content.data.is_third_party}
+			/>
 		{:else if props.content.type === 'link'}
-			<p>link</p>
+			<div class="[ padding-2 ]">
+				<a target="_blank" href={props.content.data}>{props.content.data}</a>
+			</div>
 		{/if}
 	</section>
 	<Card
@@ -103,18 +105,7 @@
 		<Flexy>
 			<Button variant="difference" secondaryVariant="small">Open thread</Button>
 
-			<Flexy
-				align="center"
-				cubeClass={{ utilClass: 'margin-inline-start-auto margin-inline-end-2' }}
-			>
-				<Button ariaLabel="Upvote post" variant="upvote-difference" secondaryVariant="small"
-					><Icon>{ICON_UPVOTE}</Icon></Button
-				>
-				<p>0</p>
-				<Button ariaLabel="Downvote post" variant="downvote-difference" secondaryVariant="small"
-					><Icon>{ICON_DOWNVOTE}</Icon></Button
-				>
-			</Flexy>
+			<VoteController />
 
 			<Flexy>
 				<Button variant="difference" secondaryVariant="small" selected={true}>

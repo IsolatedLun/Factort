@@ -39,7 +39,9 @@ $colors-dark: (
 	),
 	misc: (
 		'selection': hsl(188 50% 95%),
-		'selection-shadow': hsl(188 100% 26% / 0.36)
+		'selection-shadow': hsl(188 100% 26% / 0.36),
+		'link': hsl(210.5 100% 62%),
+		'link-hover': hsl(210.5 100% 67%)
 	)
 );
 

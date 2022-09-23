@@ -15,6 +15,8 @@
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
 	export let ariaLabel = 'Button';
+	export let to = '';
+
 	export let workCondition = true;
 	export let isFetching = false;
 	export let selected = false;
@@ -29,17 +31,36 @@
 	let _this: HTMLButtonElement;
 </script>
 
-<button
-	on:click
-	bind:this={_this}
-	class={_class}
-	data-variant={variant}
-	data-secondary-variant={secondaryVariant}
-	data-selected={selected}
-	data-work-condition={workCondition && !isFetching}
-	data-async-loading={isFetching}
-	data-allow-outline={allowOutline}
-	aria-label={ariaLabel}
->
-	<slot />
-</button>
+{#if to}
+	<a href={to}>
+		<button
+			on:click
+			bind:this={_this}
+			class={_class}
+			data-variant={variant}
+			data-secondary-variant={secondaryVariant}
+			data-selected={selected}
+			data-work-condition={workCondition && !isFetching}
+			data-async-loading={isFetching}
+			data-allow-outline={allowOutline}
+			aria-label={ariaLabel}
+		>
+			<slot />
+		</button>
+	</a>
+{:else}
+	<button
+		on:click
+		bind:this={_this}
+		class={_class}
+		data-variant={variant}
+		data-secondary-variant={secondaryVariant}
+		data-selected={selected}
+		data-work-condition={workCondition && !isFetching}
+		data-async-loading={isFetching}
+		data-allow-outline={allowOutline}
+		aria-label={ariaLabel}
+	>
+		<slot />
+	</button>
+{/if}

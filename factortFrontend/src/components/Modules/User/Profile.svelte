@@ -12,4 +12,4 @@
 	});
 </script>
 
-<Image props={{ src, alt }} isProfile={true} cubeClass={{ ..._class }} />
+<Image props={{ src, alt }} isProfile={true} cubeClass={_class} />

@@ -111,6 +111,14 @@
   color: rgba(0, 115, 133, 0.36);
 }
 
+.clr-misc-link {
+  color: #3d9cff;
+}
+
+.clr-misc-link-hover {
+  color: #57a9ff;
+}
+
 .margin-block-end-05 {
   margin-block-end: 0.25em;
 }
@@ -1989,6 +1997,14 @@ img[data-profile=true] {
   color: rgba(0, 115, 133, 0.36);
 }
 
+.clr-misc-link {
+  color: #3d9cff;
+}
+
+.clr-misc-link-hover {
+  color: #57a9ff;
+}
+
 :root {
   --clr-background-300: #302f37;
   --clr-background-400: #202026;
@@ -2018,6 +2034,8 @@ img[data-profile=true] {
   --clr-button-difference-downvote-border: #fc4640;
   --clr-misc-selection: #ecf7f9;
   --clr-misc-selection-shadow: rgba(0, 115, 133, 0.36);
+  --clr-misc-link: #3d9cff;
+  --clr-misc-link-hover: #57a9ff;
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
   --fs-350: 0.782rem;
@@ -2143,6 +2161,14 @@ img[data-profile=true] {
     color: rgba(0, 115, 133, 0.36);
   }
 
+  .clr-misc-link {
+    color: #3d9cff;
+  }
+
+  .clr-misc-link-hover {
+    color: #57a9ff;
+  }
+
   :root {
     --clr-background-300: #302f37;
     --clr-background-400: #202026;
@@ -2172,6 +2198,8 @@ img[data-profile=true] {
     --clr-button-difference-downvote-border: #fc4640;
     --clr-misc-selection: #ecf7f9;
     --clr-misc-selection-shadow: rgba(0, 115, 133, 0.36);
+    --clr-misc-link: #3d9cff;
+    --clr-misc-link-hover: #57a9ff;
   }
 }
 *,
@@ -2218,10 +2246,10 @@ p {
 
 a {
   text-decoration: none;
-  color: blue;
+  color: var(--clr-misc-link);
 }
 a:hover {
-  color: var(--clr-primary-400);
+  color: var(--clr-misc-link-hover);
 }
 
 :focus:where([data-target], [data-allow-outline="true"]),
@@ -2230,6 +2258,10 @@ a:hover {
   outline: 3px solid var(--clr-input-border);
   border-radius: 2px;
   outline-offset: 4px;
+}
+
+:not([data-target], [data-allow-outline=true]):where(.button, .input, body, iframe, [data-allow-outline="false"]):focus {
+  outline: 0;
 }
 
 li::marker {
@@ -2286,10 +2318,6 @@ video {
 img[data-small=true] {
   width: auto;
   object-fit: contain;
-}
-
-:not([data-target], [data-allow-outline=true]):where(.button, .input, body, [data-allow-outline="false"]):focus {
-  outline: 0;
 }
 
 [class*=flex] {
