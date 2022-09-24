@@ -19,6 +19,10 @@
 
 	onMount(() => {
 		postElementId = crypto.randomUUID();
+
+		_this.addEventListener('mouseenter', () => _this.focus());
+		_this.addEventListener('mouseleave', () => _this.blur());
+		_this.addEventListener('keypress', handleKeyPress);
 	});
 
 	function handleContextMenu(e: MouseEvent) {

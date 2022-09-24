@@ -1,5 +1,8 @@
 // ==============
 // Global Variables
+
+import type { KeyValue } from './types';
+
 // ==============
 export const POINTS_ALIAS_NAME = 'reputation';
 export const TEXTAREA_TAB_SIZE = 8;
@@ -8,9 +11,24 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'<': '&lt;',
 	'>': '&gt;'
 };
-export let SLIDESHOW_INTERVAL = 2500;
-export let CREATE_YOUTUBE_IFRAME = (link: string) =>
+export const SLIDESHOW_INTERVAL = 2500;
+export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+// currEncloser = [
+// x([) => ]
+// y(]) => [
+export const COMPLEMENTARIES: KeyValue<string> = {
+	'[': ']',
+	'(': ')',
+	'{': '}'
+};
+
+export const REVERSE_COMPLEMENTARIES: KeyValue<string> = {
+	']': '[',
+	')': '(',
+	'}': '{'
+};
 
 // ==============
 // Icons

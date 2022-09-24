@@ -1,23 +1,56 @@
-import { TEXTAREA_TAB_SIZE } from '../../consts';
+import type { KeyValue } from 'src/types';
+import { COMPLEMENTARIES } from '../../consts';
+import { createDefaultParsedData } from '../defaultProps';
+import {
+	createAsteriskElement,
+	createHeadingElement,
+	createLinkElement,
+	createListElement
+} from './elements';
+import type { MKD_ParsedData, MKD_TreeItem } from './types';
 
-// ===========
-// Tags
-// ===========
-// # {...} /# 									=> Heading (up to h6, ###### {...} /#)
-// *** {...} /* 								=> Italic/Bold/Bold+Italic
-// [Meow](https://www.youtube.com) 				=> Link
-// - Item 1 									=> List
-// ====================================================================================
+const MARKDOWN_TREE = {
+	'#': {
+		syntax: '#+/#',
+		options: { mode: 'count' },
+		parser: parseStartEnd,
+		formatter: createHeadingElement
+	},
+	'*': {
+		syntax: '*+/*',
+		options: { mode: 'count' },
+		parser: parseStartEnd,
+		formatter: createAsteriskElement
+	},
+	'-': {
+		syntax: '-',
+		options: { mode: 'neighbours' },
+		parser: parseMarkdownList,
+		formatter: createListElement
+	},
+	'=': {
+		syntax: '=',
+		options: { mode: 'neighbours' },
+		parser: parseMarkdownList,
+		formatter: createListElement
+	},
+	'[': {
+		syntax: '[]+()',
+		options: { mode: 'complementary' },
+		parser: parseComplementary,
+		formatter: createLinkElement
+	}
+} as KeyValue<MKD_TreeItem>;
 
 /**
  * @param markdownText
  * @param ignores - A list of character for the parser to ignore
- * @summary A simple markdown parser that works with a start/end tag like syntax.
+ * @summary A simple markdown parser that works with numerous synatexes.
  *
  * @note Can be used to parse inside of tags too, but you should add the tag to the ingores list[]
  * 	to avoid infinite recursions.
  */
-export function parseMarkdown(markdownText: string, ignores: string[]) {
+export function parseMarkdown(markdownText: string, ignores: string[]): string {
 	let out = '';
 	let i = 0;
 
@@ -31,32 +64,21 @@ export function parseMarkdown(markdownText: string, ignores: string[]) {
 			continue;
 		}
 
-		if (chr === '#') {
-			const res = parseMarkdownHeading(markdownText.slice(i));
-			const finalRes = parseMarkdown(res[0], ['#']);
+		// Escape characters
+		if (chr === '\\' && i + 1 < markdownText.length) {
+			out += markdownText[i + 1];
+			i += 2;
 
-			out += finalRes;
-			i += res[1];
-		} else if (chr === '-') {
-			const res = parseMarkdownList(markdownText.slice(i));
-			const finalRes = parseMarkdown(res[0], ['#', '-']);
+			continue;
+		}
 
-			out += finalRes;
-			i += res[1];
-		} else if (chr === '*') {
-			const res = parseMarkdownAsterisks(markdownText.slice(i));
+		if (MARKDOWN_TREE[chr]) {
+			const res = MARKDOWN_TREE[chr].parser(markdownText.slice(i), MARKDOWN_TREE[chr]);
+			if (res.result) out += MARKDOWN_TREE[chr].formatter(MARKDOWN_TREE[chr], res);
 
-			out += res[0];
-			i += res[1];
-		} else if (chr === '[') {
-			const res = parseMarkdownLink(markdownText.slice(i));
-
-			out += res[0];
-			i += res[1];
+			i += res.data.offset + 1;
 		} else {
-			if (chr === ' ') out += '&nbsp;';
-			else if (chr === '\t') out += '&nbsp'.repeat(TEXTAREA_TAB_SIZE);
-			else out += chr;
+			out += chr;
 
 			i++;
 		}
@@ -69,62 +91,39 @@ export function parseMarkdown(markdownText: string, ignores: string[]) {
 }
 
 // ===================================
-// Element Parsers
+// Dynamic Parsers
 // ===================================
 
 /**
  * @param subText
- * @summary A markdown heading parser. #### Enter Text /# => <h4>Enter Text</h4>
+ * @summary A parser that works with an start/end syntax, supports counting.
+ * `#### Enter Text /# => <h4>Enter Text</h4>`
  */
-function parseMarkdownHeading(subText: string): [string, number] {
-	let start = 0;
-	let end = subText.indexOf('/#');
+function parseStartEnd(subText: string, self: MKD_TreeItem): MKD_ParsedData<string> {
+	const [sytaxStart, syntaxEnd] = self.syntax.split('+');
+	let [start, end] = [0, subText.indexOf(syntaxEnd)];
 
-	if (end === -1) return ['', 1];
+	if (end === -1) createDefaultParsedData<string>();
 
-	while (subText[start] === '#') start++;
+	if (self.options.mode === 'count') while (subText[start] === sytaxStart) start++;
 
-	return [`<h${start}>${subText.slice(start, end)}</h${start}>`, end + 1];
-}
-
-/**
- * @param subText
- * @summary A markdown asterisks parser for (italic/bold/bold+italic). ** Enter Text /* => <b>Enter Text</b>
- */
-function parseMarkdownAsterisks(subText: string): [string, number] {
-	let start = 0;
-
-	while (subText[start] == '*') start += 1;
-
-	let end = subText.indexOf('/*');
-	if (end == -1) return ['', 1];
-
-	let tag = 'b';
-	if (start === 3) {
-		tag = 'em';
-
-		return [`<b><${tag}>${subText.slice(start, end)}</${tag}></b>`, end + 1];
-	} else if (start === 1) {
-		tag = 'i';
-	}
-
-	return [`<${tag}>${subText.slice(start, end)}</${tag}>`, end + 1];
+	return { result: subText.slice(start, end), data: { count: start, offset: end + 1 } };
 }
 
 /**
  * @param subText
  * @summary A markdown list parser. - Hello \n - World => <ul><li>Hello</li><li>World</li></ul>
  */
-function parseMarkdownList(subText: string): [string, number] {
+function parseMarkdownList(subText: string, self: MKD_TreeItem): MKD_ParsedData<string[]> {
 	function partitionList(): [string[], number] {
 		const items = subText.split('\n');
 		let listItems = [];
 		let offset = 0;
 
 		for (let i = 0; i < items.length; i++) {
-			if (items[i].startsWith('-')) {
-				listItems.push(items[i]);
-				offset += items[i].length;
+			if (items[i].startsWith(self.syntax)) {
+				listItems.push(items[i].slice(1).trim());
+				offset += items[i].length + 1;
 			} else {
 				break;
 			}
@@ -133,42 +132,38 @@ function parseMarkdownList(subText: string): [string, number] {
 		return [listItems, Math.max(offset, 1)];
 	}
 
-	let out = '';
 	const [listElements, offset] = partitionList();
 
-	out += '<ul>';
-	listElements.forEach((listElement) => (out += `<li>${listElement.slice(1).trim()}</li>`));
-	out += '</ul>';
-
-	return [out, offset + listElements.length];
+	return { result: listElements, data: { count: 0, offset } };
 }
 
 /**
  * @param subText
- * @summary A markdown link parser. [Minecraft](https://www.google.com) =>
- * <a href="https://www.google.com">Minecraft</a>
+ * @summary A markdown complementary parser. `[Minecraft](https://www.google.com) =>
+ * <a href="https://www.google.com">Minecraft</a>`
  */
-function parseMarkdownLink(subText: string): [string, number] {
-	function parseLinkName(): [string, number] {
-		let end = subText.indexOf(']');
+function parseComplementary(subText: string, self: MKD_TreeItem): MKD_ParsedData<string[]> {
+	let encloserAmt = self.syntax.split('+').length;
+	let items = [];
 
-		if (end == -1) return ['', 1];
-		return [subText.slice(1, end), end];
+	let dud = 0;
+	let i = 1;
+	let offset = 0;
+	while (dud < encloserAmt) {
+		let currEncloser = self.syntax.split('+')[dud][0];
+		let end = subText.indexOf(COMPLEMENTARIES[currEncloser]);
+
+		if (end !== -1) {
+			items.push(subText.slice(i, end).trim());
+
+			offset += items[dud].length + 1;
+			i = end + 1;
+		} else {
+			return createDefaultParsedData<string[]>();
+		}
+
+		dud++;
 	}
 
-	function parseLinkUrl(_subText: string): [string, number] {
-		let start = subText.indexOf('(');
-		let end = subText.indexOf(')');
-
-		if (end === -1 || start === -1) return ['', 1];
-		return [subText.slice(start + 1, end), end];
-	}
-
-	let [linkName, _offset] = parseLinkName();
-	let [linkUrl, __offset] = parseLinkUrl(subText.slice(_offset));
-
-	if (!(linkName && linkUrl)) return ['', 1];
-
-	let out = `<a target="_blank" href="${linkUrl}">${linkName}</a>`;
-	return [out, __offset + 1];
+	return { result: items, data: { count: 0, offset } };
 }

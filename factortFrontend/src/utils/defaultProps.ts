@@ -1,5 +1,6 @@
-import type { Props_Post } from 'src/components/Layouts/Post/types';
-import type { Props_User } from 'src/types';
+import type { Props_Post } from '../components/Layouts/Post/types';
+import type { Props_User } from '../types';
+import type { MKD_ParsedData } from './markdown/types';
 
 export function createDefaultPost<A, B, C>(
 	content: A,
@@ -28,4 +29,8 @@ export function createDefaultUser() {
 		prestige: 0,
 		date_created: ''
 	} as Props_User;
+}
+
+export function createDefaultParsedData<T>(): MKD_ParsedData<T> {
+	return { result: '' as T, data: { count: 0, offset: 1 } };
 }

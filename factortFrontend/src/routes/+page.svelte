@@ -1,5 +1,10 @@
 <script>
+	import TextArea from '../components/Modules/Interactibles/Inputs/TextArea.svelte';
+	import { parseMarkdown } from '../utils/markdown/markdownParser';
 	import Post from '../components/Layouts/Post/Post.svelte';
+
+	let input = '';
 </script>
 
-<Post />
+<TextArea label="lol" bind:value={input} />
+{@html parseMarkdown(input, [])}
