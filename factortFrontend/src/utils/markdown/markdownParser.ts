@@ -3,11 +3,13 @@ import { COMPLEMENTARIES } from '../../consts';
 import { createDefaultParsedData } from '../defaultProps';
 import {
 	createAsteriskElement,
+	createCodeElement,
 	createHeadingElement,
 	createLinkElement,
 	createListElement
 } from './elements';
-import type { MKD_ParsedData, MKD_TreeItem } from './types';
+import type { MKD_ParsedData, MKD_TreeItem, MKD_TreeItemWithVariants } from './types';
+import { findSyntaxVariant } from './utils';
 
 const MARKDOWN_TREE = {
 	'#': {
@@ -24,23 +26,34 @@ const MARKDOWN_TREE = {
 	},
 	'-': {
 		syntax: '-',
-		options: { mode: 'neighbours' },
+		options: { mode: 'normal' },
 		parser: parseMarkdownList,
 		formatter: createListElement
 	},
 	'=': {
 		syntax: '=',
-		options: { mode: 'neighbours' },
+		options: { mode: 'normal' },
 		parser: parseMarkdownList,
 		formatter: createListElement
 	},
+	'`': {
+		syntax: '`+/`',
+		options: { mode: 'normal' },
+		parser: parseStartEnd,
+		formatter: createCodeElement
+	},
+
 	'[': {
-		syntax: '[]+()',
-		options: { mode: 'complementary' },
-		parser: parseComplementary,
-		formatter: createLinkElement
+		variants: {
+			'[]+()': {
+				syntax: '[]+()',
+				options: { mode: 'normal' },
+				parser: parseComplementary,
+				formatter: createLinkElement
+			}
+		}
 	}
-} as KeyValue<MKD_TreeItem>;
+} as KeyValue<MKD_TreeItem | MKD_TreeItemWithVariants>;
 
 /**
  * @param markdownText
@@ -54,7 +67,7 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 	let out = '';
 	let i = 0;
 
-	while (!(i > markdownText.length - 1)) {
+	while (i < markdownText.length - 1) {
 		let chr = markdownText[i];
 
 		if (ignores.includes(chr)) {
@@ -73,13 +86,29 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 		}
 
 		if (MARKDOWN_TREE[chr]) {
-			const res = MARKDOWN_TREE[chr].parser(markdownText.slice(i), MARKDOWN_TREE[chr]);
-			if (res.result) out += MARKDOWN_TREE[chr].formatter(MARKDOWN_TREE[chr], res);
+			let treeItem = MARKDOWN_TREE[chr];
+			let _res = createDefaultParsedData();
 
-			i += res.data.offset + 1;
+			if ('variants' in treeItem) {
+				const variant = findSyntaxVariant(markdownText, treeItem);
+
+				if (variant && treeItem.variants[variant]) {
+					treeItem = treeItem.variants[variant];
+					_res = treeItem.parser(markdownText.slice(i), treeItem);
+				}
+			} else {
+				_res = treeItem.parser(markdownText.slice(i), treeItem);
+			}
+
+			if (_res.result && !('variants' in treeItem)) {
+				out += treeItem.formatter(treeItem, _res);
+				i += _res.data.offset;
+			} else {
+				out = markdownText;
+				i += markdownText.length;
+			}
 		} else {
 			out += chr;
-
 			i++;
 		}
 	}
@@ -87,6 +116,7 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags
 	// (when parsing)
 	out = out.replaceAll(/\r?\n/g, '<br data-newline="true" />');
+
 	return out;
 }
 
@@ -101,9 +131,9 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
  */
 function parseStartEnd(subText: string, self: MKD_TreeItem): MKD_ParsedData<string> {
 	const [sytaxStart, syntaxEnd] = self.syntax.split('+');
-	let [start, end] = [0, subText.indexOf(syntaxEnd)];
+	let [start, end] = [1, subText.indexOf(syntaxEnd)];
 
-	if (end === -1) createDefaultParsedData<string>();
+	if (end === -1) return createDefaultParsedData<string>();
 
 	if (self.options.mode === 'count') while (subText[start] === sytaxStart) start++;
 
@@ -147,17 +177,17 @@ function parseComplementary(subText: string, self: MKD_TreeItem): MKD_ParsedData
 	let items = [];
 
 	let dud = 0;
-	let i = 1;
 	let offset = 0;
 	while (dud < encloserAmt) {
 		let currEncloser = self.syntax.split('+')[dud][0];
+
+		let start = subText.indexOf(currEncloser);
 		let end = subText.indexOf(COMPLEMENTARIES[currEncloser]);
 
-		if (end !== -1) {
-			items.push(subText.slice(i, end).trim());
+		if (end !== -1 && start !== -1) {
+			items.push(subText.slice(start + 1, end).trim());
 
-			offset += items[dud].length + 1;
-			i = end + 1;
+			offset += items[dud].length + 2;
 		} else {
 			return createDefaultParsedData<string[]>();
 		}

@@ -32,5 +32,5 @@ export function createDefaultUser() {
 }
 
 export function createDefaultParsedData<T>(): MKD_ParsedData<T> {
-	return { result: '' as T, data: { count: 0, offset: 1 } };
+	return { result: false as T, data: { count: 0, offset: 1 } };
 }

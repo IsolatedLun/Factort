@@ -1,0 +1,12 @@
+@use '../abstracts/' as *;
+
+.markdown {
+	code {
+		display: inline-block;
+		font-family: $main-font;
+
+		padding: 0.25em;
+		background-color: var(--clr-markdown-code);
+		border-radius: $border-radius-cubed;
+	}
+}

@@ -15,6 +15,10 @@
   color: #575665;
 }
 
+.clr-markdown-code {
+  color: #44434f;
+}
+
 .clr-hoverable-400 {
   color: rgba(167, 166, 179, 0.38);
 }
@@ -1412,6 +1416,14 @@
   padding: 0.4em 0.45em;
 }
 
+.markdown code {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  padding: 0.25em;
+  background-color: var(--clr-markdown-code);
+  border-radius: 9px;
+}
+
 .media-scroller {
   display: grid;
   max-width: 92vw;
@@ -1901,6 +1913,10 @@ img[data-profile=true] {
   color: #575665;
 }
 
+.clr-markdown-code {
+  color: #44434f;
+}
+
 .clr-hoverable-400 {
   color: rgba(167, 166, 179, 0.38);
 }
@@ -2010,6 +2026,7 @@ img[data-profile=true] {
   --clr-background-400: #202026;
   --clr-card-300: #44434f;
   --clr-card-400: #575665;
+  --clr-markdown-code: #44434f;
   --clr-hoverable-400: rgba(167, 166, 179, 0.38);
   --clr-text-difference: black;
   --clr-text-accent: white;
@@ -2063,6 +2080,10 @@ img[data-profile=true] {
 
   .clr-card-400 {
     color: #575665;
+  }
+
+  .clr-markdown-code {
+    color: #44434f;
   }
 
   .clr-hoverable-400 {
@@ -2174,6 +2195,7 @@ img[data-profile=true] {
     --clr-background-400: #202026;
     --clr-card-300: #44434f;
     --clr-card-400: #575665;
+    --clr-markdown-code: #44434f;
     --clr-hoverable-400: rgba(167, 166, 179, 0.38);
     --clr-text-difference: black;
     --clr-text-accent: white;

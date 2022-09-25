@@ -7,4 +7,6 @@
 </script>
 
 <TextArea label="lol" bind:value={input} />
-{@html parseMarkdown(input, [])}
+<div class="[ markdown ] [ margin-1 ]">
+	{@html parseMarkdown(input, [])}
+</div>
