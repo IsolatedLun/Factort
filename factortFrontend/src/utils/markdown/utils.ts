@@ -18,13 +18,25 @@ export function findSyntaxVariant(
 		const enclosers = variants[i].split('+');
 		let variant = '';
 
+		let prevEncloser = '';
 		for (let j = 0; j < enclosers.length; j++) {
 			let [startEncloser, endEncloser] = enclosers[j].split('');
 
 			// Checks if for example, ] is not before [
 			if (markdownText.indexOf(startEncloser) < markdownText.indexOf(endEncloser)) {
+				// Checks if there is a space between the end and start of different enclosers
+				// []() => allowed
+				// [] () => not allowed
+				if (
+					prevEncloser &&
+					markdownText.indexOf(prevEncloser) + 1 < markdownText.indexOf(startEncloser)
+				)
+					return '';
+
 				if (j > 0) variant += '+';
 				variant += startEncloser + endEncloser;
+
+				prevEncloser = endEncloser;
 			}
 		}
 
@@ -39,4 +51,5 @@ export const GENERAL_IGNORE_LIST = ['#', '-', '='];
 export const HEADING_IGNORE_LIST = GENERAL_IGNORE_LIST;
 export const LIST_IGNORE_LIST = GENERAL_IGNORE_LIST;
 export const LINK_IGNORE_LIST = [...GENERAL_IGNORE_LIST, '['];
+export const HIDDEN_IGNORE_LIST = [...GENERAL_IGNORE_LIST, '[', '`'];
 export const CODE_IGNORE_LIST = GENERAL_IGNORE_LIST;

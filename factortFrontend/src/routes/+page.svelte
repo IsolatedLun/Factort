@@ -1,12 +1,19 @@
-<script>
-	import TextArea from '../components/Modules/Interactibles/Inputs/TextArea.svelte';
-	import { parseMarkdown } from '../utils/markdown/markdownParser';
-	import Post from '../components/Layouts/Post/Post.svelte';
-
-	let input = '';
+<script lang="ts">
+	import FormContainer from '../components/Modules/Form/FormContainer.svelte';
+	import Form from '../components/Modules/Form/Form.svelte';
+	import TextInput from '../components/Modules/Interactibles/Inputs/TextInput.svelte';
+	import Button from '../components/Modules/Interactibles/Buttons/Button.svelte';
 </script>
 
-<TextArea label="lol" bind:value={input} />
-<div class="[ markdown ] [ margin-1 ]">
-	{@html parseMarkdown(input, [])}
-</div>
+<FormContainer>
+	<Form formTitle="Create account">
+		<TextInput label="Username" showLabel={true} />
+		<TextInput label="Email" showLabel={true} />
+		<TextInput label="Password" showLabel={true} />
+	</Form>
+	<Form formTitle="Create profile" formIndex={1}>
+		<TextInput label="Username" showLabel={true} />
+		<TextInput label="Email" showLabel={true} />
+		<TextInput label="Password" showLabel={true} />
+	</Form>
+</FormContainer>

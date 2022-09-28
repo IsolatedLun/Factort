@@ -1,0 +1,49 @@
+@use '../../abstracts/' as *;
+@use '../mixins' as *;
+
+.form-container {
+	max-width: 864px;
+	margin-inline: auto;
+
+	.form__counter {
+		.inactive-bar,
+		&::after {
+			@include pseudo-element();
+			@include transformCenter($top: 60%, $left: 0);
+
+			width: 100%;
+			height: 8px;
+			// This is used so that both elements overlap, since this property changes the position
+			// of an element for some reason...
+			transform: scaleX(1);
+
+			border-radius: $border-radius-max;
+		}
+
+		.inactive-bar {
+			background-color: $form-counter-bar-background-color;
+
+			z-index: -2;
+		}
+
+		&::after {
+			background-color: $form-counter-bar-active-background-color;
+			transform: scaleX(calc(var(--data-completed) / var(--data-amount)));
+			transform-origin: left;
+
+			z-index: -1;
+		}
+
+		.counter__container {
+			place-items: center;
+
+			&:first-child {
+				place-items: start;
+			}
+
+			&:last-child {
+				place-items: end;
+			}
+		}
+	}
+}

@@ -1287,9 +1287,53 @@
   border-color: none;
 }
 
+.card[data-variant=dark] {
+  background-color: var(--clr-background-300);
+  border: 2px solid var(--clr-input-border);
+  border-radius: 9px;
+}
+.card[data-variant=dark]:is(:focus-visible, :hover) {
+  border-color: none;
+}
+
 .card:is([data-secondary-variant=default-background]) {
   border: none;
   border-radius: 0px;
+}
+
+.form-container {
+  max-width: 864px;
+  margin-inline: auto;
+}
+.form-container .form__counter .inactive-bar, .form-container .form__counter::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 8px;
+  transform: scaleX(1);
+  border-radius: 100vmax;
+}
+.form-container .form__counter .inactive-bar {
+  background-color: var(--clr-card-300);
+  z-index: -2;
+}
+.form-container .form__counter::after {
+  background-color: var(--clr-button-primary-background-hover);
+  transform: scaleX(calc(var(--data-completed) / var(--data-amount)));
+  transform-origin: left;
+  z-index: -1;
+}
+.form-container .form__counter .counter__container {
+  place-items: center;
+}
+.form-container .form__counter .counter__container:first-child {
+  place-items: start;
+}
+.form-container .form__counter .counter__container:last-child {
+  place-items: end;
 }
 
 .input-container .input[data-variant=default] {
@@ -1416,12 +1460,26 @@
   padding: 0.4em 0.45em;
 }
 
+.button:is([data-secondary-variant=square]) {
+  padding: 0.5em 0.75em;
+}
+
 .markdown code {
   display: inline-block;
   font-family: "Poppins", sans-serif;
   padding: 0.25em;
   background-color: var(--clr-markdown-code);
   border-radius: 9px;
+}
+.markdown .spoiler {
+  display: inline-block;
+  padding: 0.25em;
+  background-color: black;
+  border-radius: 9px;
+  color: black;
+}
+.markdown .spoiler:is(:hover, :focus) {
+  color: white;
 }
 
 .media-scroller {

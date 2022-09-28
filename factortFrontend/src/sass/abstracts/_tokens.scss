@@ -8,6 +8,7 @@ $main-font: 'Poppins', sans-serif;
 
 $border-radius-cubed: 9px;
 $border-radius-pentagon: 5px;
+$border-radius-max: 100vmax;
 
 $profile-scale: clamp(2.55em, 6vw, 3.25em);
 
@@ -91,11 +92,22 @@ $difference-card-border: $theme-border-dark;
 $difference-card-border-radius: $border-radius-cubed;
 $difference-card-border-color-on-hov: none;
 
+$dark-card-background-color: var(--clr-background-300);
+$dark-card-border: $theme-border;
+$dark-card-border-radius: $border-radius-cubed;
+$dark-card-border-color-on-hov: none;
+
 // =================
 // Post
 // =================
 $post-images-dots-gap: 0.75em;
 $post-dot-width: 0.85rem;
+
+// =================
+// Form
+// =================
+$form-counter-bar-background-color: var(--clr-card-300);
+$form-counter-bar-active-background-color: var(--clr-button-primary-background-hover);
 
 // =================
 // Utilities

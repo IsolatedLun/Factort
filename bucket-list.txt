@@ -12,7 +12,10 @@ options. [DONE]
     - sideNavigation | Posts | Miscellaneous [DONE]
     - Posts | Miscellaneous (when navbar is located on the top) [DONE]
 
-- Overhaul markdown to allow for more elements to be added without extra code
+- Overhaul markdown to allow for more elements to be added without extra code [DONE]
+
+- Add complete form validation
+- Multiple form support
 
 ============
 PRIORITY 2

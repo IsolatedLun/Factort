@@ -12,6 +12,10 @@
 	);
 }
 
+.card[data-variant='dark'] {
+	@include createCard($background-color: $dark-card-background-color, $border: $dark-card-border);
+}
+
 .card:is([data-secondary-variant='default-background']) {
 	border: none;
 	border-radius: 0px;

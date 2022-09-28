@@ -9,4 +9,17 @@
 		background-color: var(--clr-markdown-code);
 		border-radius: $border-radius-cubed;
 	}
+
+	.spoiler {
+		display: inline-block;
+
+		padding: 0.25em;
+		background-color: black;
+		border-radius: $border-radius-cubed;
+		color: black;
+
+		&:is(:hover, :focus) {
+			color: white;
+		}
+	}
 }

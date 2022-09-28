@@ -1,10 +1,11 @@
 import type { KeyValue } from 'src/types';
-import { COMPLEMENTARIES } from '../../consts';
+import { COMPLEMENTARIES, TEXTAREA_TAB_SIZE } from '../../consts';
 import { createDefaultParsedData } from '../defaultProps';
 import {
 	createAsteriskElement,
 	createCodeElement,
 	createHeadingElement,
+	createHiddenElement,
 	createLinkElement,
 	createListElement
 } from './elements';
@@ -52,6 +53,13 @@ const MARKDOWN_TREE = {
 				formatter: createLinkElement
 			}
 		}
+	},
+
+	'{': {
+		syntax: '{+}',
+		options: { mode: 'normal' },
+		parser: parseStartEnd,
+		formatter: createHiddenElement
 	}
 } as KeyValue<MKD_TreeItem | MKD_TreeItemWithVariants>;
 
@@ -67,7 +75,7 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 	let out = '';
 	let i = 0;
 
-	while (i < markdownText.length - 1) {
+	while (i < markdownText.length) {
 		let chr = markdownText[i];
 
 		if (ignores.includes(chr)) {
@@ -108,6 +116,7 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 				i += markdownText.length;
 			}
 		} else {
+			if (chr === '\t') out += '&nbsp;'.repeat(TEXTAREA_TAB_SIZE);
 			out += chr;
 			i++;
 		}

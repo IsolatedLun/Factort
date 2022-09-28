@@ -1,17 +1,20 @@
 <script lang="ts">
-	import { createStringCubeCSSClass, createObjectCubeClass } from '../../../utils/cubeCss/cubeCss'
+	import { createStringCubeCSSClass, createObjectCubeClass } from '../../../utils/cubeCss/cubeCss';
 
 	export let fontSize: string | number = 'default';
 	export let fontWeight: string | number = 'default';
+	export let spacingBottom: string | number = 0;
+	export let spacingTop: string | number = 0;
 	export let tag = 'p';
 
 	export let cubeClass = createObjectCubeClass();
 
 	let _class = createStringCubeCSSClass(cubeClass, {
-		utilClass: `fw-${fontWeight} fs-${fontSize}`
+		utilClass: `fw-${fontWeight} fs-${fontSize} margin-block-end-${spacingBottom} 
+			margin-block-start-${spacingTop}`
 	});
 </script>
 
-<svelte:element this="{tag}" class="{_class}">
+<svelte:element this={tag} class={_class}>
 	<slot />
 </svelte:element>
