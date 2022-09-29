@@ -28,8 +28,10 @@
 			useColumn ? 'flex-direction-column' : ''
 		}`
 	});
+
+	export let _this: HTMLElement | null = null;
 </script>
 
-<svelte:element this={tag} class={_class}>
+<svelte:element this={tag} class={_class} bind:this={_this}>
 	<slot />
 </svelte:element>

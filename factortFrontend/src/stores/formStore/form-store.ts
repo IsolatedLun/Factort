@@ -2,6 +2,6 @@ import { writable } from 'svelte/store';
 import type { Store_Form } from './types';
 
 export const formStore = writable<Store_Form>({
-	forms: [],
+	forms: {},
 	currFormIndex: 0
 });

@@ -5,6 +5,10 @@
 	max-width: 864px;
 	margin-inline: auto;
 
+	.inner-form-container[data-show-form='false'] {
+		display: none;
+	}
+
 	.form__counter {
 		.inactive-bar,
 		&::after {

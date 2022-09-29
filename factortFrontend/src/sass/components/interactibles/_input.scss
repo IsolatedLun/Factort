@@ -6,6 +6,11 @@
 		@include createInput();
 	}
 
+	.input[data-input-valid='true'],
+	.input[data-input-valid='true']:is(:hover) {
+		border-color: hotpink;
+	}
+
 	// ===========
 	// Misc
 	// ===========

@@ -1305,6 +1305,9 @@
   max-width: 864px;
   margin-inline: auto;
 }
+.form-container .inner-form-container[data-show-form=false] {
+  display: none;
+}
 .form-container .form__counter .inactive-bar, .form-container .form__counter::after {
   content: "";
   position: absolute;
@@ -1345,6 +1348,10 @@
 }
 .input-container .input[data-variant=default]:is(:focus-visible, :hover) {
   border-color: var(--clr-input-border-hover);
+}
+.input-container .input[data-input-valid=true],
+.input-container .input[data-input-valid=true]:is(:hover) {
+  border-color: hotpink;
 }
 .input-container .container__end-icon {
   top: 50%;
