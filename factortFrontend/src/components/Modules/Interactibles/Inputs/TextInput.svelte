@@ -65,9 +65,9 @@
 		bind:value
 		on:input={(e) => {
 			value = _this.value;
-			dispatch('validate', e.target);
-
 			handleInput(e);
+
+			dispatch('validate', e.target);
 		}}
 		bind:this={_this}
 		{id}

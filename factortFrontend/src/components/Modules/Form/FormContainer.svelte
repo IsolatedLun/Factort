@@ -1,49 +1,35 @@
 <script lang="ts">
-	import { formStore } from '../../../stores/formStore/form-store';
-	import { onMount } from 'svelte';
+	import { useForm } from '../../../stores/formStore/form-store';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import FormCounter from './FormCounter.svelte';
-	import type { Props_Form, Props_FormContext } from './types';
-	import type { KeyValue } from '../../../types';
+	import { objLen } from '../../../utils/misc';
+	import { setContext } from 'svelte';
+	import { CONTEXT_KEY } from './consts';
 
-	onMount(() => {
-		forms = Object.values($formStore.forms);
-	});
+	const formHook = useForm();
 
-	function incrementFormIndex() {
-		formStore.update((state) => {
-			return { ...state, currFormIndex: state.currFormIndex + 1 };
-		});
-	}
-
-	function decrementFormIndex() {
-		formStore.update((state) => {
-			return { ...state, currFormIndex: state.currFormIndex - 1 };
-		});
-	}
-
-	let forms: Props_Form[] = [];
+	setContext(CONTEXT_KEY, formHook);
 </script>
 
 <div class="[ form-container ]">
-	{#if forms.length > 1}
-		<FormCounter {forms} />
+	{#if objLen($formHook.forms) > 1}
+		<FormCounter />
 	{/if}
 
 	<slot />
 
-	{#if forms.length > 1}
+	{#if objLen($formHook.forms) > 1}
 		<Flexy cubeClass={{ utilClass: 'margin-block-start-2' }}>
 			<Button
 				variant="primary"
-				workCondition={$formStore.currFormIndex > 0}
-				on:click={decrementFormIndex}>Back</Button
+				workCondition={$formHook.currFormIndex !== 0}
+				on:click={formHook.decrementIndex}>Back</Button
 			>
 			<Button
 				variant="primary"
-				workCondition={$formStore.currFormIndex < forms.length - 1}
-				on:click={incrementFormIndex}>Next</Button
+				workCondition={$formHook.currFormIndex < objLen($formHook.forms) - 1}
+				on:click={formHook.incrementIndex}>Next</Button
 			>
 		</Flexy>
 	{/if}

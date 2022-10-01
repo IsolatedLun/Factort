@@ -8,3 +8,7 @@ export function createIframeElement(url: string): string {
 	const link = 'https://www.youtube.com/embed/' + uuid;
 	return CREATE_YOUTUBE_IFRAME(link);
 }
+
+export function objLen(obj: object): number {
+	return Object.keys(obj).length;
+}
