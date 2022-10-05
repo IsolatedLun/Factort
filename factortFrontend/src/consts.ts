@@ -43,6 +43,8 @@ export const ICON_TIMES = '\uf00d';
 export const ICON_CHECK = '\uf00c';
 export const ICON_COMMENTS = '\uf086';
 
+export const ICON_EYE = '\uf06e';
+
 // ==============
 // Id's
 // ==============

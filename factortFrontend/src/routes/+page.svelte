@@ -2,7 +2,11 @@
 	import FormContainer from '../components/Modules/Form/FormContainer.svelte';
 	import Form from '../components/Modules/Form/Form.svelte';
 	import TextInput from '../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import { minLenValidator } from '../utils/form4Svelte/validators';
+	import {
+		emailValidator,
+		minLenValidator,
+		specialCharacterValidator
+	} from '../utils/form4Svelte/validators';
 </script>
 
 <FormContainer>
@@ -11,19 +15,25 @@
 			label="Username"
 			showLabel={true}
 			on:validate={inputChange}
-			validators={[minLenValidator(3)]}
+			validators={[minLenValidator(1)]}
 		/>
-		<TextInput label="Email" showLabel={true} on:validate={inputChange} />
-		<TextInput label="Password" showLabel={true} on:validate={inputChange} />
-	</Form>
-	<Form formTitle="Create profile" formIndex={1} let:inputChange>
-		<TextInput label="Username" showLabel={true} on:validate={inputChange} />
 		<TextInput
 			label="Email"
+			type={'email'}
 			showLabel={true}
 			on:validate={inputChange}
-			validators={[minLenValidator(3)]}
+			validators={[minLenValidator(1), emailValidator()]}
 		/>
-		<TextInput label="Password" showLabel={true} on:validate={inputChange} />
+		<TextInput
+			label="Password"
+			type={'password'}
+			showLabel={true}
+			on:validate={inputChange}
+			validators={[minLenValidator(7), specialCharacterValidator(['#', '$', '!', '-'])]}
+		/>
+	</Form>
+	<Form formTitle="Create profile" formIndex={1} let:inputChange>
+		<!-- Add file input that supports images and may preview a file -->
+		<!-- Add option to draw a profile :) -->
 	</Form>
 </FormContainer>

@@ -15,8 +15,11 @@ options. [DONE]
 - Overhaul markdown to allow for more elements to be added without extra code [DONE]
 
 - Add complete form validation [DONE]
-- Multiple form support
-- Calculate form completion percentage and display it
+- Multiple form support [DONE]
+- Calculate form completion percentage and display it [DONE]
+
+- Add account creation page
+    - Allow user to paint their own profile :) { 512/512 image, mini painting application }
 
 ============
 PRIORITY 2

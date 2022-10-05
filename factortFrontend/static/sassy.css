@@ -31,6 +31,10 @@
   color: white;
 }
 
+.clr-text-error {
+  color: #fd6b5e;
+}
+
 .clr-input-background {
   color: #43424d;
 }
@@ -1354,6 +1358,11 @@
   left: 92%;
   transform: translate(-50%, -50%);
 }
+.input-container .input__password-toggler {
+  top: 41%;
+  left: 96%;
+  transform: translate(-50%, -50%);
+}
 .input-container:has(input:where(:hover, :focus)) .container__end-icon {
   color: var(--clr-input-border-hover);
 }
@@ -1460,6 +1469,11 @@
 
 .button:is([data-secondary-variant=small]) {
   font-size: var(--fs-350);
+  padding: 0.4em 0.45em;
+}
+
+.button:is([data-secondary-variant=extra-small]) {
+  font-size: calc(var(--fs-300) * 0.5);
   padding: 0.4em 0.45em;
 }
 
@@ -1990,6 +2004,10 @@ img[data-profile=true] {
   color: white;
 }
 
+.clr-text-error {
+  color: #fd6b5e;
+}
+
 .clr-input-background {
   color: #43424d;
 }
@@ -2091,6 +2109,7 @@ img[data-profile=true] {
   --clr-hoverable-400: rgba(167, 166, 179, 0.38);
   --clr-text-difference: black;
   --clr-text-accent: white;
+  --clr-text-error: #fd6b5e;
   --clr-input-background: #43424d;
   --clr-input-border: #77758a;
   --clr-input-border-hover: #c3c2cb;
@@ -2157,6 +2176,10 @@ img[data-profile=true] {
 
   .clr-text-accent {
     color: white;
+  }
+
+  .clr-text-error {
+    color: #fd6b5e;
   }
 
   .clr-input-background {
@@ -2260,6 +2283,7 @@ img[data-profile=true] {
     --clr-hoverable-400: rgba(167, 166, 179, 0.38);
     --clr-text-difference: black;
     --clr-text-accent: white;
+    --clr-text-error: #fd6b5e;
     --clr-input-background: #43424d;
     --clr-input-border: #77758a;
     --clr-input-border-hover: #c3c2cb;

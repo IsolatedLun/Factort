@@ -32,6 +32,6 @@
 	export let _this: HTMLElement | null = null;
 </script>
 
-<svelte:element this={tag} class={_class} bind:this={_this}>
+<svelte:element this={tag} class={_class} bind:this={_this} on:submit|preventDefault>
 	<slot />
 </svelte:element>

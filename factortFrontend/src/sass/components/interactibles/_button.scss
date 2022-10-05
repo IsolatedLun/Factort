@@ -61,6 +61,11 @@
 	padding: $button-padding-small;
 }
 
+.button:is([data-secondary-variant='extra-small']) {
+	font-size: $button-font-size-extra-small;
+	padding: $button-padding-small;
+}
+
 .button:is([data-secondary-variant='square']) {
 	padding: 0.5em 0.75em;
 }

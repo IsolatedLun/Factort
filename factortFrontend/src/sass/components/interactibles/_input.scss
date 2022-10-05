@@ -18,6 +18,10 @@
 		@include transformCenter($left: 92%);
 	}
 
+	.input__password-toggler {
+		@include transformCenter($left: 96%, $top: 41%);
+	}
+
 	&:has(input:where(:hover, :focus)) .container__end-icon {
 		color: var(--clr-input-border-hover);
 	}

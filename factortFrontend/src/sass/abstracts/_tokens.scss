@@ -47,6 +47,7 @@ $def-input-border-color-on-hov: var(--clr-input-border-hover);
 // Buttons
 // =================
 $button-font-size-small: var(--fs-350);
+$button-font-size-extra-small: calc(var(--fs-300) * 0.5);
 $button-padding-small: 0.4em 0.45em;
 
 $def-button-font-size: var(--fs-400);

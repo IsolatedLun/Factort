@@ -9,6 +9,8 @@
 	import Icon from '../../Icon/Icon.svelte';
 	import type { InputTypes, Props_InputValidators } from './types';
 	import type { SyntheticTarget } from '../../../../types';
+	import Button from '../Buttons/Button.svelte';
+	import { ICON_EYE } from '../../../../consts';
 
 	onMount(() => {
 		id = window.crypto.randomUUID();
@@ -19,6 +21,13 @@
 
 	function setType(node: HTMLInputElement) {
 		node.type = type;
+	}
+
+	function togglePasswordType() {
+		showPassword = !showPassword;
+
+		if (showPassword) _this.type = 'text';
+		else _this.type = 'password';
 	}
 
 	function handleInput(e: Event | SyntheticTarget<HTMLInputElement>) {
@@ -49,7 +58,7 @@
 	});
 
 	let _this: HTMLInputElement;
-	let x = false;
+	let showPassword = false;
 	let errors: string[] = [];
 	const dispatch = createEventDispatcher();
 </script>
@@ -76,7 +85,19 @@
 		data-secondary-variant={secondaryVariant}
 		{placeholder}
 	/>
-	<ul class="[ input__error-list ] [ margin-inline-start-2 margin-block-start-1 ]">
+	{#if type === 'password'}
+		<Button
+			on:click={togglePasswordType}
+			selected={showPassword}
+			secondaryVariant="extra-small"
+			cubeClass={{ blockClass: 'input__password-toggler', utilClass: 'pos-absolute' }}
+		>
+			<Icon>
+				{ICON_EYE}
+			</Icon>
+		</Button>
+	{/if}
+	<ul class="[ input__error-list ] [ clr-text-error margin-inline-start-2 margin-block-start-1 ]">
 		{#each errors as error}
 			<li>{error}</li>
 		{/each}
