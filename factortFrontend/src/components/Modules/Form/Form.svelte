@@ -42,7 +42,7 @@
 				tag={'form'}
 				cubeClass={{ blockClass: 'form' }}
 				useColumn={true}
-				gap={2}
+				gap={1}
 				bind:_this={formElement}
 			>
 				<slot {inputChange} />

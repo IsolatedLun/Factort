@@ -21,6 +21,8 @@ options. [DONE]
 - Add account creation page
     - Allow user to paint their own profile :) { 512/512 image, mini painting application }
 
+- Add dynamic file input that supports videos/images/any file and displays previewable files [DONE]
+
 ============
 PRIORITY 2
 ============

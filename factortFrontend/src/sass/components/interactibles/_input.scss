@@ -19,7 +19,12 @@
 	}
 
 	.input__password-toggler {
-		@include transformCenter($left: 96%, $top: 41%);
+		@include transformCenter($left: 96%, $top: 50%);
+	}
+
+	.input__image-preview {
+		width: $input-profile-width;
+		aspect-ratio: 1;
 	}
 
 	&:has(input:where(:hover, :focus)) .container__end-icon {

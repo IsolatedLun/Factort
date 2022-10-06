@@ -1359,9 +1359,13 @@
   transform: translate(-50%, -50%);
 }
 .input-container .input__password-toggler {
-  top: 41%;
+  top: 50%;
   left: 96%;
   transform: translate(-50%, -50%);
+}
+.input-container .input__image-preview {
+  width: 256px;
+  aspect-ratio: 1;
 }
 .input-container:has(input:where(:hover, :focus)) .container__end-icon {
   color: var(--clr-input-border-hover);

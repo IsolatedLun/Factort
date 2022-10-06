@@ -7,6 +7,7 @@
 		minLenValidator,
 		specialCharacterValidator
 	} from '../utils/form4Svelte/validators';
+	import FileInput from '../components/Modules/Interactibles/Inputs/FileInput.svelte';
 </script>
 
 <FormContainer>
@@ -33,7 +34,7 @@
 		/>
 	</Form>
 	<Form formTitle="Create profile" formIndex={1} let:inputChange>
-		<!-- Add file input that supports images and may preview a file -->
+		<FileInput expectedFile="image" label="Profile" on:validate={inputChange} />
 		<!-- Add option to draw a profile :) -->
 	</Form>
 </FormContainer>

@@ -1,6 +1,5 @@
-import type { Props_InputValidators } from 'src/components/Modules/Interactibles/Inputs/types';
 import type { KeyValue } from '../../types';
-import type { Props_InputValidationResult } from './types';
+import type { Props_InputValidationResult, Props_InputValidator } from './types';
 
 /**
  * @param form
@@ -18,7 +17,7 @@ export function bundleInputs(form: HTMLFormElement) {
 
 export function validateInput(
 	input: HTMLInputElement,
-	validators: Props_InputValidators[]
+	validators: Props_InputValidator[]
 ): Props_InputValidationResult {
 	let bools: boolean[] = [];
 	let errors: string[] = [];
