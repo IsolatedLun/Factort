@@ -41,6 +41,7 @@
 	>
 		<Flexy
 			useColumn={stickToSide}
+			align="center"
 			gap={stickToSide ? 2 : 1}
 			cubeClass={{ utilClass: `${stickToSide ? 'padding-block-1' : ''} flex-grow` }}
 		>
@@ -84,7 +85,7 @@
 					/>
 				</div>
 			</Flexy>
-			<div class="[ margin-block-start-auto ]">
+			<div>
 				{#if isLogged}
 					<div class="[ navbar__user ]">
 						<Flexy>

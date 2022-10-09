@@ -56,6 +56,21 @@
 	);
 }
 
+.button[data-variant='tool'] {
+	@include createButton(
+		$background-color: $tool-button-background-color,
+		$background-color-on-hov: $tool-button-background-color-on-hov,
+		$border: $tool-button-border,
+		$border-radius: $tool-button-border-radius,
+		$color: $tool-button-color,
+		$font-size: $tool-button-font-size,
+		$padding: $tool-button-padding
+	);
+}
+
+// ======================================================================
+// ======================================================================
+
 .button:is([data-secondary-variant='small']) {
 	font-size: $button-font-size-small;
 	padding: $button-padding-small;

@@ -1,0 +1,73 @@
+@use '../../abstracts/' as *;
+
+.drawer-container {
+	display: grid;
+	grid-template-areas:
+		'colors canvas menu'
+		'colors controls menu';
+
+	grid-template-columns: repeat(3, 1fr);
+
+	.card {
+		overflow-y: auto;
+	}
+
+	.drawer__controls {
+		grid-area: controls;
+	}
+
+	.drawer__canvas {
+		width: 488px;
+		height: 488px;
+		grid-area: canvas;
+	}
+	#drawer-canvas {
+		display: inline-block;
+		image-rendering: pixelated;
+		image-rendering: crisp-edges;
+
+		border: $theme-border;
+	}
+
+	.drawer__colors {
+		grid-template-columns: repeat(auto-fill, $color-cube-width);
+		grid-area: colors;
+
+		.color__cube {
+			width: 100%;
+
+			border: $color-cube-border;
+			aspect-ratio: 1;
+
+			&[data-preserve-size] {
+				width: $color-cube-width;
+			}
+
+			&[data-selected='true'] {
+				border-color: $color-cube-selected-border-color;
+			}
+		}
+	}
+
+	.drawer__menu {
+		grid-area: menu;
+	}
+
+	.drawer__tools {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: start;
+		gap: 0.5em;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.drawer-container {
+		grid-template-areas:
+			'canvas'
+			'colors'
+			'controls'
+			'menu';
+		grid-template-columns: auto;
+	}
+}

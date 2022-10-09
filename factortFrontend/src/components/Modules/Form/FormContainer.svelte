@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useForm } from '../../../stores/formStore/form-store';
+	import type { Store_FormHook } from '../../../stores/formStore/types';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import FormCounter from './FormCounter.svelte';
@@ -7,7 +7,7 @@
 	import { setContext } from 'svelte';
 	import { CONTEXT_KEY } from './consts';
 
-	const formHook = useForm();
+	export let formHook: Store_FormHook;
 
 	setContext(CONTEXT_KEY, formHook);
 </script>
@@ -33,4 +33,13 @@
 			>
 		</Flexy>
 	{/if}
+
+	<Button
+		cubeClass={{ utilClass: 'margin-block-2 align-self-end width-100' }}
+		variant="primary"
+		workCondition={$formHook.isFormComplete}
+		on:click={() => console.log($formHook.data)}
+	>
+		Submit
+	</Button>
 </div>

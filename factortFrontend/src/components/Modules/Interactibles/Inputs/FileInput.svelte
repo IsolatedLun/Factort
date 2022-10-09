@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { validateInput } from '../../../../utils/form4Svelte/utils';
+	import { createInputIdWithLabel, validateInput } from '../../../../utils/form4Svelte/utils';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		createObjectCubeClass,
@@ -13,7 +13,9 @@
 	import { createExceptedFileValidator } from '../../../../utils/form4Svelte/validators';
 
 	onMount(() => {
-		id = window.crypto.randomUUID();
+		if (createRandomId) id = window.crypto.randomUUID();
+		else id = createInputIdWithLabel(label.toLowerCase());
+
 		_this.id = id;
 
 		const [_accept, validator] = createExceptedFileValidator(_this, expectedFile);
@@ -46,6 +48,7 @@
 	export let id = '';
 	export let multiple = false;
 	export let label: string;
+	export let name: string = label.toLowerCase();
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'input-container',
@@ -55,7 +58,9 @@
 	let _this: HTMLInputElement;
 	let errors: string[] = [];
 	let fileData: Input_Complex_File_Types = { type: 'file', data: null };
+
 	const dispatch = createEventDispatcher();
+	const createRandomId = false;
 </script>
 
 <div class={_class}>
@@ -84,6 +89,7 @@
 			data-secondary-variant={secondaryVariant}
 			{placeholder}
 			{multiple}
+			{name}
 		/>
 	</div>
 	<ul class="[ input__error-list ] [ clr-text-error margin-inline-start-2 margin-block-start-1 ]">

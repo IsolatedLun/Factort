@@ -1,6 +1,10 @@
 import type { KeyValue } from '../../types';
 import type { Props_InputValidationResult, Props_InputValidator } from './types';
 
+export function createInputIdWithLabel(label: string) {
+	return label + '-input';
+}
+
 /**
  * @param form
  * @summary Selects all of the inputs in a form and stores them in a dict. { inputId: bool}

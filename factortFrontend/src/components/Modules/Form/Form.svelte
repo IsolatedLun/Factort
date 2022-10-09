@@ -17,12 +17,14 @@
 
 	function handleInputChange(e: CustomEvent<HTMLInputElement>) {
 		formHook.updateFormInput(e, formTitle);
+
+		if (e.detail.type === 'file') formHook.updateData(e.detail.files, e.detail.name);
+		else formHook.updateData(e.detail.value, e.detail.name);
 	}
 
 	export let formHook: Store_FormHook = getContext(CONTEXT_KEY);
 	export let formTitle = '';
 	export let formIndex = 0;
-	let data = {};
 
 	const inputChange = (e: CustomEvent<HTMLInputElement>) => {
 		handleInputChange(e as any);
@@ -33,7 +35,11 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="inner-form-container" data-show-form={formIndex === $formHook.currFormIndex}>
+<div
+	class="inner-form-container"
+	data-form-id={formIndex}
+	data-show-form={formIndex === $formHook.currFormIndex}
+>
 	<TypoHeader cubeClass={{ utilClass: 'text-center' }}>{formTitle}</TypoHeader>
 
 	<Card cubeClass={{ utilClass: 'padding-1' }}>

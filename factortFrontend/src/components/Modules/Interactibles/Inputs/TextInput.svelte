@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { validateInput } from '../../../../utils/form4Svelte/utils';
+	import { createInputIdWithLabel, validateInput } from '../../../../utils/form4Svelte/utils';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		createObjectCubeClass,
@@ -14,7 +14,9 @@
 	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 
 	onMount(() => {
-		id = window.crypto.randomUUID();
+		if (createRandomId) id = window.crypto.randomUUID();
+		else id = createInputIdWithLabel(label.toLowerCase());
+
 		_this.id = id;
 
 		handleInput({ target: _this });
@@ -49,6 +51,7 @@
 	export let id = '';
 	export let type: InputTypes = 'text';
 	export let label: string;
+	export let name: string = label.toLowerCase();
 
 	export let showLabel = false;
 	export let endIcon = '';
@@ -61,6 +64,8 @@
 	let _this: HTMLInputElement;
 	let showPassword = false;
 	let errors: string[] = [];
+
+	const createRandomId = false;
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -82,6 +87,7 @@
 			}}
 			bind:this={_this}
 			{id}
+			{name}
 			class="[ input ] [  width-100 ]"
 			data-variant={variant}
 			data-secondary-variant={secondaryVariant}

@@ -12,6 +12,7 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'>': '&gt;'
 };
 export const SLIDESHOW_INTERVAL = 2500;
+export const DRAWER_LEAVE_COUNTDOWN = 3500;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
@@ -44,6 +45,9 @@ export const ICON_CHECK = '\uf00c';
 export const ICON_COMMENTS = '\uf086';
 
 export const ICON_EYE = '\uf06e';
+
+export const ICON_TRASH = '\uf1f8';
+export const ICON_BUCKET = '\ue4cf';
 
 // ==============
 // Id's

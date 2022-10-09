@@ -66,6 +66,14 @@ $primary-button-border: none;
 $primary-button-border-radius: $border-radius-cubed;
 $primary-button-background-color-on-hov: var(--clr-button-primary-background-hover);
 
+$tool-button-font-size: var(--fs-400);
+$tool-button-padding: 0.7em;
+$tool-button-background-color: var(--clr-button-tool-background);
+$tool-button-color: $clr-body-text;
+$tool-button-border: none;
+$tool-button-border-radius: $border-radius-cubed;
+$tool-button-background-color-on-hov: var(--clr-button-tool-background-hover);
+
 $difference-button-background-color: var(--clr-button-difference);
 $difference-button-border: $theme-border-dark;
 $difference-button-background-color-on-hov: var(--clr-button-difference-hover);
@@ -97,6 +105,15 @@ $dark-card-background-color: var(--clr-background-300);
 $dark-card-border: $theme-border;
 $dark-card-border-radius: $border-radius-cubed;
 $dark-card-border-color-on-hov: none;
+
+// =================
+// Drawer
+// =================
+$canvas-width: 488px;
+
+$color-cube-width: 32px;
+$color-cube-border: 2px solid var(--clr-text-difference);
+$color-cube-selected-border-color: var(--clr-misc-link);
 
 // =================
 // Post

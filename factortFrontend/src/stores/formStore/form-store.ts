@@ -1,12 +1,13 @@
 import type { Props_Form } from '../../components/Modules/Form/types';
 import { objLen } from '../../utils/misc';
 import { writable } from 'svelte/store';
-import type { Store_Form } from './types';
+import type { Store_Form, Store_FormHook } from './types';
 import type { KeyValue } from '../../types';
 
-export function useForm() {
+export function useForm<T>(): Store_FormHook {
 	const { subscribe, update, set } = writable<Store_Form>({
 		forms: {},
+		data: {},
 
 		currFormIndex: 0,
 		completionPct: 0,
@@ -27,6 +28,13 @@ export function useForm() {
 						...data
 					}
 				}
+			}));
+		},
+		// Updates the data variable
+		updateData: (value: any, name: string) => {
+			update((state) => ({
+				...state,
+				data: { ...state.data, [name]: value }
 			}));
 		},
 

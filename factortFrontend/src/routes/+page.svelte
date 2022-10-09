@@ -8,9 +8,12 @@
 		specialCharacterValidator
 	} from '../utils/form4Svelte/validators';
 	import FileInput from '../components/Modules/Interactibles/Inputs/FileInput.svelte';
+	import { useForm } from '../stores/formStore/form-store';
+
+	const formHook = useForm();
 </script>
 
-<FormContainer>
+<FormContainer {formHook}>
 	<Form formTitle="Create account" let:inputChange>
 		<TextInput
 			label="Username"
@@ -35,6 +38,6 @@
 	</Form>
 	<Form formTitle="Create profile" formIndex={1} let:inputChange>
 		<FileInput expectedFile="image" label="Profile" on:validate={inputChange} />
-		<!-- Add option to draw a profile :) -->
+		<a href="/drawer">Draw profile</a>
 	</Form>
 </FormContainer>
