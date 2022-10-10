@@ -5,6 +5,7 @@ export interface Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
 	community: Post_Community_Complex_Type;
+	visibility: 'public' | 'unlisted' | 'private';
 
 	comments: CommentType;
 	replies: ReplyType;
