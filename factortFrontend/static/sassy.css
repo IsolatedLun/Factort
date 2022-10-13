@@ -1331,7 +1331,7 @@
 .profile {
   width: clamp(2.55em, 6vw, 3.25em);
   aspect-ratio: 1;
-  background-color: var(--clr-background-card);
+  background: linear-gradient(to left, red, green, blue);
 }
 
 .card[data-variant=default] {

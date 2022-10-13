@@ -4,7 +4,7 @@
 	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
 	import { createDefaultPost } from '../../../utils/defaultProps';
 	import ContextMenu from '../ContextMenu/ContextMenu.svelte';
-	import type { Props_Post } from './types';
+	import type { Props_PreviewPost } from './types';
 	import { onMount } from 'svelte';
 	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
 	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
@@ -38,8 +38,8 @@
 		doReRender++;
 	}
 
-	export let props: Props_Post<number, number> = createDefaultPost({
-		type: 'text',
+	export let props: Props_PreviewPost = createDefaultPost({
+		type: 'link',
 		data: 'https://www.google.com'
 	});
 

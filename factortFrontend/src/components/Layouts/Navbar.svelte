@@ -6,7 +6,14 @@
 	import TextInput from '../Modules/Interactibles/Inputs/TextInput.svelte';
 	import Button from '../Modules/Interactibles/Buttons/Button.svelte';
 	import Icon from '../Modules/Icon/Icon.svelte';
-	import { ICON_CARET_LEFT, ICON_CARET_RIGHT, ICON_SEARCH, NAVBAR_CM_ID } from '../../consts';
+	import {
+		ICON_CARET_LEFT,
+		ICON_CARET_RIGHT,
+		ICON_SEARCH,
+		NAVBAR_CM_ID,
+		WEB_LOGIN_URL,
+		WEB_SIGNUP_URL
+	} from '../../consts';
 	import { onMount } from 'svelte';
 	import { toggleContextMenu } from '../../utils/contextMenu/contextMenu';
 	import ContextMenu from './ContextMenu/ContextMenu.svelte';
@@ -49,7 +56,9 @@
 				cubeClass={{ blockClass: 'navbar__header', utilClass: 'pos-relative' }}
 				spacing={0}
 			>
-				Factort<VisuallyHidden id="primaryNavigation">Primary navigation</VisuallyHidden>
+				<a href="/">
+					Factort<VisuallyHidden id="primaryNavigation">Primary navigation</VisuallyHidden>
+				</a>
 			</TypoHeader>
 
 			<Flexy useColumn={stickToSide}>
@@ -93,7 +102,10 @@
 						</Flexy>
 					</div>
 				{:else}
-					<Button variant="primary">Sign up</Button>
+					<Flexy gap={2} useColumn={stickToSide}>
+						<Button to={WEB_SIGNUP_URL} variant="primary">Sign up</Button>
+						<Button to={WEB_LOGIN_URL} variant="primary">Login</Button>
+					</Flexy>
 				{/if}
 			</div>
 		</Flexy>

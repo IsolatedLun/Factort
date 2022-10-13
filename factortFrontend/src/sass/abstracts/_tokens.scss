@@ -142,7 +142,7 @@ $animation-background-color-highlight: var(--clr-blue-hover);
 // Composition
 // =================
 $clr-column-split-border: var(--clr-hover-400);
-$profile-background-color: var(--clr-background-card);
+$profile-background: linear-gradient(to left, red, green, blue);
 
 // Media scroller
 $media-scroller-max-width: 92vw;

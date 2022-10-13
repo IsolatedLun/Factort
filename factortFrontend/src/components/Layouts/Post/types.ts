@@ -1,7 +1,7 @@
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
 import type { Props_PostImage } from './_/types';
 
-export interface Props_Post<CommentType, ReplyType> extends Props_DB_Model {
+interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
 	community: Post_Community_Complex_Type;
@@ -13,6 +13,8 @@ export interface Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	title: string;
 	votes: number;
 }
+
+export interface Props_PreviewPost extends _Props_Post<number, number> {}
 
 interface Post_Content_Video_Data {
 	is_third_party: boolean;

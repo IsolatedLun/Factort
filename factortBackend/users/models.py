@@ -27,7 +27,7 @@ class cUser(AbstractUser):
     prestige = models.IntegerField(default=0)
 
     profile = models.ImageField(
-        upload_to='profiles/', default='profiles/def.png')
+        upload_to='profiles/', default='default/profile.png')
 
     date_created = models.DateTimeField(auto_now_add=True)
 

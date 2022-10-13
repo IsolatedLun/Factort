@@ -17,7 +17,7 @@ POST_VISIBILITY_CHOICES = (
 class Post(models.Model):
     user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
     community = models.ForeignKey(
-        'communities.Community', on_delete=models.CASCADE)
+        'communities.Community', null=True, blank=True, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=128)
 

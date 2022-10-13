@@ -22,6 +22,8 @@ options. [DONE]
     - Allow user to paint their own profile :) { 512/512 image, mini painting application }
 
 - Add dynamic file input that supports videos/images/any file and displays previewable files [DONE]
+- Connect backend to frontend [DONE]
+- Basic authentication
 
 ============
 PRIORITY 2

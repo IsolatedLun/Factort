@@ -56,3 +56,20 @@ export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
 export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
+
+// =======================
+// Urls
+// =======================
+export const BACKEND_ROOT_URL = 'http://localhost:8000';
+export const API_URL = BACKEND_ROOT_URL + '/api';
+export const POSTS_URL = API_URL + '/posts/';
+
+export const AUTH_URL = API_URL + '/auth/';
+export const REGISTER_URL = AUTH_URL + 'register';
+export const LOGIN_URL = AUTH_URL + 'login';
+
+// =======================
+// Navigation Urls
+// =======================
+export const WEB_SIGNUP_URL = '/auth/signup';
+export const WEB_LOGIN_URL = '/auth/login';

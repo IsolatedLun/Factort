@@ -18,7 +18,8 @@
 	function handleInputChange(e: CustomEvent<HTMLInputElement>) {
 		formHook.updateFormInput(e, formTitle);
 
-		if (e.detail.type === 'file') formHook.updateData(e.detail.files, e.detail.name);
+		if (e.detail.type === 'file' && e.detail.files && e.detail.files.length > 0)
+			formHook.updateData(e.detail.files[0], e.detail.name);
 		else formHook.updateData(e.detail.value, e.detail.name);
 	}
 

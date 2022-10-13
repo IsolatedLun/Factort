@@ -1,8 +1,9 @@
 from rest_framework import serializers
+from utils.shorthands import get_user_or_none
+
+from users import models as userModels
 
 from . import models
-
-from json import loads as json_loads
 
 
 class PostPreviewSerializer(serializers.ModelSerializer):
@@ -14,13 +15,13 @@ class PostPreviewSerializer(serializers.ModelSerializer):
     date_created = serializers.DateTimeField(format="%b %d, %Y")
 
     def get_user(self, obj):
-        return {}
+        return get_user_or_none(obj, PostUserSerializer)
 
     def get_count_comments(self, obj):
-        return {}
+        return ""
 
     def get_content(self, obj):
-        return {'type': obj.content_type, 'data': json_loads(obj.content)}
+        return obj.content
 
     def get_community(self, obj):
         from communities.serializers import CommunityPreviewSerializer
@@ -40,11 +41,18 @@ class PostSerializer(serializers.ModelSerializer):
     date_created = serializers.DateTimeField(format="%b %d, %Y")
 
     def get_user(self, obj):
-        return {}
+        return get_user_or_none(obj, PostUserSerializer)
 
     def get_content(self, obj):
-        return {'type': obj.content_type, 'data': json_loads(obj.content)}
+        return obj.content
 
     class Meta:
         model = models.Post
         fields = '__all__'
+
+
+class PostUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = userModels.cUser
+        exclude = ['password', 'email_address',
+                   'groups', 'user_permissions', 'last_login']

@@ -4,10 +4,16 @@
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import FormCounter from './FormCounter.svelte';
 	import { objLen } from '../../../utils/misc';
-	import { setContext } from 'svelte';
+	import { createEventDispatcher, setContext } from 'svelte';
 	import { CONTEXT_KEY } from './consts';
 
+	function dispatchSubmit() {
+		dispatch('submit');
+	}
+
 	export let formHook: Store_FormHook;
+
+	const dispatch = createEventDispatcher();
 
 	setContext(CONTEXT_KEY, formHook);
 </script>
@@ -38,7 +44,7 @@
 		cubeClass={{ utilClass: 'margin-block-2 align-self-end width-100' }}
 		variant="primary"
 		workCondition={$formHook.isFormComplete}
-		on:click={() => console.log($formHook.data)}
+		on:click={dispatchSubmit}
 	>
 		Submit
 	</Button>

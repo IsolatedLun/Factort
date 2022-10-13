@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Button from '../../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import Flexy from '../../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import type { Props_PostImage } from './types';
 	import { SLIDESHOW_INTERVAL } from '../../../../consts';
 	import { createEventDispatcher } from 'svelte';
 
@@ -25,7 +24,7 @@
 		});
 	}
 
-	export let images: Props_PostImage[] = [];
+	export let images: string[] = [];
 	export let selectedIdx = 0;
 	export let slideshowMode = false;
 	export let imageKeyEventIdx: number = 0;
@@ -49,7 +48,7 @@
 </script>
 
 <div class="[ post__images ] [ pos-relative ]">
-	<img src={images[selectedIdx].image} alt={`${selectedIdx}/${images.length}`} />
+	<img src={images[selectedIdx]} alt={`${selectedIdx}/${images.length}`} />
 	<Flexy align="center" cubeClass={{ blockClass: 'images__dots', utilClass: 'pos-absolute' }}>
 		{#each images as image, i}
 			<Button

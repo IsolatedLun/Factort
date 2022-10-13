@@ -17,7 +17,11 @@
 
 {#if props.type === 'user'}
 	<Flexy align="start" justify="start" cubeClass={_combinedClass}>
-		<Profile src={props.data.profile} alt={props.data.username + ' avatar'} />
+		<Profile
+			cubeClass={{ utilClass: 'overflow-hidden' }}
+			src={props.data.profile}
+			alt={props.data.username + ' avatar'}
+		/>
 		<Flexy useColumn={true} gap={'05'}>
 			<p class="[ dynamic-label__name ]">{props.data.username}</p>
 			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
