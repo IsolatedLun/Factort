@@ -8,6 +8,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('api/posts/', include('posts.urls')),
+    path('api/communities/', include('communities.urls')),
+
     path('api/auth/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

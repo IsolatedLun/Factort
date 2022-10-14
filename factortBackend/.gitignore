@@ -1,3 +1,8 @@
 db.sqlite3
 __pycache__
 migrations
+
+media/*
+!/media/defaults/**
+!/media/profiles/def.png
+!/media/communities/banners/def.png

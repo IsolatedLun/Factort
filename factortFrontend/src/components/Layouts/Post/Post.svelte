@@ -9,7 +9,7 @@
 	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
 	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import { ICON_COMMENTS } from '../../../consts';
+	import { ICON_COMMENTS, WEB_POST_URL } from '../../../consts';
 	import Icon from '../../../components/Modules/Icon/Icon.svelte';
 
 	import PostImages from './_/PostImages.svelte';
@@ -33,7 +33,7 @@
 		if (e.code === 'KeyD') imageKeyEventIdx++;
 		else if (e.code === 'KeyA') imageKeyEventIdx--;
 
-		// This hacky solution is used, because when the user presses 'A' more than once
+		// This hacky solution is used, because when the user presses/holds down 'A' more than once
 		// the component does not update, thus the 'imageKeyEventIdx' does not change
 		doReRender++;
 	}
@@ -42,11 +42,14 @@
 		type: 'link',
 		data: 'https://www.google.com'
 	});
+	export let isInThread = false;
 
 	let postElementId = '';
 	let collapsePost = false;
 	let slideshowMode = false;
-	let imageKeyEventIdx: number = 1;
+
+	// if the post type is image, this variable is used to change the image index
+	let imageKeyEventIdx: number = 0;
 
 	let _this: HTMLElement;
 	let doReRender = 0;
@@ -66,7 +69,10 @@
 		secondaryVariant="default-background"
 		cubeClass={{ utilClass: 'padding-inline-2 padding-block-start-1' }}
 	>
-		<DynamicLabel props={{ type: 'user', data: props.user }} />
+		<Flexy gap={2} justify="start">
+			<DynamicLabel props={{ type: 'user', data: props.user }} />
+			<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
+		</Flexy>
 		<TypoHeader
 			h={2}
 			fontHeadingSize={500}
@@ -107,7 +113,13 @@
 		cubeClass={{ blockClass: 'post__footer', utilClass: 'padding-1' }}
 	>
 		<Flexy>
-			<Button variant="difference" secondaryVariant="small">Open thread</Button>
+			{#if !isInThread}
+				<Button
+					variant="difference"
+					secondaryVariant="small"
+					to={WEB_POST_URL(props.id, props.title)}>Open thread</Button
+				>
+			{/if}
 
 			<VoteController />
 

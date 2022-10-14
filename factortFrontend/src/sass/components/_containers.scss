@@ -13,3 +13,8 @@
 	padding-inline: $main-container-padding * 0.5;
 	margin-inline: auto;
 }
+
+.feed-container {
+	place-items: start;
+	grid-template-columns: 65% auto;
+}

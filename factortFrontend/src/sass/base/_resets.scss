@@ -50,8 +50,8 @@ a {
 	text-decoration: none;
 	color: var(--clr-misc-link);
 
-	&:hover {
-		color: var(--clr-misc-link-hover);
+	&[data-variant='default'] {
+		text-decoration: underline;
 	}
 }
 

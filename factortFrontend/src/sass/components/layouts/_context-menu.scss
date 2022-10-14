@@ -1,9 +1,15 @@
+@use '../../abstracts/' as *;
+
 .context-menu {
+	// Since the context menu is placed under the component, we need to center it or else
+	// There will be ugly empty space under the element
+	@include transformCenter();
+
 	outline: 0;
 	pointer-events: none;
 	opacity: 0;
 
-	box-shadow: 0 0 16px 2px var(--clr-misc-shadow);
+	box-shadow: $context-menu-shadow;
 	z-index: 999999999999999;
 
 	&:is(:focus, :focus-within) {

@@ -5,7 +5,8 @@ $colors-dark: (
 	),
 	card: (
 		'300': hsl(245 8% 28.65%),
-		'400': hsl(245 8% 36.65%)
+		'400': hsl(245 8% 36.65%),
+		'600': hsl(245 8% 48%)
 	),
 	markdown: (
 		'code': hsl(245 8% 28.65%)
@@ -47,6 +48,7 @@ $colors-dark: (
 		'selection': hsl(188 50% 95%),
 		'selection-shadow': hsl(188 100% 26% / 0.36),
 		'link': hsl(210.5 100% 62%),
+		'link-bright': hsl(210.5 100% 88%),
 		'link-hover': hsl(210.5 100% 67%)
 	)
 );

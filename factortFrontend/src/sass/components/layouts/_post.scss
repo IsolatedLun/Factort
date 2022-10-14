@@ -2,7 +2,7 @@
 
 .post {
 	border: $theme-border;
-	max-width: 768px;
+	max-width: $post-width;
 
 	border-radius: $border-radius-pentagon;
 
@@ -28,7 +28,7 @@
 		aspect-ratio: 16 / 9;
 
 		img {
-			background-color: black;
+			background-color: var(--clr-text-difference);
 		}
 
 		.images__dots {
@@ -37,6 +37,7 @@
 			display: flex;
 			mix-blend-mode: difference;
 			gap: $post-images-dots-gap;
+			z-index: 9999;
 
 			.dot {
 				width: $post-dot-width;
@@ -53,8 +54,6 @@
 					background-color: var(--clr-input-border-hover);
 				}
 			}
-
-			z-index: 9999;
 		}
 	}
 

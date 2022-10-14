@@ -20,3 +20,19 @@
 	border: none;
 	border-radius: 0px;
 }
+
+// ======================================
+// ======================================
+.card {
+	overflow: hidden;
+
+	&[data-variant='default'] {
+		.card__header {
+			background-color: var(--clr-card-600);
+		}
+	}
+
+	a {
+		color: var(--clr-misc-link-bright);
+	}
+}

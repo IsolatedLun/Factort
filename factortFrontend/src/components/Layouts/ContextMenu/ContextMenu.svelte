@@ -8,6 +8,8 @@
 	cubeClass={{ blockClass: 'context-menu', utilClass: 'pos-absolute padding-block-1' }}
 	use={(e) => {
 		e.setAttribute('tabindex', '-1');
+		e.setAttribute('aria-hidden', 'true');
+
 		e.id = id;
 	}}
 >

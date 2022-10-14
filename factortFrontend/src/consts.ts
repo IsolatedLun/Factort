@@ -11,7 +11,7 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'<': '&lt;',
 	'>': '&gt;'
 };
-export const SLIDESHOW_INTERVAL = 2500;
+export const SLIDESHOW_INTERVAL = 300;
 export const DRAWER_LEAVE_COUNTDOWN = 3500;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -62,7 +62,12 @@ export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
 // =======================
 export const BACKEND_ROOT_URL = 'http://localhost:8000';
 export const API_URL = BACKEND_ROOT_URL + '/api';
+
 export const POSTS_URL = API_URL + '/posts/';
+export const POST_URL = (id: number) => POSTS_URL + id;
+
+export const COMMUNITIES_URL = API_URL + '/communities/';
+export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
 
 export const AUTH_URL = API_URL + '/auth/';
 export const REGISTER_URL = AUTH_URL + 'register';
@@ -73,3 +78,5 @@ export const LOGIN_URL = AUTH_URL + 'login';
 // =======================
 export const WEB_SIGNUP_URL = '/auth/signup';
 export const WEB_LOGIN_URL = '/auth/login';
+
+export const WEB_POST_URL = (id: number, title: string) => `/posts/${id}/${title}`;

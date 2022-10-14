@@ -94,7 +94,7 @@
 					/>
 				</div>
 			</Flexy>
-			<div>
+			<div data-desktop>
 				{#if isLogged}
 					<div class="[ navbar__user ]">
 						<Flexy>

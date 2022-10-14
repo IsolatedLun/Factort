@@ -118,6 +118,7 @@ $color-cube-selected-border-color: var(--clr-misc-link);
 // =================
 // Post
 // =================
+$post-width: 846px;
 $post-images-dots-gap: 0.75em;
 $post-dot-width: 0.85rem;
 
@@ -128,6 +129,11 @@ $form-counter-bar-background-color: var(--clr-card-300);
 $form-counter-bar-active-background-color: var(--clr-button-primary-background-hover);
 
 $input-profile-width: 256px;
+
+// =================
+// Context menu
+// =================
+$context-menu-shadow: 0 0 16px 2px var(--clr-misc-shadow);
 
 // =================
 // Utilities

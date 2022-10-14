@@ -23,9 +23,29 @@
 			alt={props.data.username + ' avatar'}
 		/>
 		<Flexy useColumn={true} gap={'05'}>
-			<p class="[ dynamic-label__name ]">{props.data.username}</p>
+			<p class="[ dynamic-label__name ]">
+				<a data-variant="default" href={`/users/${props.data.id}/${props.data.username}`}
+					>u/{props.data.username}</a
+				>
+			</p>
 			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
 				>{props.data.prestige} prestige</Typography
+			>
+		</Flexy>
+	</Flexy>
+{:else if props.type === 'community'}
+	<Flexy align="start" justify="start" cubeClass={_combinedClass}>
+		<Profile
+			cubeClass={{ utilClass: 'overflow-hidden' }}
+			src={props.data.profile}
+			alt={props.data.name + ' community profile'}
+		/>
+		<Flexy useColumn={true} gap={'05'}>
+			<a data-variant="default" href={`/users/${props.data.id}/${props.data.name}`}
+				>u/{props.data.name}</a
+			>
+			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
+				>{props.data.members} members</Typography
 			>
 		</Flexy>
 	</Flexy>

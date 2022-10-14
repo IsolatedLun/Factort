@@ -31,7 +31,7 @@ class Post(models.Model):
     visibility = models.CharField(
         choices=POST_VISIBILITY_CHOICES, max_length=16)
 
-    date_created = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
 
 class CommunityPost(models.Model):

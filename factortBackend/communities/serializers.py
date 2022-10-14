@@ -28,4 +28,4 @@ class CommunityPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Community
-        fields = '__all__'
+        exclude = ['owner', 'banner']

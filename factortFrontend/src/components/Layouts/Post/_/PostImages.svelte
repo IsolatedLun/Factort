@@ -48,7 +48,7 @@
 </script>
 
 <div class="[ post__images ] [ pos-relative ]">
-	<img src={images[selectedIdx]} alt={`${selectedIdx}/${images.length}`} />
+	<img src={images[selectedIdx]} alt={`image ${selectedIdx + 1} out of ${images.length}`} />
 	<Flexy align="center" cubeClass={{ blockClass: 'images__dots', utilClass: 'pos-absolute' }}>
 		{#each images as image, i}
 			<Button
