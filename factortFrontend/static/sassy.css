@@ -1399,6 +1399,12 @@
 .form-container .inner-form-container[data-show-form=false] {
   display: none;
 }
+.form-container .nested-form-container .inner-form-container > .card {
+  border: none;
+}
+.form-container .nested-form-container .inner-form-container > .card > .card {
+  border: none;
+}
 .form-container .form__counter .inactive-bar, .form-container .form__counter::after {
   content: "";
   position: absolute;
@@ -1442,7 +1448,7 @@
 }
 .input-container .container__end-icon {
   top: 50%;
-  left: 92%;
+  left: calc(100% - 2rem);
   transform: translate(-50%, -50%);
 }
 .input-container .input__password-toggler {
@@ -1788,6 +1794,10 @@ img[data-profile=true] {
   width: max-content;
 }
 
+.width-min-100 {
+  min-width: 100% !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1838,6 +1848,10 @@ img[data-profile=true] {
 
 .object-fit-contain {
   object-fit: contain;
+}
+
+.resize-vertical {
+  resize: vertical;
 }
 
 .align-items-start {

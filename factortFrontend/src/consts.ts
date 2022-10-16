@@ -49,6 +49,10 @@ export const ICON_EYE = '\uf06e';
 export const ICON_TRASH = '\uf1f8';
 export const ICON_BUCKET = '\ue4cf';
 
+export const ICON_MEDIA = '\uf03d';
+export const ICON_LINK = '\uf0c1';
+export const ICON_PLUS = '\uf067';
+
 // ==============
 // Id's
 // ==============
@@ -78,5 +82,8 @@ export const LOGIN_URL = AUTH_URL + 'login';
 // =======================
 export const WEB_SIGNUP_URL = '/auth/signup';
 export const WEB_LOGIN_URL = '/auth/login';
+
+export const WEB_CREATE_POST_URL = '/create/post';
+export const WEB_CREATE_POST_WITH_TYPE_URL = (type: string) => '/create/post?type=' + type;
 
 export const WEB_POST_URL = (id: number, title: string) => `/posts/${id}/${title}`;

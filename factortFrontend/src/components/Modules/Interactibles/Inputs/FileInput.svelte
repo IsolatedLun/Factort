@@ -22,15 +22,23 @@
 		if (validator) validators.push(validator);
 		if (_accept) _this.accept = _accept;
 
+		if (isOptional) dispatch('validate', _this);
 		handleInput({ target: _this });
 	});
 
 	function handleInput(e: Event | SyntheticTarget<HTMLInputElement>) {
 		const target = e.target as HTMLInputElement;
 
-		const { errors: _errors, isValid } = validateInput(target, validators);
-		_this.setAttribute('data-input-valid', String(isValid));
-		errors = _errors;
+		// If the input is optional and is empty
+		if (isOptional && target.files && target.files.length === 0) {
+			_this.setAttribute('data-input-valid', 'true');
+
+			// If the input is required or has a file
+		} else if (!isOptional || (target.files && target.files.length > 0)) {
+			const { errors: _errors, isValid } = validateInput(target, validators);
+			_this.setAttribute('data-input-valid', String(isValid));
+			errors = _errors;
+		}
 
 		if (expectedFile === 'image' && target.files && target.files[0]) {
 			fileData = { type: 'image', data: URL.createObjectURL(target.files[0]) };
@@ -40,6 +48,7 @@
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
 	export let validators: Props_InputValidator[] = [];
 	export let expectedFile: FileInputTypes; // used for previewing and validation reasons
+	export let isOptional = false;
 
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
@@ -80,6 +89,7 @@
 				handleInput(e);
 
 				dispatch('validate', e.target);
+				dispatch('_input', e.target);
 			}}
 			bind:this={_this}
 			{id}
@@ -87,6 +97,7 @@
 			class="[ input ] [  width-100 ]"
 			data-variant={variant}
 			data-secondary-variant={secondaryVariant}
+			data-input-valid="true"
 			{placeholder}
 			{multiple}
 			{name}

@@ -6,6 +6,17 @@
 	import CardWithHeader from '../components/Modules/Card/CardWithHeader.svelte';
 	import { _Fetch_Communities } from '../services/communities/communityFetchers';
 	import DynamicLabel from '../components/Modules/Misc/DynamicLabel.svelte';
+	import Card from '../components/Modules/Card/Card.svelte';
+	import TextInput from '../components/Modules/Interactibles/Inputs/TextInput.svelte';
+	import Button from '../components/Modules/Interactibles/Buttons/Button.svelte';
+	import {
+		ICON_LINK,
+		ICON_MEDIA,
+		ICON_PLUS,
+		WEB_CREATE_POST_URL,
+		WEB_CREATE_POST_WITH_TYPE_URL
+	} from '../consts';
+	import Icon from '../components/Modules/Icon/Icon.svelte';
 
 	async function fetchPosts() {
 		return _Fetch_Posts();
@@ -21,20 +32,37 @@
 </svelte:head>
 
 <FeedContainer>
-	<section slot="feed">
-		<span class="[ visually-hidden ]">Posts</span>
-		<Flexy useColumn={true}>
-			{#await fetchPosts() then res}
-				{#if res.type === 'success'}
-					{#each res.data as post}
-						<Post props={{ ...post }} />
-					{/each}
-				{/if}
-			{/await}
-		</Flexy>
-	</section>
+	<div slot="feed">
+		<Card padding={1} cubeClass={{ utilClass: 'margin-block-2' }}>
+			<Flexy gap={2}>
+				<a href={WEB_CREATE_POST_URL} class="[ width-100 ]">
+					<TextInput label="Create post" placeholder="Create post" endIcon={ICON_PLUS} />
+				</a>
+				<Flexy>
+					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('link')}>
+						<Icon>{ICON_LINK}</Icon>
+					</Button>
+					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('media')}>
+						<Icon>{ICON_MEDIA}</Icon>
+					</Button>
+				</Flexy>
+			</Flexy>
+		</Card>
+		<section>
+			<span class="[ visually-hidden ]">Posts</span>
+			<Flexy useColumn={true}>
+				{#await fetchPosts() then res}
+					{#if res.type === 'success'}
+						{#each res.data as post}
+							<Post props={{ ...post }} />
+						{/each}
+					{/if}
+				{/await}
+			</Flexy>
+		</section>
+	</div>
 
-	<div slot="misc" class="[ width-100 ]">
+	<section slot="misc" class="[ width-100 ]">
 		<span class="[ visually-hidden ]">Miscellaneuos</span>
 		<Flexy useColumn={true}>
 			<CardWithHeader cubeClass={{ utilClass: 'width-100' }} title="Relevant communities">
@@ -49,5 +77,5 @@
 				</Flexy>
 			</CardWithHeader>
 		</Flexy>
-	</div>
+	</section>
 </FeedContainer>

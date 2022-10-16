@@ -15,7 +15,7 @@
 	// Misc
 	// ===========
 	.container__end-icon {
-		@include transformCenter($left: 92%);
+		@include transformCenter($left: calc(100% - #{$input-end-icon-distance}));
 	}
 
 	.input__password-toggler {

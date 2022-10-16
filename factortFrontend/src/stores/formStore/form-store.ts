@@ -1,13 +1,14 @@
 import type { Props_Form } from '../../components/Modules/Form/types';
 import { objLen } from '../../utils/misc';
 import { writable } from 'svelte/store';
-import type { Store_Form, Store_FormHook } from './types';
+import type { Store_Form, Store_FormHook, Store_FormTypes } from './types';
 import type { KeyValue } from '../../types';
 
-export function useForm<T>(): Store_FormHook {
-	const { subscribe, update, set } = writable<Store_Form>({
+export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHook<T> {
+	const { subscribe, update, set } = writable<Store_Form<T>>({
 		forms: {},
-		data: {},
+		data: {} as T,
+		formType,
 
 		currFormIndex: 0,
 		completionPct: 0,
@@ -55,6 +56,10 @@ export function useForm<T>(): Store_FormHook {
 				return sum;
 			}
 
+			function isCurrentFormValid(form: Props_Form) {
+				return Object.values(form.validatedInputs).every((x) => x === true);
+			}
+
 			update((state) => {
 				const inputId = e.detail.id;
 				const _state = state;
@@ -62,10 +67,18 @@ export function useForm<T>(): Store_FormHook {
 
 				currForm.validatedInputs[inputId] =
 					e.detail.getAttribute('data-input-valid')! === 'true' ? true : false;
-				currForm.percentComplete = calculateFormCompletionPct(currForm);
 
+				currForm.percentComplete = calculateFormCompletionPct(currForm);
 				_state.completionPct = calculateTotalCompletionPct(_state.forms);
-				_state.isFormComplete = _state.completionPct === objLen(_state.forms);
+
+				if (_state.formType === 'counter') {
+					_state.isFormComplete = _state.completionPct === objLen(_state.forms);
+				} else if (_state.formType === 'select') {
+					_state.isFormComplete = isCurrentFormValid(currForm);
+				}
+
+				console.log(_state);
+
 				return _state;
 			});
 		},
@@ -88,6 +101,7 @@ export function useForm<T>(): Store_FormHook {
 		changeIndex: (n: number) => {
 			update((state) => {
 				if (n >= 0 && n < objLen(state.forms)) state.currFormIndex = n;
+				console.log(state);
 				return state;
 			});
 		}

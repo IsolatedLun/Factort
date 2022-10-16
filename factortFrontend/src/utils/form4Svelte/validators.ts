@@ -60,7 +60,7 @@ export function specialCharacterValidator(characters: string[]): Props_InputVali
 }
 
 // ============================
-// Customized validators
+// Utils
 // ============================
 export function createExceptedFileValidator(
 	input: HTMLInputElement,

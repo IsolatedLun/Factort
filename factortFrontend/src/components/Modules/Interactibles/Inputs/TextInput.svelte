@@ -91,6 +91,7 @@
 			class="[ input ] [  width-100 ]"
 			data-variant={variant}
 			data-secondary-variant={secondaryVariant}
+			data-input-valid="true"
 			{placeholder}
 		/>
 		{#if type === 'password'}
@@ -105,18 +106,22 @@
 				</Icon>
 			</Button>
 		{/if}
+
+		{#if endIcon}
+			<Icon
+				cubeClass={{
+					blockClass: 'container__end-icon',
+					utilClass: 'pos-absolute clr-input-border'
+				}}
+			>
+				{endIcon}
+			</Icon>
+		{/if}
 	</div>
 	<ul class="[ input__error-list ] [ clr-text-error margin-inline-start-2 margin-block-start-1 ]">
 		{#each errors as error}
 			<li>{error}</li>
 		{/each}
 	</ul>
-	{#if endIcon}
-		<Icon
-			cubeClass={{ blockClass: 'container__end-icon', utilClass: 'pos-absolute clr-input-border' }}
-		>
-			{endIcon}
-		</Icon>
-	{/if}
 	<slot />
 </div>

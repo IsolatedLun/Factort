@@ -10,8 +10,9 @@
 	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
 	import { _Register_View } from '../../../services/auth/authService';
+	import type { Form_Signup } from '../types';
 
-	const formHook = useForm();
+	const formHook = useForm<Form_Signup>();
 </script>
 
 <FormContainer {formHook} on:submit={() => _Register_View($formHook.data)}>
@@ -38,7 +39,7 @@
 		/>
 	</Form>
 	<Form formTitle="Create profile" formIndex={1} let:inputChange>
-		<FileInput expectedFile="image" label="Profile" on:validate={inputChange} />
+		<FileInput expectedFile="image" label="Profile" on:validate={inputChange} isOptional={true} />
 		<a href="/drawer">Draw profile</a>
 	</Form>
 </FormContainer>

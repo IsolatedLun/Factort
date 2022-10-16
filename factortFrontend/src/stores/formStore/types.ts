@@ -1,10 +1,13 @@
-import type { Props_Form } from 'src/components/Modules/Form/types';
+import type { Props_Form } from '../../components/Modules/Form/types';
 import type { Unsubscriber, Subscriber } from 'svelte/store';
 import type { KeyValue } from '../../types';
 
-export interface Store_Form {
+export type Store_FormTypes = 'counter' | 'select';
+
+export interface Store_Form<T> {
 	forms: KeyValue<Props_Form>;
-	data: any;
+	data: T;
+	formType: Store_FormTypes;
 
 	currFormIndex: number;
 	completionPct: number;
@@ -12,10 +15,10 @@ export interface Store_Form {
 	isFormComplete: boolean;
 }
 
-export interface Store_FormHook {
+export interface Store_FormHook<T> {
 	subscribe: (
 		this: void,
-		run: Subscriber<Store_Form>,
+		run: Subscriber<Store_Form<T>>,
 		/* @ts-ignore */
 		invalidate?: Invalidator<Store_Form> | undefined
 	) => Unsubscriber;

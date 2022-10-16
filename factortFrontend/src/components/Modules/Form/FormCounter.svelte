@@ -6,7 +6,7 @@
 	import { CONTEXT_KEY } from './consts';
 	import type { Store_FormHook } from 'src/stores/formStore/types';
 
-	export let formHook: Store_FormHook = getContext(CONTEXT_KEY);
+	export let formHook: Store_FormHook<any> = getContext(CONTEXT_KEY);
 
 	let forms = $formHook.forms;
 </script>

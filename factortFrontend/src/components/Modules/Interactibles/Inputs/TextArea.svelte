@@ -1,10 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import type { SyntheticTarget } from '../../../../types';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		createObjectCubeClass,
 		createStringCubeCSSClass
 	} from '../../../../utils/cubeCss/cubeCss';
 	import type { Props_CubeCSS } from '../../../../utils/cubeCss/types';
+	import { validateInput } from '../../../../utils/form4Svelte/utils';
+	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 
 	onMount(() => {
 		if (!id) id = window.crypto.randomUUID();
@@ -23,7 +26,16 @@
 		});
 	});
 
+	function handleInput(e: Event | SyntheticTarget<HTMLInputElement>) {
+		const target = e.target as HTMLInputElement;
+
+		const { errors: _errors, isValid } = validateInput(target, validators);
+		_this.setAttribute('data-input-valid', String(isValid));
+		errors = _errors;
+	}
+
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
+	export let inputCubeClass: Props_CubeCSS = createObjectCubeClass();
 
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
@@ -33,13 +45,22 @@
 	export let label: string;
 
 	export let showLabel = false;
+	export let validators: Props_InputValidator[] = [];
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'input-container',
 		utilClass: 'width-100 pos-relative'
 	});
 
+	const _inputCubeClass = createStringCubeCSSClass(inputCubeClass, {
+		compostClass: 'input',
+		utilClass: 'width-100'
+	});
+
 	let _this: HTMLTextAreaElement;
+	let errors: string[] = [];
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div class={_class}>
@@ -51,8 +72,14 @@
 	<textarea
 		bind:this={_this}
 		bind:value
+		on:input={(e) => {
+			value = _this.value;
+			handleInput(e);
+
+			dispatch('validate', e.target);
+		}}
 		{id}
-		class="[ input ] [  width-100 ]"
+		class={_inputCubeClass}
 		data-variant={variant}
 		data-secondary-variant={secondaryVariant}
 		{placeholder}

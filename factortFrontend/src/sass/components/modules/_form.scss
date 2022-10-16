@@ -9,6 +9,16 @@
 		display: none;
 	}
 
+	// Since both nested cards have borders and there are already borders on the form
+	// That many borders cause visual fatigue, so we remove them
+	.nested-form-container .inner-form-container > .card {
+		border: none;
+
+		& > .card {
+			border: none;
+		}
+	}
+
 	.form__counter {
 		.inactive-bar,
 		&::after {
