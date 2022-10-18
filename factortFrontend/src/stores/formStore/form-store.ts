@@ -1,37 +1,53 @@
 import type { Props_Form } from '../../components/Modules/Form/types';
 import { objLen } from '../../utils/misc';
 import { writable } from 'svelte/store';
-import type { Store_Form, Store_FormHook, Store_FormTypes } from './types';
+import type { Store_Form, Store_FormContainer, Store_FormHook, Store_FormTypes } from './types';
 import type { KeyValue } from '../../types';
+import { bundleInputs } from '../../utils/form4Svelte/utils';
 
+// The form container keeps tracks of the forms contained within it and the data dispatched from the forms,
+// and controls which form is visible
+
+// Each form keeps track of it's completion progress and if it's completed (bool)
+
+/**
+ * @param formType - Counter | Select
+ *
+ * @type Counter:
+ * @summary The default multi-form option
+ * @type Select:
+ * @summary This option gives the user to select a single form out of many other forms
+ */
 export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHook<T> {
-	const { subscribe, update, set } = writable<Store_Form<T>>({
+	const { subscribe, update, set } = writable<Store_FormContainer<T>>({
 		forms: {},
 		data: {} as T,
 		formType,
 
 		currFormIndex: 0,
-		completionPct: 0,
+		totalCompletionPct: 0,
 
-		isFormComplete: false
+		isTotallyCompleted: false
 	});
 
 	return {
 		subscribe,
 
-		// This can be used to update or add an form entirely
-		updateForm: (formTitle: string, data: Props_Form) => {
+		instantiateForm: (formTitle: string) => {
 			update((state) => ({
 				...state,
 				forms: {
 					...state.forms,
 					[formTitle]: {
-						...data
+						name: formTitle,
+						elements: bundleInputs(formTitle),
+						completionPct: 0,
+						isFormComplete: false
 					}
 				}
 			}));
 		},
-		// Updates the data variable
+
 		updateData: (value: any, name: string) => {
 			update((state) => ({
 				...state,
@@ -39,25 +55,67 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 			}));
 		},
 
-		// Sets whether or not the current change on the input is valid
-		// Then updates the form completion percentage
-		// Then updates the total completion percentages
-		// And sets whether or not if the form is complete
-		updateFormInput: (e: CustomEvent<HTMLInputElement>, formTitle: string) => {
-			function calculateFormCompletionPct(form: Props_Form) {
-				const completedAmt = Object.values(form.validatedInputs).filter((x) => x === true).length;
-				return completedAmt / objLen(form.validatedInputs);
+		// This gets called everytime an input is interacted with
+		// The total completed and progress is updated along with the form's
+		updateForm: (e: CustomEvent<HTMLInputElement>, formTitle: string) => {
+			// =====================================
+			// FormType specific validators
+			function validateForm__Counter(form: Store_Form): [boolean, number] {
+				const keys = Object.keys(form.elements);
+				let isFormComplete = true;
+				let completionPct = 0;
+
+				for (let i = 0; i < keys.length; i++) {
+					const el = form.elements[keys[i]];
+
+					if (!el) {
+						isFormComplete = false;
+						break;
+					}
+				}
+
+				completionPct = Object.values(form.elements).filter((x) => x === true).length / keys.length;
+				return [isFormComplete, completionPct];
 			}
 
-			function calculateTotalCompletionPct(forms: KeyValue<Props_Form>) {
-				let sum = 0;
-				Object.values(forms).forEach((form) => (sum += form.percentComplete));
+			function validateForm__Select(form: Store_Form): [boolean, number] {
+				const keys = Object.keys(form.elements);
+				let isFormComplete = true;
+				let completionPct = 0;
 
-				return sum;
+				for (let i = 0; i < keys.length; i++) {
+					const el = form.elements[keys[i]];
+
+					if (!el) {
+						isFormComplete = false;
+						break;
+					}
+				}
+
+				completionPct = Object.values(form.elements).filter((x) => x === true).length / keys.length;
+				return [isFormComplete, completionPct];
+			}
+			// ===================
+
+			function updateFormContainer__Counter(state: Store_FormContainer<any>): [boolean, number] {
+				const isTotallyCompleted = Object.values(state.forms).every((x) => x.isFormComplete);
+
+				let totalCompletionPct = 0;
+				Object.values(state.forms).forEach((form) => (totalCompletionPct += form.completionPct));
+
+				return [isTotallyCompleted, totalCompletionPct];
 			}
 
-			function isCurrentFormValid(form: Props_Form) {
-				return Object.values(form.validatedInputs).every((x) => x === true);
+			function updateFormContainer__Select(
+				state: Store_FormContainer<any>,
+				formTitle: string
+			): [boolean, number] {
+				const isTotallyCompleted = state.forms[formTitle].isFormComplete;
+				return [isTotallyCompleted, 0];
+			}
+
+			function updateInput(inputId: string): boolean {
+				return document.getElementById(inputId)!.getAttribute('data-input-valid') === 'true';
 			}
 
 			update((state) => {
@@ -65,20 +123,27 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 				const _state = state;
 				const currForm = _state.forms[formTitle];
 
-				currForm.validatedInputs[inputId] =
-					e.detail.getAttribute('data-input-valid')! === 'true' ? true : false;
+				currForm.elements[inputId] = updateInput(inputId);
+				if (state.formType === 'counter') {
+					const [isFormComplete, completionPct] = validateForm__Counter(currForm);
+					currForm.completionPct = completionPct;
+					currForm.isFormComplete = isFormComplete;
 
-				currForm.percentComplete = calculateFormCompletionPct(currForm);
-				_state.completionPct = calculateTotalCompletionPct(_state.forms);
+					const [isTotallyCompleted, totalCompletionPct] = updateFormContainer__Counter(_state);
+					_state.isTotallyCompleted = isTotallyCompleted;
+					_state.totalCompletionPct = totalCompletionPct;
+				} else if (state.formType === 'select') {
+					const [isFormComplete, completionPct] = validateForm__Select(currForm);
+					currForm.completionPct = completionPct;
+					currForm.isFormComplete = isFormComplete;
 
-				if (_state.formType === 'counter') {
-					_state.isFormComplete = _state.completionPct === objLen(_state.forms);
-				} else if (_state.formType === 'select') {
-					_state.isFormComplete = isCurrentFormValid(currForm);
+					const [isTotallyCompleted, totalCompletionPct] = updateFormContainer__Select(
+						_state,
+						formTitle
+					);
+					_state.isTotallyCompleted = isTotallyCompleted;
+					_state.totalCompletionPct = totalCompletionPct;
 				}
-
-				console.log(_state);
-
 				return _state;
 			});
 		},
@@ -100,8 +165,15 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 		},
 		changeIndex: (n: number) => {
 			update((state) => {
-				if (n >= 0 && n < objLen(state.forms)) state.currFormIndex = n;
-				console.log(state);
+				if (n >= 0 && n < objLen(state.forms)) {
+					state.currFormIndex = n;
+
+					if (state.formType === 'select') {
+						state.data = {} as T;
+						state.isTotallyCompleted = false;
+					}
+				}
+
 				return state;
 			});
 		}

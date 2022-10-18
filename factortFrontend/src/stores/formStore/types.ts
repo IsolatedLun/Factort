@@ -4,28 +4,37 @@ import type { KeyValue } from '../../types';
 
 export type Store_FormTypes = 'counter' | 'select';
 
-export interface Store_Form<T> {
-	forms: KeyValue<Props_Form>;
+export interface Store_FormContainer<T> {
+	forms: KeyValue<Store_Form>;
 	data: T;
+
 	formType: Store_FormTypes;
 
 	currFormIndex: number;
-	completionPct: number;
+	totalCompletionPct: number;
 
+	isTotallyCompleted: boolean;
+}
+
+export interface Store_Form {
+	name: string;
+	elements: KeyValue<boolean>;
+
+	completionPct: number;
 	isFormComplete: boolean;
 }
 
 export interface Store_FormHook<T> {
 	subscribe: (
 		this: void,
-		run: Subscriber<Store_Form<T>>,
+		run: Subscriber<Store_FormContainer<T>>,
 		/* @ts-ignore */
 		invalidate?: Invalidator<Store_Form> | undefined
 	) => Unsubscriber;
 
-	updateForm: (formTitle: string, data: Props_Form) => void;
+	instantiateForm: (formTitle: string) => void;
 	updateData: (value: any, name: string) => void;
-	updateFormInput: (e: CustomEvent<HTMLInputElement>, formTitle: string) => void;
+	updateForm: (e: CustomEvent<HTMLInputElement>, formTitle: string) => void;
 
 	decrementIndex: () => void;
 	incrementIndex: () => void;

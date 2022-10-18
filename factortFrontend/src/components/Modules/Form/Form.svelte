@@ -8,16 +8,8 @@
 	import { CONTEXT_KEY } from './consts';
 
 	onMount(() => {
-		addForm();
+		formHook.instantiateForm(formTitle);
 	});
-
-	function addForm() {
-		formHook.updateForm(formTitle, {
-			name: formTitle,
-			percentComplete: 0,
-			validatedInputs: bundleInputs(formElement)
-		});
-	}
 
 	function handleInputChange(e: CustomEvent<HTMLInputElement>) {
 		if (e.detail.type === 'file' && e.detail.files && e.detail.files.length > 0)
@@ -27,12 +19,12 @@
 			formHook.updateData(null, e.detail.name);
 		else formHook.updateData(e.detail.value, e.detail.name);
 
-		formHook.updateFormInput(e, formTitle);
+		formHook.updateForm(e, formTitle);
 	}
 
 	function inputChange(e: CustomEvent<HTMLInputElement>) {
 		if (!$formHook.forms[formTitle]) {
-			addForm();
+			formHook.instantiateForm(formTitle);
 		}
 
 		handleInputChange(e as any);
@@ -42,8 +34,6 @@
 	export let formHook: Store_FormHook<any> = getContext(CONTEXT_KEY);
 	export let formTitle = '';
 	export let formIndex = 0;
-
-	export let isNested = false;
 
 	let formElement: HTMLFormElement;
 
@@ -55,13 +45,12 @@
 	data-form-id={formIndex}
 	data-show-form={formIndex === $formHook.currFormIndex}
 >
-	{#if !isNested}
-		<TypoHeader cubeClass={{ utilClass: 'text-center' }}>{formTitle}</TypoHeader>
-	{/if}
+	<TypoHeader cubeClass={{ utilClass: 'text-center' }}>{formTitle} post</TypoHeader>
 
 	<Card cubeClass={{ utilClass: 'padding-1' }}>
 		<Card variant="dark" cubeClass={{ utilClass: 'padding-2' }}>
 			<Flexy
+				id={formTitle + '-form'}
 				tag={'form'}
 				cubeClass={{ blockClass: 'form' }}
 				useColumn={true}

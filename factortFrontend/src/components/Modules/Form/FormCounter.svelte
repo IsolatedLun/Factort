@@ -13,7 +13,8 @@
 
 <div
 	class="[ form__counter ] [ pos-relative margin-block-end-2 overflow-hidden ]"
-	style="--data-completed: {$formHook.completionPct}; --data-amount: {Object.values(forms).length};"
+	style="--data-completed: {$formHook.totalCompletionPct}; --data-amount: {Object.values(forms)
+		.length};"
 >
 	<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
 		{#each Object.values(forms) as form, i}
@@ -22,7 +23,7 @@
 				<Button
 					selected={true}
 					secondaryVariant="square"
-					variant={$formHook.currFormIndex === i || $formHook.completionPct >= i + 1
+					variant={$formHook.currFormIndex === i || $formHook.totalCompletionPct >= i + 1
 						? 'primary'
 						: 'default'}
 					on:click={() => formHook.changeIndex(i)}

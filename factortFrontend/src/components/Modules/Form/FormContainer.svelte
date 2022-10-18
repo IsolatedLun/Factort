@@ -5,9 +5,10 @@
 	import FormCounter from './FormCounter.svelte';
 	import { objLen } from '../../../utils/misc';
 	import { createEventDispatcher, setContext } from 'svelte';
-	import { CONTEXT_KEY } from './consts';
 	import type { FormTypes } from './types';
 	import FormSelect from './FormSelect.svelte';
+	import { CONTEXT_KEY } from './consts';
+	import { onMount } from 'svelte';
 
 	function dispatchSubmit() {
 		dispatch('submit');
@@ -15,14 +16,14 @@
 
 	export let formHook: Store_FormHook<any>;
 	export let mode: FormTypes = 'counter';
-	export let isNested = false;
 
 	const dispatch = createEventDispatcher();
+	let _this: HTMLElement;
 
 	setContext(CONTEXT_KEY, formHook);
 </script>
 
-<div class={isNested ? '[ nested-form-container ] [ width-100 ]' : '[ form-container ]'}>
+<div class={'[ form-container ] [ width-100 ]'} bind:this={_this}>
 	{#if mode === 'counter'}
 		{#if objLen($formHook.forms) > 1}
 			<FormCounter />
@@ -48,14 +49,12 @@
 		</Flexy>
 	{/if}
 
-	{#if !isNested}
-		<Button
-			cubeClass={{ utilClass: 'margin-block-2 align-self-end width-100' }}
-			variant="primary"
-			workCondition={$formHook.isFormComplete}
-			on:click={dispatchSubmit}
-		>
-			Submit
-		</Button>
-	{/if}
+	<Button
+		cubeClass={{ utilClass: 'margin-block-2 align-self-end width-100' }}
+		variant="primary"
+		workCondition={$formHook.isTotallyCompleted}
+		on:click={dispatchSubmit}
+	>
+		Submit
+	</Button>
 </div>

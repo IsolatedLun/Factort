@@ -10,7 +10,8 @@ export function createInputIdWithLabel(label: string) {
  * @summary Selects all of the inputs in a form and stores them in a dict. { inputId: bool}
  * The boolean is used to know whether or not of the input is valid
  */
-export function bundleInputs(form: HTMLFormElement) {
+export function bundleInputs(formTitle: string) {
+	const form = document.getElementById(formTitle + '-form') as HTMLFormElement;
 	const inputs = form.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
 	let output: KeyValue<boolean> = {};
 

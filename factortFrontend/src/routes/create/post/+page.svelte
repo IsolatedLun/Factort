@@ -5,14 +5,14 @@
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
 	import { ICON_LINK } from '../../../consts';
-	import PostMediaForm from './_/Post_MediaForm.svelte';
+	import PostImageForm from './_/Post_ImageForm.svelte';
+	import PostVideoForm from './_/Post_VideoForm.svelte';
 
 	const mainFormHook = useForm('select');
-	const mediaFormHook = useForm('select');
 </script>
 
-<FormContainer formHook={mainFormHook} mode={['Text', 'Media', 'Link']}>
-	<Form formTitle="Text post" let:inputChange>
+<FormContainer formHook={mainFormHook} mode={['Text', 'Image', 'Video', 'Link']}>
+	<Form formTitle="Text" let:inputChange>
 		<TextInput label="Title" placeholder="Enter title" showLabel={true} on:validate={inputChange} />
 		<TextArea
 			inputCubeClass={{ utilClass: 'width-min-100 resize-vertical' }}
@@ -22,9 +22,11 @@
 		/>
 	</Form>
 
-	<PostMediaForm {mediaFormHook} />
+	<PostImageForm mediaFormHook={mainFormHook} />
 
-	<Form formTitle="Link post" formIndex={2} let:inputChange>
+	<PostVideoForm mediaFormHook={mainFormHook} />
+
+	<Form formTitle="Link" formIndex={3} let:inputChange>
 		<TextInput label="Title" placeholder="Enter title" showLabel={true} on:validate={inputChange} />
 		<TextInput
 			label="Link"

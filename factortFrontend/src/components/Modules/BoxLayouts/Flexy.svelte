@@ -7,6 +7,7 @@
 	export let useColumn = false;
 	export let gap: string | number = 1;
 	export let cubeClass = createObjectCubeClass();
+	export let id = '';
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		utilClass: `flex align-items-${align} justify-content-${justify} gap-${gap} ${
@@ -17,6 +18,6 @@
 	export let _this: HTMLElement | null = null;
 </script>
 
-<svelte:element this={tag} class={_class} bind:this={_this} on:submit|preventDefault>
+<svelte:element this={tag} {id} class={_class} bind:this={_this} on:submit|preventDefault>
 	<slot />
 </svelte:element>

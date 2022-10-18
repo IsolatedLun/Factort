@@ -3,13 +3,21 @@
 	import { getContext } from 'svelte';
 	import { CONTEXT_KEY } from './consts';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
+	import Button from '../Interactibles/Buttons/Button.svelte';
+	import Card from '../Card/Card.svelte';
 
 	export let formHook: Store_FormHook<any> = getContext(CONTEXT_KEY);
 	export let names: string[] = [];
 </script>
 
-<Flexy align="center" justify="center">
+<Flexy
+	cubeClass={{ blockClass: 'select', utilClass: 'margin-block-end-2' }}
+	align="center"
+	justify="center"
+>
 	{#each names as name, i}
-		<button on:click={() => formHook.changeIndex(i)}>{name}</button>
+		<Button selected={$formHook.currFormIndex === i} on:click={() => formHook.changeIndex(i)}
+			>{name}</Button
+		>
 	{/each}
 </Flexy>
