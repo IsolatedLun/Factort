@@ -53,6 +53,7 @@
 	export let label: string;
 	export let name: string = label.toLowerCase();
 
+	export let createRandomId = true;
 	export let showLabel = false;
 	export let endIcon = '';
 
@@ -65,7 +66,6 @@
 	let showPassword = false;
 	let errors: string[] = [];
 
-	const createRandomId = false;
 	const dispatch = createEventDispatcher();
 </script>
 

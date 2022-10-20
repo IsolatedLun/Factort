@@ -31,6 +31,15 @@ export const REVERSE_COMPLEMENTARIES: KeyValue<string> = {
 	'}': '{'
 };
 
+export const BIT_COUNTS = {
+	1: 1, // bit
+	2: 8, // byte
+	3: 8e3, // kilobyte
+	4: 8e6, // megabyte
+	5: 8e9, // gigabyte
+	6: 8e12 // terabyte
+};
+
 // ==============
 // Icons
 // ==============

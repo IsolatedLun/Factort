@@ -1,8 +1,6 @@
-import type { Props_Form } from '../../components/Modules/Form/types';
 import { objLen } from '../../utils/misc';
 import { writable } from 'svelte/store';
 import type { Store_Form, Store_FormContainer, Store_FormHook, Store_FormTypes } from './types';
-import type { KeyValue } from '../../types';
 import { bundleInputs } from '../../utils/form4Svelte/utils';
 
 // The form container keeps tracks of the forms contained within it and the data dispatched from the forms,
@@ -22,6 +20,7 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 	const { subscribe, update, set } = writable<Store_FormContainer<T>>({
 		forms: {},
 		data: {} as T,
+		selected: null,
 		formType,
 
 		currFormIndex: 0,
@@ -144,6 +143,8 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 					_state.isTotallyCompleted = isTotallyCompleted;
 					_state.totalCompletionPct = totalCompletionPct;
 				}
+
+				console.log(currForm);
 				return _state;
 			});
 		},
@@ -163,14 +164,15 @@ export function useForm<T>(formType: Store_FormTypes = 'counter'): Store_FormHoo
 				return state;
 			});
 		},
-		changeIndex: (n: number) => {
+		changeIndex: (n: number, selected: string | null = null) => {
 			update((state) => {
 				if (n >= 0 && n < objLen(state.forms)) {
 					state.currFormIndex = n;
 
 					if (state.formType === 'select') {
-						state.data = {} as T;
-						state.isTotallyCompleted = false;
+						state.data = { selected } as T;
+
+						if (selected) state.isTotallyCompleted = state.forms[selected].isFormComplete;
 					}
 				}
 

@@ -3,11 +3,21 @@
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
 	import type { Props_Profile } from './types';
 	import type { EventFunction } from '../../../types';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
 	onMount(() => {
 		use(_this);
+		_this.addEventListener('load', handleImageLoad);
 	});
+
+	onDestroy(() => {
+		_this.removeEventListener('load', handleImageLoad);
+	});
+
+	function handleImageLoad(e: Event) {
+		const target = e.target as HTMLImageElement;
+		dispatch('dimensions', { x: target.naturalWidth, y: target.naturalHeight });
+	}
 
 	export let props: Props_Profile = {
 		src: '',
@@ -20,6 +30,8 @@
 	const _class = createStringCubeCSSClass(cubeClass, {});
 
 	let _this: HTMLImageElement;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <img

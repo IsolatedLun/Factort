@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { Store_FormHook } from '../../../stores/formStore/types';
+	import type { Store_FormHook, Store_FormTypes } from '../../../stores/formStore/types';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import FormCounter from './FormCounter.svelte';
 	import { objLen } from '../../../utils/misc';
 	import { createEventDispatcher, setContext } from 'svelte';
-	import type { FormTypes } from './types';
 	import FormSelect from './FormSelect.svelte';
 	import { CONTEXT_KEY } from './consts';
 	import { onMount } from 'svelte';
@@ -15,7 +14,8 @@
 	}
 
 	export let formHook: Store_FormHook<any>;
-	export let mode: FormTypes = 'counter';
+	export let mode: Store_FormTypes = 'counter';
+	export let formNames: string[] = [];
 
 	const dispatch = createEventDispatcher();
 	let _this: HTMLElement;
@@ -28,13 +28,13 @@
 		{#if objLen($formHook.forms) > 1}
 			<FormCounter />
 		{/if}
-	{:else if mode instanceof Array}
-		<FormSelect names={mode} />
+	{:else if mode === 'select'}
+		<FormSelect names={formNames} />
 	{/if}
 
 	<slot />
 
-	{#if objLen($formHook.forms) > 1 && !(mode instanceof Array)}
+	{#if objLen($formHook.forms) > 1 && mode !== 'select'}
 		<Flexy cubeClass={{ utilClass: 'margin-block-start-2' }}>
 			<Button
 				variant="primary"

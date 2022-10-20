@@ -5,8 +5,6 @@ export interface Props_FormContext {
 	currFormIndex: () => number;
 }
 
-export type FormTypes = 'counter' | string[];
-
 export interface Props_Form {
 	name: string;
 	percentComplete: number;

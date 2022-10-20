@@ -8,6 +8,7 @@ export interface Store_FormContainer<T> {
 	forms: KeyValue<Store_Form>;
 	data: T;
 
+	selected: Store_FormTypes | null;
 	formType: Store_FormTypes;
 
 	currFormIndex: number;
@@ -38,5 +39,5 @@ export interface Store_FormHook<T> {
 
 	decrementIndex: () => void;
 	incrementIndex: () => void;
-	changeIndex: (n: number) => void;
+	changeIndex: (n: number, selected?: string) => void;
 }

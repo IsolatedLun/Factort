@@ -16,7 +16,7 @@
 	justify="center"
 >
 	{#each names as name, i}
-		<Button selected={$formHook.currFormIndex === i} on:click={() => formHook.changeIndex(i)}
+		<Button selected={$formHook.currFormIndex === i} on:click={() => formHook.changeIndex(i, name)}
 			>{name}</Button
 		>
 	{/each}

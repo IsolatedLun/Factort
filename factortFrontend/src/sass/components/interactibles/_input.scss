@@ -30,4 +30,20 @@
 	&:has(input:where(:hover, :focus)) .container__end-icon {
 		color: var(--clr-input-border-hover);
 	}
+
+	// Input stylings
+	label[data-variant='square-image'] {
+		.input__square-image-container {
+			width: 12rem;
+			aspect-ratio: 1;
+
+			background-color: var(--clr-card-300);
+			border: $theme-border-light;
+			border-style: dashed;
+		}
+
+		&[data-input-valid='true'] {
+			background-color: red;
+		}
+	}
 }
