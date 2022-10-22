@@ -1,5 +1,10 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
+
+	onMount(() => {
+		use(_this);
+	});
 
 	export let tag = 'div';
 	export let justify = 'space-between';
@@ -7,6 +12,7 @@
 	export let useColumn = false;
 	export let gap: string | number = 1;
 	export let cubeClass = createObjectCubeClass();
+	export let use: (_this: HTMLElement | null) => void = () => null;
 	export let id = '';
 
 	let _class = createStringCubeCSSClass(cubeClass, {

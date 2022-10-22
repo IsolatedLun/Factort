@@ -9,11 +9,16 @@
 	import { CONTEXT_KEY } from './consts';
 	import { onMount } from 'svelte';
 
+	onMount(() => {
+		// We call this when the component is mounted, to set the selected form
+		formHook.changeIndex(0);
+	});
+
 	function dispatchSubmit() {
 		dispatch('submit');
 	}
 
-	export let formHook: Store_FormHook<any>;
+	export let formHook: Store_FormHook;
 	export let mode: Store_FormTypes = 'counter';
 	export let formNames: string[] = [];
 
@@ -25,7 +30,7 @@
 
 <div class={'[ form-container ] [ width-100 ]'} bind:this={_this}>
 	{#if mode === 'counter'}
-		{#if objLen($formHook.forms) > 1}
+		{#if objLen($formHook.forms) > -1}
 			<FormCounter />
 		{/if}
 	{:else if mode === 'select'}
@@ -34,16 +39,16 @@
 
 	<slot />
 
-	{#if objLen($formHook.forms) > 1 && mode !== 'select'}
+	{#if objLen($formHook.forms) > 1 && mode === 'counter'}
 		<Flexy cubeClass={{ utilClass: 'margin-block-start-2' }}>
 			<Button
 				variant="primary"
-				workCondition={$formHook.currFormIndex !== 0}
+				workCondition={$formHook.currentIndex !== 0}
 				on:click={formHook.decrementIndex}>Back</Button
 			>
 			<Button
 				variant="primary"
-				workCondition={$formHook.currFormIndex < objLen($formHook.forms) - 1}
+				workCondition={$formHook.currentIndex < objLen($formHook.forms) - 1}
 				on:click={formHook.incrementIndex}>Next</Button
 			>
 		</Flexy>
@@ -52,7 +57,7 @@
 	<Button
 		cubeClass={{ utilClass: 'margin-block-2 align-self-end width-100' }}
 		variant="primary"
-		workCondition={$formHook.isTotallyCompleted}
+		workCondition={$formHook.isFormValid}
 		on:click={dispatchSubmit}
 	>
 		Submit

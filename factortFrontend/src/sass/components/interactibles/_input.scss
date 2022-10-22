@@ -6,11 +6,6 @@
 		@include createInput();
 	}
 
-	// .input[data-input-valid='true'],
-	// .input[data-input-valid='true']:is(:hover) {
-
-	// }
-
 	// ===========
 	// Misc
 	// ===========
@@ -34,16 +29,19 @@
 	// Input stylings
 	label[data-variant='square-image'] {
 		.input__square-image-container {
-			width: 12rem;
+			width: $input-square-image-width;
 			aspect-ratio: 1;
 
-			background-color: var(--clr-card-300);
+			background-color: $input-square-image-background-color;
 			border: $theme-border-light;
-			border-style: dashed;
 		}
 
-		&[data-input-valid='true'] {
-			background-color: red;
+		&[data-valid='false'] .input__square-image-container {
+			border-color: $clr-error;
+		}
+
+		&[data-valid='true'] .input__square-image-container {
+			border-color: $clr-success;
 		}
 	}
 }

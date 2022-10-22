@@ -6,14 +6,15 @@
 	} from '../../../../utils/cubeCss/cubeCss';
 	import { onMount } from 'svelte';
 	import type { EventFunction } from '../../../../types';
+	import type { ButtonSecondaryVariants, ButtonVariants } from './types';
 
 	onMount(() => {
 		use(_this);
 	});
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
-	export let variant = 'default';
-	export let secondaryVariant = 'default';
+	export let variant: ButtonVariants = 'default';
+	export let secondaryVariant: ButtonSecondaryVariants = 'default';
 	export let ariaLabel = 'Button';
 	export let to = '';
 

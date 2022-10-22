@@ -1,52 +1,82 @@
-<script>
+<script lang="ts">
+	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
+	import {
+		emailValidator,
+		minLenValidator,
+		specialCharacterValidator
+	} from '../../../utils/form4Svelte/validators';
+	import { _Register_View } from '../../../services/auth/authService';
+	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
+	import {
+		createDefaultCreatePostData,
+		createDefaultSignUpData
+	} from '../../../utils/defaultProps';
 	import Form from '../../../components/Modules/Form/Form.svelte';
 	import FormContainer from '../../../components/Modules/Form/FormContainer.svelte';
-	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
-	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
-	import { ICON_LINK } from '../../../consts';
-	import PostImageForm from './_/Post_ImageForm.svelte';
-	import PostVideoForm from './_/Post_VideoForm.svelte';
-	import { minLenValidator } from '../../../utils/form4Svelte/validators';
+	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
+	import type { Form_CreatePost } from '../types';
+	import FormImagesSlot from '../../../components/Modules/Form/Slots/Form_ImagesSlot.svelte';
 
-	const mainFormHook = useForm('select');
+	let data: Form_CreatePost = createDefaultCreatePostData();
+	let formHook = useForm(data, 'select');
 </script>
 
-<FormContainer formHook={mainFormHook} mode="select" formNames={['Text', 'Image', 'Video', 'Link']}>
-	<Form formTitle="Text" let:inputChange>
+<FormContainer
+	{formHook}
+	mode="select"
+	formNames={['Text', 'Images', 'Video', 'Link']}
+	on:submit={(e) => console.log(data)}
+>
+	<Form formTitle={'Text'} let:inputChange>
 		<TextInput
 			label="Title"
-			placeholder="Enter title"
 			showLabel={true}
+			validators={[minLenValidator(1)]}
+			bind:value={data.title}
 			on:validate={inputChange}
-			validators={[minLenValidator(2)]}
 		/>
 		<TextArea
-			inputCubeClass={{ utilClass: 'width-min-100 resize-vertical' }}
 			label="Content"
-			placeholder="Enter content"
+			showLabel={true}
+			validators={[minLenValidator(5), emailValidator()]}
+			bind:value={data.content}
 			on:validate={inputChange}
 		/>
 	</Form>
-
-	<PostImageForm />
-
-	<PostVideoForm />
-
-	<Form formTitle="Link" formIndex={3} let:inputChange>
+	<Form formTitle={'Images'} formIndex={1} let:inputChange>
 		<TextInput
 			label="Title"
-			placeholder="Enter title"
 			showLabel={true}
+			validators={[minLenValidator(1)]}
+			bind:value={data.title}
 			on:validate={inputChange}
-			validators={[minLenValidator(2)]}
+		/>
+		<FormImagesSlot on:change={inputChange} on:images={(e) => (data.images = e.detail)} />
+	</Form>
+	<Form formTitle={'Video'} formIndex={2} let:inputChange>
+		<TextInput
+			label="Title"
+			showLabel={true}
+			validators={[minLenValidator(1)]}
+			bind:value={data.title}
+			on:validate={inputChange}
+		/>
+		<FileInput label="Video" name="video" expectedFile="video" on:validate={inputChange} />
+	</Form>
+	<Form formTitle={'Link'} formIndex={3} let:inputChange>
+		<TextInput
+			label="Title"
+			showLabel={true}
+			validators={[minLenValidator(1)]}
+			bind:value={data.title}
+			on:validate={inputChange}
 		/>
 		<TextInput
 			label="Link"
-			placeholder="Enter link"
 			showLabel={true}
-			endIcon={ICON_LINK}
-			validators={[minLenValidator(2)]}
+			validators={[minLenValidator(1)]}
+			bind:value={data.link}
 			on:validate={inputChange}
 		/>
 	</Form>

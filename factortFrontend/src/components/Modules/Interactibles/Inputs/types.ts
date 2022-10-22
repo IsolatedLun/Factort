@@ -1,4 +1,4 @@
-import type { Complex_Data_Type } from 'src/types';
+import type { Complex_Data_Type } from '../../../../types';
 
 export type InputTypes = 'text' | 'email' | 'password' | 'file';
 

@@ -9,6 +9,7 @@
 	export let id: string;
 	export let fileData: Input_Image_File;
 	export let styling: FileInputStylings;
+	export let isInputValid: boolean;
 
 	let dimensions: ImageDimensions = { x: 0, y: 0 };
 </script>
@@ -17,6 +18,7 @@
 	for={id}
 	class={'[ margin-block-end-1 display-inline-block margin-inline-auto ]'}
 	data-variant={styling}
+	data-valid={isInputValid}
 >
 	<div class="[ input__square-image-container ] [  border-radius-cubed ]">
 		<Image

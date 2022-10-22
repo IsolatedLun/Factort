@@ -10,3 +10,9 @@ export interface Props_Form {
 	percentComplete: number;
 	validatedInputs: KeyValue<boolean>;
 }
+
+export interface Props_InputValidateMessage {
+	input: HTMLInputElement;
+	allowUpdate: boolean;
+	destroy?: boolean;
+}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createInputIdWithLabel, validateInput } from '../../../../utils/form4Svelte/utils';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import {
 		createObjectCubeClass,
 		createStringCubeCSSClass
@@ -20,6 +20,10 @@
 		_this.id = id;
 
 		handleInput({ target: _this });
+	});
+
+	onDestroy(() => {
+		dispatch('validate', { input: _this, destroy: true });
 	});
 
 	function setType(node: HTMLInputElement) {
@@ -83,7 +87,7 @@
 				value = _this.value;
 				handleInput(e);
 
-				dispatch('validate', e.target);
+				dispatch('validate', { input: _this, destroy: false });
 			}}
 			bind:this={_this}
 			{id}

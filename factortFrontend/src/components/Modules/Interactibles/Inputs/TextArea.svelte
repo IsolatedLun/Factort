@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SyntheticTarget } from '../../../../types';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import {
 		createObjectCubeClass,
 		createStringCubeCSSClass
@@ -26,6 +26,10 @@
 		});
 	});
 
+	onDestroy(() => {
+		dispatch('validate', { input: _this, destroy: true });
+	});
+
 	function handleInput(e: Event | SyntheticTarget<HTMLInputElement>) {
 		const target = e.target as HTMLInputElement;
 
@@ -44,6 +48,7 @@
 	export let id = '';
 	export let label: string;
 
+	export let allowUpdate = true;
 	export let showLabel = false;
 	export let validators: Props_InputValidator[] = [];
 
@@ -76,7 +81,7 @@
 			value = _this.value;
 			handleInput(e);
 
-			dispatch('validate', e.target);
+			dispatch('validate', { input: _this, destroy: false, allowUpdate });
 		}}
 		{id}
 		class={_inputCubeClass}

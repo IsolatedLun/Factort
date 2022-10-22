@@ -1,3 +1,4 @@
+import type { Form_CreatePost } from 'src/routes/create/types';
 import type { Props_Post } from '../components/Layouts/Post/types';
 import type { Props_User } from '../types';
 import type { MKD_ParsedData } from './markdown/types';
@@ -16,8 +17,9 @@ export function createDefaultPost<A, B, C>(
 		comments,
 		replies,
 		community: { type: 'user', data: null },
+		visibility: 'public',
 		date_created: ''
-	} as Props_Post<B, C>;
+	} as Props_Post;
 }
 
 export function createDefaultUser() {
@@ -33,4 +35,24 @@ export function createDefaultUser() {
 
 export function createDefaultParsedData<T>(): MKD_ParsedData<T> {
 	return { result: false as T, data: { count: 0, offset: 1 } };
+}
+
+export function createDefaultSignUpData() {
+	return {
+		email: '',
+		username: '',
+		password: '',
+		profile: null
+	};
+}
+
+export function createDefaultCreatePostData(): Form_CreatePost {
+	return {
+		title: '',
+
+		content: '',
+		images: [],
+		video: null,
+		link: ''
+	};
 }

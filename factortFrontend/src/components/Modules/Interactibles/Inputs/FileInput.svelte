@@ -27,10 +27,12 @@
 		if (_accept) _this.accept = _accept;
 
 		handleInput({ target: _this });
-		dispatch('validate', _this);
+		dispatch('validate', { input: _this, destroy: false });
 	});
 
-	onDestroy(() => {});
+	onDestroy(() => {
+		dispatch('validate', { input: _this, destroy: true });
+	});
 
 	function handleInput(e: Event | SyntheticTarget<HTMLInputElement>) {
 		const target = e.target as HTMLInputElement;
@@ -38,12 +40,15 @@
 		// If the input is optional and is empty
 		if (isOptional && target.files && target.files.length === 0) {
 			_this.setAttribute('data-input-valid', 'true');
+			isInputValid = true;
 
 			// If the input is required or has a file
 		} else if (!isOptional || (target.files && target.files.length > 0)) {
 			const { errors: _errors, isValid } = validateInput(target, validators);
 			_this.setAttribute('data-input-valid', String(isValid));
+
 			errors = _errors;
+			isInputValid = isValid;
 		}
 
 		if (expectedFile === 'image' && target.files && target.files[0]) {
@@ -58,6 +63,8 @@
 				}
 			};
 		}
+
+		dispatch('_input', e);
 	}
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
@@ -87,6 +94,7 @@
 		type: 'file',
 		data: { type: '', size: 0, name: '', url: null }
 	};
+	let isInputValid = false;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -102,7 +110,7 @@
 					<Image props={{ src: fileData.data.url, alt: fileData.data.name }} />
 				</div>
 			{:else if styling === 'square-image' && fileData.type === 'image'}
-				<FileInputSquareImage {id} {fileData} {styling} />
+				<FileInputSquareImage {id} {fileData} {styling} {isInputValid} />
 			{/if}
 		{/if}
 		<input
@@ -111,8 +119,7 @@
 				value = _this.value;
 				handleInput(e);
 
-				dispatch('validate', e.target);
-				dispatch('_input', e.target);
+				dispatch('validate', { input: _this, destroy: false });
 			}}
 			bind:this={_this}
 			{id}

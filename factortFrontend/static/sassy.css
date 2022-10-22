@@ -1439,6 +1439,9 @@
 .form-container .form__counter .counter__container:last-child {
   place-items: end;
 }
+.form-container .container__images-slot .input-container {
+  width: max-content !important;
+}
 
 .input-container .input[data-variant=default] {
   font-size: var(--fs-400);
@@ -1468,14 +1471,16 @@
   color: var(--clr-input-border-hover);
 }
 .input-container label[data-variant=square-image] .input__square-image-container {
-  width: 12rem;
+  width: 16rem;
   aspect-ratio: 1;
   background-color: var(--clr-card-300);
   border: 2px solid var(--clr-input-border-hover);
-  border-style: dashed;
 }
-.input-container label[data-variant=square-image][data-input-valid=true] {
-  background-color: red;
+.input-container label[data-variant=square-image][data-valid=false] .input__square-image-container {
+  border-color: var(--clr-button-difference-downvote-hover);
+}
+.input-container label[data-variant=square-image][data-valid=true] .input__square-image-container {
+  border-color: var(--clr-button-difference-upvote-hover);
 }
 
 .button[data-variant=default] {
@@ -1789,7 +1794,7 @@ img[data-profile=true] {
 }
 
 .width-100 {
-  width: 100% !important;
+  width: 100%;
 }
 
 .height-100 {

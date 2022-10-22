@@ -6,7 +6,7 @@
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import Card from '../Card/Card.svelte';
 
-	export let formHook: Store_FormHook<any> = getContext(CONTEXT_KEY);
+	export let formHook: Store_FormHook = getContext(CONTEXT_KEY);
 	export let names: string[] = [];
 </script>
 
@@ -16,7 +16,7 @@
 	justify="center"
 >
 	{#each names as name, i}
-		<Button selected={$formHook.currFormIndex === i} on:click={() => formHook.changeIndex(i, name)}
+		<Button selected={$formHook.currentIndex === i} on:click={() => formHook.changeIndex(i)}
 			>{name}</Button
 		>
 	{/each}
