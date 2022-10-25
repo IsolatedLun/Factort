@@ -7,7 +7,7 @@
 	import type { Store_FormHook } from 'src/stores/formStore/types';
 	import { onMount } from 'svelte';
 
-	export let formHook: Store_FormHook<any> = getContext(CONTEXT_KEY);
+	export let formHook: Store_FormHook = getContext(CONTEXT_KEY);
 </script>
 
 <div

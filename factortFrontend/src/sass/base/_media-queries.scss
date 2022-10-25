@@ -21,6 +21,10 @@
 			flex-direction: column !important;
 		}
 
+		*[data-flex-wrap='true'] {
+			flex-wrap: wrap !important;
+		}
+
 		*[data-grid-collapse='true'] {
 			grid-template-columns: 1fr !important;
 		}

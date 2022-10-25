@@ -19,6 +19,10 @@
   color: #727184;
 }
 
+.clr-card-error-difference-background {
+  color: rgba(252, 70, 64, 0.3);
+}
+
 .clr-markdown-code {
   color: #44434f;
 }
@@ -85,6 +89,10 @@
 
 .clr-button-background-dark-hover {
   color: #393842;
+}
+
+.clr-button-downvote-hover {
+  color: #fd645e;
 }
 
 .clr-button-difference {
@@ -1372,6 +1380,15 @@
   border-color: none;
 }
 
+.card[data-variant=error-difference] {
+  background-color: var(--clr-card-error-difference-background);
+  border: 2px solid var(--clr-button-difference-downvote-hover);
+  border-radius: 9px;
+}
+.card[data-variant=error-difference]:is(:focus-visible, :hover) {
+  border-color: none;
+}
+
 .card[data-variant=dark] {
   background-color: var(--clr-background-300);
   border: 2px solid var(--clr-input-border);
@@ -1561,6 +1578,26 @@
   background-color: var(--clr-button-difference-upvote-hover);
   color: var(--clr-text-accent);
   border-color: var(--clr-button-difference-upvote-hover);
+}
+
+.button[data-variant=downvote] {
+  font-size: var(--fs-400);
+  padding: 0.575em 0.55em;
+  background-color: var(--clr-button-difference-downvote-hover);
+  color: var(--clr-text-accent);
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 95ms ease-in-out, color 95ms ease-in-out;
+}
+.button[data-variant=downvote] > .icon {
+  font-size: var(--fs-400);
+  color: var(--clr-text-accent);
+}
+.button[data-variant=downvote]:is(:focus-visible, :hover, [data-selected=true]) {
+  background-color: var(--clr-button-downvote-hover);
+  color: var(--clr-text-accent);
+  border-color: var(--clr-button-downvote-hover);
 }
 
 .button[data-variant=downvote-difference] {
@@ -2140,6 +2177,10 @@ img[data-profile=true] {
   color: #727184;
 }
 
+.clr-card-error-difference-background {
+  color: rgba(252, 70, 64, 0.3);
+}
+
 .clr-markdown-code {
   color: #44434f;
 }
@@ -2208,6 +2249,10 @@ img[data-profile=true] {
   color: #393842;
 }
 
+.clr-button-downvote-hover {
+  color: #fd645e;
+}
+
 .clr-button-difference {
   color: rgba(86, 84, 99, 0.5);
 }
@@ -2274,6 +2319,7 @@ img[data-profile=true] {
   --clr-card-300: #44434f;
   --clr-card-400: #575665;
   --clr-card-600: #727184;
+  --clr-card-error-difference-background: rgba(252, 70, 64, 0.3);
   --clr-markdown-code: #44434f;
   --clr-hoverable-400: rgba(167, 166, 179, 0.38);
   --clr-text-difference: black;
@@ -2291,6 +2337,7 @@ img[data-profile=true] {
   --clr-button-tool-background-hover: #0998ae;
   --clr-button-background-dark: #302f37;
   --clr-button-background-dark-hover: #393842;
+  --clr-button-downvote-hover: #fd645e;
   --clr-button-difference: rgba(86, 84, 99, 0.5);
   --clr-button-difference-hover: #5f5e6e;
   --clr-button-difference-upvote: rgba(64, 127, 252, 0.3);
@@ -2337,6 +2384,10 @@ img[data-profile=true] {
 
   .clr-card-600 {
     color: #727184;
+  }
+
+  .clr-card-error-difference-background {
+    color: rgba(252, 70, 64, 0.3);
   }
 
   .clr-markdown-code {
@@ -2407,6 +2458,10 @@ img[data-profile=true] {
     color: #393842;
   }
 
+  .clr-button-downvote-hover {
+    color: #fd645e;
+  }
+
   .clr-button-difference {
     color: rgba(86, 84, 99, 0.5);
   }
@@ -2473,6 +2528,7 @@ img[data-profile=true] {
     --clr-card-300: #44434f;
     --clr-card-400: #575665;
     --clr-card-600: #727184;
+    --clr-card-error-difference-background: rgba(252, 70, 64, 0.3);
     --clr-markdown-code: #44434f;
     --clr-hoverable-400: rgba(167, 166, 179, 0.38);
     --clr-text-difference: black;
@@ -2490,6 +2546,7 @@ img[data-profile=true] {
     --clr-button-tool-background-hover: #0998ae;
     --clr-button-background-dark: #302f37;
     --clr-button-background-dark-hover: #393842;
+    --clr-button-downvote-hover: #fd645e;
     --clr-button-difference: rgba(86, 84, 99, 0.5);
     --clr-button-difference-hover: #5f5e6e;
     --clr-button-difference-upvote: rgba(64, 127, 252, 0.3);
@@ -2621,7 +2678,7 @@ video {
 }
 
 img[data-small=true] {
-  width: auto;
+  width: 100%;
   object-fit: contain;
 }
 
@@ -2684,6 +2741,9 @@ img[data-small=true] {
   }
   :root *[data-flex-collapse=true] {
     flex-direction: column !important;
+  }
+  :root *[data-flex-wrap=true] {
+    flex-wrap: wrap !important;
   }
   :root *[data-grid-collapse=true] {
     grid-template-columns: 1fr !important;

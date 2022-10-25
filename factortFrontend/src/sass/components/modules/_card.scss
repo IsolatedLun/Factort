@@ -12,6 +12,13 @@
 	);
 }
 
+.card[data-variant='error-difference'] {
+	@include createCard(
+		$background-color: $error-difference-card-background-color,
+		$border: $error-difference-card-border
+	);
+}
+
 .card[data-variant='dark'] {
 	@include createCard($background-color: $dark-card-background-color, $border: $dark-card-border);
 }

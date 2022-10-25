@@ -34,6 +34,16 @@ class Post(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
 
+class PostImage(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='posts/images/')
+
+
+class PostVideo(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    video = models.FileField(upload_to='posts/videos/')
+
+
 class CommunityPost(models.Model):
     community = models.ForeignKey(
         'communities.Community', on_delete=models.CASCADE)

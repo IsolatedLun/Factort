@@ -1,32 +1,39 @@
 <script lang="ts">
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import {
-		emailValidator,
-		minLenValidator,
-		specialCharacterValidator
-	} from '../../../utils/form4Svelte/validators';
+	import { emailValidator, minLenValidator } from '../../../utils/form4Svelte/validators';
 	import { _Register_View } from '../../../services/auth/authService';
 	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
-	import {
-		createDefaultCreatePostData,
-		createDefaultSignUpData
-	} from '../../../utils/defaultProps';
+	import { createDefaultCreatePostData } from '../../../utils/defaultProps';
 	import Form from '../../../components/Modules/Form/Form.svelte';
 	import FormContainer from '../../../components/Modules/Form/FormContainer.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
 	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
 	import type { Form_CreatePost } from '../types';
 	import FormImagesSlot from '../../../components/Modules/Form/Slots/Form_ImagesSlot.svelte';
+	import { _Create_Post } from '../../../services/create/createPostFetchers';
+
+	function createPost() {
+		let _data = { ...data, selected: $formHook.selected.toLowerCase() };
+
+		if (_data.selected === 'images') data.video = null;
+		if (_data.selected === 'video') data.images = [];
+
+		_Create_Post({ ..._data, selected: $formHook.selected.toLowerCase() }).then((res) => {
+			if (res.type === 'error') errorMessage = 'res.data';
+		});
+	}
 
 	let data: Form_CreatePost = createDefaultCreatePostData();
 	let formHook = useForm(data, 'select');
+	let errorMessage: string = '';
 </script>
 
 <FormContainer
 	{formHook}
 	mode="select"
 	formNames={['Text', 'Images', 'Video', 'Link']}
-	on:submit={(e) => console.log(data)}
+	{errorMessage}
+	on:submit={createPost}
 >
 	<Form formTitle={'Text'} let:inputChange>
 		<TextInput
@@ -62,7 +69,15 @@
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>
-		<FileInput label="Video" name="video" expectedFile="video" on:validate={inputChange} />
+		<FileInput
+			label="Video"
+			name="video"
+			expectedFile="video"
+			on:_input={(e) => {
+				if (e.detail.files) data.video = e.detail.files[0];
+			}}
+			on:validate={inputChange}
+		/>
 	</Form>
 	<Form formTitle={'Link'} formIndex={3} let:inputChange>
 		<TextInput

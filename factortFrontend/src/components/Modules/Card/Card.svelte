@@ -2,12 +2,13 @@
 	import { onMount } from 'svelte';
 	import type { EventFunction } from '../../../types';
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
+	import type { CardTypes } from './types';
 
 	onMount(() => {
 		use(_this);
 	});
 
-	export let variant = 'default';
+	export let variant: CardTypes = 'default';
 	export let secondaryVariant = 'default';
 	export let tag = 'div';
 	export let padding = 0;

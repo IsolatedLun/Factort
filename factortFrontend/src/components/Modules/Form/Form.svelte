@@ -36,6 +36,7 @@
 
 	<Card variant="dark" cubeClass={{ utilClass: 'padding-inline-3 padding-block-2' }}>
 		<form
+			enctype="multipart/form-data"
 			class="[ form ] [ flex flex-direction-column gap-1 ]"
 			name={formTitle}
 			bind:this={formElement}

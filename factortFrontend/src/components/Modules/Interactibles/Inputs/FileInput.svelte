@@ -120,6 +120,7 @@
 				handleInput(e);
 
 				dispatch('validate', { input: _this, destroy: false });
+				dispatch('_input', _this);
 			}}
 			bind:this={_this}
 			{id}

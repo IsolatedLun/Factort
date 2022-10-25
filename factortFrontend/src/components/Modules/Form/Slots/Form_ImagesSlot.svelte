@@ -42,19 +42,13 @@
 	{/each}
 </Flexy>
 
-<Flexy justify="center">
-	<Button
-		on:click={() => {
-			imageCount++;
-		}}
-		variant="primary"
-		cubeClass={{ utilClass: 'width-100' }}>Add image</Button
+<Flexy justify="center" collapseOnMobile={true}>
+	<Button on:click={() => imageCount++} variant="primary" cubeClass={{ utilClass: 'width-100' }}
+		>Add image</Button
 	>
 	<Button
-		on:click={() => {
-			imageCount !== 1 ? imageCount-- : null;
-		}}
-		variant="downvote-difference"
+		on:click={() => (imageCount !== 1 ? imageCount-- : null)}
+		variant="downvote"
 		cubeClass={{ utilClass: 'width-100' }}>Remove last image</Button
 	>
 </Flexy>

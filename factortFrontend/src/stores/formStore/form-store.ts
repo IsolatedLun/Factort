@@ -83,7 +83,10 @@ export function useForm<T>(data: T, formMode: Store_FormTypes): Store_FormHook {
 		},
 		changeIndex: (n: number) => {
 			update((state) => {
-				if (state.formMode === 'select') state.selected = state.forms[n].name;
+				if (state.formMode === 'select') {
+					state.selected = state.forms[n].name;
+					state.isFormValid = false;
+				}
 
 				if (n >= 0 && n < objLen(state.forms)) state.currentIndex = n;
 				return state;

@@ -23,6 +23,7 @@ options. [DONE]
 
 - Add dynamic file input that supports videos/images/any file and displays previewable files [DONE]
 - Connect backend to frontend [DONE]
+- Add complete frontend form validation [DONE]
 - Basic authentication
 
 ============

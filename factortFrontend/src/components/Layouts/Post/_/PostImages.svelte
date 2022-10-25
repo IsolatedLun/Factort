@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Button from '../../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import Flexy from '../../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import { SLIDESHOW_INTERVAL } from '../../../../consts';
+	import { BACKEND_ROOT_URL, SLIDESHOW_INTERVAL } from '../../../../consts';
 	import { createEventDispatcher } from 'svelte';
+	import Image from '../../../../components/Misc/MediaElements/Image.svelte';
 
 	function startSlideShow() {
 		clearInterval(slideShowInterval);
@@ -48,17 +49,25 @@
 </script>
 
 <div class="[ post__images ] [ pos-relative ]">
-	<img src={images[selectedIdx]} alt={`image ${selectedIdx + 1} out of ${images.length}`} />
-	<Flexy align="center" cubeClass={{ blockClass: 'images__dots', utilClass: 'pos-absolute' }}>
-		{#each images as image, i}
-			<Button
-				ariaLabel={`Select image ${i + 1}`}
-				on:click={() => (selectedIdx = i)}
-				selected={selectedIdx === i}
-				variant="none"
-				allowOutline={true}
-				cubeClass={{ blockClass: 'dot', utilClass: 'border-radius-100vw' }}
-			/>
-		{/each}
-	</Flexy>
+	<Image
+		props={{
+			src: BACKEND_ROOT_URL + images[selectedIdx],
+			alt: `image ${selectedIdx + 1} out of ${images.length}`
+		}}
+		autoContain={true}
+	/>
+	{#if images.length > 1}
+		<Flexy align="center" cubeClass={{ blockClass: 'images__dots', utilClass: 'pos-absolute' }}>
+			{#each images as image, i}
+				<Button
+					ariaLabel={`Select image ${i + 1}`}
+					on:click={() => (selectedIdx = i)}
+					selected={selectedIdx === i}
+					variant="none"
+					allowOutline={true}
+					cubeClass={{ blockClass: 'dot', utilClass: 'border-radius-100vw' }}
+				/>
+			{/each}
+		</Flexy>
+	{/if}
 </div>

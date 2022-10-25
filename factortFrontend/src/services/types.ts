@@ -6,6 +6,8 @@ export enum HTTP_METHODS {
 	DELETE = 'DELETE'
 }
 
+export type HeaderTypes = 'files' | 'json' | 'files+json' | 'auth';
+
 export interface Response<T> {
 	data: T;
 	status: number;

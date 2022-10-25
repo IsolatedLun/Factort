@@ -52,6 +52,8 @@ export const ICON_SEARCH = '\uf002';
 export const ICON_TIMES = '\uf00d';
 export const ICON_CHECK = '\uf00c';
 export const ICON_COMMENTS = '\uf086';
+export const ICON_BARS = '\uf0c9';
+export const ICON_ERROR = '\uf071';
 
 export const ICON_EYE = '\uf06e';
 
@@ -78,6 +80,7 @@ export const API_URL = BACKEND_ROOT_URL + '/api';
 
 export const POSTS_URL = API_URL + '/posts/';
 export const POST_URL = (id: number) => POSTS_URL + id;
+export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;

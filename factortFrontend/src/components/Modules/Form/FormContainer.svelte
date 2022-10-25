@@ -8,6 +8,9 @@
 	import FormSelect from './FormSelect.svelte';
 	import { CONTEXT_KEY } from './consts';
 	import { onMount } from 'svelte';
+	import Card from '../Card/Card.svelte';
+	import Icon from '../Icon/Icon.svelte';
+	import { ICON_ERROR } from '../../../consts';
 
 	onMount(() => {
 		// We call this when the component is mounted, to set the selected form
@@ -21,6 +24,7 @@
 	export let formHook: Store_FormHook;
 	export let mode: Store_FormTypes = 'counter';
 	export let formNames: string[] = [];
+	export let errorMessage: string = '';
 
 	const dispatch = createEventDispatcher();
 	let _this: HTMLElement;
@@ -35,6 +39,15 @@
 		{/if}
 	{:else if mode === 'select'}
 		<FormSelect names={formNames} />
+	{/if}
+
+	{#if errorMessage}
+		<Card cubeClass={{ utilClass: 'margin-block-end-1' }} variant="error-difference" padding={1}>
+			<Flexy cubeClass={{ utilClass: 'margin-inline-1' }} justify="start" align="center">
+				<Icon cubeClass={{ utilClass: 'clr-text-error' }}>{ICON_ERROR}</Icon>
+				<p>{errorMessage}</p>
+			</Flexy>
+		</Card>
 	{/if}
 
 	<slot />

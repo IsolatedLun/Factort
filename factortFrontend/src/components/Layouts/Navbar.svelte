@@ -7,6 +7,7 @@
 	import Button from '../Modules/Interactibles/Buttons/Button.svelte';
 	import Icon from '../Modules/Icon/Icon.svelte';
 	import {
+		ICON_BARS,
 		ICON_CARET_LEFT,
 		ICON_CARET_RIGHT,
 		ICON_SEARCH,
@@ -85,7 +86,7 @@
 						<Icon>{ICON_SEARCH}</Icon>
 					</Button>
 				{/if}
-				<div data-show-sticky-input={showStickyInput}>
+				<div data-show-sticky-input={showStickyInput} data-desktop>
 					<TextInput
 						cubeClass={{ utilClass: 'navbar__search-input' }}
 						placeholder="Search"
@@ -94,6 +95,15 @@
 					/>
 				</div>
 			</Flexy>
+
+			<div data-mobile>
+				<Button>
+					<Icon>
+						{ICON_BARS}
+					</Icon>
+				</Button>
+			</div>
+
 			<div data-desktop>
 				{#if isLogged}
 					<div class="[ navbar__user ]">

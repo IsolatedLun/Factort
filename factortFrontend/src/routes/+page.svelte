@@ -50,7 +50,7 @@
 		</Card>
 		<section>
 			<span class="[ visually-hidden ]">Posts</span>
-			<Flexy useColumn={true}>
+			<Flexy useColumn={true} gap={2}>
 				{#await fetchPosts() then res}
 					{#if res.type === 'success'}
 						{#each res.data as post}

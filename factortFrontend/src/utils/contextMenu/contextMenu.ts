@@ -7,20 +7,19 @@ export function toggleContextMenu(e: MouseEvent, contextMenuId: string) {
 	e.preventDefault();
 
 	const contextMenu = document.getElementById(contextMenuId)! as HTMLElement;
+	const target = e.target as HTMLInputElement;
 
 	let x = e.x;
 	let y = e.y;
 	let rect = contextMenu.getBoundingClientRect();
 
-	if (x + rect.width > window.innerWidth) {
-		x = x - rect.width - 5;
-	} else if (y + rect.height + rect.width > window.innerHeight) {
-		y = y - rect.height - 5;
-	}
+	x = target.width / 2;
+	y = target.height / 2;
 
-	contextMenu.focus();
 	contextMenu.style.left = `${x}px`;
 	contextMenu.style.top = `${y}px`;
+
+	contextMenu.focus();
 }
 
 export function blurContextMenu() {

@@ -24,7 +24,7 @@ interface Post_Content_Video_Data {
 // Content types
 type Post_Content_Text = Complex_Data_Type<'text', string>;
 type Post_Content_Images = Complex_Data_Type<'images', string[]>;
-type Post_Content_Video = Complex_Data_Type<'video', Post_Content_Video_Data>;
+type Post_Content_Video = Complex_Data_Type<'video', string>;
 type Post_Content_Link = Complex_Data_Type<'link', string>;
 
 type Post_Content_Complex_Type =

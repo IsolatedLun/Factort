@@ -57,7 +57,7 @@
 
 <div
 	bind:this={_this}
-	class="[ post ]"
+	class="[ post ] [ width-100 pos-relative ]"
 	tabindex="-1"
 	on:contextmenu={handleContextMenu}
 	data-collapse={collapsePost}
@@ -96,10 +96,7 @@
 				{imageKeyEventIdx}
 			/>
 		{:else if props.content.type === 'video'}
-			<PostVideo
-				videoSrc={props.content.data.url}
-				isThirdParty={props.content.data.is_third_party}
-			/>
+			<PostVideo videoSrc={props.content.data} isThirdParty={false} />
 		{:else if props.content.type === 'link'}
 			<div class="[ padding-2 ]">
 				<a target="_blank" href={props.content.data}>{props.content.data}</a>
@@ -133,25 +130,25 @@
 			</Flexy>
 		</Flexy>
 	</Card>
-</div>
 
-{#key postElementId}
-	<ContextMenu id={postElementId}>
-		<ContextMenuItem
-			action={() => (collapsePost = !collapsePost)}
-			useSelected={true}
-			selected={collapsePost}
-		>
-			Collapse
-		</ContextMenuItem>
-		{#if props.content.type === 'images'}
+	{#key postElementId}
+		<ContextMenu id={postElementId}>
 			<ContextMenuItem
-				action={() => (slideshowMode = !slideshowMode)}
+				action={() => (collapsePost = !collapsePost)}
 				useSelected={true}
-				selected={slideshowMode}
+				selected={collapsePost}
 			>
-				Slideshow
+				Collapse
 			</ContextMenuItem>
-		{/if}
-	</ContextMenu>
-{/key}
+			{#if props.content.type === 'images'}
+				<ContextMenuItem
+					action={() => (slideshowMode = !slideshowMode)}
+					useSelected={true}
+					selected={slideshowMode}
+				>
+					Slideshow
+				</ContextMenuItem>
+			{/if}
+		</ContextMenu>
+	{/key}
+</div>

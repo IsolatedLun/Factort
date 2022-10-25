@@ -4,7 +4,6 @@
 	import { CONTEXT_KEY } from './consts';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
-	import Card from '../Card/Card.svelte';
 
 	export let formHook: Store_FormHook = getContext(CONTEXT_KEY);
 	export let names: string[] = [];

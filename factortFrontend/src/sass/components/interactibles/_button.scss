@@ -43,6 +43,18 @@
 	);
 }
 
+.button[data-variant='downvote'] {
+	@include createButton(
+		$background-color: $downvote-button-background-color,
+		$background-color-on-hov: $downvote-button-background-color-on-hov,
+		$border: $downvote-button-border,
+
+		$border-radius: $primary-button-border-radius,
+		$font-size: $primary-button-font-size,
+		$padding: $primary-button-padding
+	);
+}
+
 .button[data-variant='downvote-difference'] {
 	@include createButton(
 		$background-color: $difference-downvote-button-background-color,

@@ -10,6 +10,8 @@
 	export let justify = 'space-between';
 	export let align = 'start';
 	export let useColumn = false;
+	export let collapseOnMobile = false;
+	export let wrapOnMobile = false;
 	export let gap: string | number = 1;
 	export let cubeClass = createObjectCubeClass();
 	export let use: (_this: HTMLElement | null) => void = () => null;
@@ -24,6 +26,14 @@
 	export let _this: HTMLElement | null = null;
 </script>
 
-<svelte:element this={tag} {id} class={_class} bind:this={_this} on:submit|preventDefault>
+<svelte:element
+	this={tag}
+	{id}
+	class={_class}
+	bind:this={_this}
+	data-flex-collapse={collapseOnMobile}
+	data-flex-wrap={wrapOnMobile}
+	on:submit|preventDefault
+>
 	<slot />
 </svelte:element>

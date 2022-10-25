@@ -6,7 +6,8 @@ $colors-dark: (
 	card: (
 		'300': hsl(245 8% 28.65%),
 		'400': hsl(245 8% 36.65%),
-		'600': hsl(245 8% 48%)
+		'600': hsl(245 8% 48%),
+		'error-difference-background': hsl(2 97% 62% / 0.3)
 	),
 	markdown: (
 		'code': hsl(245 8% 28.65%)
@@ -34,6 +35,7 @@ $colors-dark: (
 		'tool-background-hover': hsl(188 90% 36%),
 		'background-dark': hsl(245 8% 20%),
 		'background-dark-hover': hsl(245 8% 24%),
+		'downvote-hover': hsl(2 97% 68%),
 		'difference': hsl(245 8% 36% / 0.5),
 		'difference-hover': hsl(245 8% 40%),
 		'difference-upvote': hsl(220 97% 62% / 0.3),
