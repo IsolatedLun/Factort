@@ -1,5 +1,10 @@
 import type { KeyValue } from '../../types';
-import type { Props_InputValidationResult, Props_InputValidator } from './types';
+import type {
+	PreCheckDataFn,
+	Props_InputValidationResult,
+	Props_InputValidator,
+	Props_PreCheckedData_Complex
+} from './types';
 
 export function createInputIdWithLabel(label: string) {
 	return label + '-input';
@@ -40,4 +45,15 @@ export function validateInput(
 	});
 
 	return { errors, isValid: bools.every(Boolean) };
+}
+
+/**
+ * @param x
+ * @summary Converts the words to lowercase and joins them with an underscore
+ */
+export function underscoreizeLabel(x: string) {
+	return x // Hello World
+		.split(' ') // [Hello, World]
+		.map((x) => x.toLowerCase()) // [hello, world]
+		.join('_'); // hello_world
 }

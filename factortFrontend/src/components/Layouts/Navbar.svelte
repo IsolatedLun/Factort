@@ -2,7 +2,6 @@
 	import TypoHeader from '../../components/Modules/Typography/TypoHeader.svelte';
 	import VisuallyHidden from '../../components/Modules/Accessiblity/VisuallyHidden.svelte';
 	import Flexy from '../Modules/BoxLayouts/Flexy.svelte';
-	import Profile from '../Modules/User/Profile.svelte';
 	import TextInput from '../Modules/Interactibles/Inputs/TextInput.svelte';
 	import Button from '../Modules/Interactibles/Buttons/Button.svelte';
 	import Icon from '../Modules/Icon/Icon.svelte';
@@ -20,6 +19,8 @@
 	import ContextMenu from './ContextMenu/ContextMenu.svelte';
 	import ContextMenuItem from './ContextMenu/ContextMenuItem.svelte';
 	import { layoutStore } from '../../stores/layoutStore/layout-store';
+	import { globalStore } from '../../stores/global';
+	import DynamicLabel from '../Modules/Misc/DynamicLabel.svelte';
 
 	onMount(() => {
 		layoutStore.subscribe((state) => {
@@ -31,7 +32,6 @@
 		toggleContextMenu(e, NAVBAR_CM_ID);
 	}
 
-	let isLogged = false;
 	let stickToSide = false;
 	let showStickyInput = false;
 
@@ -105,10 +105,10 @@
 			</div>
 
 			<div data-desktop>
-				{#if isLogged}
+				{#if $globalStore.isLogged}
 					<div class="[ navbar__user ]">
 						<Flexy>
-							<Profile />
+							<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
 						</Flexy>
 					</div>
 				{:else}

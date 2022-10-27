@@ -60,6 +60,7 @@ export const ICON_EYE = '\uf06e';
 export const ICON_TRASH = '\uf1f8';
 export const ICON_BUCKET = '\ue4cf';
 
+export const ICON_IMAGE = '\uf03e';
 export const ICON_MEDIA = '\uf03d';
 export const ICON_LINK = '\uf0c1';
 export const ICON_PLUS = '\uf067';
@@ -71,6 +72,8 @@ export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
 export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
+
+export const CREATE_SELECT_FORM_ID = (name: string) => `select-${name.toLowerCase()}-form`;
 
 // =======================
 // Urls
@@ -88,6 +91,7 @@ export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
 export const AUTH_URL = API_URL + '/auth/';
 export const REGISTER_URL = AUTH_URL + 'register';
 export const LOGIN_URL = AUTH_URL + 'login';
+export const AUTHENTICATE_URL = AUTH_URL + 'authenticate';
 
 // =======================
 // Navigation Urls

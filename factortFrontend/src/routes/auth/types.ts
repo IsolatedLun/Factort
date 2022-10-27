@@ -1,12 +1,12 @@
 export interface Form_Signup {
 	username: string;
-	email: string;
+	email_address: string;
 	password: string;
 
 	profile: File | null;
 }
 
 export interface Form_Login {
-	email: string;
+	email_address: string;
 	password: string;
 }

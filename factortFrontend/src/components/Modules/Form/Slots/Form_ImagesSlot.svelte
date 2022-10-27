@@ -48,6 +48,7 @@
 	>
 	<Button
 		on:click={() => (imageCount !== 1 ? imageCount-- : null)}
+		workCondition={imageCount !== 1}
 		variant="downvote"
 		cubeClass={{ utilClass: 'width-100' }}>Remove last image</Button
 	>

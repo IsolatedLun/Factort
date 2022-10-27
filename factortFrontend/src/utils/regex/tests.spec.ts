@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { youtubeLinkRegex } from './youtubeRegex';
+import { urlRegex, youtubeLinkRegex } from './all';
 
 it('Tests invalid/valid youtube links', () => {
 	// Links must be like this:
@@ -23,4 +23,28 @@ it('Tests invalid/valid youtube links', () => {
 	expect(youtubeLinkRegex.test(badLink_2)).toBe(false);
 	expect(youtubeLinkRegex.test(badLink_3)).toBe(false);
 	expect(youtubeLinkRegex.test(badLink_4)).toBe(false);
+});
+
+it('Tests invalid/valid urls', () => {
+	// Links must be like this:
+	// 1) https://www.youtube.com/...
+	// 2) https://youtu.be/...
+
+	let goodLink_1 = 'https://google.com';
+	let goodLink_2 = 'https://www.google.com';
+	let goodLink_3 = 'https://regexr.com';
+
+	let badLink_1 = 'http://bad';
+	let badLink_2 = 'htttps://google.com';
+	let badLink_3 = 'https:/youtube.com/someordinarygamers';
+	let badLink_4 = 'https:://www.youtube.com';
+
+	expect(urlRegex.test(goodLink_1)).toBe(true);
+	expect(urlRegex.test(goodLink_2)).toBe(true);
+	expect(urlRegex.test(goodLink_3)).toBe(true);
+
+	expect(urlRegex.test(badLink_1)).toBe(false);
+	expect(urlRegex.test(badLink_2)).toBe(false);
+	expect(urlRegex.test(badLink_3)).toBe(false);
+	expect(urlRegex.test(badLink_4)).toBe(false);
 });

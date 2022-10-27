@@ -7,6 +7,11 @@ export interface Props_DB_Model_No_Date {
 	id: number;
 }
 
+export interface Props_Tokens {
+	refresh: string | null;
+	access: string | null;
+}
+
 export interface Props_User extends Props_DB_Model {
 	username: string;
 	profile: string;

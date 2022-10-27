@@ -1370,6 +1370,9 @@
 .card[data-variant=default]:is(:focus-visible, :hover) {
   border-color: none;
 }
+.card[data-variant=default] .card__header {
+  background-color: var(--clr-card-600);
+}
 
 .card[data-variant=difference] {
   background-color: var(--clr-card-300);
@@ -1397,6 +1400,9 @@
 .card[data-variant=dark]:is(:focus-visible, :hover) {
   border-color: none;
 }
+.card[data-variant=dark] .card__header {
+  background-color: var(--clr-card-400);
+}
 
 .card:is([data-secondary-variant=default-background]) {
   border: none;
@@ -1405,9 +1411,6 @@
 
 .card {
   overflow: hidden;
-}
-.card[data-variant=default] .card__header {
-  background-color: var(--clr-card-600);
 }
 .card a {
   color: var(--clr-misc-link-bright);

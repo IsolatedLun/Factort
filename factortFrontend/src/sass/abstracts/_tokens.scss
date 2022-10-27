@@ -12,9 +12,13 @@ $border-radius-max: 100vmax;
 
 $profile-scale: clamp(2.55em, 6vw, 3.25em);
 
-$theme-border-light: 2px solid var(--clr-input-border-hover);
-$theme-border: 2px solid var(--clr-input-border);
-$theme-border-dark: 2px solid var(--clr-card-400);
+$theme-border-color-dark: var(--clr-card-400);
+$theme-border-color-light: var(--clr-input-border-hover);
+$theme-border-color-default: var(--clr-input-border);
+
+$theme-border-light: 2px solid $theme-border-color-light;
+$theme-border: 2px solid $theme-border-color-default;
+$theme-border-dark: 2px solid $theme-border-color-dark;
 
 $theme-shadow: 0px 0px 8px 1px hsl(0 50% 0 / 0.75);
 

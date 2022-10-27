@@ -3,6 +3,10 @@
 
 .card[data-variant='default'] {
 	@include createCard();
+
+	.card__header {
+		background-color: var(--clr-card-600);
+	}
 }
 
 .card[data-variant='difference'] {
@@ -21,6 +25,10 @@
 
 .card[data-variant='dark'] {
 	@include createCard($background-color: $dark-card-background-color, $border: $dark-card-border);
+
+	.card__header {
+		background-color: $theme-border-color-dark;
+	}
 }
 
 .card:is([data-secondary-variant='default-background']) {
@@ -32,12 +40,6 @@
 // ======================================
 .card {
 	overflow: hidden;
-
-	&[data-variant='default'] {
-		.card__header {
-			background-color: var(--clr-card-600);
-		}
-	}
 
 	a {
 		color: var(--clr-misc-link-bright);

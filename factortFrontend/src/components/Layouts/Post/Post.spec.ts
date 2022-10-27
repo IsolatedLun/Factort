@@ -36,3 +36,15 @@ it('Tests a post that with text', async () => {
 
 	expect(getByText('Hello World')).toBeTruthy();
 });
+
+it('Tests a post that with an video', async () => {
+	const data: Props_PreviewPost = createDefaultPost({
+		type: 'videi',
+		data: 'An_Video_Source'
+	});
+	const { getByText } = render(Post, { props: { props: data } });
+
+	const videoEl = document.querySelector('video') as HTMLVideoElement;
+
+	expect(videoEl.src).toBe('An_Video_Source');
+});

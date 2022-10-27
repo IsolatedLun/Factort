@@ -39,16 +39,24 @@ export function createDefaultParsedData<T>(): MKD_ParsedData<T> {
 
 export function createDefaultSignUpData() {
 	return {
-		email: '',
+		email_address: '',
 		username: '',
 		password: '',
 		profile: null
 	};
 }
 
+export function createDefaultLoginData() {
+	return {
+		email_address: '',
+		password: ''
+	};
+}
+
 export function createDefaultCreatePostData(): Form_CreatePost {
 	return {
 		title: '',
+		selected: '',
 
 		content: '',
 		images: [],

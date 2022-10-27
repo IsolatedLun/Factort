@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { BACKEND_ROOT_URL } from '../../../../consts';
 	import { createIframeElement } from '../../../../utils/misc';
-	import { youtubeLinkRegex } from '../../../../utils/regex/youtubeRegex';
+	import { youtubeLinkRegex } from '../../../../utils/regex/all';
 
 	function isYoutubeLink() {
 		return youtubeLinkRegex.test(videoSrc);

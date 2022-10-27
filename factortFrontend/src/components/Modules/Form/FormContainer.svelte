@@ -34,7 +34,7 @@
 
 <div class={'[ form-container ] [ width-100 ]'} bind:this={_this}>
 	{#if mode === 'counter'}
-		{#if objLen($formHook.forms) > -1}
+		{#if objLen($formHook.forms) > 1}
 			<FormCounter />
 		{/if}
 	{:else if mode === 'select'}

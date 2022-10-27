@@ -38,6 +38,13 @@ class CreatePostView(APIView):
         def _create_images_post():
             images = []
 
+            # =========================
+            # Assertions
+            # =========================
+            if len(images) == 0:
+                raise Exception('There must be atleast 1 image')
+            # =========================
+
             for x in files.getlist('images[]'):
                 images.append(models.PostImage.objects.create(
                     image=x, post_id=new_post.id).image.url
@@ -53,8 +60,17 @@ class CreatePostView(APIView):
 
         def _create_video_post():
             # Because there is always a single video file
-            print(files)
-            video_file = next(files.values())
+            video_file = None
+
+            # =========================
+            # Assertions
+            # =========================
+            try:
+                video_file = next(files.values())
+            except Exception as e:
+                raise Exception('No video file found')
+            # =========================
+
             video = models.PostVideo.objects.create(
                 video=video_file, post_id=new_post.id)
 
@@ -62,10 +78,16 @@ class CreatePostView(APIView):
 
         # Here, we create the dynamic string name of the function
         # retreive the function from the local symbol table and call it
-        method_name = f'_create_{data["selected"]}_post'
-        method = locals()[method_name]
+        try:
+            method_name = f'_create_{data["selected"]}_post'
+            method = locals()[method_name]
 
-        method()
-        new_post.save()
+            method()
+            new_post.save()
+        except KeyError as e:  # This exception occurs when the method is not found
+            return Response(data=f'Someting went terribly wrong: Selected form is invalid', status=ERR)
+        except Exception as e:
+            new_post.delete()
+            return Response(data=f'Someting went terribly wrong: {str(e)}', status=ERR)
 
-        return Response(data='BRUH', status=OK)
+        return Response(data=new_post.id, status=OK)

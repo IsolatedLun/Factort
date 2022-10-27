@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { createInputIdWithLabel, validateInput } from '../../../../utils/form4Svelte/utils';
+	import {
+		createInputIdWithLabel,
+		underscoreizeLabel,
+		validateInput
+	} from '../../../../utils/form4Svelte/utils';
 	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import {
 		createObjectCubeClass,
@@ -55,7 +59,7 @@
 	export let id = '';
 	export let type: InputTypes = 'text';
 	export let label: string;
-	export let name: string = label.toLowerCase();
+	export let name: string = underscoreizeLabel(label.toLowerCase());
 
 	export let createRandomId = true;
 	export let showLabel = false;

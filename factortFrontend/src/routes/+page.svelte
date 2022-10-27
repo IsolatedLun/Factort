@@ -10,6 +10,7 @@
 	import TextInput from '../components/Modules/Interactibles/Inputs/TextInput.svelte';
 	import Button from '../components/Modules/Interactibles/Buttons/Button.svelte';
 	import {
+		ICON_IMAGE,
 		ICON_LINK,
 		ICON_MEDIA,
 		ICON_PLUS,
@@ -34,16 +35,19 @@
 <FeedContainer>
 	<div slot="feed">
 		<Card padding={1} cubeClass={{ utilClass: 'margin-block-2' }}>
-			<Flexy gap={2}>
+			<Flexy gap={1} collapseOnMobile={true}>
 				<a href={WEB_CREATE_POST_URL} class="[ width-100 ]">
 					<TextInput label="Create post" placeholder="Create post" endIcon={ICON_PLUS} />
 				</a>
-				<Flexy>
+				<Flexy cubeClass={{ utilClass: 'margin-inline-auto' }}>
 					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('link')}>
 						<Icon>{ICON_LINK}</Icon>
 					</Button>
-					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('media')}>
+					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('video')}>
 						<Icon>{ICON_MEDIA}</Icon>
+					</Button>
+					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('images')}>
+						<Icon>{ICON_IMAGE}</Icon>
 					</Button>
 				</Flexy>
 			</Flexy>
@@ -65,7 +69,11 @@
 	<section slot="misc" class="[ width-100 ]">
 		<span class="[ visually-hidden ]">Miscellaneuos</span>
 		<Flexy useColumn={true}>
-			<CardWithHeader cubeClass={{ utilClass: 'width-100' }} title="Relevant communities">
+			<CardWithHeader
+				cubeClass={{ utilClass: 'width-100' }}
+				variant="dark"
+				title="Relevant communities"
+			>
 				<Flexy useColumn={true} gap={2} cubeClass={{ utilClass: 'padding-1' }}>
 					{#await fetchCommunityPreviews() then res}
 						{#if res.type === 'success'}

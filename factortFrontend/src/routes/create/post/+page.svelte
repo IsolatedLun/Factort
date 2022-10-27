@@ -11,6 +11,17 @@
 	import type { Form_CreatePost } from '../types';
 	import FormImagesSlot from '../../../components/Modules/Form/Slots/Form_ImagesSlot.svelte';
 	import { _Create_Post } from '../../../services/create/createPostFetchers';
+	import { getUrlParams } from '../../../utils/misc';
+	import { onMount } from 'svelte';
+	import { CREATE_SELECT_FORM_ID, WEB_POST_URL } from '../../../consts';
+	import { goto } from '$app/navigation';
+	import { preCheck__Post } from '../utils';
+
+	onMount(() => {
+		const params = getUrlParams(window.location.href);
+
+		if (params['type']) document.getElementById(CREATE_SELECT_FORM_ID(params['type']))?.click();
+	});
 
 	function createPost() {
 		let _data = { ...data, selected: $formHook.selected.toLowerCase() };
@@ -18,8 +29,16 @@
 		if (_data.selected === 'images') data.video = null;
 		if (_data.selected === 'video') data.images = [];
 
+		const check = preCheck__Post(data);
+
+		if (check.type === 'error') {
+			errorMessage = check.data;
+			return;
+		}
+
 		_Create_Post({ ..._data, selected: $formHook.selected.toLowerCase() }).then((res) => {
-			if (res.type === 'error') errorMessage = 'res.data';
+			if (res.type === 'error') errorMessage = res.data;
+			else goto(WEB_POST_URL(res.data, data.title));
 		});
 	}
 
