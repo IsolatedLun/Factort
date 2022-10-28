@@ -1,7 +1,14 @@
 @use '../../abstracts/' as *;
 
 .profile {
-	width: $profile-scale;
 	aspect-ratio: 1;
 	background: $profile-background;
+
+	&:is([data-variant='default']) {
+		width: $profile-scale;
+	}
+
+	&:is([data-variant='big']) {
+		width: $profile-scale-big;
+	}
 }

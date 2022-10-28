@@ -6,4 +6,5 @@ type DynamicLabel_User = Complex_Data_Type<'user', Props_User>;
 type DynamicLabel_Community = Complex_Data_Type<'community', Props_CommunityPreview>;
 
 export type Props_DynamicLabel_Complex_Type = DynamicLabel_User | DynamicLabel_Community;
+export type DynamicLabelVariants = 'default' | 'view';
 // ==================

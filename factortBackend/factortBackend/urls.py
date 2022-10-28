@@ -12,5 +12,5 @@ urlpatterns = [
     path('api/posts/', include('posts.urls')),
     path('api/communities/', include('communities.urls')),
 
-    path('api/auth/', include('users.urls')),
+    path('api/users/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

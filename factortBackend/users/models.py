@@ -31,6 +31,10 @@ class cUser(AbstractUser):
 
     date_created = models.DateTimeField(auto_now_add=True)
 
+    # User public privacy settings
+    show_liked_posts = models.BooleanField(default=False)
+    show_joined_communities = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email_address'
     REQUIRED_FIELDS = []
 

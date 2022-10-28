@@ -11,7 +11,7 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'<': '&lt;',
 	'>': '&gt;'
 };
-export const SLIDESHOW_INTERVAL = 300;
+export const SLIDESHOW_INTERVAL = 3000;
 export const DRAWER_LEAVE_COUNTDOWN = 3500;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -88,7 +88,10 @@ export const CREATE_POST_URL = POSTS_URL + 'create';
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
 
-export const AUTH_URL = API_URL + '/auth/';
+export const USERS_URL = API_URL + '/users/';
+export const USER_URL = (id: number) => USERS_URL + id;
+
+export const AUTH_URL = USERS_URL + 'auth/';
 export const REGISTER_URL = AUTH_URL + 'register';
 export const LOGIN_URL = AUTH_URL + 'login';
 export const AUTHENTICATE_URL = AUTH_URL + 'authenticate';

@@ -10,7 +10,8 @@ $border-radius-cubed: 9px;
 $border-radius-pentagon: 5px;
 $border-radius-max: 100vmax;
 
-$profile-scale: clamp(2.55em, 6vw, 3.25em);
+$profile-scale: clamp(1.55em, 12vw, 2.25em);
+$profile-scale-big: clamp(4.55em, 12vw, 8.25em);
 
 $theme-border-color-dark: var(--clr-card-400);
 $theme-border-color-light: var(--clr-input-border-hover);

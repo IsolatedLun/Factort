@@ -18,9 +18,14 @@
 		WEB_CREATE_POST_WITH_TYPE_URL
 	} from '../consts';
 	import Icon from '../components/Modules/Icon/Icon.svelte';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		fetchPosts();
+	});
 
 	async function fetchPosts() {
-		return _Fetch_Posts();
+		return await _Fetch_Posts();
 	}
 
 	async function fetchCommunityPreviews() {
@@ -32,58 +37,49 @@
 	<title>Factort | Home</title>
 </svelte:head>
 
-<FeedContainer>
-	<div slot="feed">
-		<Card padding={1} cubeClass={{ utilClass: 'margin-block-2' }}>
-			<Flexy gap={1} collapseOnMobile={true}>
-				<a href={WEB_CREATE_POST_URL} class="[ width-100 ]">
-					<TextInput label="Create post" placeholder="Create post" endIcon={ICON_PLUS} />
-				</a>
-				<Flexy cubeClass={{ utilClass: 'margin-inline-auto' }}>
-					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('link')}>
-						<Icon>{ICON_LINK}</Icon>
-					</Button>
-					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('video')}>
-						<Icon>{ICON_MEDIA}</Icon>
-					</Button>
-					<Button to={WEB_CREATE_POST_WITH_TYPE_URL('images')}>
-						<Icon>{ICON_IMAGE}</Icon>
-					</Button>
-				</Flexy>
-			</Flexy>
-		</Card>
-		<section>
-			<span class="[ visually-hidden ]">Posts</span>
-			<Flexy useColumn={true} gap={2}>
-				{#await fetchPosts() then res}
-					{#if res.type === 'success'}
-						{#each res.data as post}
-							<Post props={{ ...post }} />
-						{/each}
-					{/if}
-				{/await}
-			</Flexy>
-		</section>
-	</div>
+{#await fetchPosts() then res}
+	{#if res.type === 'success'}
+		<FeedContainer posts={res.data}>
+			<div slot="feed">
+				<Card padding={1} cubeClass={{ utilClass: 'margin-block-2' }}>
+					<Flexy gap={1} collapseOnMobile={true}>
+						<a href={WEB_CREATE_POST_URL} class="[ width-100 ]">
+							<TextInput label="Create post" placeholder="Create post" endIcon={ICON_PLUS} />
+						</a>
+						<Flexy cubeClass={{ utilClass: 'margin-inline-auto' }}>
+							<Button to={WEB_CREATE_POST_WITH_TYPE_URL('link')}>
+								<Icon>{ICON_LINK}</Icon>
+							</Button>
+							<Button to={WEB_CREATE_POST_WITH_TYPE_URL('video')}>
+								<Icon>{ICON_MEDIA}</Icon>
+							</Button>
+							<Button to={WEB_CREATE_POST_WITH_TYPE_URL('images')}>
+								<Icon>{ICON_IMAGE}</Icon>
+							</Button>
+						</Flexy>
+					</Flexy>
+				</Card>
+			</div>
 
-	<section slot="misc" class="[ width-100 ]">
-		<span class="[ visually-hidden ]">Miscellaneuos</span>
-		<Flexy useColumn={true}>
-			<CardWithHeader
-				cubeClass={{ utilClass: 'width-100' }}
-				variant="dark"
-				title="Relevant communities"
-			>
-				<Flexy useColumn={true} gap={2} cubeClass={{ utilClass: 'padding-1' }}>
-					{#await fetchCommunityPreviews() then res}
-						{#if res.type === 'success'}
-							{#each res.data as community}
-								<DynamicLabel props={{ type: 'community', data: community }} />
-							{/each}
-						{/if}
-					{/await}
+			<section slot="misc" class="[ width-100 ]">
+				<Flexy useColumn={true}>
+					<CardWithHeader
+						cubeClass={{ utilClass: 'width-100' }}
+						variant="dark"
+						title="Relevant communities"
+					>
+						<Flexy useColumn={true} gap={2} cubeClass={{ utilClass: 'padding-1' }}>
+							{#await fetchCommunityPreviews() then res}
+								{#if res.type === 'success'}
+									{#each res.data as community}
+										<DynamicLabel props={{ type: 'community', data: community }} />
+									{/each}
+								{/if}
+							{/await}
+						</Flexy>
+					</CardWithHeader>
 				</Flexy>
-			</CardWithHeader>
-		</Flexy>
-	</section>
-</FeedContainer>
+			</section>
+		</FeedContainer>
+	{/if}
+{/await}

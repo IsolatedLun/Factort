@@ -1357,9 +1357,14 @@
   }
 }
 .profile {
-  width: clamp(2.55em, 6vw, 3.25em);
   aspect-ratio: 1;
   background: linear-gradient(to left, red, green, blue);
+}
+.profile:is([data-variant=default]) {
+  width: clamp(1.55em, 12vw, 2.25em);
+}
+.profile:is([data-variant=big]) {
+  width: clamp(4.55em, 12vw, 8.25em);
 }
 
 .card[data-variant=default] {

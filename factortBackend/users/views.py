@@ -6,10 +6,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.exceptions import ObjectDoesNotExist
 
 from consts import OK, ERR
-from utils.shorthands import decode_user_id
+from utils.shorthands import decode_user_id, get_model_or_default
 from utils.helpers import exclude_from_dict
 from . import models
 from . import serializers
+
+# =========================================
+# Authetication Views
+# =========================================
 
 
 class JWTLoginView(APIView):
@@ -51,3 +55,17 @@ class JWTAuthenticateView(APIView):
                 models.cUser.objects.get(id=decode_user_id(req.headers))).data
 
             return Response(data=user, status=OK)
+
+# =========================================
+# Other Views
+# =========================================
+
+
+class UserView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, req, user_id):
+        user = get_model_or_default(models.cUser, id=user_id)
+        user_serializer = serializers.cUserViewSerializer(user).data
+
+        return Response(data=user_serializer, status=OK)

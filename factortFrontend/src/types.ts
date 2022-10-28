@@ -17,6 +17,9 @@ export interface Props_User extends Props_DB_Model {
 	profile: string;
 
 	prestige: number;
+
+	show_liked_posts: boolean;
+	show_joined_communities: boolean;
 }
 
 export type EventFunction<EventT> = (e: EventT) => void;
