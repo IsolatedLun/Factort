@@ -18,13 +18,16 @@ options. [DONE]
 - Multiple form support [DONE]
 - Calculate form completion percentage and display it [DONE]
 
-- Add account creation page
+- Add account creation page [DONE]
     - Allow user to paint their own profile :) { 512/512 image, mini painting application }
 
 - Add dynamic file input that supports videos/images/any file and displays previewable files [DONE]
 - Connect backend to frontend [DONE]
 - Add complete frontend form validation [DONE]
-- Basic authentication
+- Basic authentication [DONE]
+    - Add registration
+
+- Loading UI for when something is being fetched
 
 ============
 PRIORITY 2
@@ -40,13 +43,13 @@ PRIORITY 2
     - Users can post individually or in their communities
     - Posts can be public, unlisted and editable
 
-    => Displays comments count, votes and poster
+    => Displays comments count, votes and poster [DONE]
 
 - Start with backend and connect the frontend to it
-    - Add post model
-    - Add community model
+    - Add post model [DONE]
+    - Add community model [DONE]
 
-- Post creation page
+- Post creation page [DONE]
 
 - Add Community component
     - Displays all posts
@@ -63,10 +66,8 @@ PRIORITY 2
 PRIORITY 3
 ============
 - Display history of visited posts on navbar (next/previous buttons that preview the post)
-- Authentication
-    - Add cool feature where users can choose to draw their own profile and mark it as such on their profile
 
-- User page
+- User page [DONE 1/2]
 
 ============
 PRIORITY 4

@@ -29,3 +29,15 @@ class CommunityPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Community
         exclude = ['owner', 'banner']
+
+
+class CommunityMemberSerializer(serializers.ModelSerializer):
+    members = serializers.SerializerMethodField(
+        method_name='get_count_members')
+
+    def get_count_members(self, obj):
+        return models.CommunityMember.objects.filter(community_id=obj.id).count()
+
+    class Meta:
+        model = models.Community
+        exclude = ['owner', 'banner']

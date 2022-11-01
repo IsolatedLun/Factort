@@ -1,26 +1,31 @@
 <script lang="ts">
-	import TypoHeader from '../../components/Modules/Typography/TypoHeader.svelte';
-	import VisuallyHidden from '../../components/Modules/Accessiblity/VisuallyHidden.svelte';
-	import Flexy from '../Modules/BoxLayouts/Flexy.svelte';
-	import TextInput from '../Modules/Interactibles/Inputs/TextInput.svelte';
-	import Button from '../Modules/Interactibles/Buttons/Button.svelte';
-	import Icon from '../Modules/Icon/Icon.svelte';
+	import TypoHeader from '../../Modules/Typography/TypoHeader.svelte';
+	import VisuallyHidden from '../../Modules/Accessiblity/VisuallyHidden.svelte';
+	import Flexy from '../../Modules/BoxLayouts/Flexy.svelte';
+	import TextInput from '../../Modules/Interactibles/Inputs/TextInput.svelte';
+	import Button from '../../Modules/Interactibles/Buttons/Button.svelte';
+	import Icon from '../../Modules/Icon/Icon.svelte';
 	import {
 		ICON_BARS,
 		ICON_CARET_LEFT,
 		ICON_CARET_RIGHT,
 		ICON_SEARCH,
 		NAVBAR_CM_ID,
+		NAVBAR_MODAL_ID,
 		WEB_LOGIN_URL,
 		WEB_SIGNUP_URL
-	} from '../../consts';
+	} from '../../../consts';
 	import { onMount } from 'svelte';
-	import { toggleContextMenu } from '../../utils/contextMenu/contextMenu';
-	import ContextMenu from './ContextMenu/ContextMenu.svelte';
-	import ContextMenuItem from './ContextMenu/ContextMenuItem.svelte';
-	import { layoutStore } from '../../stores/layoutStore/layout-store';
-	import { globalStore } from '../../stores/global';
-	import DynamicLabel from '../Modules/Misc/DynamicLabel.svelte';
+	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
+	import ContextMenu from '../ContextMenu/ContextMenu.svelte';
+	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
+	import { layoutStore } from '../../../stores/layoutStore/layout-store';
+	import { globalStore } from '../../../stores/global';
+	import DynamicLabel from '../../Modules/Misc/DynamicLabel.svelte';
+	import Modal from '../../Modules/Modal/Modal.svelte';
+	import { openModal } from '../../../utils/modal/modal';
+	import LinkList from '../../Modules/List/LinkList.svelte';
+	import LinkListItem from '../../../components/Modules/List/LinkListItem.svelte';
 
 	onMount(() => {
 		layoutStore.subscribe((state) => {
@@ -97,7 +102,7 @@
 			</Flexy>
 
 			<div data-mobile>
-				<Button>
+				<Button on:click={() => openModal(NAVBAR_MODAL_ID)}>
 					<Icon>
 						{ICON_BARS}
 					</Icon>
@@ -130,4 +135,18 @@
 			Stick to side
 		</ContextMenuItem>
 	</ContextMenu>
+
+	<Modal id={NAVBAR_MODAL_ID}>
+		{#if $globalStore.isLogged}
+			<LinkList cubeClass={{ utilClass: 'margin-block-end-2' }}>
+				<LinkListItem to="settings" name="Settings" />
+			</LinkList>
+			<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
+		{:else}
+			<LinkList>
+				<LinkListItem to={WEB_LOGIN_URL} name="Login" />
+				<LinkListItem to={WEB_SIGNUP_URL} name="Sign up" />
+			</LinkList>
+		{/if}
+	</Modal>
 {/key}

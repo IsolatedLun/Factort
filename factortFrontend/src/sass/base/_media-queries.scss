@@ -19,6 +19,10 @@
 		// Classes
 		*[data-flex-collapse='true'] {
 			flex-direction: column !important;
+
+			&[data-flex-collapse-center='true'] {
+				align-items: center !important;
+			}
 		}
 
 		*[data-flex-wrap='true'] {

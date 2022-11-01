@@ -72,8 +72,9 @@ export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
 export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
-
 export const CREATE_SELECT_FORM_ID = (name: string) => `select-${name.toLowerCase()}-form`;
+
+export const NAVBAR_MODAL_ID = 'navbarMobileModal';
 
 // =======================
 // Urls
@@ -87,6 +88,8 @@ export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
+export const COMMUNITY_MISC_URL = COMMUNITIES_URL + 'misc';
+export const COMMUNITY_MISC_ADMINS_URL = (id: number) => COMMUNITY_URL(id) + `/admins`;
 
 export const USERS_URL = API_URL + '/users/';
 export const USER_URL = (id: number) => USERS_URL + id;

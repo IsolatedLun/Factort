@@ -9,8 +9,8 @@
 	export let cubeClass = createObjectCubeClass();
 
 	// we can either pass in the posts, or fetch it with a custom function
-	export let posts: Props_PreviewPost[];
-	export let fetchFn: (() => Success_OR_Error__Response<Props_PreviewPost[]>) | null = null;
+	export let posts: Props_PreviewPost[] = [];
+	export let fetchFn: Promise<Success_OR_Error__Response<Props_PreviewPost[]>> | null | any = null;
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'feed-container',
@@ -20,7 +20,7 @@
 
 <div class={_class} data-grid-collapse="true">
 	<section>
-		<header>
+		<header class="[ width-100 ]">
 			<slot name="feed" />
 		</header>
 
@@ -29,7 +29,7 @@
 			{#await fetchFn() then res}
 				{#if res.type === 'success'}
 					<Flexy useColumn={true} gap={2}>
-						{#each posts as post}
+						{#each res.data as post}
 							<Post props={{ ...post }} />
 						{/each}
 					</Flexy>

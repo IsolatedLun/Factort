@@ -11,6 +11,7 @@
 	export let align = 'start';
 	export let useColumn = false;
 	export let collapseOnMobile = false;
+	export let alignCenterOnMobile = false;
 	export let wrapOnMobile = false;
 	export let gap: string | number = 1;
 	export let cubeClass = createObjectCubeClass();
@@ -32,6 +33,7 @@
 	class={_class}
 	bind:this={_this}
 	data-flex-collapse={collapseOnMobile}
+	data-flex-collapse-center={alignCenterOnMobile}
 	data-flex-wrap={wrapOnMobile}
 	on:submit|preventDefault
 >

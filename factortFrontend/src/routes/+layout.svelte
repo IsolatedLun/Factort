@@ -1,6 +1,6 @@
 <script>
 	import { layoutStore } from '../stores/layoutStore/layout-store';
-	import Navbar from '../components/Layouts/Navbar.svelte';
+	import Navbar from '../components/Layouts/Navbar/Navbar.svelte';
 	import { onMount } from 'svelte';
 	import { _Authenticate_View } from '../services/auth/authService';
 	import { globalStore } from '../stores/global';

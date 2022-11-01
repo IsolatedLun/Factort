@@ -7,9 +7,10 @@
 	export let title: string;
 	export let cubeClass = createObjectCubeClass();
 	export let variant: CardTypes = 'default';
+	export let padding = 0;
 </script>
 
-<Card {cubeClass} {variant}>
+<Card {cubeClass} {variant} {padding}>
 	<TypoHeader
 		fontHeadingSize={500}
 		cubeClass={{

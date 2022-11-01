@@ -1,0 +1,12 @@
+@use '../../abstracts/' as *;
+@use '../mixins' as *;
+
+.main-modal {
+	@include transformCenter();
+
+	color: var(--clr-text-accent);
+
+	&::backdrop {
+		background-color: $modal-background-color;
+	}
+}
