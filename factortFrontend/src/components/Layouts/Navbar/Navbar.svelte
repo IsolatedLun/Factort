@@ -10,9 +10,11 @@
 		ICON_CARET_LEFT,
 		ICON_CARET_RIGHT,
 		ICON_SEARCH,
+		ICON_SETTINGS,
 		NAVBAR_CM_ID,
 		NAVBAR_MODAL_ID,
 		WEB_LOGIN_URL,
+		WEB_LOGOUT_URL,
 		WEB_SIGNUP_URL
 	} from '../../../consts';
 	import { onMount } from 'svelte';
@@ -23,9 +25,12 @@
 	import { globalStore } from '../../../stores/global';
 	import DynamicLabel from '../../Modules/Misc/DynamicLabel.svelte';
 	import Modal from '../../Modules/Modal/Modal.svelte';
-	import { openModal } from '../../../utils/modal/modal';
+	import { closeModal, openModal } from '../../../utils/modal/modal';
 	import LinkList from '../../Modules/List/LinkList.svelte';
 	import LinkListItem from '../../../components/Modules/List/LinkListItem.svelte';
+	import { createDefaultUser } from '../../../utils/defaultProps';
+	import { goto } from '$app/navigation';
+	import { destroyTokens } from '../../../utils/tokenHandler';
 
 	onMount(() => {
 		layoutStore.subscribe((state) => {
@@ -35,6 +40,19 @@
 
 	function handleContextMenu(e: MouseEvent) {
 		toggleContextMenu(e, NAVBAR_CM_ID);
+	}
+
+	function logOut() {
+		closeModal(NAVBAR_MODAL_ID);
+		destroyTokens();
+
+		globalStore.update((state) => ({
+			...state,
+			isLogged: false,
+			user: createDefaultUser()
+		}));
+
+		goto(WEB_LOGIN_URL);
 	}
 
 	let stickToSide = false;
@@ -112,8 +130,11 @@
 			<div data-desktop>
 				{#if $globalStore.isLogged}
 					<div class="[ navbar__user ]">
-						<Flexy>
+						<Flexy gap={2}>
 							<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
+							<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open More Options"
+								><Icon>{ICON_SETTINGS}</Icon></Button
+							>
 						</Flexy>
 					</div>
 				{:else}
@@ -142,6 +163,12 @@
 				<LinkListItem to="settings" name="Settings" />
 			</LinkList>
 			<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
+			<Button
+				cubeClass={{ utilClass: 'margin-inline-auto width-100 margin-block-start-2' }}
+				variant="primary"
+				ariaLabel="Log out"
+				on:click={logOut}>Log out</Button
+			>
 		{:else}
 			<LinkList>
 				<LinkListItem to={WEB_LOGIN_URL} name="Login" />

@@ -15,6 +15,26 @@ from . import serializers
 # Authetication Views
 # =========================================
 
+class RegisterView(APIView):
+    def post(self, req):
+        try:
+            profile = req.FILES.get('profile', None)
+
+            user = models.cUser.objects.create(
+                email_address=req.data['email_address'],
+                password=make_password(req.data['password']),
+                username=req.data['username']
+            )
+
+            if profile:
+                user.profile = profile
+                user.save()
+
+            return Response(status=OK)
+
+        except Exception:
+            return Response(data='Something went wrong.', status=ERR)
+
 
 class JWTLoginView(APIView):
     permission_classes = [AllowAny]
@@ -49,7 +69,7 @@ class JWTAuthenticateView(APIView):
         id = decode_user_id(req.headers)
 
         if id is None:
-            Response(data='No user id found', status=ERR)
+            Response(status=ERR)
         else:
             user = serializers.cUserSerializer(
                 models.cUser.objects.get(id=decode_user_id(req.headers))).data

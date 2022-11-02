@@ -50,8 +50,8 @@
 			alt={props.data.name + ' community profile'}
 		/>
 		<Flexy useColumn={true} gap={'05'}>
-			<a data-variant="default" href={`/users/${props.data.id}/${props.data.name}`}
-				>u/{props.data.name}</a
+			<a data-variant="default" href={`/communities/${props.data.id}/${props.data.name}`}
+				>g/{props.data.name}</a
 			>
 			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
 				>{props.data.members} members</Typography

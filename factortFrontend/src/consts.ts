@@ -54,6 +54,7 @@ export const ICON_CHECK = '\uf00c';
 export const ICON_COMMENTS = '\uf086';
 export const ICON_BARS = '\uf0c9';
 export const ICON_ERROR = '\uf071';
+export const ICON_SETTINGS = '\uf013';
 
 export const ICON_EYE = '\uf06e';
 
@@ -104,6 +105,7 @@ export const AUTHENTICATE_URL = AUTH_URL + 'authenticate';
 // =======================
 export const WEB_SIGNUP_URL = '/auth/signup';
 export const WEB_LOGIN_URL = '/auth/login';
+export const WEB_LOGOUT_URL = '/auth/logout';
 
 export const WEB_CREATE_POST_URL = '/create/post';
 export const WEB_CREATE_POST_WITH_TYPE_URL = (type: string) => '/create/post?type=' + type;

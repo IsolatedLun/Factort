@@ -1,4 +1,5 @@
 <script lang="ts">
+	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
 	import type { Success_OR_Error__Response } from 'src/services/types';
 	import { onMount } from 'svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
@@ -11,6 +12,7 @@
 	// we can either pass in the posts, or fetch it with a custom function
 	export let posts: Props_PreviewPost[] = [];
 	export let fetchFn: Promise<Success_OR_Error__Response<Props_PreviewPost[]>> | null | any = null;
+	export let title = '';
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'feed-container',
@@ -24,7 +26,11 @@
 			<slot name="feed" />
 		</header>
 
-		<h2 class="[ visually-hidden ]">Posts</h2>
+		{#if title}
+			<TypoHeader>{title}</TypoHeader>
+		{:else}
+			<h2 class="[ visually-hidden ]">Posts</h2>
+		{/if}
 		{#if fetchFn}
 			{#await fetchFn() then res}
 				{#if res.type === 'success'}

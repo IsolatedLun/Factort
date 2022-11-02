@@ -15,7 +15,7 @@
 	import { onMount } from 'svelte';
 	import { CREATE_SELECT_FORM_ID, WEB_POST_URL } from '../../../consts';
 	import { goto } from '$app/navigation';
-	import { preCheck__Post } from '../utils';
+	import { preCheck__Post } from '../../../utils/preChecks';
 
 	onMount(() => {
 		const params = getUrlParams(window.location.href);

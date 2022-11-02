@@ -68,11 +68,11 @@
 }
 
 .clr-button-primary-background {
-  color: #088194;
+  color: #0069d6;
 }
 
 .clr-button-primary-background-hover {
-  color: #0998ae;
+  color: #0073eb;
 }
 
 .clr-button-tool-background {
@@ -2248,11 +2248,11 @@ img[data-profile=true] {
 }
 
 .clr-button-primary-background {
-  color: #088194;
+  color: #0069d6;
 }
 
 .clr-button-primary-background-hover {
-  color: #0998ae;
+  color: #0073eb;
 }
 
 .clr-button-tool-background {
@@ -2357,8 +2357,8 @@ img[data-profile=true] {
   --clr-input-border-hover: #c3c2cb;
   --clr-button-background: rgba(76, 75, 88, 0.88);
   --clr-button-background-hover: #6d6c7f;
-  --clr-button-primary-background: #088194;
-  --clr-button-primary-background-hover: #0998ae;
+  --clr-button-primary-background: #0069d6;
+  --clr-button-primary-background-hover: #0073eb;
   --clr-button-tool-background: rgba(64, 78, 150, 0.4);
   --clr-button-tool-background-hover: #0998ae;
   --clr-button-background-dark: #302f37;
@@ -2462,11 +2462,11 @@ img[data-profile=true] {
   }
 
   .clr-button-primary-background {
-    color: #088194;
+    color: #0069d6;
   }
 
   .clr-button-primary-background-hover {
-    color: #0998ae;
+    color: #0073eb;
   }
 
   .clr-button-tool-background {
@@ -2571,8 +2571,8 @@ img[data-profile=true] {
     --clr-input-border-hover: #c3c2cb;
     --clr-button-background: rgba(76, 75, 88, 0.88);
     --clr-button-background-hover: #6d6c7f;
-    --clr-button-primary-background: #088194;
-    --clr-button-primary-background-hover: #0998ae;
+    --clr-button-primary-background: #0069d6;
+    --clr-button-primary-background-hover: #0073eb;
     --clr-button-tool-background: rgba(64, 78, 150, 0.4);
     --clr-button-tool-background-hover: #0998ae;
     --clr-button-background-dark: #302f37;

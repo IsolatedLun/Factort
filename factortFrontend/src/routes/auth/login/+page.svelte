@@ -13,13 +13,23 @@
 	import { useForm } from '../../../stores/formStore/form-store';
 	import { setTokens } from '../../../utils/tokenHandler';
 	import { globalStore } from '../../../stores/global';
+	import { goto } from '$app/navigation';
+	import { preCheck__Login } from 'src/utils/preChecks';
 
 	function loginView() {
+		const check = preCheck__Login(data);
+
+		if (check.type === 'error') {
+			errorMessage = check.data;
+			return;
+		}
+
 		_Login_View(data).then((res) => {
 			if (res.type === 'error') errorMessage = res.data;
 			else {
 				setTokens(res.data.tokens);
 				globalStore.update((state) => ({ ...state, user: res.data.user, isLogged: true }));
+				goto('/');
 			}
 		});
 	}

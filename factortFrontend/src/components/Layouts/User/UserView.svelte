@@ -36,7 +36,11 @@
 				</Flexy>
 			</header>
 
-			<FeedContainer posts={res.data.posts} cubeClass={{ utilClass: 'margin-block-start-5' }}>
+			<FeedContainer
+				title="Latest Posts"
+				posts={res.data.posts}
+				cubeClass={{ utilClass: 'margin-block-start-5' }}
+			>
 				<section slot="misc" class="[ width-100 ]" data-desktop>
 					<Miscellaneuos
 						sections={[
