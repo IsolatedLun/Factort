@@ -16,14 +16,14 @@ class CommunitiesView(APIView):
         serialized_data = serializers.CommunityPreviewSerializer(
             communities, many=True).data
 
-        return Response(data=serialized_data, status=OK)
+        return Response(data={'type': 'community', 'data': serialized_data}, status=OK)
 
 
 class CommunityView(APIView):
     def get(self, req, community_id):
         try:
             community = models.Community.objects.get(id=community_id)
-            serialized_data = serializers.CommunityPreviewSerializer(
+            serialized_data = serializers.CommunitySerializer(
                 community).data
 
             return Response(data=serialized_data, status=OK)
@@ -32,7 +32,7 @@ class CommunityView(APIView):
 
 
 class Misc_CommunityPreviewsView(APIView):
-    def get(self, req):
+    def post(self, req):
         user_id = req.data.get('id', None)
 
         communities = []

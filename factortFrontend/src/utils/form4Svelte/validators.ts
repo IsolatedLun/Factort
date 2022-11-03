@@ -23,7 +23,9 @@ export function fileTypeValidator(type: string): Props_InputValidator {
 			const file = e.files ? e.files[0] : null;
 
 			if (file) {
-				let fileExtension = file.name.split('.')[1];
+				const fileExtStart = file.name.lastIndexOf('.');
+				let fileExtension = file.name.slice(fileExtStart);
+
 				if (!fileExtension.startsWith('.'))
 					// always needs to have a . at the start
 					fileExtension = '.' + fileExtension;
@@ -75,6 +77,11 @@ export function createExceptedFileValidator(
 	if (expectedFile === 'video') {
 		const extenstions = FILE_TYPE_DICT['video'].join(', ');
 		return [extenstions, fileTypeValidator('video')];
+	}
+
+	if (expectedFile === 'audio') {
+		const extenstions = FILE_TYPE_DICT['audio'].join(', ');
+		return [extenstions, fileTypeValidator('audio')];
 	}
 
 	return ['', null];

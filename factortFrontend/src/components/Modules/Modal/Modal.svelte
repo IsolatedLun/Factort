@@ -15,7 +15,7 @@
 	});
 </script>
 
-<dialog class={_class} {id} data-variant="default">
+<dialog class={_class} {id} data-variant="dark">
 	<slot />
 
 	<Button

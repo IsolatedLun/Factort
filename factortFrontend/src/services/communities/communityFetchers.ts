@@ -31,7 +31,7 @@ export async function _Fetch_Misc_CommunityPreviews(id: number) {
 	return await createResponse<any, Props_CommunityPreview[]>(
 		COMMUNITY_MISC_URL,
 		{ id },
-		HTTP_METHODS.GET,
+		HTTP_METHODS.POST,
 		{}
 	);
 }

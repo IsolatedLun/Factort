@@ -13,6 +13,8 @@ class Community(models.Model):
 
     members = models.PositiveIntegerField(default=0)
 
+    is_private = models.BooleanField(default=False)
+
     date_created = models.DateTimeField(auto_now_add=True)
 
 

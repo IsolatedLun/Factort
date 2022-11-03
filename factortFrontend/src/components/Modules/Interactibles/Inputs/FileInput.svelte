@@ -45,6 +45,7 @@
 			// If the input is required or has a file
 		} else if (!isOptional || (target.files && target.files.length > 0)) {
 			const { errors: _errors, isValid } = validateInput(target, validators);
+			console.log(validators);
 			_this.setAttribute('data-input-valid', String(isValid));
 
 			errors = _errors;

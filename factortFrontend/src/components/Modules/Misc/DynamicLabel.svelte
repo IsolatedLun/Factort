@@ -47,12 +47,17 @@
 		<Profile
 			cubeClass={{ utilClass: 'overflow-hidden' }}
 			src={props.data.profile}
+			variant={variant === 'view' ? 'big' : 'default'}
 			alt={props.data.name + ' community profile'}
 		/>
-		<Flexy useColumn={true} gap={'05'}>
-			<a data-variant="default" href={`/communities/${props.data.id}/${props.data.name}`}
-				>g/{props.data.name}</a
-			>
+		<Flexy useColumn={true} gap={'05'} cubeClass={{ utilClass: `fs-${baseFontSize}` }}>
+			{#if variant !== 'view'}
+				<a data-variant="default" href={`/communities/${props.data.id}/${props.data.name}`}
+					>g/{props.data.name}</a
+				>
+			{:else}
+				{props.data.name}
+			{/if}
 			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
 				>{props.data.members} members</Typography
 			>

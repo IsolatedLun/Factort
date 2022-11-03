@@ -23,6 +23,13 @@
 	);
 }
 
+.card[data-variant='primary-difference'] {
+	@include createCard(
+		$background-color: $primary-difference-card-background-color,
+		$border: $primary-difference-card-border
+	);
+}
+
 .card[data-variant='dark'] {
 	@include createCard($background-color: $dark-card-background-color, $border: $dark-card-border);
 

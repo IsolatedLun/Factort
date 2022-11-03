@@ -4,8 +4,10 @@
 	import CardWithHeader from '../../../components/Modules/Card/CardWithHeader.svelte';
 	import type { Props_MiscellaneousSection } from './types';
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
+	import MiscFooter from '../Footer/MiscFooter.svelte';
 
 	export let sections: Props_MiscellaneousSection[] = [];
+	export let withFooter = true;
 </script>
 
 <Flexy useColumn={true} gap={2}>
@@ -17,7 +19,7 @@
 						<CardWithHeader
 							cubeClass={{ utilClass: 'width-100' }}
 							variant="dark"
-							title="Joined Communities"
+							title={section.title}
 						>
 							<Flexy useColumn={true} cubeClass={{ utilClass: 'padding-1' }}>
 								{#each res.data.data as community}
@@ -41,10 +43,10 @@
 					{/if}
 				{/if}
 			{/await}
-		{:else if section.type === 'footer'}
-			<Card cubeClass={{ utilClass: 'width-100' }} variant="dark" padding={1}>
-				<p>FOOTER</p>
-			</Card>
 		{/if}
 	{/each}
+
+	{#if withFooter}
+		<MiscFooter />
+	{/if}
 </Flexy>

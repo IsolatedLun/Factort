@@ -14,7 +14,8 @@
 	import { setTokens } from '../../../utils/tokenHandler';
 	import { globalStore } from '../../../stores/global';
 	import { goto } from '$app/navigation';
-	import { preCheck__Login } from 'src/utils/preChecks';
+	import { preCheck__Login } from '../../../utils/preChecks';
+	import { WEB_SIGNUP_URL } from '../../../consts';
 
 	function loginView() {
 		const check = preCheck__Login(data);
@@ -58,4 +59,8 @@
 			on:validate={inputChange}
 		/>
 	</Form>
+
+	<a class="[ margin-block-start-2 display-inline-block ]" href={WEB_SIGNUP_URL}
+		>Create an account</a
+	>
 </FormContainer>

@@ -28,6 +28,7 @@ options. [DONE]
     - Add registration
 
 - Loading UI for when something is being fetched
+    - Skeletron loading for community/user/posts
 
 ============
 PRIORITY 2
@@ -36,7 +37,7 @@ PRIORITY 2
     - Text post [DONE]
     - Image post (up to 12 images) [DONE]
     - Video post [DONE]
-    - Voice post (with cool wavelength animation)
+    - Voice post (with cool wavelength animation when user plays audio)
     - Link post (with the preview of the link's page) [DONE 1/2]
 
     - Voting system like reddit [DONE 1/2]
@@ -51,9 +52,9 @@ PRIORITY 2
 
 - Post creation page [DONE]
 
-- Add Community component
-    - Displays all posts
-    - Admins
+- Add Community component [DONE]
+    - Displays all posts [DONE]
+    - Admins [DONE 1/4]
     - About section (created with customized markdown)
 
     - Communities can be private (only joined users can access it) or public

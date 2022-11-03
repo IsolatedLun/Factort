@@ -9,5 +9,6 @@ export const FILE_TYPE_DICT: KeyValue<string[]> = {
 	jpeg: ['.jpeg'],
 	gif: ['.gif'],
 	image: ['.png', '.jpg', '.jpeg', '.gif'],
-	video: ['.mp4', '.mov', '.avi', '.mpg']
+	video: ['.mp4', '.mov', '.avi', '.mpg'],
+	audio: ['.mp3', '.wav', '.ogg']
 };

@@ -18,6 +18,7 @@
 		WEB_CREATE_POST_WITH_TYPE_URL
 	} from '../consts';
 	import Icon from '../components/Modules/Icon/Icon.svelte';
+	import Miscellaneuos from '../components/Layouts/Miscellaneous/Miscellaneuos.svelte';
 
 	async function fetchCommunityPreviews() {
 		return _Fetch_Communities();
@@ -51,22 +52,14 @@
 	</div>
 
 	<section slot="misc" class="[ width-100 ]" data-desktop>
-		<Flexy useColumn={true}>
-			<CardWithHeader
-				cubeClass={{ utilClass: 'width-100' }}
-				variant="dark"
-				title="Relevant communities"
-			>
-				<Flexy useColumn={true} gap={2} cubeClass={{ utilClass: 'padding-1' }}>
-					{#await fetchCommunityPreviews() then res}
-						{#if res.type === 'success'}
-							{#each res.data as community}
-								<DynamicLabel props={{ type: 'community', data: community }} />
-							{/each}
-						{/if}
-					{/await}
-				</Flexy>
-			</CardWithHeader>
-		</Flexy>
+		<Miscellaneuos
+			sections={[
+				{
+					title: 'Relevant Communities',
+					id: null,
+					fetchFn: _Fetch_Communities
+				}
+			]}
+		/>
 	</section>
 </FeedContainer>

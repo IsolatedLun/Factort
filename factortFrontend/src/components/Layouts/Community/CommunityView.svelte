@@ -1,44 +1,42 @@
 <script lang="ts">
 	import { _Fetch_User } from '../../../services/users/userFetchers';
-	import { onMount } from 'svelte';
-	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import FeedContainer from '../../../components/Layouts/Containers/FeedContainer.svelte';
-	import Post from '../../../components/Layouts/Post/Post.svelte';
 	import Miscellaneuos from '../Miscellaneous/Miscellaneuos.svelte';
 	import {
+		_Fetch_Community,
 		_Fetch_Misc_CommunityAdmins,
 		_Fetch_Misc_CommunityPreviews
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
 
-	async function fetchUser() {
-		return await _Fetch_User(Number(id));
+	async function fetchCommunity() {
+		return await _Fetch_Community(Number(id));
 	}
 
 	export let id: number;
 </script>
 
-{#await fetchUser() then res}
+{#await fetchCommunity() then res}
 	{#if res.type === 'success'}
-		<div class="[ user-view ]">
+		<div class="[ community-view ]">
 			<header>
 				<Flexy align="end" gap={2} collapseOnMobile={true} alignCenterOnMobile={true}>
 					<DynamicLabel
-						props={{ type: 'user', data: res.data }}
+						props={{ type: 'community', data: res.data }}
 						baseFontSize={600}
 						variant="view"
 					/>
 					<Flexy>
-						<Button>Follow</Button>
+						<Button>Join</Button>
 					</Flexy>
 				</Flexy>
 			</header>
 
 			<FeedContainer
-				title="Latest Posts"
+				title="Posts"
 				posts={res.data.posts}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
@@ -46,9 +44,9 @@
 					<Miscellaneuos
 						sections={[
 							{
-								title: 'Joined Communitiess',
+								title: 'Admins',
 								id: res.data.id,
-								fetchFn: _Fetch_Misc_CommunityPreviews
+								fetchFn: _Fetch_Misc_CommunityAdmins
 							}
 						]}
 					/>

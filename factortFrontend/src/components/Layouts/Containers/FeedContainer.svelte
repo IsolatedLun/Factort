@@ -6,6 +6,7 @@
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
 	import Post from '../Post/Post.svelte';
 	import type { Props_PreviewPost } from '../Post/types';
+	import Card from '../../../components/Modules/Card/Card.svelte';
 
 	export let cubeClass = createObjectCubeClass();
 
@@ -21,7 +22,7 @@
 </script>
 
 <div class={_class} data-grid-collapse="true">
-	<section>
+	<section class="[ width-100 ]">
 		<header class="[ width-100 ]">
 			<slot name="feed" />
 		</header>
@@ -33,20 +34,36 @@
 		{/if}
 		{#if fetchFn}
 			{#await fetchFn() then res}
-				{#if res.type === 'success'}
+				{#if res.type === 'success' && res.data.length > 0}
 					<Flexy useColumn={true} gap={2}>
 						{#each res.data as post}
 							<Post props={{ ...post }} />
 						{/each}
 					</Flexy>
+				{:else}
+					<Card
+						cubeClass={{ utilClass: 'text-center margin-block-2' }}
+						variant="error-difference"
+						padding={2}
+					>
+						<p class="[ fs-500 clr-text-error ]">No posts found</p>
+					</Card>
 				{/if}
 			{/await}
-		{:else}
+		{:else if posts.length > 0}
 			<Flexy useColumn={true} gap={2}>
 				{#each posts as post}
 					<Post props={{ ...post }} />
 				{/each}
 			</Flexy>
+		{:else}
+			<Card
+				cubeClass={{ utilClass: 'text-center margin-block-2' }}
+				variant="error-difference"
+				padding={2}
+			>
+				<p class="[ fs-500 clr-text-error ]">No posts found</p>
+			</Card>
 		{/if}
 	</section>
 

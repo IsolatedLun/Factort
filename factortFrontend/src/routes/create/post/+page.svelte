@@ -50,7 +50,7 @@
 <FormContainer
 	{formHook}
 	mode="select"
-	formNames={['Text', 'Images', 'Video', 'Link']}
+	formNames={['Text', 'Images', 'Video', 'Audio', 'Link']}
 	{errorMessage}
 	on:submit={createPost}
 >
@@ -98,7 +98,25 @@
 			on:validate={inputChange}
 		/>
 	</Form>
-	<Form formTitle={'Link'} formIndex={3} let:inputChange>
+	<Form formTitle={'Audio'} formIndex={3} let:inputChange>
+		<TextInput
+			label="Title"
+			showLabel={true}
+			validators={[minLenValidator(1)]}
+			bind:value={data.title}
+			on:validate={inputChange}
+		/>
+		<FileInput
+			label="Audio"
+			name="audio"
+			expectedFile="audio"
+			on:_input={(e) => {
+				if (e.detail.files) data.audio = e.detail.files[0];
+			}}
+			on:validate={inputChange}
+		/>
+	</Form>
+	<Form formTitle={'Link'} formIndex={4} let:inputChange>
 		<TextInput
 			label="Title"
 			showLabel={true}

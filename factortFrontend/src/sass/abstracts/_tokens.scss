@@ -23,7 +23,8 @@ $theme-border-dark: 2px solid $theme-border-color-dark;
 
 $theme-shadow: 0px 0px 8px 1px hsl(0 50% 0 / 0.75);
 
-$clr-error: var(--clr-button-difference-downvote-hover);
+$clr-primary: var(--clr-text-primary);
+$clr-error: var(--clr-text-error);
 $clr-success: var(--clr-button-difference-upvote-hover);
 
 $modal-background-color: var(--clr-misc-modal-background, hsl(0 50% 0 / 0.65));
@@ -127,6 +128,9 @@ $dark-card-border-color-on-hov: none;
 
 $error-difference-card-background-color: var(--clr-card-error-difference-background);
 $error-difference-card-border: 2px solid $clr-error;
+
+$primary-difference-card-background-color: var(--clr-card-primary-difference-background);
+$primary-difference-card-border: 2px solid $clr-primary;
 
 // =================
 // Drawer

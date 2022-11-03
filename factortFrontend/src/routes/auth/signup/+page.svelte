@@ -75,4 +75,8 @@
 			/>
 		</div>
 	</Form>
+
+	<a class="[ margin-block-start-2 display-inline-block ]" data-bright href={WEB_LOGIN_URL}
+		>Already have an account?</a
+	>
 </FormContainer>

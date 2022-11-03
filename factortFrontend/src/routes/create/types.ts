@@ -5,5 +5,6 @@ export interface Form_CreatePost {
 	content: string;
 	images: File[];
 	video: File | null;
+	audio: File | null;
 	link: string;
 }
