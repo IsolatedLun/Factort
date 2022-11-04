@@ -1,5 +1,6 @@
 import type { FileInputTypes } from '../../components/Modules/Interactibles/Inputs/types';
 import { propOrDefault } from '../cubeCss/cubeCss';
+import { URL_REGEX } from '../regex/all';
 import { EMAIL_REGEX, FILE_TYPE_DICT } from './consts';
 import type { Props_InputValidator } from './types';
 
@@ -14,6 +15,13 @@ export function emailValidator(): Props_InputValidator {
 	return {
 		validate: (e: HTMLInputElement) => EMAIL_REGEX.test(e.value),
 		errorText: `Must be a valid email. (example@gmail.com)`
+	};
+}
+
+export function linkValidator(): Props_InputValidator {
+	return {
+		validate: (e: HTMLInputElement) => URL_REGEX.test(e.value),
+		errorText: `Must be a valid link/url. (https://www.google.com)`
 	};
 }
 

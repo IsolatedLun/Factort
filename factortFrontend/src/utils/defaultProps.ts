@@ -61,6 +61,7 @@ export function createDefaultCreatePostData(): Form_CreatePost {
 		content: '',
 		images: [],
 		video: null,
+		audio: null,
 		link: ''
 	};
 }

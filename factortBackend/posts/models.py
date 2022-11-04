@@ -43,6 +43,10 @@ class PostVideo(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     video = models.FileField(upload_to='posts/videos/')
 
+class PostAudio(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    audio = models.FileField(upload_to='posts/audios/')
+
 
 class CommunityPost(models.Model):
     community = models.ForeignKey(

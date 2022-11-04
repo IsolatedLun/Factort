@@ -32,7 +32,7 @@
 						>u/{props.data.username}</a
 					>
 				{:else}
-					{props.data.username}
+					<small>u/ </small><big>{props.data.username}</big>
 				{/if}
 			</p>
 			<Typography

@@ -26,12 +26,21 @@ class cUserViewSerializer(serializers.ModelSerializer):
     date_created = serializers.DateTimeField(format="%b %d, %Y")
     posts = serializers.SerializerMethodField(method_name='get_posts')
 
+    # ===========
+    is_following = serializers.SerializerMethodField(
+        method_name='get_is_following')
+
     def get_posts(self, obj):
         from posts.models import Post
         from posts.serializers import PostPreviewSerializer
 
         user_posts = Post.objects.filter(user_id=obj.id)
         return PostPreviewSerializer(user_posts, many=True).data
+
+    def get_is_following(self, obj):
+        if(self.context['user']):
+            return self.context['user'].id == obj.id
+        return False
 
     class Meta:
         model = models.cUser

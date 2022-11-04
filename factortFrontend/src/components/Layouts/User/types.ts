@@ -5,4 +5,6 @@ export interface Props_UserView extends Props_User {
 	posts: Props_PreviewPost[];
 
 	followers: number;
+
+	is_following: boolean;
 }

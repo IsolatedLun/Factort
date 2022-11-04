@@ -13,6 +13,7 @@
 		_Fetch_Misc_CommunityPreviews
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
+	import { ICON_PLUS } from '../../../consts';
 
 	async function fetchUser() {
 		return await _Fetch_User(Number(id));
@@ -24,7 +25,7 @@
 {#await fetchUser() then res}
 	{#if res.type === 'success'}
 		<div class="[ user-view ]">
-			<header>
+			<header class="[ view__header ] [ margin-inline-auto ]">
 				<Flexy align="end" gap={2} collapseOnMobile={true} alignCenterOnMobile={true}>
 					<DynamicLabel
 						props={{ type: 'user', data: res.data }}
@@ -32,7 +33,12 @@
 						variant="view"
 					/>
 					<Flexy>
-						<Button>Follow</Button>
+						<Button
+							workCondition={!res.data.is_following && $globalStore.userStore.isLogged}
+							secondaryVariant="sausage"
+							variant="primary"
+							icon={ICON_PLUS}>Follow</Button
+						>
 					</Flexy>
 				</Flexy>
 			</header>

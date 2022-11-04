@@ -10,7 +10,13 @@
 		if (getTokens().access)
 			_Authenticate_View().then((res) => {
 				if (res.type === 'success') {
-					globalStore.update((state) => ({ ...state, user: res.data, isLogged: true }));
+					globalStore.update((state) => ({
+						...state,
+						userStore: {
+							user: res.data,
+							isLogged: true
+						}
+					}));
 				} else {
 					destroyTokens();
 				}

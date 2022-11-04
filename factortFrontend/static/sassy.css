@@ -1368,6 +1368,24 @@
     grid-template-columns: auto;
   }
 }
+.community-view .view__header .header__banner {
+  min-width: 100%;
+  max-height: clamp(8rem, 16vw, 16rem);
+  aspect-ratio: 16/9;
+}
+.community-view .view__header .header__info {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 75%);
+}
+.community-view .view__header .header__profile {
+  width: clamp(4em, 12vw, 6em);
+  aspect-ratio: 1;
+  border-radius: 100vw;
+  padding: 0.5em;
+  background-color: var(--clr-background-400);
+}
+
 .profile {
   aspect-ratio: 1;
   background: linear-gradient(to left, red, green, blue);
@@ -1493,6 +1511,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 10rem;
   color: var(--clr-text-accent);
 }
 .main-modal::backdrop {
@@ -1520,14 +1539,14 @@
   transform: translate(-50%, -50%);
 }
 .input-container .input__image-preview {
-  width: 256px;
+  width: clamp(10rem, 16vw, 16rem);
   aspect-ratio: 1;
 }
 .input-container:has(input:where(:hover, :focus)) .container__end-icon {
   color: var(--clr-input-border-hover);
 }
 .input-container label[data-variant=square-image] .input__square-image-container {
-  width: 16rem;
+  width: clamp(10rem, 20vw, 16rem);
   aspect-ratio: 1;
   background-color: var(--clr-card-300);
   border: 2px solid var(--clr-input-border-hover);
@@ -1691,6 +1710,11 @@
 
 .button:is([data-secondary-variant=square]) {
   padding: 0.5em 0.75em;
+}
+
+.button:is([data-secondary-variant=sausage]) {
+  padding: 0.55em 2em;
+  border-radius: 100vmax;
 }
 
 .markdown code {

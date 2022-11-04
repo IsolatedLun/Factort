@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	import type { EventFunction } from '../../../../types';
 	import type { ButtonSecondaryVariants, ButtonVariants } from './types';
+	import Flexy from '../../BoxLayouts/Flexy.svelte';
+	import Icon from '../../Icon/Icon.svelte';
 
 	onMount(() => {
 		use(_this);
@@ -17,6 +19,7 @@
 	export let secondaryVariant: ButtonSecondaryVariants = 'default';
 	export let ariaLabel = 'Button';
 	export let to = '';
+	export let icon = '';
 
 	export let workCondition = true;
 	export let isFetching = false;
@@ -46,7 +49,16 @@
 			data-allow-outline={allowOutline}
 			aria-label={ariaLabel}
 		>
-			<slot />
+			{#if icon}
+				<Flexy>
+					<div>
+						<slot />
+					</div>
+					<Icon>{icon}</Icon>
+				</Flexy>
+			{:else}
+				<slot />
+			{/if}
 		</button>
 	</a>
 {:else}
@@ -62,6 +74,15 @@
 		data-allow-outline={allowOutline}
 		aria-label={ariaLabel}
 	>
-		<slot />
+		{#if icon}
+			<Flexy gap={2}>
+				<div>
+					<slot />
+				</div>
+				<Icon>{icon}</Icon>
+			</Flexy>
+		{:else}
+			<slot />
+		{/if}
 	</button>
 {/if}

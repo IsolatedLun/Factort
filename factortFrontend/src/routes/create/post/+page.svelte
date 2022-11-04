@@ -1,6 +1,10 @@
 <script lang="ts">
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import { emailValidator, minLenValidator } from '../../../utils/form4Svelte/validators';
+	import {
+		emailValidator,
+		linkValidator,
+		minLenValidator
+	} from '../../../utils/form4Svelte/validators';
 	import { _Register_View } from '../../../services/auth/authService';
 	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
 	import { createDefaultCreatePostData } from '../../../utils/defaultProps';
@@ -127,7 +131,7 @@
 		<TextInput
 			label="Link"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(1), linkValidator()]}
 			bind:value={data.link}
 			on:validate={inputChange}
 		/>

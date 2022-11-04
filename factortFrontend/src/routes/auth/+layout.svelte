@@ -4,7 +4,7 @@
 	import { beforeUpdate } from 'svelte';
 
 	beforeUpdate(() => {
-		if ($globalStore.isLogged) goto('/');
+		if ($globalStore.userStore.isLogged) goto('/');
 	});
 </script>
 

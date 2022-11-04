@@ -9,11 +9,13 @@
 	export let tag = 'div';
 	export let justify = 'space-between';
 	export let align = 'start';
+	export let gap: string | number = 1;
+
 	export let useColumn = false;
 	export let collapseOnMobile = false;
 	export let alignCenterOnMobile = false;
 	export let wrapOnMobile = false;
-	export let gap: string | number = 1;
+
 	export let cubeClass = createObjectCubeClass();
 	export let use: (_this: HTMLElement | null) => void = () => null;
 	export let id = '';

@@ -8,4 +8,4 @@ export type ButtonVariants =
 	| 'upvote-difference'
 	| 'downvote-difference'
 	| 'tool';
-export type ButtonSecondaryVariants = 'default' | 'small' | 'square' | 'extra-small';
+export type ButtonSecondaryVariants = 'default' | 'sausage' | 'small' | 'square' | 'extra-small';

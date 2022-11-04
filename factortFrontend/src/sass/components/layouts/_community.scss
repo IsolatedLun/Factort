@@ -1,0 +1,25 @@
+@use '../../abstracts/' as *;
+@use '../mixins' as *;
+
+.community-view {
+	.view__header {
+		.header__banner {
+			min-width: 100%;
+			max-height: $community-banner-height;
+			aspect-ratio: 16 / 9;
+		}
+
+		.header__info {
+			@include transformCenter($bottom: 75%);
+		}
+
+		.header__profile {
+			width: $community-profile-width;
+			aspect-ratio: 1;
+			border-radius: 100vw;
+
+			padding: $community-profile-padding;
+			background-color: $clr-body-background;
+		}
+	}
+}

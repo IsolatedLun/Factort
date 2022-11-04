@@ -4,6 +4,7 @@
 // Important
 // =================
 $clr-body-text: var(--clr-text-accent);
+$clr-body-background-color: var(--clr-background-300);
 $main-font: 'Poppins', sans-serif;
 
 $border-radius-cubed: 9px;
@@ -54,7 +55,7 @@ $def-input-border: $theme-border;
 $def-input-border-radius: $border-radius-cubed;
 $def-input-border-color-on-hov: var(--clr-input-border-hover);
 
-$input-square-image-width: 16rem;
+$input-square-image-width: clamp(10rem, 20vw, 16rem);
 $input-square-image-background-color: var(--clr-card-300);
 
 $input-end-icon-distance: 2rem;
@@ -65,6 +66,8 @@ $input-end-icon-distance: 2rem;
 $button-font-size-small: var(--fs-350);
 $button-font-size-extra-small: calc(var(--fs-300) * 0.5);
 $button-padding-small: 0.4em 0.45em;
+$button-padding-sausage: 0.55em 2em;
+$button-padding-square: 0.5em 0.75em;
 
 $def-button-font-size: var(--fs-400);
 $def-button-padding: 0.5em 0.55em;
@@ -154,7 +157,14 @@ $post-dot-width: 0.85rem;
 $form-counter-bar-background-color: var(--clr-card-300);
 $form-counter-bar-active-background-color: var(--clr-button-primary-background-hover);
 
-$input-profile-width: 256px;
+$input-profile-width: clamp(10rem, 16vw, 16rem);
+
+// =================
+// Community
+// =================
+$community-profile-padding: 0.5em;
+$community-profile-width: clamp(4em, 12vw, 6em);
+$community-banner-height: clamp(8rem, 16vw, 16rem);
 
 // =================
 // Context menu

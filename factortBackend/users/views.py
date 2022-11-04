@@ -15,6 +15,7 @@ from . import serializers
 # Authetication Views
 # =========================================
 
+
 class RegisterView(APIView):
     def post(self, req):
         try:
@@ -37,8 +38,6 @@ class RegisterView(APIView):
 
 
 class JWTLoginView(APIView):
-    permission_classes = [AllowAny]
-
     def post(self, req):
         try:
             user = models.cUser.objects.get(
@@ -57,14 +56,12 @@ class JWTLoginView(APIView):
                 'user': serializers.cUserSerializer(user).data
             }, OK)
         except ObjectDoesNotExist as e:
-            return Response({'detail': 'Invalid email address or password'}, ERR)
+            return Response(data='Invalid Email address or Password', status=ERR)
         except Exception as e:
-            return Response({'detail': 'Something went wrong'}, ERR)
+            return Response(data='Something went wrong', status=ERR)
 
 
 class JWTAuthenticateView(APIView):
-    permission_classes = [AllowAny]
-
     def post(self, req):
         id = decode_user_id(req.headers)
 
@@ -82,10 +79,9 @@ class JWTAuthenticateView(APIView):
 
 
 class UserView(APIView):
-    permission_classes = [AllowAny]
-
     def get(self, req, user_id):
         user = get_model_or_default(models.cUser, id=user_id)
-        user_serializer = serializers.cUserViewSerializer(user).data
+        user_serializer = serializers.cUserViewSerializer(
+            user, context={'user': req.user}).data
 
         return Response(data=user_serializer, status=OK)

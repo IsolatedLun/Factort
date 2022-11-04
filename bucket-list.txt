@@ -25,7 +25,7 @@ options. [DONE]
 - Connect backend to frontend [DONE]
 - Add complete frontend form validation [DONE]
 - Basic authentication [DONE]
-    - Add registration
+    - Add registration [DONE]
 
 - Loading UI for when something is being fetched
     - Skeletron loading for community/user/posts
@@ -37,7 +37,7 @@ PRIORITY 2
     - Text post [DONE]
     - Image post (up to 12 images) [DONE]
     - Video post [DONE]
-    - Voice post (with cool wavelength animation when user plays audio)
+    - Voice post (with cool wavelength animation when user plays audio) [DONE 1/2]
     - Link post (with the preview of the link's page) [DONE 1/2]
 
     - Voting system like reddit [DONE 1/2]

@@ -14,7 +14,6 @@
 		NAVBAR_CM_ID,
 		NAVBAR_MODAL_ID,
 		WEB_LOGIN_URL,
-		WEB_LOGOUT_URL,
 		WEB_SIGNUP_URL
 	} from '../../../consts';
 	import { onMount } from 'svelte';
@@ -128,10 +127,10 @@
 			</div>
 
 			<div data-desktop>
-				{#if $globalStore.isLogged}
+				{#if $globalStore.userStore.isLogged}
 					<div class="[ navbar__user ]">
 						<Flexy gap={2}>
-							<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
+							<DynamicLabel props={{ type: 'user', data: $globalStore.userStore.user }} />
 							<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open More Options"
 								><Icon>{ICON_SETTINGS}</Icon></Button
 							>
@@ -158,14 +157,17 @@
 	</ContextMenu>
 
 	<Modal id={NAVBAR_MODAL_ID}>
-		{#if $globalStore.isLogged}
+		{#if $globalStore.userStore.isLogged}
 			<LinkList cubeClass={{ utilClass: 'margin-block-end-2' }}>
 				<LinkListItem to="settings" name="Settings" />
 			</LinkList>
-			<DynamicLabel props={{ type: 'user', data: $globalStore.user }} />
+			<div class="[ grid ] [ place-items-center ]">
+				<DynamicLabel props={{ type: 'user', data: $globalStore.userStore.user }} />
+			</div>
 			<Button
-				cubeClass={{ utilClass: 'margin-inline-auto width-100 margin-block-start-2' }}
+				cubeClass={{ utilClass: 'margin-inline-auto width-100 margin-block-start-3' }}
 				variant="primary"
+				secondaryVariant="sausage"
 				ariaLabel="Log out"
 				on:click={logOut}>Log out</Button
 			>

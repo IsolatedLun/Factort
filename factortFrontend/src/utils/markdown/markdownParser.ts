@@ -146,7 +146,7 @@ function parseStartEnd(subText: string, self: MKD_TreeItem): MKD_ParsedData<stri
 
 	if (self.options.mode === 'count') while (subText[start] === sytaxStart) start++;
 
-	return { result: subText.slice(start, end), data: { count: start, offset: end + 1 } };
+	return { result: subText.slice(start, end), data: { count: start, offset: end + 2 } };
 }
 
 /**

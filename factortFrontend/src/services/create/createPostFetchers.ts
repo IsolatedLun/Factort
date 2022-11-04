@@ -11,6 +11,6 @@ export async function _Create_Post(data: Form_CreatePost) {
 		CREATE_POST_URL,
 		data,
 		HTTP_METHODS.POST,
-		createHeaders(null, ['files+json'])
+		createHeaders(null, ['files+json', 'auth'])
 	);
 }

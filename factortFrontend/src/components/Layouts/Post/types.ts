@@ -1,5 +1,7 @@
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
 
+export type PostTypes = 'text' | 'images' | 'video' | 'audio' | 'link';
+
 interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
@@ -25,12 +27,14 @@ interface Post_Content_Video_Data {
 type Post_Content_Text = Complex_Data_Type<'text', string>;
 type Post_Content_Images = Complex_Data_Type<'images', string[]>;
 type Post_Content_Video = Complex_Data_Type<'video', string>;
+type Post_Content_Audio = Complex_Data_Type<'audio', string>;
 type Post_Content_Link = Complex_Data_Type<'link', string>;
 
 type Post_Content_Complex_Type =
 	| Post_Content_Text
 	| Post_Content_Images
 	| Post_Content_Video
+	| Post_Content_Audio
 	| Post_Content_Link;
 // ==================
 

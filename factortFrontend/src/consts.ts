@@ -1,7 +1,8 @@
 // ==============
 // Global Variables
 
-import type { KeyValue } from './types';
+import type { PostTypes } from './components/Layouts/Post/types';
+import type { KeyValue, TypedKeyValue } from './types';
 
 // ==============
 export const POINTS_ALIAS_NAME = 'reputation';
@@ -55,6 +56,7 @@ export const ICON_COMMENTS = '\uf086';
 export const ICON_BARS = '\uf0c9';
 export const ICON_ERROR = '\uf071';
 export const ICON_SETTINGS = '\uf013';
+export const ICON_PLUS = '\uf067';
 
 export const ICON_EYE = '\uf06e';
 
@@ -64,7 +66,16 @@ export const ICON_BUCKET = '\ue4cf';
 export const ICON_IMAGE = '\uf03e';
 export const ICON_MEDIA = '\uf03d';
 export const ICON_LINK = '\uf0c1';
-export const ICON_PLUS = '\uf067';
+export const ICON_MICROPHONE = '\uf130';
+export const ICON_TEXT = '\uf893';
+
+export const POST_TYPE_TO_ICON: TypedKeyValue<PostTypes, string> = {
+	text: 'T',
+	audio: ICON_MICROPHONE,
+	video: ICON_MEDIA,
+	images: ICON_IMAGE,
+	link: ICON_LINK
+};
 
 // ==============
 // Id's

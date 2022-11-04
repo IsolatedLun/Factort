@@ -94,5 +94,10 @@
 }
 
 .button:is([data-secondary-variant='square']) {
-	padding: 0.5em 0.75em;
+	padding: $button-padding-square;
+}
+
+.button:is([data-secondary-variant='sausage']) {
+	padding: $button-padding-sausage;
+	border-radius: 100vmax;
 }

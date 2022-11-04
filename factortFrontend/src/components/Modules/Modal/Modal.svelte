@@ -20,7 +20,9 @@
 
 	<Button
 		on:click={() => closeModal(id)}
-		cubeClass={{ utilClass: 'width-100 margin-block-start-3' }}
+		cubeClass={{ utilClass: 'width-100 margin-block-start-1' }}
+		variant="downvote"
+		secondaryVariant="sausage"
 	>
 		<Icon>{ICON_TIMES}</Icon>
 	</Button>

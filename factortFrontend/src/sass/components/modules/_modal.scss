@@ -4,6 +4,8 @@
 .main-modal {
 	@include transformCenter();
 
+	min-width: 10rem;
+
 	color: var(--clr-text-accent);
 
 	&::backdrop {

@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from consts import OK, NOT_FOUND, ERR
 from . import models
@@ -27,12 +28,14 @@ class PostView(APIView):
 
 
 class CreatePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, req):
         data = req.POST
         files = req.FILES
 
         new_post = models.Post.objects.create(
-            title=data['title'], user_id=1, content={}, content_type=data['selected'])
+            title=data['title'], user_id=req.user.id, content={}, content_type=data['selected'])
         post_type = data['selected']
 
         def _create_images_post():
@@ -71,10 +74,28 @@ class CreatePostView(APIView):
                 raise Exception('No video file found')
             # =========================
 
-            video = models.PostVideo.objects.create(
+            video_model = models.PostVideo.objects.create(
                 video=video_file, post_id=new_post.id)
 
-            new_post.content = {'data': video.video.url, 'type': post_type}
+            new_post.content = {
+                'data': video_model.video.url, 'type': post_type}
+
+        def _create_audio_post():
+            audio_file = None
+
+            # =========================
+            # Assertions
+            # =========================
+            try:
+                audio_file = next(files.values())
+            except Exception as e:
+                raise Exception('No audio file found')
+
+            audio_model = models.PostAudio.objects.create(
+                audio=audio_file, post_id=new_post.id)
+
+            new_post.content = {
+                'data': audio_model.audio.url, 'type': post_type}
 
         # Here, we create the dynamic string name of the function
         # retreive the function from the local symbol table and call it

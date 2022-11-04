@@ -9,7 +9,12 @@
 	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
 	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import { ICON_COMMENTS, WEB_POST_URL } from '../../../consts';
+	import {
+		BACKEND_ROOT_URL,
+		ICON_COMMENTS,
+		POST_TYPE_TO_ICON,
+		WEB_POST_URL
+	} from '../../../consts';
 	import Icon from '../../../components/Modules/Icon/Icon.svelte';
 
 	import PostImages from './_/PostImages.svelte';
@@ -69,9 +74,14 @@
 		secondaryVariant="default-background"
 		cubeClass={{ utilClass: 'padding-inline-2 padding-block-start-1' }}
 	>
-		<Flexy gap={2} justify="start">
+		<Flexy gap={2} align="center" justify="start">
 			<DynamicLabel props={{ type: 'user', data: props.user }} />
-			<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
+			<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
+				<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
+				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-350' }}
+					>{POST_TYPE_TO_ICON[props.content.type]}</Icon
+				>
+			</Flexy>
 		</Flexy>
 		<TypoHeader
 			h={2}
@@ -101,6 +111,8 @@
 			<div class="[ padding-2 ]">
 				<a target="_blank" href={props.content.data}>{props.content.data}</a>
 			</div>
+		{:else if props.content.type === 'audio'}
+			<audio class="[ width-100 ]" controls src={BACKEND_ROOT_URL + props.content.data} />
 		{/if}
 	</section>
 	<Card
