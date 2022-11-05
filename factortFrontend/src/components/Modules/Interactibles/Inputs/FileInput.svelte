@@ -13,6 +13,7 @@
 	import { createExceptedFileValidator } from '../../../../utils/form4Svelte/validators';
 	import FileInputSquareImage from './_/FileInputStyling/FileInput_SquareImage.svelte';
 	import { onDestroy } from 'svelte';
+	import Video from '../../../../components/Misc/MediaElements/Video.svelte';
 
 	onMount(() => {
 		if (createRandomId) id = window.crypto.randomUUID();
@@ -52,10 +53,14 @@
 			isInputValid = isValid;
 		}
 
-		if (expectedFile === 'image' && target.files && target.files[0]) {
+		if (
+			(expectedFile === 'image' || expectedFile === 'video' || expectedFile === 'audio') &&
+			target.files &&
+			target.files[0]
+		) {
 			const file = target.files[0];
 			fileData = {
-				type: 'image',
+				type: expectedFile,
 				data: {
 					size: file.size,
 					type: file.type,
@@ -112,6 +117,20 @@
 				</div>
 			{:else if styling === 'square-image' && fileData.type === 'image'}
 				<FileInputSquareImage {id} {fileData} {styling} {isInputValid} />
+			{/if}
+		{/if}
+		{#if expectedFile === 'video'}
+			{#if styling === 'default' && fileData.type === 'video'}
+				<div class="[ margin-block-end-1 ]">
+					<Video props={{ src: fileData.data.url, alt: 'Post video' }} />
+				</div>
+			{/if}
+		{/if}
+		{#if expectedFile === 'audio'}
+			{#if styling === 'default' && fileData.type === 'audio'}
+				<div class="[ margin-block-end-1 ]">
+					<audio class="[ width-100 ]" controls src={fileData.data.url ?? null} />
+				</div>
 			{/if}
 		{/if}
 		<input

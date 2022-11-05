@@ -4,7 +4,7 @@
 .main-modal {
 	@include transformCenter();
 
-	min-width: 10rem;
+	min-width: $modal-min-width;
 
 	color: var(--clr-text-accent);
 

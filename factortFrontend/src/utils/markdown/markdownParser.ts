@@ -123,7 +123,6 @@ export function parseMarkdown(markdownText: string, ignores: string[]): string {
 	}
 
 	// We replace all newlines into <br>'s because we cannot detect newlines if they are inside tags
-	// (when parsing)
 	out = out.replaceAll(/\r?\n/g, '<br data-newline="true" />');
 
 	return out;

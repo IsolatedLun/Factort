@@ -2,6 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from lxml.html.clean import clean_html
+
 from consts import OK, NOT_FOUND, ERR
 from . import models
 from . import serializers
@@ -56,7 +58,8 @@ class CreatePostView(APIView):
             new_post.content = {'data': images, 'type': post_type}
 
         def _create_text_post():
-            new_post.content = {'data': data['content'], 'type': post_type}
+            new_post.content = {'data': clean_html(
+                data['content']), 'type': post_type}
 
         def _create_link_post():
             new_post.content = {'data': data['link'], 'type': post_type}

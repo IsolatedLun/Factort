@@ -14,6 +14,7 @@
 	export let posts: Props_PreviewPost[] = [];
 	export let fetchFn: Promise<Success_OR_Error__Response<Props_PreviewPost[]>> | null | any = null;
 	export let title = '';
+	export let isInThread = false;
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'feed-container',
@@ -30,15 +31,19 @@
 		{#if title}
 			<TypoHeader>{title}</TypoHeader>
 		{:else}
-			<h2 class="[ visually-hidden ]">Posts</h2>
+			<h2 class="[ visually-hidden ]">{isInThread ? 'Post' : 'Posts'}</h2>
 		{/if}
 		{#if fetchFn}
 			{#await fetchFn() then res}
-				{#if res.type === 'success' && res.data.length > 0}
+				{#if res.type === 'success'}
 					<Flexy useColumn={true} gap={2}>
-						{#each res.data as post}
-							<Post props={{ ...post }} />
-						{/each}
+						{#if isInThread}
+							<Post props={{ ...res.data }} {isInThread} />
+						{:else if res.data.length > 0}
+							{#each res.data as post}
+								<Post props={{ ...post }} />
+							{/each}
+						{/if}
 					</Flexy>
 				{:else}
 					<Card

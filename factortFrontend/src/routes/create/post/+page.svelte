@@ -20,6 +20,7 @@
 	import { CREATE_SELECT_FORM_ID, WEB_POST_URL } from '../../../consts';
 	import { goto } from '$app/navigation';
 	import { preCheck__Post } from '../../../utils/preChecks';
+	import { parseMarkdown } from '../../../utils/markdown/markdownParser';
 
 	onMount(() => {
 		const params = getUrlParams(window.location.href);
@@ -30,8 +31,10 @@
 	function createPost() {
 		let _data = { ...data, selected: $formHook.selected.toLowerCase() };
 
+		// Don't forget to assing the newly changed data to _data
 		if (_data.selected === 'images') data.video = null;
 		if (_data.selected === 'video') data.images = [];
+		if (_data.selected === 'text' && markdownMode) _data.content = parseMarkdown(data.content, []);
 
 		const check = preCheck__Post(data);
 
@@ -40,6 +43,7 @@
 			return;
 		}
 
+		// HTML content is sanitized on the backend
 		_Create_Post({ ..._data, selected: $formHook.selected.toLowerCase() }).then((res) => {
 			if (res.type === 'error') errorMessage = res.data;
 			else goto(WEB_POST_URL(res.data, data.title));
@@ -49,6 +53,8 @@
 	let data: Form_CreatePost = createDefaultCreatePostData();
 	let formHook = useForm(data, 'select');
 	let errorMessage: string = '';
+
+	let markdownMode = true;
 </script>
 
 <FormContainer
@@ -73,6 +79,12 @@
 			bind:value={data.content}
 			on:validate={inputChange}
 		/>
+
+		{#if markdownMode}
+			<article class="[ markdown ]">
+				{@html parseMarkdown(data.content, [])}
+			</article>
+		{/if}
 	</Form>
 	<Form formTitle={'Images'} formIndex={1} let:inputChange>
 		<TextInput

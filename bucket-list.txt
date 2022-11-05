@@ -75,3 +75,8 @@ PRIORITY 4
 ============
 - Custom bot system like reddit
 - Awards system
+
+===============================================
+Ideas
+=======
+- Auto caption option for videos before posting

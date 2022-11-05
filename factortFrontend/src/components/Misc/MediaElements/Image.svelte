@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Props_CubeCSS } from '../../../utils/cubeCss/types';
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
-	import type { Props_Profile } from './types';
+	import type { Props_Media } from './types';
 	import type { EventFunction } from '../../../types';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
@@ -23,7 +23,7 @@
 		}
 	}
 
-	export let props: Props_Profile = {
+	export let props: Props_Media = {
 		src: '',
 		alt: 'Empty'
 	};

@@ -21,6 +21,9 @@
 	import PostVideo from './_/PostVideo.svelte';
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
 	import VoteController from '../../../components/Modules/VoteController/VoteController.svelte';
+	import { propOrDefault } from '../../../utils/cubeCss/cubeCss';
+	import PostYoutubeUrl from './_/PostYoutubeUrl.svelte';
+	import { isValidYoutubeLink } from '../../../utils/regex/all';
 
 	onMount(() => {
 		postElementId = crypto.randomUUID();
@@ -74,12 +77,12 @@
 		secondaryVariant="default-background"
 		cubeClass={{ utilClass: 'padding-inline-2 padding-block-start-1' }}
 	>
-		<Flexy gap={2} align="center" justify="start">
+		<Flexy gap={2} align="start" justify="start">
 			<DynamicLabel props={{ type: 'user', data: props.user }} />
 			<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
 				<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
 				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-350' }}
-					>{POST_TYPE_TO_ICON[props.content.type]}</Icon
+					>{propOrDefault(POST_TYPE_TO_ICON[props.content.type], 'U')}</Icon
 				>
 			</Flexy>
 		</Flexy>
@@ -95,8 +98,8 @@
 	<section class="[ post__content ]">
 		<h2 class="[ visually-hidden ]">Post content</h2>
 		{#if props.content.type === 'text'}
-			<article class="[ padding-2 ]">
-				{props.content.data}
+			<article class="[ markdown ] [ padding-2 ]">
+				{@html props.content.data}
 			</article>
 		{:else if props.content.type === 'images'}
 			<PostImages
@@ -108,9 +111,13 @@
 		{:else if props.content.type === 'video'}
 			<PostVideo videoSrc={props.content.data} isThirdParty={false} />
 		{:else if props.content.type === 'link'}
-			<div class="[ padding-2 ]">
-				<a target="_blank" href={props.content.data}>{props.content.data}</a>
-			</div>
+			{#if isValidYoutubeLink(props.content.data)}
+				<PostYoutubeUrl videoUrl={props.content.data} />
+			{:else}
+				<div class="[ padding-2 ]">
+					<a target="_blank" href={props.content.data}>{props.content.data}</a>
+				</div>
+			{/if}
 		{:else if props.content.type === 'audio'}
 			<audio class="[ width-100 ]" controls src={BACKEND_ROOT_URL + props.content.data} />
 		{/if}

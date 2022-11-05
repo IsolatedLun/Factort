@@ -1,11 +1,6 @@
 <script lang="ts">
+	import Video from '../../../../components/Misc/MediaElements/Video.svelte';
 	import { BACKEND_ROOT_URL } from '../../../../consts';
-	import { createIframeElement } from '../../../../utils/misc';
-	import { youtubeLinkRegex } from '../../../../utils/regex/all';
-
-	function isYoutubeLink() {
-		return youtubeLinkRegex.test(videoSrc);
-	}
 
 	export let videoSrc = '';
 	export let isThirdParty = false;
@@ -13,10 +8,8 @@
 
 <div class="[ post__video ]">
 	{#if !isThirdParty}
-		<video src={BACKEND_ROOT_URL + videoSrc} controls>
-			<track kind="captions" />
-		</video>
-	{:else if isYoutubeLink()}
-		{@html createIframeElement(videoSrc)}
+		<Video props={{ src: BACKEND_ROOT_URL + videoSrc, alt: 'Post video' }} />
+	{:else}
+		<p>This video url is not supported.</p>
 	{/if}
 </div>

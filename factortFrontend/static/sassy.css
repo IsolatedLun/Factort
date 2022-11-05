@@ -1269,7 +1269,7 @@
 
 .post {
   border: 2px solid var(--clr-input-border);
-  max-width: 846px;
+  max-width: 100%;
   border-radius: 5px;
 }
 .post:is([data-collapse=true]) .post__title {
@@ -1278,6 +1278,10 @@
 .post:is([data-collapse=true]) .post__content,
 .post:is([data-collapse=true]) .post__footer {
   display: none;
+}
+.post .post__iframe-container iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
 }
 .post:is(:hover) {
   border: 2px solid var(--clr-input-border-hover);
@@ -1511,7 +1515,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 10rem;
+  min-width: 25vw;
   color: var(--clr-text-accent);
 }
 .main-modal::backdrop {

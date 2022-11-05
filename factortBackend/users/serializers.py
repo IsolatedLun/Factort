@@ -34,7 +34,8 @@ class cUserViewSerializer(serializers.ModelSerializer):
         from posts.models import Post
         from posts.serializers import PostPreviewSerializer
 
-        user_posts = Post.objects.filter(user_id=obj.id)
+        user_posts = Post.objects.filter(
+            user_id=obj.id).order_by('-date_created')
         return PostPreviewSerializer(user_posts, many=True).data
 
     def get_is_following(self, obj):
