@@ -17,6 +17,7 @@ $profile-scale-big: clamp(4.55em, 12vw, 8.25em);
 $theme-border-color-dark: var(--clr-card-400);
 $theme-border-color-light: var(--clr-input-border-hover);
 $theme-border-color-default: var(--clr-input-border);
+$theme-border-color-medium: var(--clr-hoverable-400);
 
 $theme-border-light: 2px solid $theme-border-color-light;
 $theme-border: 2px solid $theme-border-color-default;

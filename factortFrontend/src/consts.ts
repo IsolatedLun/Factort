@@ -14,6 +14,7 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 };
 export const SLIDESHOW_INTERVAL = 3000;
 export const DRAWER_LEAVE_COUNTDOWN = 3500;
+export const TOOLTIP_TIMEOUT = 1000;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
@@ -68,6 +69,7 @@ export const ICON_MEDIA = '\uf03d';
 export const ICON_LINK = '\uf0c1';
 export const ICON_MICROPHONE = '\uf130';
 export const ICON_TEXT = '\uf893';
+export const ICON_BROKEN_LINK = '\uf127';
 
 export const POST_TYPE_TO_ICON: TypedKeyValue<PostTypes, string> = {
 	text: 'T',
@@ -121,4 +123,4 @@ export const WEB_LOGOUT_URL = '/auth/logout';
 export const WEB_CREATE_POST_URL = '/create/post';
 export const WEB_CREATE_POST_WITH_TYPE_URL = (type: string) => '/create/post?type=' + type;
 
-export const WEB_POST_URL = (id: number, title: string) => `/posts/${id}/${title}`;
+export const WEB_POST_URL = (id: string | number, title: string) => `/posts/${id}/${title}`;

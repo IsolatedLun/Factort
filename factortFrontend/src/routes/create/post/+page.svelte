@@ -21,6 +21,8 @@
 	import { goto } from '$app/navigation';
 	import { preCheck__Post } from '../../../utils/preChecks';
 	import { parseMarkdown } from '../../../utils/markdown/markdownParser';
+	import Boolean from '../../../components/Modules/Interactibles/Boolean.svelte';
+	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
 
 	onMount(() => {
 		const params = getUrlParams(window.location.href);
@@ -54,7 +56,7 @@
 	let formHook = useForm(data, 'select');
 	let errorMessage: string = '';
 
-	let markdownMode = true;
+	let markdownMode = false;
 </script>
 
 <FormContainer
@@ -79,9 +81,16 @@
 			bind:value={data.content}
 			on:validate={inputChange}
 		/>
+		<Boolean
+			name="markdownToggler"
+			type="checkbox"
+			label="Markdown mode"
+			bind:value={markdownMode}
+		/>
 
 		{#if markdownMode}
-			<article class="[ markdown ]">
+			<TypoHeader underline={true} spacing={0}>Result</TypoHeader>
+			<article class="[ markdown ] [  ]">
 				{@html parseMarkdown(data.content, [])}
 			</article>
 		{/if}

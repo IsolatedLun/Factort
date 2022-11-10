@@ -7,8 +7,6 @@
 	import Icon from '../../Modules/Icon/Icon.svelte';
 	import {
 		ICON_BARS,
-		ICON_CARET_LEFT,
-		ICON_CARET_RIGHT,
 		ICON_SEARCH,
 		ICON_SETTINGS,
 		NAVBAR_CM_ID,
@@ -30,6 +28,7 @@
 	import { createDefaultUser } from '../../../utils/defaultProps';
 	import { goto } from '$app/navigation';
 	import { destroyTokens } from '../../../utils/tokenHandler';
+	import HistoryButtons from './_/HistoryButtons.svelte';
 
 	onMount(() => {
 		layoutStore.subscribe((state) => {
@@ -85,20 +84,7 @@
 			</TypoHeader>
 
 			<Flexy useColumn={stickToSide}>
-				<div data-desktop>
-					<Flexy
-						useColumn={stickToSide}
-						gap={2}
-						cubeClass={{ utilClass: !stickToSide ? 'margin-inline-end-2' : '' }}
-					>
-						<Button workCondition={false} cubeClass={{ utilClass: 'margin-block-auto' }}>
-							<Icon>{ICON_CARET_LEFT}</Icon>
-						</Button>
-						<Button workCondition={false}>
-							<Icon>{ICON_CARET_RIGHT}</Icon>
-						</Button>
-					</Flexy>
-				</div>
+				<HistoryButtons {stickToSide} />
 				{#if stickToSide}
 					<Button
 						on:click={() => (showStickyInput = !showStickyInput)}
@@ -129,7 +115,7 @@
 			<div data-desktop>
 				{#if $globalStore.userStore.isLogged}
 					<div class="[ navbar__user ]">
-						<Flexy gap={2}>
+						<Flexy gap={2} useColumn={stickToSide}>
 							<DynamicLabel props={{ type: 'user', data: $globalStore.userStore.user }} />
 							<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open More Options"
 								><Icon>{ICON_SETTINGS}</Icon></Button

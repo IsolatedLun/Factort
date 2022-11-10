@@ -6,5 +6,10 @@ export const globalStore = writable<Store_Global>({
 	userStore: {
 		user: createDefaultUser(),
 		isLogged: false
+	},
+
+	visitedStore: {
+		visitedPosts: [],
+		idx: 0
 	}
 });

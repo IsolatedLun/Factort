@@ -5,8 +5,11 @@
 	import { _Authenticate_View } from '../services/auth/authService';
 	import { globalStore } from '../stores/global';
 	import { destroyTokens, getTokens } from '../utils/tokenHandler';
+	import { getPostsFromHistory } from '../utils/postHistory/postHistroy';
 
+	// Set all beginning values/stores here
 	onMount(() => {
+		// Authentication
 		if (getTokens().access)
 			_Authenticate_View().then((res) => {
 				if (res.type === 'success') {
@@ -21,6 +24,10 @@
 					destroyTokens();
 				}
 			});
+
+		// Global
+		const posts = getPostsFromHistory();
+		globalStore.update((state) => ({ ...state, visitedStore: { visitedPosts: posts, idx: 0 } }));
 	});
 </script>
 

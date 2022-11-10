@@ -24,6 +24,9 @@ class PostView(APIView):
             post = models.Post.objects.get(id=post_id)
             serialized_data = serializers.PostSerializer(post).data
 
+            post.views += 1
+            post.save()
+
             return Response(data=serialized_data, status=OK)
         except:
             return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
@@ -58,6 +61,7 @@ class CreatePostView(APIView):
             new_post.content = {'data': images, 'type': post_type}
 
         def _create_text_post():
+            # Received data is in html, so we clean it
             new_post.content = {'data': clean_html(
                 data['content']), 'type': post_type}
 
@@ -84,6 +88,7 @@ class CreatePostView(APIView):
                 'data': video_model.video.url, 'type': post_type}
 
         def _create_audio_post():
+            # Because there is always a single video file
             audio_file = None
 
             # =========================
@@ -108,10 +113,17 @@ class CreatePostView(APIView):
 
             method()
             new_post.save()
-        except KeyError as e:  # This exception occurs when the method is not found
-            return Response(data=f'Someting went terribly wrong: Selected form is invalid', status=ERR)
-        except Exception as e:
-            new_post.delete()
-            return Response(data=f'Someting went terribly wrong: {str(e)}', status=ERR)
+
+        # Since we need to run some code before handling the exception
+        # We nest a try/except block, run the code needed in the try block
+        # and raise the exception again
+        except:
+            try:
+                new_post.delete()
+                raise
+            except KeyError as e:  # This exception occurs when the method is not found
+                return Response(data=f'Someting went terribly wrong: Selected form is invalid', status=ERR)
+            except Exception as e:
+                return Response(data=f'Someting went terribly wrong: {str(e)}', status=ERR)
 
         return Response(data=new_post.id, status=OK)

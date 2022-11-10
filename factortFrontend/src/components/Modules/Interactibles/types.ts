@@ -1,0 +1,1 @@
+export type BooleanTypes = 'checkbox' | 'radio';

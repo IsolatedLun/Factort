@@ -1,0 +1,11 @@
+@use '../../abstracts/' as *;
+
+.tooltip-container {
+	max-width: 25vw;
+
+	.tooltip {
+		@include transformCenter($bottom: 38%);
+
+		width: max-content;
+	}
+}

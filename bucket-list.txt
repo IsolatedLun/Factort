@@ -30,6 +30,8 @@ options. [DONE]
 - Loading UI for when something is being fetched
     - Skeletron loading for community/user/posts
 
+- ADD TESTS.....
+
 ============
 PRIORITY 2
 ============

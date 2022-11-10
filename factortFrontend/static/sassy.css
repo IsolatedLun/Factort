@@ -1522,6 +1522,16 @@
   background-color: var(--clr-misc-modal-background, rgba(0, 0, 0, 0.65));
 }
 
+.tooltip-container {
+  max-width: 25vw;
+}
+.tooltip-container .tooltip {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 38%);
+  width: max-content;
+}
+
 .input-container .input[data-variant=default] {
   font-size: var(--fs-400);
   padding: 0.475em 0.9em;
@@ -1820,13 +1830,13 @@
 }
 
 .upper-border {
-  border-top: 1px solid var(--clr-hover-400);
+  border-top: 1px solid var(--clr-hoverable-400);
   padding-block-start: 0.5em;
 }
 
-.under-border {
-  border-bottom: 1px solid var(--clr-hover-400);
-  padding-block-end: 0.5em;
+.under-border,
+*[data-typo-underline=true] {
+  border-bottom: 1px solid var(--clr-hoverable-400);
 }
 
 .long-bar {
