@@ -1,6 +1,5 @@
 // ==============
 // Global Variables
-
 import type { PostTypes } from './components/Layouts/Post/types';
 import type { KeyValue, TypedKeyValue } from './types';
 
@@ -18,7 +17,7 @@ export const TOOLTIP_TIMEOUT = 1000;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
-// currEncloser = [
+// if currEncloser == [
 // x([) => ]
 // y(]) => [
 export const COMPLEMENTARIES: KeyValue<string> = {
@@ -70,6 +69,7 @@ export const ICON_LINK = '\uf0c1';
 export const ICON_MICROPHONE = '\uf130';
 export const ICON_TEXT = '\uf893';
 export const ICON_BROKEN_LINK = '\uf127';
+export const ICON_COMMUNITY = '\uf0c0';
 
 export const POST_TYPE_TO_ICON: TypedKeyValue<PostTypes, string> = {
 	text: 'T',
@@ -102,6 +102,7 @@ export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
+export const CREATE_COMMUNITY_URL = COMMUNITIES_URL + 'create';
 export const COMMUNITY_MISC_URL = COMMUNITIES_URL + 'misc';
 export const COMMUNITY_MISC_ADMINS_URL = (id: number) => COMMUNITY_URL(id) + `/admins`;
 
@@ -121,6 +122,18 @@ export const WEB_LOGIN_URL = '/auth/login';
 export const WEB_LOGOUT_URL = '/auth/logout';
 
 export const WEB_CREATE_POST_URL = '/create/post';
-export const WEB_CREATE_POST_WITH_TYPE_URL = (type: string) => '/create/post?type=' + type;
+export const WEB_CREATE_COMMUNITY_POST_URL = '/create/community';
+export const WEB_CREATE_POST_WITH_TYPE_URL = (id: number | null, type: string) =>
+	'/create/post?type=' + type + '&communityId=' + id;
+
+export const WEB_CREATE_COMMUNITY_URL = '/create/community';
 
 export const WEB_POST_URL = (id: string | number, title: string) => `/posts/${id}/${title}`;
+export const WEB_COMMUNITY_URL = (id: string | number, title: string) =>
+	`/communities/${id}/${title}`;
+
+export const WEB_USER_URL = (id: string | number, title: string) => `/users/${id}/${title}`;
+
+// These urls are for the current logged in user
+// my/settings, etc...
+export const WEB_MY_SETTINGS_URL = `/my/settings`;

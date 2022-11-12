@@ -52,7 +52,7 @@
 					<Miscellaneuos
 						sections={[
 							{
-								title: 'Joined Communitiess',
+								title: 'Joined Communities',
 								id: res.data.id,
 								fetchFn: _Fetch_Misc_CommunityPreviews
 							}

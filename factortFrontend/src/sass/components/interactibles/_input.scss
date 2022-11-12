@@ -6,6 +6,10 @@
 		@include createInput();
 	}
 
+	input[type='checkbox'] {
+		accent-color: $clr-primary;
+	}
+
 	// ===========
 	// Misc
 	// ===========
@@ -27,20 +31,32 @@
 	}
 
 	// Input stylings
-	label[data-variant='square-image'] {
-		.input__square-image-container {
-			width: $input-square-image-width;
-			aspect-ratio: 1;
-
+	label[data-input-variant='image'] {
+		.input__image-container {
 			background-color: $input-square-image-background-color;
 			border: $theme-border-light;
 		}
 
-		&[data-valid='false'] .input__square-image-container {
+		// ============================================================
+		// Image input stylings
+		&[data-variant='square-image'] .input__image-container {
+			width: $input-square-image-width;
+			aspect-ratio: 1;
+		}
+
+		&[data-variant='banner-image'] .input__image-container {
+			width: 100%;
+			height: $input-banner-image-height;
+
+			aspect-ratio: 16 / 9;
+		}
+		// ============================================================
+
+		&[data-valid='false'] .input__image-container {
 			border-color: $clr-error;
 		}
 
-		&[data-valid='true'] .input__square-image-container {
+		&[data-valid='true'] .input__image-container {
 			border-color: $clr-success;
 		}
 	}

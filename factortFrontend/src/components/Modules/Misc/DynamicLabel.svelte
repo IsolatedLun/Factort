@@ -4,6 +4,7 @@
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import Profile from '../../../components/Modules/User/Profile.svelte';
 	import type { DynamicLabelVariants, Props_DynamicLabel_Complex_Type } from './types';
+	import { WEB_COMMUNITY_URL, WEB_USER_URL } from '../../../consts';
 
 	export let cubeClass = createObjectCubeClass();
 	export let props: Props_DynamicLabel_Complex_Type;
@@ -28,7 +29,7 @@
 		<Flexy useColumn={true} gap={'05'} cubeClass={{ utilClass: `fs-${baseFontSize}` }}>
 			<p class="[ dynamic-label__name ]">
 				{#if variant !== 'view'}
-					<a data-variant="default" href={`/users/${props.data.id}/${props.data.username}`}
+					<a data-variant="default" href={WEB_USER_URL(props.data.id, props.data.username)}
 						>u/{props.data.username}</a
 					>
 				{:else}
@@ -52,7 +53,7 @@
 		/>
 		<Flexy useColumn={true} gap={'05'} cubeClass={{ utilClass: `fs-${baseFontSize}` }}>
 			{#if variant !== 'view'}
-				<a data-variant="default" href={`/communities/${props.data.id}/${props.data.name}`}
+				<a data-variant="default" href={WEB_COMMUNITY_URL(props.data.id, props.data.name)}
 					>g/{props.data.name}</a
 				>
 			{:else}

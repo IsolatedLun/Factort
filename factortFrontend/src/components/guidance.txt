@@ -1,0 +1,3 @@
+Layouts => Component that are only used once (in a page) and are permanent.
+Modules => Components that are used more than twice like (Buttons, Cards, etc).
+Misc => Components that have specific roles.

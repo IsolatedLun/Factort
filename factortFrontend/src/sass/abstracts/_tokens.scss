@@ -58,6 +58,7 @@ $def-input-border-radius: $border-radius-cubed;
 $def-input-border-color-on-hov: var(--clr-input-border-hover);
 
 $input-square-image-width: clamp(10rem, 20vw, 16rem);
+$input-banner-image-height: clamp(8rem, 16vw, 16rem);
 $input-square-image-background-color: var(--clr-card-300);
 
 $input-end-icon-distance: 2rem;
@@ -156,6 +157,8 @@ $post-dot-width: 0.85rem;
 // =================
 // Form
 // =================
+$form-container-width: 76vw;
+
 $form-counter-bar-background-color: var(--clr-card-300);
 $form-counter-bar-active-background-color: var(--clr-button-primary-background-hover);
 
@@ -166,7 +169,7 @@ $input-profile-width: clamp(10rem, 16vw, 16rem);
 // =================
 $community-profile-padding: 0.5em;
 $community-profile-width: clamp(4em, 12vw, 6em);
-$community-banner-height: clamp(8rem, 16vw, 16rem);
+$community-banner-height: clamp(128px, 16vw, 256px);
 
 // =================
 // Context menu

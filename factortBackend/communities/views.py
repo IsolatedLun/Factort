@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
+from django.db import IntegrityError
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from consts import OK, ERR
 from utils.helpers import exclude_from_dict
@@ -29,6 +31,29 @@ class CommunityView(APIView):
             return Response(data=serialized_data, status=OK)
         except:
             return Response(data={'detail': 'Community does not exist'}, status=ERR)
+
+
+class CreateCommunityView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req):
+        data = req.POST
+        files = req.FILES
+
+        try:
+            new_community = models.Community.objects.create(
+                owner=req.user, name=data['name'], profile=files['profile'], banner=files['banner'])
+            owner = models.CommunityMember.objects.create(
+                user=req.user, is_owner=True, is_moderator=True)
+
+            return Response(data=new_community.id, status=OK)
+        except IntegrityError as e:
+            unique_variable = str(e).split(
+                '.')[1] if 'UNIQUE' in str(e) else 'unknown'
+
+            return Response(data=f'A community with the same "{unique_variable}" already exists', status=ERR)
+        except Exception as e:
+            return Response(data='Something went terribly wrong', status=ERR)
 
 
 class Misc_CommunityPreviewsView(APIView):
@@ -60,7 +85,8 @@ class Misc_CommunityAdminsView(APIView):
         # Get the admins (owner/moderators) of a specific community
         if community_id:
             admins = [x.user for x in models.CommunityMember.objects.filter(
-                Q(is_moderator=True) | Q(is_owner=True))]
+                Q(community_id=community_id) &
+                (Q(is_moderator=True) | Q(is_owner=True)))]
             serialized_admins = cUserSerializer(admins, many=True).data
 
         return Response(data={'type': 'moderator', 'data': serialized_admins}, status=OK)

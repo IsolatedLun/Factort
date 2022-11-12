@@ -1,4 +1,4 @@
-import type { Form_CreatePost } from 'src/routes/create/types';
+import type { Form_CreateCommunity, Form_CreatePost } from 'src/routes/create/types';
 import type { Props_Post } from '../components/Layouts/Post/types';
 import type { Props_User } from '../types';
 import type { MKD_ParsedData } from './markdown/types';
@@ -63,5 +63,15 @@ export function createDefaultCreatePostData(): Form_CreatePost {
 		video: null,
 		audio: null,
 		link: ''
+	};
+}
+
+export function createDefaultCreateCommunityData(): Form_CreateCommunity {
+	return {
+		name: '',
+		about: '',
+
+		profile: null,
+		banner: null
 	};
 }

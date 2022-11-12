@@ -40,7 +40,7 @@
 
 <div class={_class}>
 	<Flexy align="center" justify="start">
-		<label for={name}>{label}:</label>
+		<label class="[ clr-text-muted ]" for={name}>{label}:</label>
 		<input
 			bind:value
 			on:input={(e) => {

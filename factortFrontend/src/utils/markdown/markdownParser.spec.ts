@@ -5,7 +5,7 @@ it('Parses an user-inputted text into valid markdown', () => {
 	let result = '';
 
 	const headingTextWithNestedMarkdown = parseMarkdown('# Very * EPIC /* /#', []);
-	result = '<h1>&nbsp;Very&nbsp;<i> EPIC </i>&nbsp;</h1>';
+	result = '<h1> Very <i> EPIC </i> </h1>';
 
 	expect(headingTextWithNestedMarkdown).toEqual(result);
 
@@ -14,7 +14,7 @@ it('Parses an user-inputted text into valid markdown', () => {
 		[]
 	);
 	result =
-		'<ul><li><a target="_blank" href="https://www.google.com">google</a></li></ul>&nbsp;<ul><li><a target="_blank" href="https://www.youtube.com">youtube</a></li></ul>';
+		'<ul><li><a target="_blank" href="https://www.google.com">google</a></li></ul> <ul><li><a target="_blank" href="https://www.youtube.com">youtube</a></li></ul>';
 
 	expect(ListWithTwoLinks).toEqual(result);
 });

@@ -34,10 +34,7 @@ export function createListElement(self: MKD_TreeItem, parsedData: MKD_ParsedData
 export function createLinkElement(self: MKD_TreeItem, parsedData: MKD_ParsedData<string[2]>) {
 	let { result, data } = parsedData;
 
-	return `<a target={'_blank'} href="${result[1]}">${parseMarkdown(
-		result[0],
-		LINK_IGNORE_LIST
-	)}</a>`;
+	return `<a target="_blank" href="${result[1]}">${parseMarkdown(result[0], LINK_IGNORE_LIST)}</a>`;
 }
 
 export function createCodeElement(self: MKD_TreeItem, parsedData: MKD_ParsedData<string>) {

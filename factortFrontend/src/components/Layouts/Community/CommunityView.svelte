@@ -12,6 +12,7 @@
 	import { BACKEND_ROOT_URL, ICON_PLUS } from '../../../consts';
 	import Profile from '../../../components/Modules/User/Profile.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
+	import CreatePostHeader from '../CreatePostHeader/CreatePostHeader.svelte';
 
 	async function fetchCommunity() {
 		return await _Fetch_Community(Number(id));
@@ -56,6 +57,9 @@
 				posts={res.data.posts}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
+				<section slot="feed">
+					<CreatePostHeader communityId={id} type="community" />
+				</section>
 				<section slot="misc" class="[ width-100 ]" data-desktop>
 					<Miscellaneuos
 						sections={[

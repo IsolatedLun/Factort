@@ -27,7 +27,7 @@ export function bundleInputs(formTitle: string) {
 
 export function validateInput(
 	input: HTMLInputElement,
-	validators: Props_InputValidator[]
+	validators: Props_InputValidator<never>[]
 ): Props_InputValidationResult {
 	let bools: boolean[] = [];
 	let errors: string[] = [];

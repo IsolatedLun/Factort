@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Flexy from '../../../../../../components/Modules/BoxLayouts/Flexy.svelte';
-	import Image from '../../../../../../components/Misc/MediaElements/Image.svelte';
+	import Flexy from '../../../../BoxLayouts/Flexy.svelte';
+	import Image from '../../../../../Misc/MediaElements/Image.svelte';
 	import type { FileInputStylings, Input_Image_File } from '../../types';
 	import { sizeConvert } from '../../../../../../utils/misc';
 	import { StorageSizes } from '../../../../../../utils/types';
@@ -16,11 +16,12 @@
 
 <label
 	for={id}
-	class={'[ margin-block-end-1 display-inline-block margin-inline-auto ]'}
+	class={'[ margin-block-end-1 display-inline-block width-100 ]'}
+	data-input-variant="image"
 	data-variant={styling}
 	data-valid={isInputValid}
 >
-	<div class="[ input__square-image-container ] [  border-radius-cubed ]">
+	<div class="[ input__image-container ] [  border-radius-cubed ]">
 		<Image
 			props={{ src: fileData.data.url, alt: fileData.data.name }}
 			on:dimensions={(e) => (dimensions = e.detail)}
@@ -33,4 +34,6 @@
 			<p>{sizeConvert(fileData.data.size, StorageSizes.B, StorageSizes.MB)} Mb</p>
 		</Flexy>
 	</div>
+
+	<p class="[ clr-text-muted fs-350 margin-block-start-1 ]">Recommended dimensions: 2560 x 1440</p>
 </label>

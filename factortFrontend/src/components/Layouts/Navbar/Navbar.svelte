@@ -12,6 +12,7 @@
 		NAVBAR_CM_ID,
 		NAVBAR_MODAL_ID,
 		WEB_LOGIN_URL,
+		WEB_MY_SETTINGS_URL,
 		WEB_SIGNUP_URL
 	} from '../../../consts';
 	import { onMount } from 'svelte';
@@ -145,7 +146,7 @@
 	<Modal id={NAVBAR_MODAL_ID}>
 		{#if $globalStore.userStore.isLogged}
 			<LinkList cubeClass={{ utilClass: 'margin-block-end-2' }}>
-				<LinkListItem to="settings" name="Settings" />
+				<LinkListItem to={WEB_MY_SETTINGS_URL} name="Settings" />
 			</LinkList>
 			<div class="[ grid ] [ place-items-center ]">
 				<DynamicLabel props={{ type: 'user', data: $globalStore.userStore.user }} />

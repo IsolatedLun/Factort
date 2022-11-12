@@ -26,7 +26,7 @@
 	import { isValidYoutubeLink } from '../../../utils/regex/all';
 
 	onMount(() => {
-		postElementId = crypto.randomUUID();
+		if (!postElementId) postElementId = crypto.randomUUID();
 
 		_this.addEventListener('mouseenter', () => _this.focus());
 		_this.addEventListener('mouseleave', () => _this.blur());
@@ -51,8 +51,8 @@
 		data: 'https://www.google.com'
 	});
 	export let isInThread = false;
+	export let postElementId = '';
 
-	let postElementId = '';
 	let collapsePost = false;
 	let slideshowMode = false;
 

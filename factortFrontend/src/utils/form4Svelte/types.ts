@@ -1,7 +1,7 @@
 import type { Complex_Data_Type } from '../../types';
 
-export interface Props_InputValidator {
-	validate: (e: HTMLInputElement) => boolean;
+export interface Props_InputValidator<T> {
+	validate: (e: HTMLInputElement | T) => boolean;
 	errorText: string;
 }
 
@@ -11,7 +11,7 @@ export interface Props_InputValidationResult {
 }
 
 export interface Props_CreatedInputValidator {
-	validator: Props_InputValidator;
+	validator: Props_InputValidator<never>;
 }
 
 type _PreCheckedData__Success = Complex_Data_Type<'success', null>;

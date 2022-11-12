@@ -4,31 +4,34 @@ import { URL_REGEX } from '../regex/all';
 import { EMAIL_REGEX, FILE_TYPE_DICT } from './consts';
 import type { Props_InputValidator } from './types';
 
-export function minLenValidator(n: number): Props_InputValidator {
+export function minLenValidator(n: number): Props_InputValidator<never> {
 	return {
 		validate: (e: HTMLInputElement) => e.value.length > n - 1,
 		errorText: `Must have atleast ${n} character(s).`
 	};
 }
 
-export function emailValidator(): Props_InputValidator {
+export function emailValidator(): Props_InputValidator<never> {
 	return {
 		validate: (e: HTMLInputElement) => EMAIL_REGEX.test(e.value),
 		errorText: `Must be a valid email. (example@gmail.com)`
 	};
 }
 
-export function linkValidator(): Props_InputValidator {
+export function linkValidator(): Props_InputValidator<never> {
 	return {
 		validate: (e: HTMLInputElement) => URL_REGEX.test(e.value),
 		errorText: `Must be a valid link/url. (https://www.google.com)`
 	};
 }
 
-export function fileTypeValidator(type: string): Props_InputValidator {
+export function fileTypeValidator(type: string): Props_InputValidator<File> {
 	return {
-		validate: (e: HTMLInputElement) => {
-			const file = e.files ? e.files[0] : null;
+		validate: (e: HTMLInputElement | File) => {
+			let file: File | null;
+
+			if ('className' in e) file = e.files ? e.files[0] : null;
+			else file = e;
 
 			if (file) {
 				const fileExtStart = file.name.lastIndexOf('.');
@@ -54,7 +57,7 @@ export function fileTypeValidator(type: string): Props_InputValidator {
 /**
  * @param characters - An array of special characters => [$, #]
  */
-export function specialCharacterValidator(characters: string[]): Props_InputValidator {
+export function specialCharacterValidator(characters: string[]): Props_InputValidator<never> {
 	return {
 		validate: (e: HTMLInputElement) => {
 			const value = e.value;
@@ -75,7 +78,7 @@ export function specialCharacterValidator(characters: string[]): Props_InputVali
 export function createExceptedFileValidator(
 	input: HTMLInputElement,
 	expectedFile: FileInputTypes
-): [string, Props_InputValidator | null] {
+): [string, Props_InputValidator<never> | null] {
 	if (expectedFile === 'image') {
 		const extenstions = FILE_TYPE_DICT['image'].join(', ');
 

@@ -2,7 +2,7 @@
 @use '../mixins' as *;
 
 .form-container {
-	max-width: 864px;
+	max-width: $form-container-width;
 	margin-inline: auto;
 
 	.inner-form-container[data-show-form='false'] {
@@ -65,5 +65,10 @@
 	// ==================================
 	.container__images-slot .input-container {
 		width: max-content !important;
+	}
+
+	.input__image-banner {
+		width: 28rem;
+		aspect-ratio: 16 / 9;
 	}
 }

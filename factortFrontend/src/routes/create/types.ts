@@ -8,3 +8,11 @@ export interface Form_CreatePost {
 	audio: File | null;
 	link: string;
 }
+
+export interface Form_CreateCommunity {
+	name: string;
+	about: string;
+
+	profile: File;
+	banner: File;
+}

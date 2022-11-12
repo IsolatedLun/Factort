@@ -1374,7 +1374,7 @@
 }
 .community-view .view__header .header__banner {
   min-width: 100%;
-  max-height: clamp(8rem, 16vw, 16rem);
+  max-height: clamp(128px, 16vw, 256px);
   aspect-ratio: 16/9;
 }
 .community-view .view__header .header__info {
@@ -1465,7 +1465,7 @@
 }
 
 .form-container {
-  max-width: 864px;
+  max-width: 76vw;
   margin-inline: auto;
 }
 .form-container .inner-form-container[data-show-form=false] {
@@ -1510,6 +1510,10 @@
 .form-container .container__images-slot .input-container {
   width: max-content !important;
 }
+.form-container .input__image-banner {
+  width: 28rem;
+  aspect-ratio: 16/9;
+}
 
 .main-modal {
   top: 50%;
@@ -1542,6 +1546,9 @@
 .input-container .input[data-variant=default]:is(:focus-visible, :hover) {
   border-color: var(--clr-input-border-hover);
 }
+.input-container input[type=checkbox] {
+  accent-color: var(--clr-text-primary);
+}
 .input-container .container__end-icon {
   top: 50%;
   left: calc(100% - 2rem);
@@ -1559,16 +1566,23 @@
 .input-container:has(input:where(:hover, :focus)) .container__end-icon {
   color: var(--clr-input-border-hover);
 }
-.input-container label[data-variant=square-image] .input__square-image-container {
-  width: clamp(10rem, 20vw, 16rem);
-  aspect-ratio: 1;
+.input-container label[data-input-variant=image] .input__image-container {
   background-color: var(--clr-card-300);
   border: 2px solid var(--clr-input-border-hover);
 }
-.input-container label[data-variant=square-image][data-valid=false] .input__square-image-container {
+.input-container label[data-input-variant=image][data-variant=square-image] .input__image-container {
+  width: clamp(10rem, 20vw, 16rem);
+  aspect-ratio: 1;
+}
+.input-container label[data-input-variant=image][data-variant=banner-image] .input__image-container {
+  width: 100%;
+  height: clamp(8rem, 16vw, 16rem);
+  aspect-ratio: 16/9;
+}
+.input-container label[data-input-variant=image][data-valid=false] .input__image-container {
   border-color: var(--clr-text-error);
 }
-.input-container label[data-variant=square-image][data-valid=true] .input__square-image-container {
+.input-container label[data-input-variant=image][data-valid=true] .input__image-container {
   border-color: var(--clr-button-difference-upvote-hover);
 }
 

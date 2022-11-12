@@ -64,6 +64,7 @@ PRIORITY 2
 - Community creation page
 
 - Search system
+    - Add post history system [DONE]
 
 ============
 PRIORITY 3

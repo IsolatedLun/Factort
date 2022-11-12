@@ -17,7 +17,7 @@
 	<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
 		{#each $formHook.forms as form, i}
 			<div class="[ counter__container ] [ grid ]" data-complete="false">
-				<Typography fontSize={450} spacingBottom={'05'}>{form.name}</Typography>
+				<Typography fontSize={450} spacingBottom={'05'}>{form.getAttribute('name')}</Typography>
 				<Button
 					selected={true}
 					secondaryVariant="square"

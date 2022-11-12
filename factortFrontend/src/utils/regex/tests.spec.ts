@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { urlRegex, youtubeLinkRegex } from './all';
+import { URL_REGEX, youtubeLinkRegex } from './all';
 
 it('Tests invalid/valid youtube links', () => {
 	// Links must be like this:
@@ -15,14 +15,14 @@ it('Tests invalid/valid youtube links', () => {
 	let badLink_3 = 'https://youtube.com/watch?v=123';
 	let badLink_4 = 'https://www.youtu.be/ZSaAHb5dRwQ&t=188s';
 
-	expect(youtubeLinkRegex.test(goodLink_1)).toBe(true);
-	expect(youtubeLinkRegex.test(goodLink_2)).toBe(true);
-	expect(youtubeLinkRegex.test(goodLink_3)).toBe(true);
+	expect(youtubeLinkRegex.test(goodLink_1)).toBeTruthy();
+	expect(youtubeLinkRegex.test(goodLink_2)).toBeTruthy();
+	expect(youtubeLinkRegex.test(goodLink_3)).toBeTruthy();
 
-	expect(youtubeLinkRegex.test(badLink_1)).toBe(false);
-	expect(youtubeLinkRegex.test(badLink_2)).toBe(false);
-	expect(youtubeLinkRegex.test(badLink_3)).toBe(false);
-	expect(youtubeLinkRegex.test(badLink_4)).toBe(false);
+	expect(youtubeLinkRegex.test(badLink_1)).toBeFalsy();
+	expect(youtubeLinkRegex.test(badLink_2)).toBeFalsy();
+	expect(youtubeLinkRegex.test(badLink_3)).toBeFalsy();
+	expect(youtubeLinkRegex.test(badLink_4)).toBeFalsy();
 });
 
 it('Tests invalid/valid urls', () => {
@@ -39,12 +39,12 @@ it('Tests invalid/valid urls', () => {
 	let badLink_3 = 'https:/youtube.com/someordinarygamers';
 	let badLink_4 = 'https:://www.youtube.com';
 
-	expect(urlRegex.test(goodLink_1)).toBe(true);
-	expect(urlRegex.test(goodLink_2)).toBe(true);
-	expect(urlRegex.test(goodLink_3)).toBe(true);
+	expect(URL_REGEX.test(goodLink_1)).toBeTruthy();
+	expect(URL_REGEX.test(goodLink_2)).toBeTruthy();
+	expect(URL_REGEX.test(goodLink_3)).toBeTruthy();
 
-	expect(urlRegex.test(badLink_1)).toBe(false);
-	expect(urlRegex.test(badLink_2)).toBe(false);
-	expect(urlRegex.test(badLink_3)).toBe(false);
-	expect(urlRegex.test(badLink_4)).toBe(false);
+	expect(URL_REGEX.test(badLink_1)).toBeFalsy();
+	expect(URL_REGEX.test(badLink_2)).toBeFalsy();
+	expect(URL_REGEX.test(badLink_3)).toBeFalsy();
+	expect(URL_REGEX.test(badLink_4)).toBeFalsy();
 });

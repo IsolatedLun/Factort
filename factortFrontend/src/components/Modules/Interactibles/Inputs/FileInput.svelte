@@ -11,7 +11,7 @@
 	import Image from '../../../../components/Misc/MediaElements/Image.svelte';
 	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 	import { createExceptedFileValidator } from '../../../../utils/form4Svelte/validators';
-	import FileInputSquareImage from './_/FileInputStyling/FileInput_SquareImage.svelte';
+	import FileInputImage from './_/FileInputStyling/FileInput_Image.svelte';
 	import { onDestroy } from 'svelte';
 	import Video from '../../../../components/Misc/MediaElements/Video.svelte';
 
@@ -46,7 +46,6 @@
 			// If the input is required or has a file
 		} else if (!isOptional || (target.files && target.files.length > 0)) {
 			const { errors: _errors, isValid } = validateInput(target, validators);
-			console.log(validators);
 			_this.setAttribute('data-input-valid', String(isValid));
 
 			errors = _errors;
@@ -74,7 +73,7 @@
 	}
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
-	export let validators: Props_InputValidator[] = [];
+	export let validators: Props_InputValidator<never>[] = [];
 	export let expectedFile: FileInputTypes; // used for previewing and validation reasons
 	export let isOptional = false;
 
@@ -88,6 +87,7 @@
 	export let label: string;
 	export let name: string = label.toLowerCase();
 	export let styling: FileInputStylings = 'default';
+	export let displayInputWithStyling = false;
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'input-container',
@@ -108,16 +108,8 @@
 <div class={_class}>
 	<label for={id} class={'[ margin-block-end-1 display-inline-block ]'}>{label}</label>
 	<div class="[ width-100 pos-relative ]">
-		{#if expectedFile === 'image'}
-			{#if styling === 'default' && fileData.type === 'image'}
-				<div
-					class="[ input__image-preview ] [ margin-inline-auto margin-block-1 border-radius-cubed ]"
-				>
-					<Image props={{ src: fileData.data.url, alt: fileData.data.name }} />
-				</div>
-			{:else if styling === 'square-image' && fileData.type === 'image'}
-				<FileInputSquareImage {id} {fileData} {styling} {isInputValid} />
-			{/if}
+		{#if expectedFile === 'image' && fileData.type === 'image'}
+			<FileInputImage {id} {fileData} {styling} {isInputValid} />
 		{/if}
 		{#if expectedFile === 'video'}
 			{#if styling === 'default' && fileData.type === 'video'}
@@ -145,11 +137,11 @@
 			bind:this={_this}
 			{id}
 			type="file"
-			class="[ input ] [  width-100 ]"
+			class="[ input ] [  width-100 margin-block-start-1 ]"
 			data-variant={variant}
 			data-secondary-variant={secondaryVariant}
 			data-input-valid="true"
-			data-hide={styling !== 'default'}
+			data-hide={styling !== 'default' && !displayInputWithStyling}
 			{placeholder}
 			{multiple}
 			{name}
