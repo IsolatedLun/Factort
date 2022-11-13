@@ -1,17 +1,17 @@
-import type { VoteControllerActions } from '../../components/Modules/VoteController/types';
+import { PostVoteTypes } from '../../components/Layouts/Post/types';
 
-export function upvote(votes: number, prevAction: string): [number, VoteControllerActions] {
-	if (prevAction === 'neutral') return [votes + 1, 'upvote'];
-	if (prevAction === 'upvote') return [votes - 1, 'neutral'];
-	if (prevAction === 'downvote') return [votes + 2, 'upvote'];
+export function upvote(votes: number, prevAction: PostVoteTypes): [number, PostVoteTypes] {
+	if (prevAction === PostVoteTypes.NEUTRAL) return [votes + 1, PostVoteTypes.UPVOTE];
+	if (prevAction === PostVoteTypes.UPVOTE) return [votes - 1, PostVoteTypes.NEUTRAL];
+	if (prevAction === PostVoteTypes.DOWNVOTE) return [votes + 2, PostVoteTypes.UPVOTE];
 
-	return [0, 'neutral'];
+	return [0, PostVoteTypes.NEUTRAL];
 }
 
-export function downvote(votes: number, prevAction: string): [number, VoteControllerActions] {
-	if (prevAction === 'neutral') return [votes - 1, 'downvote'];
-	if (prevAction === 'downvote') return [votes + 1, 'neutral'];
-	if (prevAction === 'upvote') return [votes - 2, 'downvote'];
+export function downvote(votes: number, prevAction: PostVoteTypes): [number, PostVoteTypes] {
+	if (prevAction === PostVoteTypes.NEUTRAL) return [votes - 1, PostVoteTypes.DOWNVOTE];
+	if (prevAction === PostVoteTypes.DOWNVOTE) return [votes + 1, PostVoteTypes.NEUTRAL];
+	if (prevAction === PostVoteTypes.UPVOTE) return [votes - 2, PostVoteTypes.DOWNVOTE];
 
-	return [0, 'neutral'];
+	return [0, PostVoteTypes.NEUTRAL];
 }

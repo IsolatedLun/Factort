@@ -81,7 +81,7 @@
 			<DynamicLabel props={{ type: 'user', data: props.user }} />
 			<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
 				<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
-				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-350' }}
+				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-300' }}
 					>{propOrDefault(POST_TYPE_TO_ICON[props.content.type], 'U')}</Icon
 				>
 			</Flexy>
@@ -130,14 +130,12 @@
 	>
 		<Flexy>
 			{#if !isInThread}
-				<Button
-					variant="difference"
-					secondaryVariant="small"
-					to={WEB_POST_URL(props.id, props.title)}>Open thread</Button
+				<Button secondaryVariant="small" to={WEB_POST_URL(props.id, props.title)}
+					>Open thread</Button
 				>
 			{/if}
 
-			<VoteController />
+			<VoteController lastVoteAction={props.vote_action} votes={props.prestige} postId={props.id} />
 
 			<Flexy>
 				<Button variant="difference" secondaryVariant="small" selected={true}>

@@ -1,6 +1,11 @@
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
 
 export type PostTypes = 'text' | 'images' | 'video' | 'audio' | 'link';
+export enum PostVoteTypes {
+	NEUTRAL,
+	UPVOTE,
+	DOWNVOTE
+}
 
 interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	user: Props_User;
@@ -12,7 +17,10 @@ interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	replies: ReplyType;
 
 	title: string;
-	votes: number;
+	prestige: number;
+
+	// =========
+	vote_action: PostVoteTypes; // 0 = Not voted, 1 = Upvote, 2 = Downvote
 }
 
 export interface Props_PreviewPost extends _Props_Post<number, number> {}

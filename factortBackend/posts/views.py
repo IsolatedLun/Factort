@@ -10,19 +10,21 @@ from . import serializers
 
 
 class PostsView(APIView):
-    def get(sself, req):
+    def get(self, req):
         posts = models.Post.objects.all()
         serialized_data = serializers.PostPreviewSerializer(
-            posts, many=True).data
+            posts, context=req.user, many=True).data
 
         return Response(data=serialized_data, status=OK)
 
 
 class PostView(APIView):
+
     def get(self, req, post_id):
         try:
             post = models.Post.objects.get(id=post_id)
-            serialized_data = serializers.PostSerializer(post).data
+            serialized_data = serializers.PostSerializer(
+                post, context=req.user).data
 
             post.views += 1
             post.save()
@@ -127,3 +129,24 @@ class CreatePostView(APIView):
                 return Response(data=f'Someting went terribly wrong: {str(e)}', status=ERR)
 
         return Response(data=new_post.id, status=OK)
+
+
+class VotePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int):
+        try:
+            post = models.Post.objects.get(id=post_id)
+            voted_post, created = models.VotedPost.objects.get_or_create(
+                post_id=post_id, user_id=req.user.id)
+
+            post.prestige = req.data['votes']
+            voted_post.action = req.data['action']
+
+            post.save()
+            voted_post.save()
+
+            print(post.prestige)
+            return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)

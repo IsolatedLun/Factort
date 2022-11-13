@@ -98,6 +98,7 @@ export const API_URL = BACKEND_ROOT_URL + '/api';
 
 export const POSTS_URL = API_URL + '/posts/';
 export const POST_URL = (id: number) => POSTS_URL + id;
+export const VOTE_POST_URL = (id: number) => POSTS_URL + 'vote/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const COMMUNITIES_URL = API_URL + '/communities/';

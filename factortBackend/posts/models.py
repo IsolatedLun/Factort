@@ -1,16 +1,22 @@
 from django.db import models
 
 POST_CONTENT_CHOICES = (
-    ("text", "text"),
-    ("link", "link"),
-    ("video", "video"),
-    ("images", "images"),
+    ("text", "Text"),
+    ("link", "Link"),
+    ("video", "Video"),
+    ("images", "Images"),
 )
 
 POST_VISIBILITY_CHOICES = (
-    ("public", "public"),
-    ("unlisted", "unlisted"),
-    ("private", "private"),
+    (1, "Public"),
+    (2, "Unlisted"),
+    (3, "Private"),
+)
+
+POST_VOTE_CHOICES = (
+    (-1, 'Downvote'),
+    (0, 'Neutral'),
+    (1, 'Upvote'),
 )
 
 
@@ -34,6 +40,12 @@ class Post(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
 
+class VotedPost(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
+    action = models.IntegerField(choices=POST_VOTE_CHOICES, default=0)
+
+
 class PostImage(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='posts/images/')
@@ -42,6 +54,7 @@ class PostImage(models.Model):
 class PostVideo(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     video = models.FileField(upload_to='posts/videos/')
+
 
 class PostAudio(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
