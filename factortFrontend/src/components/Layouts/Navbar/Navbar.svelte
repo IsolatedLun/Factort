@@ -51,7 +51,7 @@
 			user: createDefaultUser()
 		}));
 
-		goto(WEB_LOGIN_URL);
+		window.location.replace(WEB_LOGIN_URL);
 	}
 
 	let stickToSide = false;

@@ -4,9 +4,13 @@
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import Icon from '../Icon/Icon.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { _Vote_Post } from '../../../services/posts/postFetchers';
 	import { PostVoteTypes } from '../../../components/Layouts/Post/types';
+
+	onMount(() => {
+		currAction = lastVoteAction ?? 0;
+	});
 
 	function handleUpvote() {
 		const [_votes, _action] = upvote(votes, currAction);

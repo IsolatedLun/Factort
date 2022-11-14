@@ -16,13 +16,28 @@
 	import FormImagesSlot from '../../../components/Modules/Form/Slots/Form_ImagesSlot.svelte';
 	import { _Create_Post } from '../../../services/create/createPostFetchers';
 	import { getUrlParams } from '../../../utils/misc';
-	import { onMount } from 'svelte';
-	import { CREATE_SELECT_FORM_ID, WEB_POST_URL } from '../../../consts';
+	import { onDestroy, onMount } from 'svelte';
+	import {
+		CREATE_SELECT_FORM_ID,
+		MIN_CONTENT_LEN,
+		MIN_TITLE_LEN,
+		WEB_POST_URL
+	} from '../../../consts';
 	import { goto } from '$app/navigation';
 	import { preCheck__Post } from '../../../utils/preChecks';
 	import { parseMarkdown } from '../../../utils/markdown/markdownParser';
 	import Boolean from '../../../components/Modules/Interactibles/Boolean.svelte';
 	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
+	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
+	import { globalStore } from '../../../stores/global';
+	import Card from '../../../components/Modules/Card/Card.svelte';
+
+	onDestroy(() => {
+		globalStore.update((state) => ({
+			...state,
+			currentCommunity: null
+		}));
+	});
 
 	onMount(() => {
 		const params = getUrlParams(window.location.href);
@@ -37,6 +52,7 @@
 		if (_data.selected === 'images') data.video = null;
 		if (_data.selected === 'video') data.images = [];
 		if (_data.selected === 'text' && markdownMode) _data.content = parseMarkdown(data.content, []);
+		if ($globalStore.currentCommunity) _data.community_id = $globalStore.currentCommunity.id;
 
 		const check = preCheck__Post(data);
 
@@ -66,18 +82,26 @@
 	{errorMessage}
 	on:submit={createPost}
 >
+	{#if $globalStore.currentCommunity}
+		<div class="[ grid place-items-center margin-block-1 ]">
+			<Card variant="dark" cubeClass={{ utilClass: 'text-center' }} padding={1}>
+				Post For:
+				<DynamicLabel props={{ type: 'community', data: $globalStore.currentCommunity }} />
+			</Card>
+		</div>
+	{/if}
 	<Form formTitle={'Text'} let:inputChange>
 		<TextInput
 			label="Title"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(MIN_TITLE_LEN)]}
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>
 		<TextArea
 			label="Content"
 			showLabel={true}
-			validators={[minLenValidator(5), emailValidator()]}
+			validators={[minLenValidator(MIN_CONTENT_LEN)]}
 			bind:value={data.content}
 			on:validate={inputChange}
 		/>
@@ -99,7 +123,7 @@
 		<TextInput
 			label="Title"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(MIN_TITLE_LEN)]}
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>
@@ -109,7 +133,7 @@
 		<TextInput
 			label="Title"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(MIN_TITLE_LEN)]}
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>
@@ -127,7 +151,7 @@
 		<TextInput
 			label="Title"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(MIN_TITLE_LEN)]}
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>
@@ -145,7 +169,7 @@
 		<TextInput
 			label="Title"
 			showLabel={true}
-			validators={[minLenValidator(1)]}
+			validators={[minLenValidator(MIN_TITLE_LEN)]}
 			bind:value={data.title}
 			on:validate={inputChange}
 		/>

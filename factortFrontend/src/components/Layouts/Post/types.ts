@@ -19,8 +19,7 @@ interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
 	title: string;
 	prestige: number;
 
-	// =========
-	vote_action: PostVoteTypes; // 0 = Not voted, 1 = Upvote, 2 = Downvote
+	c_vote_action: PostVoteTypes; // 0 = Not voted, 1 = Upvote, 2 = Downvote
 }
 
 export interface Props_PreviewPost extends _Props_Post<number, number> {}

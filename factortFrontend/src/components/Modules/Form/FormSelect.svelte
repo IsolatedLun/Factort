@@ -11,7 +11,7 @@
 </script>
 
 <Flexy
-	cubeClass={{ blockClass: 'select', utilClass: 'margin-block-end-2' }}
+	cubeClass={{ blockClass: 'select', utilClass: 'flex-wrap margin-block-end-2' }}
 	align="center"
 	justify="center"
 >

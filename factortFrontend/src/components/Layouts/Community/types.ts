@@ -13,4 +13,6 @@ export interface Props_Community extends Props_CommunityPreview {
 	posts: Props_PreviewPost[];
 
 	banner: string;
+
+	c_has_joined_community: boolean;
 }

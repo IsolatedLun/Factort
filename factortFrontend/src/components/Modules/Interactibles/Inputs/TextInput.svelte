@@ -50,7 +50,7 @@
 	}
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
-	export let validators: Props_InputValidator[] = [];
+	export let validators: Props_InputValidator<never>[] = [];
 
 	export let variant = 'default';
 	export let secondaryVariant = 'default';

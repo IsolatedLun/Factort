@@ -17,6 +17,9 @@ export const TOOLTIP_TIMEOUT = 1000;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
+export const MIN_TITLE_LEN = 3;
+export const MIN_CONTENT_LEN = 3;
+
 // if currEncloser == [
 // x([) => ]
 // y(]) => [
@@ -39,6 +42,15 @@ export const BIT_COUNTS = {
 	4: 8e6, // megabyte
 	5: 8e9, // gigabyte
 	6: 8e12 // terabyte
+};
+
+export const FILE_SIZE_SYMBOLS: TypedKeyValue<number, string> = {
+	1: 'bits',
+	2: 'bytes',
+	3: 'kb',
+	4: 'mb',
+	5: 'gb',
+	6: 'tb'
 };
 
 // ==============

@@ -12,13 +12,15 @@ export function createDefaultPost<A, B, C>(
 		id: 0,
 		user: createDefaultUser(),
 		title: 'A default title',
-		votes: 0,
+		prestige: 0,
 		content,
 		comments,
 		replies,
 		community: { type: 'user', data: null },
 		visibility: 'public',
-		date_created: ''
+		date_created: '',
+
+		c_vote_action: 0
 	} as Props_Post;
 }
 
@@ -62,7 +64,9 @@ export function createDefaultCreatePostData(): Form_CreatePost {
 		images: [],
 		video: null,
 		audio: null,
-		link: ''
+		link: '',
+
+		community_id: -1
 	};
 }
 

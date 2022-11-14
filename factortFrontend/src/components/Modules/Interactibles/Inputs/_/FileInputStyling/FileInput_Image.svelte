@@ -35,5 +35,9 @@
 		</Flexy>
 	</div>
 
-	<p class="[ clr-text-muted fs-350 margin-block-start-1 ]">Recommended dimensions: 2560 x 1440</p>
+	{#if styling === 'banner-image'}
+		<p class="[ clr-text-muted fs-350 margin-block-start-1 ]">
+			Recommended dimensions: 2560 x 1440
+		</p>
+	{/if}
 </label>

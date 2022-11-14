@@ -135,7 +135,11 @@
 				>
 			{/if}
 
-			<VoteController lastVoteAction={props.vote_action} votes={props.prestige} postId={props.id} />
+			<VoteController
+				lastVoteAction={props.c_vote_action}
+				votes={props.prestige}
+				postId={props.id}
+			/>
 
 			<Flexy>
 				<Button variant="difference" secondaryVariant="small" selected={true}>

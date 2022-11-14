@@ -23,14 +23,12 @@ class CommunitiesView(APIView):
 
 class CommunityView(APIView):
     def get(self, req, community_id):
-        try:
-            community = models.Community.objects.get(id=community_id)
-            serialized_data = serializers.CommunitySerializer(
-                community).data
 
-            return Response(data=serialized_data, status=OK)
-        except:
-            return Response(data={'detail': 'Community does not exist'}, status=ERR)
+        community = models.Community.objects.get(id=community_id)
+        serialized_data = serializers.CommunitySerializer(
+            community, context={'user': req.user}).data
+
+        return Response(data=serialized_data, status=OK)
 
 
 class CreateCommunityView(APIView):

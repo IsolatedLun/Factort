@@ -11,5 +11,7 @@ export const globalStore = writable<Store_Global>({
 	visitedStore: {
 		visitedPosts: [],
 		idx: 0
-	}
+	},
+
+	currentCommunity: null
 });

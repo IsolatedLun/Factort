@@ -13,7 +13,7 @@ class PostsView(APIView):
     def get(self, req):
         posts = models.Post.objects.all()
         serialized_data = serializers.PostPreviewSerializer(
-            posts, context=req.user, many=True).data
+            posts, context={'user': req.user}, many=True).data
 
         return Response(data=serialized_data, status=OK)
 
@@ -24,7 +24,7 @@ class PostView(APIView):
         try:
             post = models.Post.objects.get(id=post_id)
             serialized_data = serializers.PostSerializer(
-                post, context=req.user).data
+                post, context={'user': req.user}).data
 
             post.views += 1
             post.save()
@@ -44,6 +44,11 @@ class CreatePostView(APIView):
         new_post = models.Post.objects.create(
             title=data['title'], user_id=req.user.id, content={}, content_type=data['selected'])
         post_type = data['selected']
+
+        if(data['community_id']):
+            print(data['community_id'])
+            models.CommunityPost.objects.create(
+                post_id=new_post.id, community_id=data['community_id'])
 
         def _create_images_post():
             images = []

@@ -88,10 +88,11 @@
 	export let name: string = label.toLowerCase();
 	export let styling: FileInputStylings = 'default';
 	export let displayInputWithStyling = false;
+	export let centerSelf: boolean = false;
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'input-container',
-		utilClass: 'width-100 pos-relative'
+		utilClass: `pos-relative ${centerSelf ? 'grid place-items-center margin-inline-auto' : ''}`
 	});
 
 	let _this: HTMLInputElement;
@@ -107,7 +108,7 @@
 
 <div class={_class}>
 	<label for={id} class={'[ margin-block-end-1 display-inline-block ]'}>{label}</label>
-	<div class="[ width-100 pos-relative ]">
+	<div class="[ {!centerSelf ? 'width-100' : ''} pos-relative ]">
 		{#if expectedFile === 'image' && fileData.type === 'image'}
 			<FileInputImage {id} {fileData} {styling} {isInputValid} />
 		{/if}
@@ -147,7 +148,7 @@
 			{name}
 		/>
 	</div>
-	<div data-hide={styling !== 'default'}>
+	<div>
 		<ul class="[ input__error-list ] [ clr-text-error margin-inline-start-2 margin-block-start-1 ]">
 			{#each errors as error}
 				<li>{error}</li>

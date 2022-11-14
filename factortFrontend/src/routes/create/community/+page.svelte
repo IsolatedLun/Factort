@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import { minLenValidator } from '../../../utils/form4Svelte/validators';
+	import { fileSizeValidator, minLenValidator } from '../../../utils/form4Svelte/validators';
 	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
 	import { createDefaultCreateCommunityData } from '../../../utils/defaultProps';
 	import Form from '../../../components/Modules/Form/Form.svelte';
@@ -12,6 +12,7 @@
 	import type { Form_CreateCommunity } from '../types';
 	import { _Create_Community } from '../../../services/create/CreateCommunityFetchers';
 	import { preCheck_Community } from '../../../utils/preChecks';
+	import { StorageSizes } from '../../../utils/types';
 
 	function createCommunity() {
 		let _data = { ...data };
@@ -36,7 +37,7 @@
 </script>
 
 <FormContainer {formHook} mode="counter" {errorMessage} on:submit={createCommunity}>
-	<Form formTitle={'Basic information'} let:inputChange>
+	<Form formTitle={'About'} let:inputChange>
 		<TextInput
 			label="Name"
 			showLabel={true}
@@ -51,17 +52,16 @@
 			bind:value={data.about}
 			on:validate={inputChange}
 		/>
-		<div class="[ margin-inline-auto ]">
-			<FileInput
-				label="Profile"
-				expectedFile="image"
-				styling="square-image"
-				on:_input={(e) => {
-					if (e.detail.files) data.profile = e.detail.files[0];
-				}}
-				on:validate={inputChange}
-			/>
-		</div>
+		<FileInput
+			label="Profile"
+			expectedFile="image"
+			styling="square-image"
+			centerSelf={true}
+			on:_input={(e) => {
+				if (e.detail.files) data.profile = e.detail.files[0];
+			}}
+			on:validate={inputChange}
+		/>
 	</Form>
 	<Form formTitle={'Banner'} formIndex={1} let:inputChange>
 		<div class="[ width-100 ]">
@@ -69,6 +69,7 @@
 				label="Banner"
 				expectedFile="image"
 				styling="banner-image"
+				validators={[fileSizeValidator(1, StorageSizes.MB, StorageSizes.MB, { min: 0, max: 10 })]}
 				on:_input={(e) => {
 					if (e.detail.files) data.banner = e.detail.files[0];
 				}}

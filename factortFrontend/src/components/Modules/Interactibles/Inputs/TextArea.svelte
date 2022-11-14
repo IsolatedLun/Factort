@@ -11,6 +11,7 @@
 
 	onMount(() => {
 		if (!id) id = window.crypto.randomUUID();
+		handleInput({ target: _this as any });
 
 		_this.addEventListener('keydown', function (e) {
 			if (e.key === 'Tab') {
@@ -50,7 +51,7 @@
 
 	export let allowUpdate = true;
 	export let showLabel = false;
-	export let validators: Props_InputValidator[] = [];
+	export let validators: Props_InputValidator<never>[] = [];
 
 	const _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'input-container',
@@ -87,6 +88,13 @@
 		class={_inputCubeClass}
 		data-variant={variant}
 		data-secondary-variant={secondaryVariant}
+		data-input-valid="true"
 		{placeholder}
 	/>
+
+	<ul class="[ input__error-list ] [ clr-text-error margin-inline-start-2 margin-block-start-1 ]">
+		{#each errors as error}
+			<li>{error}</li>
+		{/each}
+	</ul>
 </div>

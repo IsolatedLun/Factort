@@ -7,12 +7,14 @@ export interface Form_CreatePost {
 	video: File | null;
 	audio: File | null;
 	link: string;
+
+	community_id: number | null;
 }
 
 export interface Form_CreateCommunity {
 	name: string;
 	about: string;
 
-	profile: File;
-	banner: File;
+	profile: File | null;
+	banner: File | null;
 }

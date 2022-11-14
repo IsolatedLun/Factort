@@ -64,16 +64,15 @@
 		/>
 	</Form>
 	<Form formTitle={'Profile'} formIndex={1} let:inputChange>
-		<div class="[ margin-inline-auto ]">
-			<FileInput
-				label="Profile"
-				name="profile"
-				expectedFile="image"
-				styling="square-image"
-				on:_input={(e) => (data.profile = e.detail.files ? e.detail.files[0] : null)}
-				on:validate={inputChange}
-			/>
-		</div>
+		<FileInput
+			label="Profile"
+			name="profile"
+			expectedFile="image"
+			styling="square-image"
+			centerSelf={true}
+			on:_input={(e) => (data.profile = e.detail.files ? e.detail.files[0] : null)}
+			on:validate={inputChange}
+		/>
 	</Form>
 
 	<a class="[ margin-block-start-2 display-inline-block ]" data-bright href={WEB_LOGIN_URL}

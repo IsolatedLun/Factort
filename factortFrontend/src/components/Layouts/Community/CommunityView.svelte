@@ -13,15 +13,30 @@
 	import Profile from '../../../components/Modules/User/Profile.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import CreatePostHeader from '../CreatePostHeader/CreatePostHeader.svelte';
+	import type { Success_OR_Error__Response } from 'src/services/types';
+	import type { Props_Community } from './types';
+	import { onDestroy } from 'svelte';
+
+	// When the user's mouse enters the 'create post for the community' section
+	// We add the community data to the global store
+	// When the mouse leaves, we remove the data
+	function replaceCommunityInGlobalStore(add: boolean) {
+		globalStore.update((state) => ({
+			...state,
+			currentCommunity: add ? (res.data as Props_Community) : null
+		}));
+	}
 
 	async function fetchCommunity() {
-		return await _Fetch_Community(Number(id));
+		res = await _Fetch_Community(Number(id));
 	}
 
 	export let id: number;
+
+	let res: Success_OR_Error__Response<Props_Community>;
 </script>
 
-{#await fetchCommunity() then res}
+{#await fetchCommunity() then _}
 	{#if res.type === 'success'}
 		<div class="[ community-view ]">
 			<header class="[ view__header ]">
@@ -57,7 +72,11 @@
 				posts={res.data.posts}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
-				<section slot="feed">
+				<section
+					slot="feed"
+					on:mouseenter={() => replaceCommunityInGlobalStore(true)}
+					on:mouseleave={() => replaceCommunityInGlobalStore(false)}
+				>
 					<CreatePostHeader communityId={id} type="community" />
 				</section>
 				<section slot="misc" class="[ width-100 ]" data-desktop>

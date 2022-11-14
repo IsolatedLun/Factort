@@ -18,11 +18,12 @@ class PostPreviewSerializer(serializers.ModelSerializer):
         method_name='get_vote_action')
 
     def get_vote_action(self, obj):
-        voted_post = get_model_or_default(
-            models.VotedPost, post_id=obj.id, user_id=self.context.id)
+        if self.context.get('user', False):
+            voted_post = get_model_or_default(
+                models.VotedPost, post_id=obj.id, user_id=self.context['user'].id)
 
-        if voted_post:
-            return voted_post.action
+            if voted_post:
+                return voted_post.action
         return 0
 
     def get_user(self, obj):
@@ -53,15 +54,16 @@ class PostSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     user = serializers.SerializerMethodField(method_name='get_user')
     date_created = serializers.SerializerMethodField(method_name='format_date')
-    vote_action = serializers.SerializerMethodField(
+    c_vote_action = serializers.SerializerMethodField(
         method_name='get_vote_action')
 
     def get_vote_action(self, obj):
-        voted_post = get_model_or_default(
-            models.VotedPost, post_id=obj.id, user_id=self.context.id)
+        if self.context.get('user', False):
+            voted_post = get_model_or_default(
+                models.VotedPost, post_id=obj.id, user_id=self.context['user'].id)
 
-        if voted_post:
-            return voted_post.action
+            if voted_post:
+                return voted_post.action
         return 0
 
     def get_user(self, obj):

@@ -14,6 +14,11 @@ export interface Props_CreatedInputValidator {
 	validator: Props_InputValidator<never>;
 }
 
+export interface Props_FileSizeEquation {
+	min?: number;
+	max?: number;
+}
+
 type _PreCheckedData__Success = Complex_Data_Type<'success', null>;
 type _PreCheckedData__Error = Complex_Data_Type<'error', string>;
 
