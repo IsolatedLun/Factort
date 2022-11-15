@@ -3,12 +3,16 @@ from rest_framework import serializers
 from . import models
 from posts.models import CommunityPost
 from posts.serializers import PostPreviewSerializer
+from utils.shorthands import get_model_or_default
 
 
 class CommunitySerializer(serializers.ModelSerializer):
     posts = serializers.SerializerMethodField(method_name='get_posts')
     members = serializers.SerializerMethodField(
         method_name='get_count_members')
+
+    c_has_joined_community = serializers.SerializerMethodField(
+        method_name='get_c_has_joined_community')
 
     def get_posts(self, obj):
         posts = [x.post for x in CommunityPost.objects.filter(
@@ -17,6 +21,14 @@ class CommunitySerializer(serializers.ModelSerializer):
 
     def get_count_members(self, obj):
         return models.CommunityMember.objects.filter(community_id=obj.id).count()
+
+    def get_c_has_joined_community(self, obj):
+        if self.context['user']:
+            has_joined = get_model_or_default(
+                models.CommunityMember, False, community_id=obj.id, user_id=self.context['user'].id)
+
+            return True if has_joined != False else False
+        return False
 
     class Meta:
         model = models.Community

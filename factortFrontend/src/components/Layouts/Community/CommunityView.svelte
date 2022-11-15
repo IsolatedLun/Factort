@@ -6,7 +6,8 @@
 	import {
 		_Fetch_Community,
 		_Fetch_Misc_CommunityAdmins,
-		_Fetch_Misc_CommunityPreviews
+		_Fetch_Misc_CommunityPreviews,
+		_Toggle_Community_Join
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
 	import { BACKEND_ROOT_URL, ICON_PLUS } from '../../../consts';
@@ -16,6 +17,7 @@
 	import type { Success_OR_Error__Response } from 'src/services/types';
 	import type { Props_Community } from './types';
 	import { onDestroy } from 'svelte';
+	import SkeletronCommunityView from '../../../components/Modules/Skeletron/layouts/SkeletronCommunityView.svelte';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -27,16 +29,28 @@
 		}));
 	}
 
+	function toggleCommunityJoin() {
+		hasJoinedCommunity = !hasJoinedCommunity;
+		_Toggle_Community_Join(id);
+	}
+
 	async function fetchCommunity() {
 		res = await _Fetch_Community(Number(id));
+
+		if (res.type === 'success') {
+			hasJoinedCommunity = res.data.c_has_joined_community;
+		}
 	}
 
 	export let id: number;
 
 	let res: Success_OR_Error__Response<Props_Community>;
+	let hasJoinedCommunity = false;
 </script>
 
-{#await fetchCommunity() then _}
+{#await fetchCommunity()}
+	<SkeletronCommunityView />
+{:then _}
 	{#if res.type === 'success'}
 		<div class="[ community-view ]">
 			<header class="[ view__header ]">
@@ -62,7 +76,22 @@
 					<p><small>g/</small> <big>{res.data.name}</big></p>
 					<Flexy align="center" gap={2}>
 						<p>{res.data.members} <small>members</small></p>
-						<Button variant="primary" secondaryVariant="sausage" icon={ICON_PLUS}>Join</Button>
+						{#if hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id}
+							<Button
+								variant="downvote"
+								secondaryVariant="sausage"
+								workCondition={res.data.owner !== $globalStore.userStore.user.id}
+								icon={ICON_PLUS}
+								on:click={toggleCommunityJoin}>Leave</Button
+							>
+						{:else}
+							<Button
+								variant="primary"
+								secondaryVariant="sausage"
+								icon={ICON_PLUS}
+								on:click={toggleCommunityJoin}>Join</Button
+							>
+						{/if}
 					</Flexy>
 				</Flexy>
 			</header>

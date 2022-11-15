@@ -7,6 +7,7 @@
 	import Post from '../Post/Post.svelte';
 	import type { Props_PreviewPost } from '../Post/types';
 	import Card from '../../../components/Modules/Card/Card.svelte';
+	import SkeletronPost from '../../../components/Modules/Skeletron/components/SkeletronPost.svelte';
 
 	export let cubeClass = createObjectCubeClass();
 
@@ -34,7 +35,13 @@
 			<h2 class="[ visually-hidden ]">{isInThread ? 'Post' : 'Posts'}</h2>
 		{/if}
 		{#if fetchFn}
-			{#await fetchFn() then res}
+			{#await fetchFn()}
+				<Flexy gap={2} useColumn={true}>
+					<SkeletronPost />
+					<SkeletronPost />
+					<SkeletronPost />
+				</Flexy>
+			{:then res}
 				{#if res.type === 'success'}
 					<Flexy useColumn={true} gap={2}>
 						{#if isInThread}

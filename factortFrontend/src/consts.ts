@@ -116,6 +116,8 @@ export const CREATE_POST_URL = POSTS_URL + 'create';
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;
 export const CREATE_COMMUNITY_URL = COMMUNITIES_URL + 'create';
+export const COMMUNITY_TOGGLE_JOIN_URL = (id: number) => COMMUNITY_URL(id) + `/toggle-join`;
+
 export const COMMUNITY_MISC_URL = COMMUNITIES_URL + 'misc';
 export const COMMUNITY_MISC_ADMINS_URL = (id: number) => COMMUNITY_URL(id) + `/admins`;
 

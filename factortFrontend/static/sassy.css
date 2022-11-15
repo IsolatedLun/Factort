@@ -167,6 +167,10 @@
   color: rgba(0, 0, 0, 0.65);
 }
 
+.clr-misc-skeletron-background {
+  color: rgba(128, 128, 128, 0.7);
+}
+
 .margin-block-end-05 {
   margin-block-end: 0.25em;
 }
@@ -1536,6 +1540,60 @@
   width: max-content;
 }
 
+.skeletron {
+  width: 100%;
+  background-color: var(--clr-misc-skeletron-background);
+  animation: skeletronAnim 1.25s ease-in-out infinite alternate;
+}
+.skeletron__text {
+  padding: 0.25em 0.6em;
+  width: max-content;
+  border-radius: 100vw;
+}
+.skeletron__text[data-variant=small] {
+  padding: 0.15em 0.45em;
+}
+.skeletron__text > *:not(.skeletron, .flex) {
+  visibility: hidden;
+}
+.skeletron__plane {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 9px;
+}
+.skeletron__plane > *:not(.skeletron, .flex) {
+  visibility: hidden;
+}
+.skeletron__card {
+  width: 100%;
+  border-radius: 9px;
+}
+.skeletron__profile {
+  width: clamp(1.55em, 12vw, 2.25em);
+  aspect-ratio: 1;
+  border-radius: 9px;
+}
+.skeletron__profile[data-variant=big] {
+  width: clamp(4.55em, 12vw, 8.25em);
+}
+.skeletron__banner {
+  width: 100%;
+  height: clamp(128px, 16vw, 256px);
+  aspect-ratio: 16/9;
+  border-radius: 9px;
+}
+
+@keyframes skeletronAnim {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
 .input-container .input[data-variant=default] {
   font-size: var(--fs-400);
   padding: 0.475em 0.9em;
@@ -2416,6 +2474,10 @@ img[data-profile=true] {
   color: rgba(0, 0, 0, 0.65);
 }
 
+.clr-misc-skeletron-background {
+  color: rgba(128, 128, 128, 0.7);
+}
+
 :root {
   --clr-background-300: #302f37;
   --clr-background-400: #202026;
@@ -2459,6 +2521,7 @@ img[data-profile=true] {
   --clr-misc-link-bright: #c2e0ff;
   --clr-misc-link-hover: #57a9ff;
   --clr-misc-modal-background: rgba(0, 0, 0, 0.65);
+  --clr-misc-skeletron-background: rgba(128, 128, 128, 0.7);
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
   --fs-350: 0.782rem;
@@ -2640,6 +2703,10 @@ img[data-profile=true] {
     color: rgba(0, 0, 0, 0.65);
   }
 
+  .clr-misc-skeletron-background {
+    color: rgba(128, 128, 128, 0.7);
+  }
+
   :root {
     --clr-background-300: #302f37;
     --clr-background-400: #202026;
@@ -2683,6 +2750,7 @@ img[data-profile=true] {
     --clr-misc-link-bright: #c2e0ff;
     --clr-misc-link-hover: #57a9ff;
     --clr-misc-modal-background: rgba(0, 0, 0, 0.65);
+    --clr-misc-skeletron-background: rgba(128, 128, 128, 0.7);
   }
 }
 *,

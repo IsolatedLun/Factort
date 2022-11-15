@@ -14,6 +14,7 @@
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
 	import { ICON_PLUS } from '../../../consts';
+	import SkeltronUserView from '../../../components/Modules/Skeletron/layouts/SkeltronUserView.svelte';
 
 	async function fetchUser() {
 		return await _Fetch_User(Number(id));
@@ -22,7 +23,9 @@
 	export let id: number;
 </script>
 
-{#await fetchUser() then res}
+{#await fetchUser()}
+	<SkeltronUserView />
+{:then res}
 	{#if res.type === 'success'}
 		<div class="[ user-view ]">
 			<header class="[ view__header ] [ margin-inline-auto ]">

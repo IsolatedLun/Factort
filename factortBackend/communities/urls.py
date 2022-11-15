@@ -13,4 +13,6 @@ urlpatterns = [
 
     # =================================
     path('create', views.CreateCommunityView.as_view(), name='POST=Community'),
+    path('<int:community_id>/toggle-join', views.ToggleCommunityJoinView.as_view(),
+         name='POST=ToggleCommunityJoin'),
 ]

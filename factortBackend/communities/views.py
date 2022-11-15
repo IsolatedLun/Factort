@@ -31,6 +31,24 @@ class CommunityView(APIView):
         return Response(data=serialized_data, status=OK)
 
 
+class ToggleCommunityJoinView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, community_id):
+        try:
+            member, created = models.CommunityMember.objects.get_or_create(
+                user_id=req.user.id, community_id=community_id)
+
+            # If the model is created then the user has joined the community
+            # If created is False, then the user is leaving the community
+            if not created:
+                member.delete()
+
+            return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+
 class CreateCommunityView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -9,7 +9,7 @@ export interface Props_CommunityPreview extends Props_DB_Model {
 }
 
 export interface Props_Community extends Props_CommunityPreview {
-	owner: Props_User;
+	owner: number; // Props_User;
 	posts: Props_PreviewPost[];
 
 	banner: string;

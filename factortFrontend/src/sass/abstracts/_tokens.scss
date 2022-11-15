@@ -176,6 +176,12 @@ $community-banner-height: clamp(128px, 16vw, 256px);
 // =================
 $context-menu-shadow: 0 0 16px 2px var(--clr-misc-shadow);
 
+// Skeletron
+$skeletron-background-color: var(--clr-misc-skeletron-background);
+
+$skeletron-padding-text: 0.25em 0.6em;
+$skeletron-padding-text-small: 0.15em 0.45em;
+
 // =================
 // Utilities
 // =================

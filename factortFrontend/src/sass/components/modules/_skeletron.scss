@@ -1,0 +1,73 @@
+@use '../../abstracts/' as *;
+
+.skeletron {
+	width: 100%;
+	background-color: $skeletron-background-color;
+	animation: skeletronAnim 1.25s ease-in-out infinite alternate;
+
+	&__text {
+		&[data-variant='small'] {
+			padding: $skeletron-padding-text-small;
+		}
+
+		padding: $skeletron-padding-text;
+		width: max-content;
+
+		border-radius: 100vw;
+
+		& > *:not(.skeletron, .flex) {
+			visibility: hidden;
+		}
+	}
+
+	&__plane {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+
+		border-radius: $border-radius-cubed;
+
+		& > *:not(.skeletron, .flex) {
+			visibility: hidden;
+		}
+	}
+
+	&__card {
+		width: 100%;
+
+		border-radius: $border-radius-cubed;
+	}
+
+	&__profile {
+		&[data-variant='big'] {
+			width: $profile-scale-big;
+		}
+
+		width: $profile-scale;
+		aspect-ratio: 1;
+
+		border-radius: $border-radius-cubed;
+	}
+
+	&__banner {
+		width: 100%;
+		height: $community-banner-height;
+
+		aspect-ratio: 16 / 9;
+
+		border-radius: $border-radius-cubed;
+	}
+}
+
+@keyframes skeletronAnim {
+	0% {
+		opacity: 0.8;
+	}
+
+	50% {
+		opacity: 0.98;
+	}
+
+	100% {
+		opacity: 0.8;
+	}
+}
