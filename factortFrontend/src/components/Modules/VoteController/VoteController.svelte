@@ -6,7 +6,9 @@
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { _Vote_Post } from '../../../services/posts/postFetchers';
-	import { PostVoteTypes } from '../../../components/Layouts/Post/types';
+	import { E_VoteControllerActions } from './types';
+	import { globalStore } from '../../../stores/global';
+	import type { Success_OR_Error__Response } from 'src/services/types';
 
 	onMount(() => {
 		currAction = lastVoteAction ?? 0;
@@ -19,7 +21,7 @@
 		currAction = _action;
 
 		handleVote(votes);
-		_Vote_Post(postId, {
+		voteFn(id, {
 			votes,
 			action: currAction
 		});
@@ -32,7 +34,7 @@
 		currAction = _action;
 
 		handleVote(votes);
-		_Vote_Post(postId, {
+		voteFn(id, {
 			votes,
 			action: currAction
 		});
@@ -44,10 +46,11 @@
 		dispatch('vote', { votes, type: currAction });
 	}
 
-	export let postId: number;
+	export let id: number;
+	export let voteFn: (id: number, data: any) => Promise<Success_OR_Error__Response<number>>;
 	export let votes: number;
-	export let currAction: PostVoteTypes = PostVoteTypes.NEUTRAL;
-	export let lastVoteAction: PostVoteTypes | null;
+	export let currAction: E_VoteControllerActions = E_VoteControllerActions.NEUTRAL;
+	export let lastVoteAction: E_VoteControllerActions | null;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -58,8 +61,9 @@
 		ariaLabel="Upvote post"
 		variant="upvote-difference"
 		secondaryVariant="small"
-		selected={currAction === PostVoteTypes.UPVOTE || lastVoteAction === PostVoteTypes.UPVOTE}
-		><Icon>{ICON_UPVOTE}</Icon></Button
+		selected={currAction === E_VoteControllerActions.UPVOTE ||
+			lastVoteAction === E_VoteControllerActions.UPVOTE}
+		workCondition={$globalStore.userStore.isLogged}><Icon>{ICON_UPVOTE}</Icon></Button
 	>
 	<p
 		class={votes === 0
@@ -75,7 +79,8 @@
 		ariaLabel="Downvote post"
 		variant="downvote-difference"
 		secondaryVariant="small"
-		selected={currAction === PostVoteTypes.DOWNVOTE || lastVoteAction === PostVoteTypes.DOWNVOTE}
-		><Icon>{ICON_DOWNVOTE}</Icon></Button
+		selected={currAction === E_VoteControllerActions.DOWNVOTE ||
+			lastVoteAction === E_VoteControllerActions.DOWNVOTE}
+		workCondition={$globalStore.userStore.isLogged}><Icon>{ICON_DOWNVOTE}</Icon></Button
 	>
 </Flexy>

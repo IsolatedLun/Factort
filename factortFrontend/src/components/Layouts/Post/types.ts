@@ -1,29 +1,40 @@
+import type { E_VoteControllerActions } from '../../../components/Modules/VoteController/types';
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
 
 export type PostTypes = 'text' | 'images' | 'video' | 'audio' | 'link';
-export enum PostVoteTypes {
-	NEUTRAL,
-	UPVOTE,
-	DOWNVOTE
-}
 
-interface _Props_Post<CommentType, ReplyType> extends Props_DB_Model {
+interface _Props_Post<CommentType> extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
 	community: Post_Community_Complex_Type;
 	visibility: 'public' | 'unlisted' | 'private';
 
 	comments: CommentType;
-	replies: ReplyType;
 
 	title: string;
 	prestige: number;
 
-	c_vote_action: PostVoteTypes; // 0 = Not voted, 1 = Upvote, 2 = Downvote
+	c_vote_action: E_VoteControllerActions; // 0 = Not voted, 1 = Upvote, 2 = Downvote
 }
 
-export interface Props_PreviewPost extends _Props_Post<number, number> {}
-export interface Props_Post extends _Props_Post<number, number> {}
+export interface Props_PostComment extends Props_DB_Model {
+	post: number; // id
+
+	user: Props_User;
+	replies: Props_PostCommentReply[];
+
+	text: string;
+}
+
+export interface Props_PostCommentReply extends Props_DB_Model {
+	comment: Props_PostComment;
+	user: Props_User;
+
+	text: string;
+}
+
+export interface Props_PreviewPost extends _Props_Post<number> {}
+export interface Props_Post extends _Props_Post<Props_PostComment[]> {}
 
 interface Post_Content_Video_Data {
 	is_third_party: boolean;

@@ -1,13 +1,9 @@
 import type { Form_CreateCommunity, Form_CreatePost } from 'src/routes/create/types';
-import type { Props_Post } from '../components/Layouts/Post/types';
+import type { Props_Post, Props_PreviewPost } from '../components/Layouts/Post/types';
 import type { Props_User } from '../types';
 import type { MKD_ParsedData } from './markdown/types';
 
-export function createDefaultPost<A, B, C>(
-	content: A,
-	comments: B | number = 0,
-	replies: C | number = 0
-) {
+export function createDefaultPost<A, B>(content: A, comments: B | number = 0) {
 	return {
 		id: 0,
 		user: createDefaultUser(),
@@ -15,13 +11,12 @@ export function createDefaultPost<A, B, C>(
 		prestige: 0,
 		content,
 		comments,
-		replies,
 		community: { type: 'user', data: null },
 		visibility: 'public',
 		date_created: '',
 
 		c_vote_action: 0
-	} as Props_Post;
+	} as Props_PreviewPost;
 }
 
 export function createDefaultUser() {

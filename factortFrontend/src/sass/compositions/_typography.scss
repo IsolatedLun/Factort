@@ -49,6 +49,10 @@
 	border-bottom: 1px solid $theme-border-color-medium;
 }
 
+.under-border:last-of-type {
+	border: none !important;
+}
+
 .long-bar {
 	display: inline-block;
 	width: 1.25rem;

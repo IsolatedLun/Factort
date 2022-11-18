@@ -61,7 +61,37 @@ class PostAudio(models.Model):
     audio = models.FileField(upload_to='posts/audios/')
 
 
+# ====================
+# ====================
+
 class CommunityPost(models.Model):
     community = models.ForeignKey(
         'communities.Community', on_delete=models.CASCADE)
     post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
+
+
+# ====================
+# ====================
+class PostComment(models.Model):
+    post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'users.cUser', on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=1024)
+    prestige = models.IntegerField(default=0)
+
+    date_created = models.DateTimeField(auto_now_add=True)
+
+
+class PostCommentReply(models.Model):
+    post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
+    comment = models.ForeignKey('posts.PostComment', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'users.cUser', on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=1024)
+    prestige = models.IntegerField(default=0)
+    replying_to = models.ForeignKey(
+        'users.cUser', null=True, blank=True, on_delete=models.CASCADE, related_name='replying_to')
+
+    date_created = models.DateTimeField(auto_now_add=True)

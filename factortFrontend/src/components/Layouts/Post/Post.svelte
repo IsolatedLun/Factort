@@ -24,6 +24,7 @@
 	import { propOrDefault } from '../../../utils/cubeCss/cubeCss';
 	import PostYoutubeUrl from './_/PostYoutubeUrl.svelte';
 	import { isValidYoutubeLink } from '../../../utils/regex/all';
+	import { _Vote_Post } from '../../../services/posts/postFetchers';
 
 	onMount(() => {
 		if (!postElementId) postElementId = crypto.randomUUID();
@@ -138,7 +139,8 @@
 			<VoteController
 				lastVoteAction={props.c_vote_action}
 				votes={props.prestige}
-				postId={props.id}
+				voteFn={_Vote_Post}
+				id={props.id}
 			/>
 
 			<Flexy>

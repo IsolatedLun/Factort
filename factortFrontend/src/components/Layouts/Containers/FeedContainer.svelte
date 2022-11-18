@@ -35,17 +35,18 @@
 			<h2 class="[ visually-hidden ]">{isInThread ? 'Post' : 'Posts'}</h2>
 		{/if}
 		{#if fetchFn}
-			{#await fetchFn()}
+			{#await typeof fetchFn === 'function' ? fetchFn() : fetchFn}
 				<Flexy gap={2} useColumn={true}>
-					<SkeletronPost />
-					<SkeletronPost />
 					<SkeletronPost />
 				</Flexy>
 			{:then res}
 				{#if res.type === 'success'}
 					<Flexy useColumn={true} gap={2}>
 						{#if isInThread}
-							<Post props={{ ...res.data }} {isInThread} />
+							<div class="[ width-100 ]">
+								<Post props={{ ...res.data }} {isInThread} />
+								<slot name="under-post" />
+							</div>
 						{:else if res.data.length > 0}
 							{#each res.data as post}
 								<Post props={{ ...post }} />
@@ -63,11 +64,13 @@
 				{/if}
 			{/await}
 		{:else if posts.length > 0}
-			<Flexy useColumn={true} gap={2}>
-				{#each posts as post}
-					<Post props={{ ...post }} />
-				{/each}
-			</Flexy>
+			<div>
+				<Flexy useColumn={true} gap={2}>
+					{#each posts as post}
+						<Post props={{ ...post }} />
+					{/each}
+				</Flexy>
+			</div>
 		{:else}
 			<Card
 				cubeClass={{ utilClass: 'text-center margin-block-2' }}

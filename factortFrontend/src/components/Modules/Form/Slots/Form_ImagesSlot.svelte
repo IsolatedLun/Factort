@@ -34,6 +34,7 @@
 			name={'image-' + 1}
 			expectedFile="image"
 			styling="square-image"
+			centerSelf={true}
 			on:validate={() => {
 				dispatch('change', []);
 				updateImages();

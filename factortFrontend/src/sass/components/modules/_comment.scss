@@ -1,0 +1,19 @@
+@use '../../abstracts/' as *;
+
+.post__comment {
+	.comment__expand-button {
+		@include transformCenter($left: -0.75rem);
+		background-color: $theme-border-color-medium;
+
+		width: 6px;
+		height: 100%;
+
+		border-radius: 100vw;
+
+		cursor: pointer;
+
+		&:is(:focus, :hover) {
+			background-color: $theme-border-color-light;
+		}
+	}
+}

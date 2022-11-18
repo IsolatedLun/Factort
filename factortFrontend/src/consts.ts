@@ -97,6 +97,9 @@ export const POST_TYPE_TO_ICON: TypedKeyValue<PostTypes, string> = {
 export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
+export const COMMENT_ID = 'comment';
+export const CREATE_COMMENT_REPLIES_ID = (id: string | number) => 'comment' + '-replies-' + id;
+
 export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
 export const CREATE_SELECT_FORM_ID = (name: string) => `select-${name.toLowerCase()}-form`;
 
@@ -108,10 +111,16 @@ export const NAVBAR_MODAL_ID = 'navbarMobileModal';
 export const BACKEND_ROOT_URL = 'http://localhost:8000';
 export const API_URL = BACKEND_ROOT_URL + '/api';
 
+// ------------------------------------------
 export const POSTS_URL = API_URL + '/posts/';
 export const POST_URL = (id: number) => POSTS_URL + id;
 export const VOTE_POST_URL = (id: number) => POSTS_URL + 'vote/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
+
+export const POST_COMMENT_URL = (id: number | string) => POSTS_URL + 'comment/' + id;
+export const REPLY_POST_COMMENT_URL = (id: number | string, commentId: string | number) =>
+	POST_COMMENT_URL(id) + '/reply/' + commentId;
+// ------------------------------------------
 
 export const COMMUNITIES_URL = API_URL + '/communities/';
 export const COMMUNITY_URL = (id: number) => COMMUNITIES_URL + id;

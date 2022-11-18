@@ -89,6 +89,7 @@
 								variant="primary"
 								secondaryVariant="sausage"
 								icon={ICON_PLUS}
+								workCondition={$globalStore.userStore.isLogged}
 								on:click={toggleCommunityJoin}>Join</Button
 							>
 						{/if}

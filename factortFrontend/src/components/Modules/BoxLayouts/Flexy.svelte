@@ -3,7 +3,7 @@
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
 
 	onMount(() => {
-		use(_this);
+		use(_this!);
 	});
 
 	export let tag = 'div';
@@ -17,7 +17,7 @@
 	export let wrapOnMobile = false;
 
 	export let cubeClass = createObjectCubeClass();
-	export let use: (_this: HTMLElement | null) => void = () => null;
+	export let use: (_this: HTMLElement) => void = () => null;
 	export let id = '';
 
 	let _class = createStringCubeCSSClass(cubeClass, {

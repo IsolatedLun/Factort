@@ -7,6 +7,13 @@ from users import models as userModels
 from . import models
 
 
+class PostUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = userModels.cUser
+        exclude = ['password', 'email_address', 'email', 'last_name', 'first_name',
+                   'groups', 'user_permissions', 'last_login']
+
+
 class PostPreviewSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     community = serializers.SerializerMethodField(method_name='get_community')
@@ -14,16 +21,15 @@ class PostPreviewSerializer(serializers.ModelSerializer):
     comments = serializers.SerializerMethodField(
         method_name='get_count_comments')
     date_created = serializers.SerializerMethodField(method_name='format_date')
-    vote_action = serializers.SerializerMethodField(
-        method_name='get_vote_action')
+    c_vote_action = serializers.SerializerMethodField(
+        method_name='get_c_vote_action')
 
-    def get_vote_action(self, obj):
-        if self.context.get('user', False):
-            voted_post = get_model_or_default(
-                models.VotedPost, post_id=obj.id, user_id=self.context['user'].id)
+    def get_c_vote_action(self, obj):
+        if self.context['user']:
+            voted_post, created = models.VotedPost.objects.get_or_create(
+                post_id=obj.id, user_id=self.context['user'].id)
 
-            if voted_post:
-                return voted_post.action
+            return voted_post.action
         return 0
 
     def get_user(self, obj):
@@ -54,17 +60,23 @@ class PostSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     user = serializers.SerializerMethodField(method_name='get_user')
     date_created = serializers.SerializerMethodField(method_name='format_date')
+    comments = serializers.SerializerMethodField(method_name='get_comments')
+
     c_vote_action = serializers.SerializerMethodField(
-        method_name='get_vote_action')
+        method_name='get_c_vote_action')
 
-    def get_vote_action(self, obj):
-        if self.context.get('user', False):
-            voted_post = get_model_or_default(
-                models.VotedPost, post_id=obj.id, user_id=self.context['user'].id)
+    def get_c_vote_action(self, obj):
+        if self.context['user']:
+            voted_post, created = models.VotedPost.objects.get_or_create(
+                post_id=obj.id, user_id=self.context['user'].id)
 
-            if voted_post:
-                return voted_post.action
+            return voted_post.action
         return 0
+
+    def get_comments(self, obj):
+        comments = models.PostComment.objects.filter(post_id=obj.id)
+
+        return PostCommentSerializer(comments, many=True).data
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)
@@ -80,8 +92,40 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PostUserSerializer(serializers.ModelSerializer):
+# ====================
+# ====================
+class PostCommentSerializer(serializers.ModelSerializer):
+    replies = serializers.SerializerMethodField(method_name='get_replies')
+    user = serializers.SerializerMethodField(method_name='get_user')
+    date_created = serializers.SerializerMethodField(method_name='format_date')
+
+    def get_replies(self, obj):
+        replies = models.PostCommentReply.objects.filter(
+            post_id=obj.post.id, comment_id=obj.id)
+
+        return PostCommentReplySerializer(replies, many=True).data
+
+    def get_user(self, obj):
+        return get_user_or_none(obj, PostUserSerializer)
+
+    def format_date(self, obj):
+        return humanize_date(obj)
+
     class Meta:
-        model = userModels.cUser
-        exclude = ['password', 'email_address',
-                   'groups', 'user_permissions', 'last_login']
+        model = models.PostComment
+        fields = '__all__'
+
+
+class PostCommentReplySerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField(method_name='get_user')
+    date_created = serializers.SerializerMethodField(method_name='format_date')
+
+    def get_user(self, obj):
+        return get_user_or_none(obj, PostUserSerializer)
+
+    def format_date(self, obj):
+        return humanize_date(obj)
+
+    class Meta:
+        model = models.PostCommentReply
+        fields = '__all__'

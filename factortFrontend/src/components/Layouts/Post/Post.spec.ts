@@ -33,7 +33,9 @@ it('Tests a post that with text', async () => {
 		type: 'text',
 		data: 'Hello World'
 	});
-	const { getByText } = render(Post, { props: { props: data, postElementId: 'test' } });
+	const { getByText } = render(Post, {
+		props: { props: data as any, isInThread: false, postElementId: 'test' }
+	});
 
 	expect(getByText('Hello World')).toBeTruthy();
 });

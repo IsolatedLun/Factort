@@ -23,10 +23,11 @@ class CommunitiesView(APIView):
 
 class CommunityView(APIView):
     def get(self, req, community_id):
+        c_user = req.user if req.user.is_authenticated else None
 
         community = models.Community.objects.get(id=community_id)
         serialized_data = serializers.CommunitySerializer(
-            community, context={'user': req.user}).data
+            community, context={'user': c_user}).data
 
         return Response(data=serialized_data, status=OK)
 
@@ -60,10 +61,11 @@ class CreateCommunityView(APIView):
             new_community = models.Community.objects.create(
                 owner=req.user, name=data['name'], profile=files['profile'], banner=files['banner'])
             owner = models.CommunityMember.objects.create(
-                user=req.user, is_owner=True, is_moderator=True)
+                user=req.user, community_id=new_community.id, is_owner=True, is_moderator=True)
 
             return Response(data=new_community.id, status=OK)
         except IntegrityError as e:
+            print(e)
             unique_variable = str(e).split(
                 '.')[1] if 'UNIQUE' in str(e) else 'unknown'
 

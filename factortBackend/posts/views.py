@@ -11,9 +11,11 @@ from . import serializers
 
 class PostsView(APIView):
     def get(self, req):
+        c_user = req.user if req.user.is_authenticated else None
+
         posts = models.Post.objects.all()
         serialized_data = serializers.PostPreviewSerializer(
-            posts, context={'user': req.user}, many=True).data
+            posts, context={'user': c_user}, many=True).data
 
         return Response(data=serialized_data, status=OK)
 
@@ -22,15 +24,18 @@ class PostView(APIView):
 
     def get(self, req, post_id):
         try:
+            c_user = req.user if req.user.is_authenticated else None
+
             post = models.Post.objects.get(id=post_id)
             serialized_data = serializers.PostSerializer(
-                post, context={'user': req.user}).data
+                post, context={'user': c_user}).data
 
             post.views += 1
             post.save()
 
             return Response(data=serialized_data, status=OK)
-        except:
+        except Exception as e:
+            print(e)
             return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
 
 
@@ -45,8 +50,7 @@ class CreatePostView(APIView):
             title=data['title'], user_id=req.user.id, content={}, content_type=data['selected'])
         post_type = data['selected']
 
-        if(data['community_id']):
-            print(data['community_id'])
+        if(data['community_id'] != '-1'):
             models.CommunityPost.objects.create(
                 post_id=new_post.id, community_id=data['community_id'])
 
@@ -153,5 +157,43 @@ class VotePostView(APIView):
 
             print(post.prestige)
             return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+
+class CommentPostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int):
+        try:
+            new_comment = models.PostComment.objects.create(
+                user_id=req.user.id,
+                post_id=post_id,
+                text=req.data['text']
+            )
+
+            serialized_data = serializers.PostCommentSerializer(
+                new_comment).data
+            return Response(data=serialized_data, status=OK)
+
+        except Exception as e:
+            return Response(status=ERR)
+
+
+class ReplyOnCommentPostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id, comment_id):
+        try:
+            new_comment_reply = models.PostCommentReply.objects.create(
+                user_id=req.user.id,
+                post_id=post_id,
+                text=req.data['text'],
+                comment_id=comment_id
+            )
+
+            serialized_data = serializers.PostCommentReplySerializer(
+                new_comment_reply).data
+            return Response(data=serialized_data, status=OK)
         except Exception as e:
             return Response(status=ERR)

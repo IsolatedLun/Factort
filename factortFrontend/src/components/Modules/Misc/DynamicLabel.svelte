@@ -14,7 +14,7 @@
 	export let responsive: boolean = false;
 
 	const _combinedClass = combineObjectCubeClasses(cubeClass, {
-		blockClass: `dynamic-label}`
+		blockClass: `dynamic-label`
 	});
 </script>
 

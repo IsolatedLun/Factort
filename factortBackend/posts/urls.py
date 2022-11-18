@@ -10,4 +10,8 @@ urlpatterns = [
     path('create', views.CreatePostView.as_view(), name='POST=CreatePost'),
     path('vote/<int:post_id>',
          views.VotePostView.as_view(), name='POST=VotePost'),
+    path('comment/<int:post_id>',
+         views.CommentPostView.as_view(), name='POST=CommentOnPost'),
+    path('comment/<int:post_id>/reply/<int:comment_id>',
+         views.ReplyOnCommentPostView.as_view(), name='POST=ReplyOnPostComment'),
 ]

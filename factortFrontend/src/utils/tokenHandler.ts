@@ -13,6 +13,11 @@ export function setTokens(tokens: Props_Tokens) {
  * @summary Gets the refresh/access tokens from localStorage
  */
 export function getTokens(): Props_Tokens {
+	if (localStorage === undefined)
+		return {
+			refresh: null,
+			access: null
+		};
 	return {
 		refresh: localStorage.getItem('refresh') ?? null,
 		access: localStorage.getItem('access') ?? null
