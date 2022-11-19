@@ -29,9 +29,12 @@
 		border: $theme-border;
 	}
 
+	.drawer__colors-grid {
+		grid-area: colors;
+	}
+
 	.drawer__colors {
 		grid-template-columns: repeat(auto-fill, $color-cube-width);
-		grid-area: colors;
 
 		.color__cube {
 			width: 100%;
@@ -61,7 +64,7 @@
 	}
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $breakpoint-medium) {
 	.drawer-container {
 		grid-template-areas:
 			'canvas'

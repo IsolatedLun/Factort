@@ -21,6 +21,13 @@
 		}
 	}
 
+	function handleReplyButton(e: MouseEvent) {
+		const target = e.target as HTMLButtonElement;
+
+		showReplies = !showReplies;
+		target.setAttribute('aria-expanded', String(showReplies));
+	}
+
 	export let comment: Props_PostComment;
 
 	let showReplies: boolean = false;
@@ -51,18 +58,18 @@
 	<p class="[ margin-inline-start-2 ]">{comment.text}</p>
 
 	<Flexy cubeClass={{ utilClass: 'width-100' }} justify="start">
-		{#if showReplies}
-			<Button secondaryVariant="small" on:click={() => (showReplies = !showReplies)}
-				>Hide {comment.replies.length} replie(s)</Button
-			>
-		{:else}
-			<Button
-				secondaryVariant="small"
-				workCondition={comment.replies.length > 0}
-				on:click={() => (showReplies = !showReplies)}
-				>View {comment.replies.length} replie(s)</Button
-			>
-		{/if}
+		<Button
+			use={(e) => {
+				e.setAttribute('aria-controls', commentRepliesId);
+				e.setAttribute('aria-expanded', 'false');
+			}}
+			secondaryVariant="small"
+			workCondition={comment.replies.length > 0}
+			on:click={handleReplyButton}
+		>
+			{showReplies ? 'Hide' : 'View'}
+			{comment.replies.length} replie(s)
+		</Button>
 
 		<Button secondaryVariant="small" on:click={() => (showReplyInput = !showReplyInput)}
 			>Reply</Button

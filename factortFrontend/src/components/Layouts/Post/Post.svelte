@@ -146,7 +146,7 @@
 			<Flexy>
 				<Button variant="difference" secondaryVariant="small" selected={true}>
 					<Flexy align="center">
-						<p>0</p>
+						<p>{Array.isArray(props.comments) ? props.comments.length : props.comments}</p>
 						<Icon>{ICON_COMMENTS}</Icon>
 					</Flexy>
 				</Button>

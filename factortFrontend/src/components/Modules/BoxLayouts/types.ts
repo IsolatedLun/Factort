@@ -1,1 +1,2 @@
-export type FlexyLayoutTypes = 'between' | 'center' | 'columnCenter' | 'columnStart' | 'default';
+export type FlexyAlignTypes = 'start' | 'center' | 'end';
+export type FlexyJustifyTypes = 'start' | 'space-between' | 'end';

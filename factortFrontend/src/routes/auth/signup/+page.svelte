@@ -14,7 +14,7 @@
 	import { useForm } from '../../../stores/formStore/form-store';
 	import { preCheck__SignUp } from '../../../utils/preChecks';
 	import { goto } from '$app/navigation';
-	import { WEB_LOGIN_URL } from '../../../consts';
+	import { WEB_DRAWER_URL, WEB_LOGIN_URL } from '../../../consts';
 
 	function registerView() {
 		preCheck__SignUp(data);
@@ -73,6 +73,8 @@
 			on:_input={(e) => (data.profile = e.detail.files ? e.detail.files[0] : null)}
 			on:validate={inputChange}
 		/>
+
+		<a class="[ width-max-content ]" href={WEB_DRAWER_URL}>Draw your profile</a>
 	</Form>
 
 	<a class="[ margin-block-start-2 display-inline-block ]" data-bright href={WEB_LOGIN_URL}

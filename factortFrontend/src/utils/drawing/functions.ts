@@ -3,3 +3,7 @@ export function clearCanvas(canvas: HTMLCanvasElement) {
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+export function canvasToImage(canvas: HTMLCanvasElement) {
+	return canvas.toDataURL('image/png');
+}

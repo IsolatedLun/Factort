@@ -1,5 +1,4 @@
 import type {
-	PostVoteTypes,
 	Props_Post,
 	Props_PostComment,
 	Props_PostCommentReply,

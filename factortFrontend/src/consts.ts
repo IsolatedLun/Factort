@@ -12,7 +12,7 @@ export const BLACKLISTED_MARKDOWN_CHARACTER_MAPPINGS: any = {
 	'>': '&gt;'
 };
 export const SLIDESHOW_INTERVAL = 3000;
-export const DRAWER_LEAVE_COUNTDOWN = 3500;
+export const DRAWER_LEAVE_COUNTDOWN = 1450;
 export const TOOLTIP_TIMEOUT = 1000;
 export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 	`<iframe src="${link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -157,6 +157,8 @@ export const WEB_COMMUNITY_URL = (id: string | number, title: string) =>
 	`/communities/${id}/${title}`;
 
 export const WEB_USER_URL = (id: string | number, title: string) => `/users/${id}/${title}`;
+
+export const WEB_DRAWER_URL = '/drawer';
 
 // These urls are for the current logged in user
 // my/settings, etc...

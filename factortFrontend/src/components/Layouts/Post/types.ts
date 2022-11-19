@@ -19,6 +19,7 @@ interface _Props_Post<CommentType> extends Props_DB_Model {
 
 export interface Props_PostComment extends Props_DB_Model {
 	post: number; // id
+	prestige: number;
 
 	user: Props_User;
 	replies: Props_PostCommentReply[];
@@ -30,6 +31,7 @@ export interface Props_PostCommentReply extends Props_DB_Model {
 	comment: Props_PostComment;
 	user: Props_User;
 
+	prestige: number;
 	text: string;
 }
 

@@ -1345,9 +1345,11 @@
   image-rendering: crisp-edges;
   border: 2px solid var(--clr-input-border);
 }
+.drawer-container .drawer__colors-grid {
+  grid-area: colors;
+}
 .drawer-container .drawer__colors {
   grid-template-columns: repeat(auto-fill, 32px);
-  grid-area: colors;
 }
 .drawer-container .drawer__colors .color__cube {
   width: 100%;
@@ -1370,7 +1372,7 @@
   gap: 0.5em;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 65em) {
   .drawer-container {
     grid-template-areas: "canvas" "colors" "controls" "menu";
     grid-template-columns: auto;

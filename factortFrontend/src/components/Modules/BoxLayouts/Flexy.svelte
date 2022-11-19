@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
+	import type { FlexyAlignTypes, FlexyJustifyTypes } from './types';
 
 	onMount(() => {
 		use(_this!);
 	});
 
 	export let tag = 'div';
-	export let justify = 'space-between';
-	export let align = 'start';
+	export let justify: FlexyJustifyTypes = 'space-between';
+	export let align: FlexyAlignTypes = 'start';
 	export let gap: string | number = 1;
 
 	export let useColumn = false;
