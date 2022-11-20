@@ -61,7 +61,10 @@
 			{#each images as image, i}
 				<Button
 					ariaLabel={`Select image ${i + 1}`}
-					on:click={() => (selectedIdx = i)}
+					on:click={() => {
+						selectedIdx = i;
+						dispatchKeyboardIdx(selectedIdx);
+					}}
 					selected={selectedIdx === i}
 					variant="none"
 					allowOutline={true}

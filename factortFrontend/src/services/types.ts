@@ -16,7 +16,7 @@ export interface Response<T> {
 export interface ErrorResponse {
 	status: number;
 	response: {
-		data: string;
+		data: string | { detail: string };
 	};
 }
 

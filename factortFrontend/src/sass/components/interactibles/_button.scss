@@ -80,6 +80,18 @@
 	);
 }
 
+.button[data-variant='hologram'] {
+	@include createButton(
+		$background-color: $hologram-button-background-color,
+		$background-color-on-hov: $hologram-button-background-color-on-hov,
+		$border: $hologram-button-border,
+		$border-radius: $hologram-button-border-radius,
+		$color: $hologram-button-color,
+		$font-size: $hologram-button-font-size,
+		$padding: $hologram-button-padding
+	);
+}
+
 // ======================================================================
 // ======================================================================
 

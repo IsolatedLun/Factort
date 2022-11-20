@@ -96,6 +96,14 @@ $tool-button-border: none;
 $tool-button-border-radius: $border-radius-cubed;
 $tool-button-background-color-on-hov: var(--clr-button-tool-background-hover);
 
+$hologram-button-font-size: var(--fs-400);
+$hologram-button-padding: 0.7em;
+$hologram-button-background-color: var(--clr-button-hologram-background);
+$hologram-button-color: var(--clr-misc-hologram-color);
+$hologram-button-border: none;
+$hologram-button-border-radius: 3px;
+$hologram-button-background-color-on-hov: var(--clr-button-hologram-background-hover);
+
 $difference-button-background-color: var(--clr-button-difference);
 $difference-button-border: $theme-border-dark;
 $difference-button-background-color-on-hov: var(--clr-button-difference-hover);

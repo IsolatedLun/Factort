@@ -1,18 +1,27 @@
 <script lang="ts">
 	import { CREATE_COMMENT_REPLIES_ID } from '../../../consts';
-	import type { Props_PostComment } from '../../../components/Layouts/Post/types';
+	import type {
+		Props_PostComment,
+		Props_PostCommentReply
+	} from '../../../components/Layouts/Post/types';
 	import Flexy from '../BoxLayouts/Flexy.svelte';
 	import DynamicLabel from '../Misc/DynamicLabel.svelte';
 	import PostCommentReply from './PostCommentReply.svelte';
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import TextArea from '../Interactibles/Inputs/TextArea.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { _Reply_On_Comment_Post } from '../../../services/posts/postFetchers';
+	import {
+		_Reply_On_Comment_Post,
+		_Vote_PostComment
+	} from '../../../services/posts/commentFetchers';
 	import VoteController from '../VoteController/VoteController.svelte';
 
 	function createCommentReply() {
 		if (newCommentReplyText) {
-			_Reply_On_Comment_Post(comment.post, comment.id, newCommentReplyText).then((res) => {
+			_Reply_On_Comment_Post(comment.post, comment.id, {
+				text: newCommentReplyText,
+				replying_to: null
+			}).then((res) => {
 				if (res.type === 'success') {
 					dispatch('newReply', { commentId: comment.id, data: res.data });
 					showReplyInput = false;
@@ -26,6 +35,10 @@
 
 		showReplies = !showReplies;
 		target.setAttribute('aria-expanded', String(showReplies));
+	}
+
+	function addNewReply(reply: Props_PostCommentReply) {
+		comment.replies = [...comment.replies, reply];
 	}
 
 	export let comment: Props_PostComment;
@@ -72,18 +85,25 @@
 		</Button>
 
 		<Button secondaryVariant="small" on:click={() => (showReplyInput = !showReplyInput)}
-			>Reply</Button
+			>{showReplyInput ? 'Close reply' : 'Reply'}</Button
 		>
 
-		<VoteController votes={comment.prestige} voteFn={() => null} />
+		<VoteController
+			id={comment.id}
+			lastVoteAction={comment.c_vote_action}
+			votes={comment.prestige}
+			voteFn={_Vote_PostComment}
+			voteFnArgs={{ commentId: comment.id, postId: comment.post }}
+		/>
 	</Flexy>
 
 	{#if showReplyInput}
-		<div>
+		<div class="[ width-100 ]">
 			<Flexy cubeClass={{ utilClass: 'width-100' }} useColumn={true}>
 				<TextArea
 					bind:value={newCommentReplyText}
 					label="Reply to this comment"
+					placeholder={`Reply to @${comment.user.username}`}
 					cubeClass={{ utilClass: 'width-100' }}
 				/>
 				<Button variant="primary" secondaryVariant="small" on:click={createCommentReply}
@@ -109,7 +129,7 @@
 			cubeClass={{ utilClass: 'margin-inline-start-3 margin-block-start-1 width-100' }}
 		>
 			{#each comment.replies as reply}
-				<PostCommentReply {reply} />
+				<PostCommentReply {comment} {reply} on:newReply={(e) => addNewReply(e.detail)} />
 			{/each}
 		</Flexy>
 	{/if}

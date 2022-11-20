@@ -143,6 +143,14 @@
   color: #fc4640;
 }
 
+.clr-button-hologram-background {
+  color: rgba(0, 107, 163, 0.46);
+}
+
+.clr-button-hologram-background-hover {
+  color: rgba(0, 161, 245, 0.46);
+}
+
 .clr-misc-selection {
   color: #ecf7f9;
 }
@@ -169,6 +177,10 @@
 
 .clr-misc-skeletron-background {
   color: rgba(128, 128, 128, 0.7);
+}
+
+.clr-misc-hologram-color {
+  color: #b8cfff;
 }
 
 .margin-block-end-05 {
@@ -1800,6 +1812,26 @@
   border-color: var(--clr-button-tool-background-hover);
 }
 
+.button[data-variant=hologram] {
+  font-size: var(--fs-400);
+  padding: 0.7em;
+  background-color: var(--clr-button-hologram-background);
+  color: var(--clr-misc-hologram-color);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 95ms ease-in-out, color 95ms ease-in-out;
+}
+.button[data-variant=hologram] > .icon {
+  font-size: var(--fs-400);
+  color: var(--clr-misc-hologram-color);
+}
+.button[data-variant=hologram]:is(:focus-visible, :hover, [data-selected=true]) {
+  background-color: var(--clr-button-hologram-background-hover);
+  color: var(--clr-text-accent);
+  border-color: var(--clr-button-hologram-background-hover);
+}
+
 .button:is([data-secondary-variant=small]) {
   font-size: var(--fs-350);
   padding: 0.4em 0.45em;
@@ -2470,6 +2502,14 @@ img[data-profile=true] {
   color: #fc4640;
 }
 
+.clr-button-hologram-background {
+  color: rgba(0, 107, 163, 0.46);
+}
+
+.clr-button-hologram-background-hover {
+  color: rgba(0, 161, 245, 0.46);
+}
+
 .clr-misc-selection {
   color: #ecf7f9;
 }
@@ -2496,6 +2536,10 @@ img[data-profile=true] {
 
 .clr-misc-skeletron-background {
   color: rgba(128, 128, 128, 0.7);
+}
+
+.clr-misc-hologram-color {
+  color: #b8cfff;
 }
 
 :root {
@@ -2535,6 +2579,8 @@ img[data-profile=true] {
   --clr-button-difference-downvote-color: #fd9e9b;
   --clr-button-difference-downvote-hover: #fc4640;
   --clr-button-difference-downvote-border: #fc4640;
+  --clr-button-hologram-background: rgba(0, 107, 163, 0.46);
+  --clr-button-hologram-background-hover: rgba(0, 161, 245, 0.46);
   --clr-misc-selection: #ecf7f9;
   --clr-misc-selection-shadow: rgba(0, 115, 133, 0.36);
   --clr-misc-link: #3d9cff;
@@ -2542,6 +2588,7 @@ img[data-profile=true] {
   --clr-misc-link-hover: #57a9ff;
   --clr-misc-modal-background: rgba(0, 0, 0, 0.65);
   --clr-misc-skeletron-background: rgba(128, 128, 128, 0.7);
+  --clr-misc-hologram-color: #b8cfff;
   --fs-200: 0.46rem;
   --fs-300: 0.69rem;
   --fs-350: 0.782rem;
@@ -2699,6 +2746,14 @@ img[data-profile=true] {
     color: #fc4640;
   }
 
+  .clr-button-hologram-background {
+    color: rgba(0, 107, 163, 0.46);
+  }
+
+  .clr-button-hologram-background-hover {
+    color: rgba(0, 161, 245, 0.46);
+  }
+
   .clr-misc-selection {
     color: #ecf7f9;
   }
@@ -2725,6 +2780,10 @@ img[data-profile=true] {
 
   .clr-misc-skeletron-background {
     color: rgba(128, 128, 128, 0.7);
+  }
+
+  .clr-misc-hologram-color {
+    color: #b8cfff;
   }
 
   :root {
@@ -2764,6 +2823,8 @@ img[data-profile=true] {
     --clr-button-difference-downvote-color: #fd9e9b;
     --clr-button-difference-downvote-hover: #fc4640;
     --clr-button-difference-downvote-border: #fc4640;
+    --clr-button-hologram-background: rgba(0, 107, 163, 0.46);
+    --clr-button-hologram-background-hover: rgba(0, 161, 245, 0.46);
     --clr-misc-selection: #ecf7f9;
     --clr-misc-selection-shadow: rgba(0, 115, 133, 0.36);
     --clr-misc-link: #3d9cff;
@@ -2771,6 +2832,7 @@ img[data-profile=true] {
     --clr-misc-link-hover: #57a9ff;
     --clr-misc-modal-background: rgba(0, 0, 0, 0.65);
     --clr-misc-skeletron-background: rgba(128, 128, 128, 0.7);
+    --clr-misc-hologram-color: #b8cfff;
   }
 }
 *,
@@ -2905,6 +2967,11 @@ img[data-small=true] {
 
 [data-hide=true] {
   display: none !important;
+}
+
+[data-absolute-hide=true] {
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 [data-work-condition=false] {

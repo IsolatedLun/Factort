@@ -9,6 +9,7 @@
 	import { E_VoteControllerActions } from './types';
 	import { globalStore } from '../../../stores/global';
 	import type { Success_OR_Error__Response } from 'src/services/types';
+	import type { KeyValue } from 'src/types';
 
 	onMount(() => {
 		currAction = lastVoteAction ?? 0;
@@ -21,9 +22,10 @@
 		currAction = _action;
 
 		handleVote(votes);
-		voteFn(id, {
+		voteFn({
 			votes,
-			action: currAction
+			action: currAction,
+			...voteFnArgs
 		});
 	}
 
@@ -34,9 +36,10 @@
 		currAction = _action;
 
 		handleVote(votes);
-		voteFn(id, {
+		voteFn({
 			votes,
-			action: currAction
+			action: currAction,
+			...voteFnArgs
 		});
 	}
 
@@ -47,7 +50,8 @@
 	}
 
 	export let id: number;
-	export let voteFn: (id: number, data: any) => Promise<Success_OR_Error__Response<number>>;
+	export let voteFn: (...args: any) => Promise<Success_OR_Error__Response<number>>;
+	export let voteFnArgs: KeyValue<string | number>;
 	export let votes: number;
 	export let currAction: E_VoteControllerActions = E_VoteControllerActions.NEUTRAL;
 	export let lastVoteAction: E_VoteControllerActions | null;

@@ -68,6 +68,7 @@
 			display-block pos-relative ]"
 		aria-labelledby="primaryNavigation"
 		data-row-layout={stickToSide}
+		data-tooltip-parent=""
 	>
 		<Flexy
 			useColumn={stickToSide}

@@ -20,6 +20,8 @@ export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 export const MIN_TITLE_LEN = 3;
 export const MIN_CONTENT_LEN = 3;
 
+export const LOCAL_POST_HISTORY_CAP = 32;
+
 // if currEncloser == [
 // x([) => ]
 // y(]) => [
@@ -113,13 +115,15 @@ export const API_URL = BACKEND_ROOT_URL + '/api';
 
 // ------------------------------------------
 export const POSTS_URL = API_URL + '/posts/';
-export const POST_URL = (id: number) => POSTS_URL + id;
-export const VOTE_POST_URL = (id: number) => POSTS_URL + 'vote/' + id;
+export const POST_URL = (id: number | string) => POSTS_URL + id;
+export const VOTE_POST_URL = (id: number | string) => POSTS_URL + 'vote/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const POST_COMMENT_URL = (id: number | string) => POSTS_URL + 'comment/' + id;
 export const REPLY_POST_COMMENT_URL = (id: number | string, commentId: string | number) =>
 	POST_COMMENT_URL(id) + '/reply/' + commentId;
+export const VOTE_POST_COMMENT_URL = (id: number | string, commentId: number | string) =>
+	POST_URL(id) + '/comment/' + commentId + '/vote';
 // ------------------------------------------
 
 export const COMMUNITIES_URL = API_URL + '/communities/';

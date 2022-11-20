@@ -76,7 +76,7 @@
 					<p><small>g/</small> <big>{res.data.name}</big></p>
 					<Flexy align="center" gap={2}>
 						<p>{res.data.members} <small>members</small></p>
-						{#if hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id}
+						{#if hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id || $globalStore.userStore.isLogged}
 							<Button
 								variant="downvote"
 								secondaryVariant="sausage"

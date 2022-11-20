@@ -29,7 +29,10 @@
 			if (res.type === 'error') errorMessage = res.data;
 			else {
 				setTokens(res.data.tokens);
-				globalStore.update((state) => ({ ...state, user: res.data.user, isLogged: true }));
+				globalStore.update((state) => ({
+					...state,
+					userStore: { ...state.userStore, user: res.data.user, isLogged: true }
+				}));
 				goto('/');
 			}
 		});

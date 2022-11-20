@@ -48,6 +48,7 @@
 			data-work-condition={workCondition && !isFetching}
 			data-async-loading={isFetching}
 			data-allow-outline={allowOutline}
+			aria-hidden={workCondition}
 			aria-label={ariaLabel}
 		>
 			{#if icon}
@@ -73,6 +74,7 @@
 		data-work-condition={workCondition && !isFetching}
 		data-async-loading={isFetching}
 		data-allow-outline={allowOutline}
+		aria-hidden={workCondition}
 		aria-label={ariaLabel}
 	>
 		{#if icon}

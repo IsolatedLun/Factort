@@ -30,7 +30,8 @@ export async function createResponse<DataT, ReturnT>(
 			out['type'] = 'success';
 		})
 		.catch((err: ErrorResponse) => {
-			out['data'] = err.response.data;
+			out['data'] =
+				typeof err.response.data === 'string' ? err.response.data : err.response.data.detail;
 			out['type'] = 'error';
 		});
 

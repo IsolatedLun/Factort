@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { _Comment_Post, _Fetch_Post } from '../../../services/posts/postFetchers';
+	import { _Fetch_Post } from '../../../services/posts/postFetchers';
+	import { _Comment_Post } from '../../../services/posts/commentFetchers';
 	import FeedContainer from '../../../components/Layouts/Containers/FeedContainer.svelte';
 	import Miscellaneuos from '../../../components/Layouts/Miscellaneous/Miscellaneuos.svelte';
 	import { addPostToHistory } from '../../../utils/postHistory/postHistroy';
@@ -82,7 +83,12 @@
 				utilClass: 'margin-block-end-1 margin-block-start-5'
 			}}
 		>
-			<TextArea bind:value={newCommentText} label="Add comment" placeholder="Add comment" />
+			<TextArea
+				bind:value={newCommentText}
+				label="Add comment"
+				resize="vertical"
+				placeholder="Add comment"
+			/>
 			<Button variant="primary" on:click={createComment}>Submit</Button>
 		</Flexy>
 		<Card cubeClass={{ utilClass: 'padding-inline-3 padding-block-1' }} variant="dark">

@@ -13,7 +13,7 @@ POST_VISIBILITY_CHOICES = (
     (3, "Private"),
 )
 
-POST_VOTE_CHOICES = (
+VOTE_CHOICES = (
     (-1, 'Downvote'),
     (0, 'Neutral'),
     (1, 'Upvote'),
@@ -43,7 +43,7 @@ class Post(models.Model):
 class VotedPost(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
-    action = models.IntegerField(choices=POST_VOTE_CHOICES, default=0)
+    action = models.IntegerField(choices=VOTE_CHOICES, default=0)
 
 
 class PostImage(models.Model):
@@ -83,6 +83,12 @@ class PostComment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
 
+class VotedComment(models.Model):
+    comment = models.ForeignKey('posts.PostComment', on_delete=models.CASCADE)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
+    action = models.IntegerField(choices=VOTE_CHOICES, default=0)
+
+
 class PostCommentReply(models.Model):
     post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
     comment = models.ForeignKey('posts.PostComment', on_delete=models.CASCADE)
@@ -91,6 +97,8 @@ class PostCommentReply(models.Model):
 
     text = models.CharField(max_length=1024)
     prestige = models.IntegerField(default=0)
+
+    # We can simply save the username (CharField), but for now we'll just store the whole user's data
     replying_to = models.ForeignKey(
         'users.cUser', null=True, blank=True, on_delete=models.CASCADE, related_name='replying_to')
 

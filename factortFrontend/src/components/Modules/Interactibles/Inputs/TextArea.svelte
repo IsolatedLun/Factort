@@ -48,6 +48,7 @@
 	export let value = '';
 	export let id = '';
 	export let label: string;
+	export let resize: null | 'vertical' | 'horizontal' = null;
 
 	export let allowUpdate = true;
 	export let showLabel = false;
@@ -60,7 +61,7 @@
 
 	const _inputCubeClass = createStringCubeCSSClass(inputCubeClass, {
 		compostClass: 'input',
-		utilClass: 'width-100'
+		utilClass: 'width-100 ' + 'resize-' + resize
 	});
 
 	let _this: HTMLTextAreaElement;

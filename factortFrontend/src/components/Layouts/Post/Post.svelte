@@ -47,6 +47,10 @@
 		doReRender++;
 	}
 
+	function openImageInNewTab() {
+		window.open(BACKEND_ROOT_URL + props.content.data[imageKeyEventIdx], '_blank');
+	}
+
 	export let props: Props_PreviewPost = createDefaultPost({
 		type: 'link',
 		data: 'https://www.google.com'
@@ -71,6 +75,7 @@
 	on:contextmenu={handleContextMenu}
 	data-collapse={collapsePost}
 	data-allow-outline="false"
+	data-tooltip-parent=""
 >
 	<Card
 		tag="header"
@@ -140,6 +145,7 @@
 				lastVoteAction={props.c_vote_action}
 				votes={props.prestige}
 				voteFn={_Vote_Post}
+				voteFnArgs={{ postId: props.id }}
 				id={props.id}
 			/>
 
@@ -171,6 +177,7 @@
 				>
 					Slideshow
 				</ContextMenuItem>
+				<ContextMenuItem action={openImageInNewTab}>Open image</ContextMenuItem>
 			{/if}
 		</ContextMenu>
 	{/key}

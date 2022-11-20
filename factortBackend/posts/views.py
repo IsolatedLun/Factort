@@ -8,6 +8,8 @@ from consts import OK, NOT_FOUND, ERR
 from . import models
 from . import serializers
 
+from users.models import cUser
+
 
 class PostsView(APIView):
     def get(self, req):
@@ -60,7 +62,7 @@ class CreatePostView(APIView):
             # =========================
             # Assertions
             # =========================
-            if len(images) == 0:
+            if len(files.getlist('images[]')) == 0:
                 raise Exception('There must be atleast 1 image')
             # =========================
 
@@ -155,7 +157,6 @@ class VotePostView(APIView):
             post.save()
             voted_post.save()
 
-            print(post.prestige)
             return Response(status=OK)
         except Exception as e:
             return Response(status=ERR)
@@ -180,6 +181,26 @@ class CommentPostView(APIView):
             return Response(status=ERR)
 
 
+class VoteCommentView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int, comment_id: int):
+        try:
+            comment = models.PostComment.objects.get(id=comment_id)
+            voted_comment, created = models.VotedComment.objects.get_or_create(
+                comment_id=comment_id, user_id=req.user.id)
+
+            comment.prestige = req.data['votes']
+            voted_comment.action = req.data['action']
+
+            comment.save()
+            voted_comment.save()
+
+            return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+
 class ReplyOnCommentPostView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -191,6 +212,12 @@ class ReplyOnCommentPostView(APIView):
                 text=req.data['text'],
                 comment_id=comment_id
             )
+
+            if(req.data['replying_to']):
+                new_comment_reply.replying_to = cUser.objects.get(
+                    id=req.data['replying_to'])
+
+            new_comment_reply.save()
 
             serialized_data = serializers.PostCommentReplySerializer(
                 new_comment_reply).data

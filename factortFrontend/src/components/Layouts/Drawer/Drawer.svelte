@@ -2,7 +2,7 @@
 	import Card from '../../../components/Modules/Card/Card.svelte';
 	import { COLORS } from '../../../utils/drawing/consts';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
-	import { canvasToImage, clearCanvas } from '../../../utils/drawing/functions';
+	import { bucket, canvasToImage, clearCanvas, noisify } from '../../../utils/drawing/functions';
 	import Icon from '../../../components/Modules/Icon/Icon.svelte';
 	import { DRAWER_LEAVE_COUNTDOWN, ICON_BUCKET, ICON_TRASH } from '../../../consts';
 	import ColorCube from './_/ColorCube.svelte';
@@ -120,7 +120,10 @@
 				<Button variant="tool" on:click={() => clearCanvas(_canvas)}
 					><Icon>{ICON_TRASH}</Icon></Button
 				>
-				<!-- <Button variant="tool" on:click={() => null}><Icon>{ICON_BUCKET}</Icon></Button> -->
+				<Button variant="tool" on:click={() => noisify(_canvas)}>N</Button>
+				<Button variant="tool" on:click={() => bucket(_canvas, selectedColor)}
+					><Icon>{ICON_BUCKET}</Icon></Button
+				>
 			</div>
 		</div>
 	</Card>

@@ -1,3 +1,4 @@
+import { LOCAL_POST_HISTORY_CAP } from '../../consts';
 import { propOrDefault } from '../cubeCss/cubeCss';
 import type { Props_VisitedPost } from './types';
 
@@ -10,7 +11,11 @@ export function addPostToHistory(post: Props_VisitedPost) {
 
 	if (posts && posts[0] && posts[0].id === -1) posts = posts.slice(1);
 
-	posts.push(post);
+	if (posts.length === LOCAL_POST_HISTORY_CAP) {
+		posts[LOCAL_POST_HISTORY_CAP - 1] = post;
+	} else {
+		posts.push(post);
+	}
 	localStorage.setItem('visitedPosts', JSON.stringify(posts));
 
 	return posts;

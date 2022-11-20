@@ -7,4 +7,5 @@ admin.site.register(models.VotedPost)
 admin.site.register(models.CommunityPost)
 
 admin.site.register(models.PostComment)
+admin.site.register(models.VotedComment)
 admin.site.register(models.PostCommentReply)

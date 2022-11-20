@@ -23,12 +23,15 @@ export interface Props_PostComment extends Props_DB_Model {
 
 	user: Props_User;
 	replies: Props_PostCommentReply[];
+	c_vote_action: E_VoteControllerActions;
 
 	text: string;
 }
 
 export interface Props_PostCommentReply extends Props_DB_Model {
 	comment: Props_PostComment;
+	replying_to: Props_User | null;
+
 	user: Props_User;
 
 	prestige: number;

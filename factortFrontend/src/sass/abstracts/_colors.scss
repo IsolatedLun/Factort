@@ -47,7 +47,9 @@ $colors-dark: (
 		'difference-downvote': hsl(2 97% 62% / 0.3),
 		'difference-downvote-color': hsl(2 97% 80%),
 		'difference-downvote-hover': hsl(2 97% 62%),
-		'difference-downvote-border': hsl(2 97% 62%)
+		'difference-downvote-border': hsl(2 97% 62%),
+		'hologram-background': hsl(200.5 100% 32% / 0.46),
+		'hologram-background-hover': hsl(200.5 100% 48% / 0.46)
 	),
 	misc: (
 		'selection': hsl(188 50% 95%),
@@ -56,7 +58,8 @@ $colors-dark: (
 		'link-bright': hsl(210.5 100% 88%),
 		'link-hover': hsl(210.5 100% 67%),
 		'modal-background': hsl(0 50% 0 / 0.65),
-		'skeletron-background': hsl(0 0% 50% / 0.7)
+		'skeletron-background': hsl(0 0% 50% / 0.7),
+		'hologram-color': hsl(220.5 100% 86%)
 	)
 );
 

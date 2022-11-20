@@ -31,6 +31,13 @@
 	});
 </script>
 
+<svelte:head>
+	<meta
+		name="description"
+		content="Factort is a open-source social network where you can interact with the whole word, and find your communities"
+	/>
+</svelte:head>
+
 <div
 	class="[ main-layout ] [ grid ]"
 	data-layout={$layoutStore.stickNavbarToSide ? 'row' : 'column'}

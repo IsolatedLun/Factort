@@ -7,7 +7,8 @@ export function toggleContextMenu(e: MouseEvent, contextMenuId: string) {
 	e.preventDefault();
 
 	const contextMenu = document.getElementById(contextMenuId)! as HTMLElement;
-	const target = e.target as HTMLElement;
+	const target =
+		(e.target as HTMLElement).closest('[data-tooltip-parent]') ?? (e.target as HTMLElement);
 	const padding = 80;
 
 	let x = e.offsetX;
@@ -15,18 +16,13 @@ export function toggleContextMenu(e: MouseEvent, contextMenuId: string) {
 	let rect = contextMenu.getBoundingClientRect();
 
 	// right boundary
-	if (x + rect.width > target.clientWidth) {
-		x = target.clientWidth - rect.width;
+	if (x < padding) {
+		x = rect.width;
 	}
 
 	// left boundary
-	else if (x < padding) {
-		x = x + rect.width / 2;
-	}
-
-	// top boundary
-	else if (y + rect.height > target.clientHeight) {
-		y = y + rect.height / 2;
+	else if (x + rect.width > target.clientWidth) {
+		x = target.clientWidth - rect.width + padding;
 	}
 
 	contextMenu.style.left = `${x}px`;
@@ -37,4 +33,12 @@ export function toggleContextMenu(e: MouseEvent, contextMenuId: string) {
 
 export function blurContextMenu() {
 	if (document.activeElement) (document.activeElement as HTMLElement).blur();
+}
+
+export function reboundTooltip(tooltipEl: HTMLElement) {
+	const tooltipRect = tooltipEl.getBoundingClientRect();
+
+	if (tooltipRect.x < 0) {
+		tooltipEl.style.left = `${tooltipRect.width / 2}px`;
+	}
 }

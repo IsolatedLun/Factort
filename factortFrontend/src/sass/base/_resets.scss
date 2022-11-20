@@ -143,6 +143,11 @@ img[data-small='true'] {
 	display: none !important;
 }
 
+[data-absolute-hide='true'] {
+	visibility: hidden !important;
+	pointer-events: none !important;
+}
+
 [data-work-condition='false'] {
 	opacity: 0.5;
 	pointer-events: none;

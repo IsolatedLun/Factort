@@ -7,5 +7,6 @@ export type ButtonVariants =
 	| 'downvote'
 	| 'upvote-difference'
 	| 'downvote-difference'
+	| 'hologram'
 	| 'tool';
 export type ButtonSecondaryVariants = 'default' | 'sausage' | 'small' | 'square' | 'extra-small';
