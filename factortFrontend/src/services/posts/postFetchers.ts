@@ -1,17 +1,42 @@
+import type { Numeric } from '../../types';
 import type { Props_Post, Props_PreviewPost } from '../../components/Layouts/Post/types';
-import { POSTS_URL, POST_URL, VOTE_POST_URL } from '../../consts';
+import {
+	COMMUNITIES_POSTS_URL,
+	POSTS_URL,
+	POST_URL,
+	USER_POSTS_URL,
+	VOTE_POST_URL
+} from '../../consts';
 import { HTTP_METHODS } from '../types';
 import { createHeaders, createResponse } from '../utils';
-import type { Data_VoteAction } from './types';
+import type { Data_VoteAction, PaginatedResponse } from './types';
 
 /**
  * @summary Fetches the feed for the user/anonymous
  */
-export async function _Fetch_Posts() {
-	return await createResponse<any, Props_PreviewPost[]>(
+export async function _Fetch_Posts(data: { id: Numeric; page: number }) {
+	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
 		POSTS_URL,
-		{},
-		HTTP_METHODS.GET,
+		{ page: data['page'] },
+		HTTP_METHODS.POST,
+		createHeaders({}, ['auth'])
+	);
+}
+
+export async function _Fetch_User_Posts(data: { id: Numeric; page: number }) {
+	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
+		USER_POSTS_URL(data['id']),
+		{ page: data['page'] },
+		HTTP_METHODS.POST,
+		createHeaders({}, ['auth'])
+	);
+}
+
+export async function _Fetch_Community_Posts(data: { id: Numeric; page: number }) {
+	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
+		COMMUNITIES_POSTS_URL(data['id']),
+		{ page: data['page'] },
+		HTTP_METHODS.POST,
 		createHeaders({}, ['auth'])
 	);
 }

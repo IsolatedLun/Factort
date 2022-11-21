@@ -35,3 +35,5 @@ export type Complex_Data_Type<T, O> = { type: T; data: O };
 export interface SyntheticTarget<T> {
 	target: T;
 }
+
+export type Numeric = string | number;

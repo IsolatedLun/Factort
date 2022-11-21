@@ -15,6 +15,7 @@
 	import { globalStore } from '../../../stores/global';
 	import { ICON_PLUS } from '../../../consts';
 	import SkeltronUserView from '../../../components/Modules/Skeletron/layouts/SkeltronUserView.svelte';
+	import { _Fetch_User_Posts } from '../../../services/posts/postFetchers';
 
 	async function fetchUser() {
 		return await _Fetch_User(Number(id));
@@ -48,7 +49,8 @@
 
 			<FeedContainer
 				title="Latest Posts"
-				posts={res.data.posts}
+				fetchFn={_Fetch_User_Posts}
+				fetchFnArgs={{ id }}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
 				<section slot="misc" class="[ width-100 ]" data-desktop>

@@ -76,6 +76,7 @@
 				e.setAttribute('aria-controls', commentRepliesId);
 				e.setAttribute('aria-expanded', 'false');
 			}}
+			variant={showReplies ? 'primary' : 'default'}
 			secondaryVariant="small"
 			workCondition={comment.replies.length > 0}
 			on:click={handleReplyButton}
@@ -84,7 +85,10 @@
 			{comment.replies.length} replie(s)
 		</Button>
 
-		<Button secondaryVariant="small" on:click={() => (showReplyInput = !showReplyInput)}
+		<Button
+			variant={showReplyInput ? 'downvote' : 'default'}
+			secondaryVariant="small"
+			on:click={() => (showReplyInput = !showReplyInput)}
 			>{showReplyInput ? 'Close reply' : 'Reply'}</Button
 		>
 

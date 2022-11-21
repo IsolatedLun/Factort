@@ -18,6 +18,7 @@
 	import type { Props_Community } from './types';
 	import { onDestroy } from 'svelte';
 	import SkeletronCommunityView from '../../../components/Modules/Skeletron/layouts/SkeletronCommunityView.svelte';
+	import { _Fetch_Community_Posts } from '../../../services/posts/postFetchers';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -99,7 +100,8 @@
 
 			<FeedContainer
 				title="Posts"
-				posts={res.data.posts}
+				fetchFn={_Fetch_Community_Posts}
+				fetchFnArgs={{ id }}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
 				<section

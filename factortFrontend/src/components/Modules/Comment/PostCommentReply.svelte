@@ -10,6 +10,7 @@
 	import Button from '../Interactibles/Buttons/Button.svelte';
 	import TextArea from '../Interactibles/Inputs/TextArea.svelte';
 	import DynamicLabel from '../Misc/DynamicLabel.svelte';
+	import VoteController from '../VoteController/VoteController.svelte';
 
 	function createCommentReply() {
 		if (newReplyText) {
@@ -61,9 +62,21 @@
 			{reply.text}
 		</p>
 
-		<Button secondaryVariant="small" on:click={() => (showReplyInput = !showReplyInput)}>
-			{showReplyInput ? 'Close reply' : 'Reply'}
-		</Button>
+		<Flexy cubeClass={{ utilClass: 'width-100 fs-350' }}>
+			<Button
+				variant={showReplyInput ? 'downvote' : 'default'}
+				secondaryVariant="small"
+				on:click={() => (showReplyInput = !showReplyInput)}
+			>
+				{showReplyInput ? 'Close reply' : 'Reply'}
+			</Button>
+
+			<VoteController
+				voteFn={() => null}
+				votes={reply.prestige}
+				voteFnArgs={{ replyId: reply.id, commentId: comment.id, postId: comment.post }}
+			/>
+		</Flexy>
 
 		{#if showReplyInput}
 			<div class="[ width-100 ]">

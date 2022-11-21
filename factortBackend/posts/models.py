@@ -34,8 +34,8 @@ class Post(models.Model):
 
     content_type = models.CharField(
         choices=POST_CONTENT_CHOICES, max_length=16)
-    visibility = models.CharField(
-        choices=POST_VISIBILITY_CHOICES, max_length=16)
+    visibility = models.IntegerField(
+        choices=POST_VISIBILITY_CHOICES, default=1)
 
     date_created = models.DateTimeField(auto_now_add=True)
 

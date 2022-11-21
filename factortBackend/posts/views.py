@@ -1,25 +1,68 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.core.paginator import Paginator, InvalidPage
 
 from lxml.html.clean import clean_html
 
-from consts import OK, NOT_FOUND, ERR
+from consts import OK, NOT_FOUND, ERR, POSTS_PER_PAGE
+from _utils import simple_pagination_wrapper
 from . import models
 from . import serializers
 
 from users.models import cUser
+from communities.models import Community
 
 
 class PostsView(APIView):
-    def get(self, req):
+    def post(self, req):
         c_user = req.user if req.user.is_authenticated else None
 
-        posts = models.Post.objects.all()
-        serialized_data = serializers.PostPreviewSerializer(
-            posts, context={'user': c_user}, many=True).data
+        data, next_page = simple_pagination_wrapper(
+            models.Post,
+            None,
+            serializers.PostPreviewSerializer,
+            {'context': {'user': c_user}},
+            req.data['page'],
+            POSTS_PER_PAGE
+        )
 
-        return Response(data=serialized_data, status=OK)
+        return Response(data={'data': data, 'next_page': next_page}, status=OK)
+
+
+class UserPostsView(APIView):
+    def post(self, req, user_id: int):
+        c_user = req.user if req.user.is_authenticated else None
+
+        data, next_page = simple_pagination_wrapper(
+            models.Post,
+            {'user_id': user_id},
+            serializers.PostPreviewSerializer,
+            {'context': {'user': c_user}},
+            req.data['page'],
+            POSTS_PER_PAGE
+        )
+
+        return Response(data={'data': data, 'next_page': next_page}, status=OK)
+
+
+class CommunityPostsView(APIView):
+    def post(self, req, community_id: int):
+        c_user = req.user if req.user.is_authenticated else None
+
+        data, next_page = simple_pagination_wrapper(
+            models.Post,
+            {'community_id': community_id},
+            serializers.PostPreviewSerializer,
+            {'context': {'user': c_user}},
+            req.data['page'],
+            POSTS_PER_PAGE
+        )
+
+        return Response(data={'data': data, 'next_page': next_page}, status=OK)
+
+# ============================================
+# ============================================
 
 
 class PostView(APIView):
@@ -55,6 +98,9 @@ class CreatePostView(APIView):
         if(data['community_id'] != '-1'):
             models.CommunityPost.objects.create(
                 post_id=new_post.id, community_id=data['community_id'])
+
+            new_post.community = Community.objects.get(
+                community_id=data['community_id'])
 
         def _create_images_post():
             images = []
@@ -174,10 +220,11 @@ class CommentPostView(APIView):
             )
 
             serialized_data = serializers.PostCommentSerializer(
-                new_comment).data
+                new_comment, context={'user': req.user}).data
             return Response(data=serialized_data, status=OK)
 
         except Exception as e:
+            print(e)
             return Response(status=ERR)
 
 

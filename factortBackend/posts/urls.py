@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     path('', views.PostsView.as_view(), name='GET=Posts'),
+    path('users/<int:user_id>', views.UserPostsView.as_view(), name='GET=Posts'),
+    path('communities/<int:community_id>',
+         views.CommunityPostsView.as_view(), name='GET=Posts'),
     path('<int:post_id>', views.PostView.as_view(), name='GET=Post'),
 
     # =================================

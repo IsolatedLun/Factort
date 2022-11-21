@@ -1,7 +1,7 @@
 // ==============
 // Global Variables
 import type { PostTypes } from './components/Layouts/Post/types';
-import type { KeyValue, TypedKeyValue } from './types';
+import type { KeyValue, Numeric, TypedKeyValue } from './types';
 
 // ==============
 export const POINTS_ALIAS_NAME = 'reputation';
@@ -100,7 +100,7 @@ export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
 export const COMMENT_ID = 'comment';
-export const CREATE_COMMENT_REPLIES_ID = (id: string | number) => 'comment' + '-replies-' + id;
+export const CREATE_COMMENT_REPLIES_ID = (id: Numeric) => 'comment' + '-replies-' + id;
 
 export const NAVBAR_CM_ID = CREATE_CONTEXT_MENU_ID('navbar');
 export const CREATE_SELECT_FORM_ID = (name: string) => `select-${name.toLowerCase()}-form`;
@@ -115,12 +115,15 @@ export const API_URL = BACKEND_ROOT_URL + '/api';
 
 // ------------------------------------------
 export const POSTS_URL = API_URL + '/posts/';
+export const USER_POSTS_URL = (id: Numeric) => API_URL + '/posts/users/' + id;
+export const COMMUNITIES_POSTS_URL = (id: Numeric) => API_URL + '/posts/communities/' + id;
+
 export const POST_URL = (id: number | string) => POSTS_URL + id;
 export const VOTE_POST_URL = (id: number | string) => POSTS_URL + 'vote/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const POST_COMMENT_URL = (id: number | string) => POSTS_URL + 'comment/' + id;
-export const REPLY_POST_COMMENT_URL = (id: number | string, commentId: string | number) =>
+export const REPLY_POST_COMMENT_URL = (id: number | string, commentId: Numeric) =>
 	POST_COMMENT_URL(id) + '/reply/' + commentId;
 export const VOTE_POST_COMMENT_URL = (id: number | string, commentId: number | string) =>
 	POST_URL(id) + '/comment/' + commentId + '/vote';
@@ -156,11 +159,10 @@ export const WEB_CREATE_POST_WITH_TYPE_URL = (id: number | null, type: string) =
 
 export const WEB_CREATE_COMMUNITY_URL = '/create/community';
 
-export const WEB_POST_URL = (id: string | number, title: string) => `/posts/${id}/${title}`;
-export const WEB_COMMUNITY_URL = (id: string | number, title: string) =>
-	`/communities/${id}/${title}`;
+export const WEB_POST_URL = (id: Numeric, title: string) => `/posts/${id}/${title}`;
+export const WEB_COMMUNITY_URL = (id: Numeric, title: string) => `/communities/${id}/${title}`;
 
-export const WEB_USER_URL = (id: string | number, title: string) => `/users/${id}/${title}`;
+export const WEB_USER_URL = (id: Numeric, title: string) => `/users/${id}/${title}`;
 
 export const WEB_DRAWER_URL = '/drawer';
 

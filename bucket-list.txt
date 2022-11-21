@@ -27,8 +27,8 @@ options. [DONE]
 - Basic authentication [DONE]
     - Add registration [DONE]
 
-- Loading UI for when something is being fetched
-    - Skeletron loading for community/user/posts
+- Loading UI for when something is being fetched [DONE]
+    - Skeletron loading for community/user/posts [DONE]
 
 - ADD TESTS.....
 
@@ -43,7 +43,7 @@ PRIORITY 2
     - Link post (with the preview of the link's page) [DONE 1/2]
 
     - Voting system like reddit [DONE]
-    - Users can post individually or in their communities
+    - Users can post individually or in their communities [DONE]
     - Posts can be public, unlisted and editable
 
     => Displays comments count, votes and poster [DONE]
@@ -65,6 +65,10 @@ PRIORITY 2
 
 - Search system
     - Add post history system [DONE]
+    - Add post/community searching
+
+- Post filtering (Latest/Hot/Controversial)
+- Pagination
 
 ============
 PRIORITY 3
