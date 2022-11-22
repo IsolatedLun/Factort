@@ -1,4 +1,5 @@
 import type {
+	Props_Post,
 	Props_PostComment,
 	Props_PostCommentReply,
 	Props_PreviewPost
@@ -20,6 +21,6 @@ export interface PaginatedResponse<T> {
 	next_page: number | null;
 	data: T[];
 }
-export type PostFetcherFn = (
+export type PaginationFetcherFn<T> = (
 	...args: any
-) => Promise<Success_OR_Error__Response<PaginatedResponse<Props_PreviewPost>>>;
+) => Promise<Success_OR_Error__Response<PaginatedResponse<T>>>;

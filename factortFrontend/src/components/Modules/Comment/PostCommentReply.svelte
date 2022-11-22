@@ -53,7 +53,7 @@
 		</Flexy>
 		<p class="[ margin-inline-start-2 fs-350 ]">
 			<span class="[ margin-inline-end-1 ]">
-				{#if reply.replying_to}
+				{#if reply.replying_to?.id}
 					<Button variant="hologram" secondaryVariant="small">@{reply.replying_to.username}</Button>
 				{:else}
 					<Button variant="hologram" secondaryVariant="small" workCondition={false}>@</Button>

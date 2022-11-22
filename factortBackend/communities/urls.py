@@ -10,6 +10,8 @@ urlpatterns = [
          name='GET=CommunityAdmins'),
     path('misc', views.Misc_CommunityPreviewsView.as_view(),
          name='GET=MiscellaneousCommunities'),
+    path('<int:community_id>/latest-members', views.Misc_CommunityLatestMembersView.as_view(),
+         name='GET=MiscellaneousCommunities'),
 
     # =================================
     path('create', views.CreateCommunityView.as_view(), name='POST=Community'),

@@ -136,6 +136,8 @@ export const COMMUNITY_TOGGLE_JOIN_URL = (id: number) => COMMUNITY_URL(id) + `/t
 
 export const COMMUNITY_MISC_URL = COMMUNITIES_URL + 'misc';
 export const COMMUNITY_MISC_ADMINS_URL = (id: number) => COMMUNITY_URL(id) + `/admins`;
+export const COMMUNITY_MISC_LATEST_MEMBERS_URL = (id: number) =>
+	COMMUNITY_URL(id) + `/latest-members`;
 
 export const USERS_URL = API_URL + '/users/';
 export const USER_URL = (id: number) => USERS_URL + id;

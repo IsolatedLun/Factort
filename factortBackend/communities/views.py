@@ -10,6 +10,7 @@ from utils.helpers import exclude_from_dict
 from . import models
 from . import serializers
 from users.serializers import cUserSerializer
+from users.models import cUser
 
 
 class CommunitiesView(APIView):
@@ -78,11 +79,16 @@ class Misc_CommunityPreviewsView(APIView):
     def post(self, req):
         user_id = req.data.get('id', None)
 
+        print(req.data)
+
         communities = []
         serialized_communities = []
 
         # Get the communities that the user has joined
         if user_id:
+            if not cUser.objects.filter(id=user_id).exists():
+                return Response(data={'type': 'community', 'data': []}, status=OK)
+
             communities = [
                 x.community for x in models.CommunityMember.objects.filter(user_id=user_id)]
             serialized_communities = serializers.CommunityPreviewSerializer(
@@ -97,14 +103,25 @@ class Misc_CommunityPreviewsView(APIView):
 
 class Misc_CommunityAdminsView(APIView):
     def get(self, req, community_id):
-        admins = []
-        serialized_admins = []
-
         # Get the admins (owner/moderators) of a specific community
-        if community_id:
+        if models.Community.objects.filter(id=community_id).exists():
             admins = [x.user for x in models.CommunityMember.objects.filter(
                 Q(community_id=community_id) &
                 (Q(is_moderator=True) | Q(is_owner=True)))]
             serialized_admins = cUserSerializer(admins, many=True).data
 
-        return Response(data={'type': 'moderator', 'data': serialized_admins}, status=OK)
+            return Response(data={'type': 'user', 'data': serialized_admins}, status=OK)
+        return Response(status=ERR)
+
+
+class Misc_CommunityLatestMembersView(APIView):
+    def get(self, req, community_id):
+
+        if models.Community.objects.filter(id=community_id).exists():
+            latest_members = models.CommunityMember.objects.filter(
+                community_id=community_id).order_by('-date_created')
+            users = [x.user for x in latest_members[0:10]]
+            serialized_members = cUserSerializer(users, many=True).data
+
+            return Response(data={'type': 'user', 'data': serialized_members}, status=OK)
+        return Response(status=ERR)

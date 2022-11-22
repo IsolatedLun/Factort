@@ -15,12 +15,17 @@
 	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import type { Props__Dispatch_CommentReply } from 'src/components/Modules/Comment/types';
+	import Post from './Post.svelte';
+	import SkeletronPost from '../../../components/Modules/Skeletron/components/SkeletronPost.svelte';
 
 	onMount(() => {
 		post = fetchPost();
 
 		post.then((res) => {
-			if (res.type === 'success') comments = res.data.comments;
+			if (res.type === 'success') {
+				isSuccess = true;
+				comments = res.data.comments;
+			} else isSuccess = false;
 		});
 
 		const posts = addPostToHistory({ id, title, date_visited: new Date().toDateString() });
@@ -61,46 +66,61 @@
 	// so that we can append newly created comments or replies easily...
 	let comments: Props_PostComment[] = [];
 	let newCommentText: string;
+
+	let isSuccess = false;
 </script>
 
 <svelte:head>
 	<title>Factort | {title}</title>
 </svelte:head>
 
-<FeedContainer fetchFn={fetchPost} isInThread={true}>
-	<section slot="misc" class="[ width-100 ]" data-desktop>
-		<Miscellaneuos withFooter={true} />
-	</section>
-
-	<section slot="under-post" class="[ margin-block-start-3 ]">
+<div class="[ feed-container ] [ grid gap-2 width-100 ]" data-grid-collapse="true">
+	<section class="[ width-100 margin-block-start-3 ]">
+		<div>
+			{#await fetchPost()}
+				<SkeletronPost />
+			{:then res}
+				{#if res.type === 'success'}
+					<Post props={{ ...res.data }} isInThread={true} />
+				{:else}
+					<div class="[ grid place-items-center margin-block-auto ]">
+						<Card padding={2} variant="error-difference">404: Post does not exist</Card>
+					</div>
+				{/if}
+			{/await}
+		</div>
 		<!-- Test for spacing issues for the submit button, if there are issues, then set useColumn to
 			 true -->
-		<Flexy
-			useColumn={false}
-			align="end"
-			cubeClass={{
-				blockClass: 'post-add-comment',
-				utilClass: 'margin-block-end-1 margin-block-start-5'
-			}}
-		>
-			<TextArea
-				bind:value={newCommentText}
-				label="Add comment"
-				resize="vertical"
-				placeholder="Add comment"
-			/>
-			<Button variant="primary" on:click={createComment}>Submit</Button>
-		</Flexy>
-		<Card cubeClass={{ utilClass: 'padding-inline-3 padding-block-1' }} variant="dark">
-			<TypoHeader spacingPosition="end" spacing={1} underline={true}
-				>{comments.length} Comment(s)</TypoHeader
+		<div data-work-condition={isSuccess}>
+			<Flexy
+				useColumn={false}
+				align="end"
+				cubeClass={{
+					blockClass: 'post-add-comment',
+					utilClass: 'margin-block-end-1 margin-block-start-5'
+				}}
 			>
-
-			<Flexy useColumn={true} gap={3}>
-				{#each comments as comment}
-					<PostComment {comment} on:newReply={(e) => appendReply(e.detail)} />
-				{/each}
+				<TextArea
+					bind:value={newCommentText}
+					label="Add comment"
+					resize="vertical"
+					placeholder="Add comment"
+				/>
+				<Button variant="primary" on:click={createComment}>Submit</Button>
 			</Flexy>
-		</Card>
+			<Card cubeClass={{ utilClass: 'padding-inline-3 padding-block-1' }} variant="dark">
+				<TypoHeader spacingPosition="end" spacing={1} underline={true}
+					>{comments.length} Comment(s)</TypoHeader
+				>
+
+				<Flexy useColumn={true} gap={3}>
+					{#each comments as comment}
+						<PostComment {comment} on:newReply={(e) => appendReply(e.detail)} />
+					{/each}
+				</Flexy>
+			</Card>
+		</div>
 	</section>
-</FeedContainer>
+
+	<Miscellaneuos withFooter={true} />
+</div>

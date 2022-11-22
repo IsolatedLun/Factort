@@ -1,3 +1,4 @@
+import type { Props_User } from 'src/types';
 import type {
 	Props_Community,
 	Props_CommunityPreview
@@ -5,6 +6,7 @@ import type {
 import {
 	COMMUNITIES_URL,
 	COMMUNITY_MISC_ADMINS_URL,
+	COMMUNITY_MISC_LATEST_MEMBERS_URL,
 	COMMUNITY_MISC_URL,
 	COMMUNITY_TOGGLE_JOIN_URL,
 	COMMUNITY_URL
@@ -31,17 +33,27 @@ export async function _Fetch_Community(id: number) {
 }
 
 export async function _Fetch_Misc_CommunityPreviews(id: number) {
+	console.log(id);
 	return await createResponse<any, Props_CommunityPreview[]>(
 		COMMUNITY_MISC_URL,
-		{ id },
+		{ id: id },
 		HTTP_METHODS.POST,
-		{}
+		createHeaders(null, ['json'])
 	);
 }
 
 export async function _Fetch_Misc_CommunityAdmins(id: number) {
-	return await createResponse<any, Props_CommunityPreview[]>(
+	return await createResponse<any, Props_User[]>(
 		COMMUNITY_MISC_ADMINS_URL(id),
+		{},
+		HTTP_METHODS.GET,
+		{}
+	);
+}
+
+export async function _Fetch_Misc_CommunityLatestMembers(id: number) {
+	return await createResponse<any, Props_User[]>(
+		COMMUNITY_MISC_LATEST_MEMBERS_URL(id),
 		{},
 		HTTP_METHODS.GET,
 		{}

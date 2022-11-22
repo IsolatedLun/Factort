@@ -16,6 +16,7 @@
 	import { ICON_PLUS } from '../../../consts';
 	import SkeltronUserView from '../../../components/Modules/Skeletron/layouts/SkeltronUserView.svelte';
 	import { _Fetch_User_Posts } from '../../../services/posts/postFetchers';
+	import Card from '../../../components/Modules/Card/Card.svelte';
 
 	async function fetchUser() {
 		return await _Fetch_User(Number(id));
@@ -58,13 +59,17 @@
 						sections={[
 							{
 								title: 'Joined Communities',
-								id: res.data.id,
+								id,
 								fetchFn: _Fetch_Misc_CommunityPreviews
 							}
 						]}
 					/>
 				</section>
 			</FeedContainer>
+		</div>
+	{:else}
+		<div class="[ grid place-items-center margin-block-auto ]">
+			<Card padding={2} variant="error-difference">404: User does not exist</Card>
 		</div>
 	{/if}
 {/await}

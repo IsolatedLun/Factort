@@ -1,1 +1,1 @@
-cd .. && cd factortBackend && python manage.py runserver
+cd .. && cd factortBackend && python3 manage.py runserver

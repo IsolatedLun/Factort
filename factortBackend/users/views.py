@@ -80,8 +80,11 @@ class JWTAuthenticateView(APIView):
 
 class UserView(APIView):
     def get(self, req, user_id):
-        user = get_model_or_default(models.cUser, id=user_id)
-        user_serializer = serializers.cUserViewSerializer(
-            user, context={'user': req.user}).data
+        if not models.cUser.objects.filter(id=user_id).exists():
+            return Response(data=user_serializer, status=OK)
+        else:
+            user = models.cUser.objects.get(id=user_id)
+            user_serializer = serializers.cUserViewSerializer(
+                user, context={'user': req.user}).data
 
-        return Response(data=user_serializer, status=OK)
+            return Response(data=user_serializer, status=OK)

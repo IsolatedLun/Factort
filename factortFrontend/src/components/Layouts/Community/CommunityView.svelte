@@ -6,19 +6,19 @@
 	import {
 		_Fetch_Community,
 		_Fetch_Misc_CommunityAdmins,
+		_Fetch_Misc_CommunityLatestMembers,
 		_Fetch_Misc_CommunityPreviews,
 		_Toggle_Community_Join
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
 	import { BACKEND_ROOT_URL, ICON_PLUS } from '../../../consts';
-	import Profile from '../../../components/Modules/User/Profile.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import CreatePostHeader from '../CreatePostHeader/CreatePostHeader.svelte';
 	import type { Success_OR_Error__Response } from 'src/services/types';
 	import type { Props_Community } from './types';
-	import { onDestroy } from 'svelte';
 	import SkeletronCommunityView from '../../../components/Modules/Skeletron/layouts/SkeletronCommunityView.svelte';
 	import { _Fetch_Community_Posts } from '../../../services/posts/postFetchers';
+	import Card from '../../../components/Modules/Card/Card.svelte';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -31,8 +31,13 @@
 	}
 
 	function toggleCommunityJoin() {
-		hasJoinedCommunity = !hasJoinedCommunity;
-		_Toggle_Community_Join(id);
+		if (res.type === 'success') {
+			hasJoinedCommunity = !hasJoinedCommunity;
+			_Toggle_Community_Join(id);
+
+			if (hasJoinedCommunity) res.data.members++;
+			else res.data.members--;
+		}
 	}
 
 	async function fetchCommunity() {
@@ -77,7 +82,7 @@
 					<p><small>g/</small> <big>{res.data.name}</big></p>
 					<Flexy align="center" gap={2}>
 						<p>{res.data.members} <small>members</small></p>
-						{#if hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id || $globalStore.userStore.isLogged}
+						{#if (hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id) && $globalStore.userStore.isLogged}
 							<Button
 								variant="downvote"
 								secondaryVariant="sausage"
@@ -118,11 +123,20 @@
 								title: 'Admins',
 								id: res.data.id,
 								fetchFn: _Fetch_Misc_CommunityAdmins
+							},
+							{
+								title: 'Latest members',
+								id: res.data.id,
+								fetchFn: _Fetch_Misc_CommunityLatestMembers
 							}
 						]}
 					/>
 				</section>
 			</FeedContainer>
+		</div>
+	{:else}
+		<div class="[ grid place-items-center margin-block-auto ]">
+			<Card padding={2} variant="error-difference">404: Community does not exist</Card>
 		</div>
 	{/if}
 {/await}

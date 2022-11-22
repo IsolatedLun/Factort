@@ -30,6 +30,22 @@ class PostsView(APIView):
         return Response(data={'data': data, 'next_page': next_page}, status=OK)
 
 
+class PostsSearchView(APIView):
+    def post(self, req):
+        c_user = req.user if req.user.is_authenticated else None
+
+        data, next_page = simple_pagination_wrapper(
+            models.Post,
+            {'title__icontains': req.data['text']},
+            serializers.PostPreviewSerializer,
+            {'context': {'user': c_user}},
+            req.data['page'],
+            POSTS_PER_PAGE
+        )
+
+        return Response(data={'data': data, 'next_page': next_page}, status=OK)
+
+
 class UserPostsView(APIView):
     def post(self, req, user_id: int):
         c_user = req.user if req.user.is_authenticated else None
@@ -80,7 +96,6 @@ class PostView(APIView):
 
             return Response(data=serialized_data, status=OK)
         except Exception as e:
-            print(e)
             return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
 
 
@@ -100,7 +115,7 @@ class CreatePostView(APIView):
                 post_id=new_post.id, community_id=data['community_id'])
 
             new_post.community = Community.objects.get(
-                community_id=data['community_id'])
+                id=data['community_id'])
 
         def _create_images_post():
             images = []
