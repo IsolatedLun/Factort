@@ -30,6 +30,7 @@
 	import { goto } from '$app/navigation';
 	import { destroyTokens } from '../../../utils/tokenHandler';
 	import HistoryButtons from './_/HistoryButtons.svelte';
+	import NavbarSearch from './_/NavbarSearch.svelte';
 
 	onMount(() => {
 		layoutStore.subscribe((state) => {
@@ -96,14 +97,8 @@
 						<Icon>{ICON_SEARCH}</Icon>
 					</Button>
 				{/if}
-				<div data-show-sticky-input={showStickyInput} data-desktop>
-					<TextInput
-						cubeClass={{ utilClass: 'navbar__search-input' }}
-						placeholder="Search"
-						label="Search"
-						endIcon={ICON_SEARCH}
-					/>
-				</div>
+
+				<NavbarSearch {showStickyInput} />
 			</Flexy>
 
 			<div data-mobile>

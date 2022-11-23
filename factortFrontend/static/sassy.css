@@ -1215,49 +1215,18 @@
   background-color: var(--clr-background-300);
   grid-area: navigation;
 }
+.primary-navbar:is(:hover, :focus):is(> .input-container:is(:hover, :focus)) .input__dropdown:not(:empty) {
+  transform: translateY(0%);
+  pointer-events: all;
+  opacity: 1;
+}
+.primary-navbar .navbar__search-input {
+  width: 100%;
+}
 .primary-navbar[data-row-layout=true] *.flex {
   align-items: center;
 }
-.primary-navbar[data-row-layout=true] *[data-show-sticky-input] .navbar__search-input {
-  position: absolute;
-  min-width: 24ch;
-  z-index: 9999999999999;
-}
-.primary-navbar[data-row-layout=true] *[data-show-sticky-input] .navbar__search-input .input {
-  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
-}
-.primary-navbar[data-row-layout=true] *[data-show-sticky-input][data-show-sticky-input=false] .navbar__search-input {
-  animation: slideBackwards 0.15s ease-in-out forwards;
-  pointer-events: none;
-}
-.primary-navbar[data-row-layout=true] *[data-show-sticky-input][data-show-sticky-input=true] .navbar__search-input {
-  animation: slideForwards 0.15s ease-in-out forwards;
-}
 
-@keyframes slideForwards {
-  from {
-    top: 50%;
-    left: -100vmax;
-    transform: translate(-50%, -50%);
-  }
-  to {
-    top: 32%;
-    left: 200%;
-    transform: translate(-50%, -50%);
-  }
-}
-@keyframes slideBackwards {
-  from {
-    top: 32%;
-    left: 200%;
-    transform: translate(-50%, -50%);
-  }
-  to {
-    top: 50%;
-    left: -100vmax;
-    transform: translate(-50%, -50%);
-  }
-}
 .main-layout[data-layout=column] {
   grid-template-areas: "navigation" "mainContainer";
 }
@@ -1634,6 +1603,25 @@
 }
 .input-container input[type=checkbox] {
   accent-color: var(--clr-text-primary);
+}
+.input-container:is(:hover, :focus) .input__dropdown:not(:empty),
+.input-container .input__dropdown:is(:hover, :focus):not(:empty) {
+  transform: translateY(0%);
+  pointer-events: all;
+  opacity: 1;
+}
+.input-container .input__dropdown {
+  width: 100%;
+  background-color: var(--clr-input-background);
+  padding: 0.5em;
+  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+  max-height: 25vw;
+  border-radius: 9px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10%);
+  transition: opacity 100ms 250ms ease-in-out, transform 500ms ease-in-out;
+  z-index: 9999999;
 }
 .input-container .container__end-icon {
   top: 50%;

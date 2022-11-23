@@ -92,6 +92,7 @@
 				handleInput(e);
 
 				dispatch('validate', { input: _this, destroy: false });
+				dispatch('_input', _this);
 			}}
 			bind:this={_this}
 			{id}
@@ -131,5 +132,8 @@
 			<li>{error}</li>
 		{/each}
 	</ul>
-	<slot />
+
+	<div class="[ input__dropdown ] [ pos-absolute ]">
+		<slot />
+	</div>
 </div>

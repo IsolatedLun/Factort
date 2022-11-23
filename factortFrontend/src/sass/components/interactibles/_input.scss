@@ -10,6 +10,31 @@
 		accent-color: $clr-primary;
 	}
 
+	&:is(:hover, :focus) .input__dropdown:not(:empty),
+	.input__dropdown:is(:hover, :focus):not(:empty) {
+		transform: translateY(0%);
+		pointer-events: all;
+		opacity: 1;
+	}
+
+	.input__dropdown {
+		width: 100%;
+		background-color: $def-input-background-color;
+		padding: 0.5em;
+
+		box-shadow: $theme-shadow;
+
+		max-height: 25vw;
+
+		border-radius: $border-radius-cubed;
+
+		pointer-events: none;
+		opacity: 0;
+		transform: translateY(10%);
+		transition: opacity 100ms 250ms ease-in-out, transform 500ms ease-in-out;
+		z-index: 9999999;
+	}
+
 	// ===========
 	// Misc
 	// ===========

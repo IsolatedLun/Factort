@@ -2,57 +2,19 @@
 
 .primary-navbar {
 	background-color: $clr-navbar-background;
-
 	grid-area: navigation;
+
+	&:is(:hover, :focus):is(> .input-container:is(:hover, :focus)) .input__dropdown:not(:empty) {
+		transform: translateY(0%);
+		pointer-events: all;
+		opacity: 1;
+	}
+
+	.navbar__search-input {
+		width: 100%;
+	}
 
 	&[data-row-layout='true'] *.flex {
 		align-items: center;
-	}
-
-	// =====================
-	// Dynamic search input
-	// =====================
-	&[data-row-layout='true'] {
-		*[data-show-sticky-input] {
-			.navbar__search-input {
-				position: absolute;
-				min-width: 24ch;
-
-				.input {
-					box-shadow: $theme-shadow;
-				}
-
-				z-index: 9999999999999;
-			}
-
-			&[data-show-sticky-input='false'] .navbar__search-input {
-				animation: slideBackwards 0.15s ease-in-out forwards;
-				pointer-events: none;
-			}
-
-			&[data-show-sticky-input='true'] .navbar__search-input {
-				animation: slideForwards 0.15s ease-in-out forwards;
-			}
-		}
-	}
-}
-
-@keyframes slideForwards {
-	from {
-		@include transformCenter($left: -100vmax);
-	}
-
-	to {
-		@include transformCenter($left: 200%, $top: 32%);
-	}
-}
-
-@keyframes slideBackwards {
-	from {
-		@include transformCenter($left: 200%, $top: 32%);
-	}
-
-	to {
-		@include transformCenter($left: -100vmax);
 	}
 }

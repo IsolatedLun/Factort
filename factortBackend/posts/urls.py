@@ -4,10 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.PostsView.as_view(), name='GET=Posts'),
-    path('users/<int:user_id>', views.UserPostsView.as_view(), name='GET=Posts'),
+    path('users/<int:user_id>', views.UserPostsView.as_view(), name='GET=UserPosts'),
     path('communities/<int:community_id>',
-         views.CommunityPostsView.as_view(), name='GET=Posts'),
-    path('<int:post_id>', views.PostView.as_view(), name='GET=Post'),
+         views.CommunityPostsView.as_view(), name='GET=CommunityPosts'),
+    path('<int:post_id>', views.PostView.as_view(), name='GET=PostView'),
 
     # =================================
 
@@ -20,7 +20,7 @@ urlpatterns = [
     path('comment/<int:post_id>',
          views.CommentPostView.as_view(), name='POST=CommentOnPost'),
     path('<int:post_id>/comment/<int:comment_id>/vote',
-         views.VoteCommentView.as_view(), name='POST=VotePost'),
+         views.VoteCommentView.as_view(), name='POST=VoteComment'),
 
     path('comment/<int:post_id>/reply/<int:comment_id>',
          views.ReplyOnCommentPostView.as_view(), name='POST=ReplyOnPostComment'),

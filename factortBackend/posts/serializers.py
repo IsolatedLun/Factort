@@ -36,7 +36,12 @@ class PostPreviewSerializer(serializers.ModelSerializer):
         return get_user_or_none(obj, PostUserSerializer)
 
     def get_count_comments(self, obj):
-        return models.PostComment.objects.filter(post_id=obj.id).count()
+        comment_count = models.PostComment.objects.filter(
+            post_id=obj.id).count()
+        comment_replies_count = models.PostCommentReply.objects.filter(
+            post_id=obj.id).count()
+
+        return comment_count + comment_replies_count
 
     def get_content(self, obj):
         return obj.content

@@ -142,6 +142,9 @@ export const COMMUNITY_MISC_LATEST_MEMBERS_URL = (id: number) =>
 export const USERS_URL = API_URL + '/users/';
 export const USER_URL = (id: number) => USERS_URL + id;
 
+export const SEARCH_URL = API_URL + '/search/';
+export const SEARCH_BAR_URL = SEARCH_URL + 'bar';
+
 export const AUTH_URL = USERS_URL + 'auth/';
 export const REGISTER_URL = AUTH_URL + 'register';
 export const LOGIN_URL = AUTH_URL + 'login';

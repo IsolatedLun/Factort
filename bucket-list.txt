@@ -1,3 +1,5 @@
+=> This is used for extra dopamine reasons
+
 ============
 PRIORITY 1
 ============
@@ -65,7 +67,8 @@ PRIORITY 2
 
 - Search system
     - Add post history system [DONE]
-    - Add post/community searching
+    - Add post/community searching [DONE]
+    - Make the search bar responsive on mobile
 
 - Post filtering (Latest/Hot/Controversial)
 - Pagination
