@@ -20,13 +20,14 @@
 		width: 488px;
 		height: 488px;
 		grid-area: canvas;
-	}
-	#drawer-canvas {
-		display: inline-block;
-		image-rendering: pixelated;
-		image-rendering: crisp-edges;
 
-		border: $theme-border;
+		canvas {
+			display: inline-block;
+			image-rendering: pixelated;
+			image-rendering: crisp-edges;
+
+			border: $theme-border;
+		}
 	}
 
 	.drawer__colors-grid {

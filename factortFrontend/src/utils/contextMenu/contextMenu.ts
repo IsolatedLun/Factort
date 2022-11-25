@@ -11,22 +11,17 @@ export function toggleContextMenu(e: MouseEvent, contextMenuId: string) {
 		(e.target as HTMLElement).closest('[data-tooltip-parent]') ?? (e.target as HTMLElement);
 	const padding = 80;
 
-	let x = e.offsetX;
-	let y = e.offsetY;
+	console.log(e.target);
+
+	let x = target.clientWidth / 2;
+	let y = target.clientHeight / 2;
 	let rect = contextMenu.getBoundingClientRect();
-
-	// right boundary
-	if (x < padding) {
-		x = rect.width;
-	}
-
-	// left boundary
-	else if (x + rect.width > target.clientWidth) {
-		x = target.clientWidth - rect.width + padding;
-	}
 
 	contextMenu.style.left = `${x}px`;
 	contextMenu.style.top = `${y}px`;
+
+	console.log(x);
+	console.log(y);
 
 	contextMenu.focus();
 }

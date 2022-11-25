@@ -10,28 +10,32 @@
 		accent-color: $clr-primary;
 	}
 
-	&:is(:hover, :focus) .input__dropdown:not(:empty),
-	.input__dropdown:is(:hover, :focus):not(:empty) {
-		transform: translateY(0%);
-		pointer-events: all;
+	&:is(:hover, :focus, :focus-within) .input__dropdown:not(:empty),
+	.input__dropdown:is(:hover, :focus):not(:empty),
+	.input__dropdown:not(:empty)[data-state='relative'] {
+		transform: translateY(0%) scale(1);
 		opacity: 1;
+	}
+
+	&:is(:focus-within) .input__dropdown {
+		border-color: $theme-border-color-light;
 	}
 
 	.input__dropdown {
 		width: 100%;
+
 		background-color: $def-input-background-color;
 		padding: 0.5em;
 
 		box-shadow: $theme-shadow;
-
-		max-height: 25vw;
-
+		border: $theme-border-dark;
 		border-radius: $border-radius-cubed;
 
-		pointer-events: none;
+		pointer-events: all;
 		opacity: 0;
-		transform: translateY(10%);
-		transition: opacity 100ms 250ms ease-in-out, transform 500ms ease-in-out;
+		transform: translateY(10%) scale(0);
+		transition: opacity $input-dropdown-opacity-duration $input-dropdown-opacity-delay ease-in-out,
+			transform $input-dropdown-transform-duration $input-dropdown-transform-delay linear;
 		z-index: 9999999;
 	}
 
@@ -83,6 +87,15 @@
 
 		&[data-valid='true'] .input__image-container {
 			border-color: $clr-success;
+		}
+	}
+}
+
+// For desktop
+@media screen and (min-width: $breakpoint-medium) {
+	.input-container {
+		.input__dropdown {
+			max-height: 25vw;
 		}
 	}
 }

@@ -2,6 +2,8 @@ import type { Complex_Data_Type } from '../../../../types';
 
 export type InputTypes = 'text' | 'email' | 'password' | 'file';
 
+export type TextInputDropdownDisplayModes = 'absolute' | 'relative';
+
 export type FileInputTypes = 'image' | 'audio' | 'video' | 'previewable' | 'file';
 export type FileInputStylings = 'default' | 'square-image' | 'banner-image';
 

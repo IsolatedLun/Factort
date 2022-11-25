@@ -11,14 +11,14 @@
 	} from '../../../../utils/cubeCss/cubeCss';
 	import type { Props_CubeCSS } from '../../../../utils/cubeCss/types';
 	import Icon from '../../Icon/Icon.svelte';
-	import type { InputTypes } from './types';
+	import type { InputTypes, TextInputDropdownDisplayModes } from './types';
 	import type { SyntheticTarget } from '../../../../types';
 	import Button from '../Buttons/Button.svelte';
 	import { ICON_EYE } from '../../../../consts';
 	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 
 	onMount(() => {
-		if (createRandomId) id = window.crypto.randomUUID();
+		if (createRandomId) id = window?.crypto.randomUUID();
 		else id = createInputIdWithLabel(label.toLowerCase());
 
 		_this.id = id;
@@ -60,6 +60,7 @@
 	export let type: InputTypes = 'text';
 	export let label: string;
 	export let name: string = underscoreizeLabel(label.toLowerCase());
+	export let dropdownDisplayMode: TextInputDropdownDisplayModes = 'absolute';
 
 	export let createRandomId = true;
 	export let showLabel = false;
@@ -133,7 +134,10 @@
 		{/each}
 	</ul>
 
-	<div class="[ input__dropdown ] [ pos-absolute ]">
+	<div
+		class={`[ input__dropdown ] [ pos-${dropdownDisplayMode} ]`}
+		data-state={dropdownDisplayMode}
+	>
 		<slot />
 	</div>
 </div>

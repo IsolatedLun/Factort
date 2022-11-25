@@ -10,7 +10,7 @@
 	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 
 	onMount(() => {
-		if (!id) id = window.crypto.randomUUID();
+		if (!id) id = window?.crypto.randomUUID();
 		handleInput({ target: _this as any });
 
 		_this.addEventListener('keydown', function (e) {

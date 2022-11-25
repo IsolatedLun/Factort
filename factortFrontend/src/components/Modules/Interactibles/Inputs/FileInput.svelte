@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { createInputIdWithLabel, validateInput } from '../../../../utils/form4Svelte/utils';
-	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		createObjectCubeClass,
 		createStringCubeCSSClass
@@ -8,15 +7,14 @@
 	import type { Props_CubeCSS } from '../../../../utils/cubeCss/types';
 	import type { FileInputStylings, FileInputTypes, Input_Complex_File_Types } from './types';
 	import type { SyntheticTarget } from '../../../../types';
-	import Image from '../../../../components/Misc/MediaElements/Image.svelte';
 	import type { Props_InputValidator } from '../../../../utils/form4Svelte/types';
 	import { createExceptedFileValidator } from '../../../../utils/form4Svelte/validators';
 	import FileInputImage from './_/FileInputStyling/FileInput_Image.svelte';
-	import { onDestroy } from 'svelte';
+	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import Video from '../../../../components/Misc/MediaElements/Video.svelte';
 
 	onMount(() => {
-		if (createRandomId) id = window.crypto.randomUUID();
+		if (createRandomId) id = window?.crypto.randomUUID();
 		else id = createInputIdWithLabel(label.toLowerCase());
 
 		fileData.type = expectedFile;

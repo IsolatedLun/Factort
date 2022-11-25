@@ -5,10 +5,24 @@
 	@include transformCenter();
 
 	min-width: $modal-min-width;
-
 	color: var(--clr-text-accent);
 
 	&::backdrop {
 		background-color: $modal-background-color;
+	}
+
+	&:is([data-background-transparent='true']) {
+		background-color: transparent !important;
+		border: 0;
+	}
+}
+
+@media screen and (max-width: $breakpoint-small) {
+	.main-modal {
+		min-width: $modal-min-width-mobile;
+
+		* {
+			height: auto;
+		}
 	}
 }

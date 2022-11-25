@@ -31,6 +31,7 @@ $clr-success: var(--clr-button-difference-upvote-hover);
 
 $modal-background-color: var(--clr-misc-modal-background, hsl(0 50% 0 / 0.65));
 $modal-min-width: 25vw;
+$modal-min-width-mobile: 80vw;
 
 // =================
 // Colors
@@ -62,6 +63,11 @@ $input-banner-image-height: clamp(8rem, 16vw, 16rem);
 $input-square-image-background-color: var(--clr-card-300);
 
 $input-end-icon-distance: 2rem;
+
+$input-dropdown-opacity-duration: 200ms;
+$input-dropdown-opacity-delay: 25ms;
+$input-dropdown-transform-duration: 200ms;
+$input-dropdown-transform-delay: 100ms;
 
 // =================
 // Buttons

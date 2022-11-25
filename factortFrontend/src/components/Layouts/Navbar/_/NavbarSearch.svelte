@@ -4,26 +4,39 @@
 	import type { Data_SearchResults } from 'src/services/search/types';
 	import Flexy from '../../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import TextInput from '../../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import { ICON_SEARCH } from '../../../../consts';
+	import { ICON_SEARCH, SEARCH_TIMEOUT } from '../../../../consts';
 	import Card from '../../../../components/Modules/Card/Card.svelte';
+	import type { TextInputDropdownDisplayModes } from '../../../../components/Modules/Interactibles/Inputs/types';
+	import SkeletronUser from '../../../../components/Modules/Skeletron/components/SkeletronUser.svelte';
 
 	function fetchSearchBar() {
-		_Search_Bar(query).then((res) => {
-			if (res.type === 'success') results = res.data;
-		});
+		clearTimeout(countdownTimeout);
+		isCountingDown = true;
+
+		countdownTimeout = setTimeout(() => {
+			_Search_Bar(query).then((res) => {
+				if (res.type === 'success') results = res.data;
+
+				isCountingDown = false;
+			});
+		}, SEARCH_TIMEOUT);
 	}
 
-	export let showStickyInput: boolean;
+	export let state: TextInputDropdownDisplayModes = 'absolute';
+	export let hide: boolean = false;
 
 	let results: Data_SearchResults = { users: [], communities: [] };
 	let query: string = '';
+	let countdownTimeout: NodeJS.Timeout;
+	let isCountingDown = false;
 </script>
 
-<div class="[  ]" data-show-sticky-input={showStickyInput} data-desktop>
+<div data-state={state} data-hide={hide}>
 	<TextInput
 		cubeClass={{ utilClass: 'navbar__search-input' }}
 		placeholder="Search"
 		label="Search"
+		dropdownDisplayMode={state}
 		bind:value={query}
 		on:_input={fetchSearchBar}
 		endIcon={ICON_SEARCH}
@@ -40,12 +53,16 @@
 				<DynamicLabel baseFontSize={300} props={{ type: 'user', data: user }} />
 			{/each}
 
-			{#if results.users.length === 0}
+			{#if results.users.length === 0 && !isCountingDown}
 				<Card
 					cubeClass={{ utilClass: 'width-100 text-center' }}
 					variant="error-difference"
 					padding={1}>No users found</Card
 				>
+			{/if}
+
+			{#if isCountingDown}
+				<SkeletronUser />
 			{/if}
 		</Flexy>
 
@@ -63,12 +80,16 @@
 				<DynamicLabel baseFontSize={300} props={{ type: 'community', data: community }} />
 			{/each}
 
-			{#if results.communities.length === 0}
+			{#if results.communities.length === 0 && !isCountingDown}
 				<Card
 					cubeClass={{ utilClass: 'width-100 text-center' }}
 					variant="error-difference"
 					padding={1}>No communities found</Card
 				>
+			{/if}
+
+			{#if isCountingDown}
+				<SkeletronUser />
 			{/if}
 		</Flexy>
 	</TextInput>

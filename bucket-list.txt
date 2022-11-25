@@ -21,7 +21,7 @@ options. [DONE]
 - Calculate form completion percentage and display it [DONE]
 
 - Add account creation page [DONE]
-    - Allow user to paint their own profile :) { 512/512 image, mini painting application }
+    - Allow user to paint their own profile :) { 512/512 image, mini painting application } [DONE]
 
 - Add dynamic file input that supports videos/images/any file and displays previewable files [DONE]
 - Connect backend to frontend [DONE]
@@ -68,10 +68,10 @@ PRIORITY 2
 - Search system
     - Add post history system [DONE]
     - Add post/community searching [DONE]
-    - Make the search bar responsive on mobile
+    - Make the search bar responsive on mobile [DONE]
 
 - Post filtering (Latest/Hot/Controversial)
-- Pagination
+- Pagination [DONE]
 
 ============
 PRIORITY 3

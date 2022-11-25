@@ -1304,6 +1304,13 @@
   aspect-ratio: 16/9;
 }
 
+@media screen and (max-width: 50em) {
+  .post .post__images {
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+  }
+}
 .drawer-container {
   display: grid;
   grid-template-areas: "colors canvas menu" "colors controls menu";
@@ -1320,7 +1327,7 @@
   height: 488px;
   grid-area: canvas;
 }
-.drawer-container #drawer-canvas {
+.drawer-container .drawer__canvas canvas {
   display: inline-block;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -1512,7 +1519,19 @@
 .main-modal::backdrop {
   background-color: var(--clr-misc-modal-background, rgba(0, 0, 0, 0.65));
 }
+.main-modal:is([data-background-transparent=true]) {
+  background-color: transparent !important;
+  border: 0;
+}
 
+@media screen and (max-width: 50em) {
+  .main-modal {
+    min-width: 80vw;
+  }
+  .main-modal * {
+    height: auto;
+  }
+}
 .tooltip-container {
   max-width: 25vw;
 }
@@ -1604,23 +1623,26 @@
 .input-container input[type=checkbox] {
   accent-color: var(--clr-text-primary);
 }
-.input-container:is(:hover, :focus) .input__dropdown:not(:empty),
-.input-container .input__dropdown:is(:hover, :focus):not(:empty) {
-  transform: translateY(0%);
-  pointer-events: all;
+.input-container:is(:hover, :focus, :focus-within) .input__dropdown:not(:empty),
+.input-container .input__dropdown:is(:hover, :focus):not(:empty),
+.input-container .input__dropdown:not(:empty)[data-state=relative] {
+  transform: translateY(0%) scale(1);
   opacity: 1;
+}
+.input-container:is(:focus-within) .input__dropdown {
+  border-color: var(--clr-input-border-hover);
 }
 .input-container .input__dropdown {
   width: 100%;
   background-color: var(--clr-input-background);
   padding: 0.5em;
   box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
-  max-height: 25vw;
+  border: 2px solid var(--clr-card-400);
   border-radius: 9px;
-  pointer-events: none;
+  pointer-events: all;
   opacity: 0;
-  transform: translateY(10%);
-  transition: opacity 100ms 250ms ease-in-out, transform 500ms ease-in-out;
+  transform: translateY(10%) scale(0);
+  transition: opacity 200ms 25ms ease-in-out, transform 200ms 100ms linear;
   z-index: 9999999;
 }
 .input-container .container__end-icon {
@@ -1660,6 +1682,11 @@
   border-color: var(--clr-button-difference-upvote-hover);
 }
 
+@media screen and (min-width: 65em) {
+  .input-container .input__dropdown {
+    max-height: 25vw;
+  }
+}
 .button[data-variant=default] {
   font-size: var(--fs-400);
   padding: 0.5em 0.55em;

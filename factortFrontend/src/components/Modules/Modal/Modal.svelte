@@ -6,16 +6,17 @@
 	import Button from '../Interactibles/Buttons/Button.svelte';
 
 	export let id: string;
+	export let withBackground: boolean = true;
 	export let cubeClass = createObjectCubeClass();
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'main-modal',
-		compostClass: 'card',
-		utilClass: 'padding-2'
+		compostClass: withBackground ? 'card' : '',
+		utilClass: withBackground ? 'padding-2' : ''
 	});
 </script>
 
-<dialog class={_class} {id} data-variant="dark">
+<dialog class={_class} data-variant="dark" data-background-transparent={!withBackground} {id}>
 	<slot />
 
 	<Button

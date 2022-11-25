@@ -11,6 +11,7 @@
 		ICON_SETTINGS,
 		NAVBAR_CM_ID,
 		NAVBAR_MODAL_ID,
+		NAVBAR_SEARCH_MODAL_ID,
 		WEB_LOGIN_URL,
 		WEB_MY_SETTINGS_URL,
 		WEB_SIGNUP_URL
@@ -56,7 +57,7 @@
 	}
 
 	let stickToSide = false;
-	let showStickyInput = false;
+	let showMobileInput = true;
 
 	let _this: HTMLElement;
 </script>
@@ -86,27 +87,35 @@
 				</a>
 			</TypoHeader>
 
-			<Flexy useColumn={stickToSide}>
+			<Flexy useColumn={stickToSide} gap={2}>
 				<HistoryButtons {stickToSide} />
+
+				<div data-hide={stickToSide}>
+					<NavbarSearch />
+				</div>
+
 				{#if stickToSide}
-					<Button
-						on:click={() => (showStickyInput = !showStickyInput)}
-						selected={showStickyInput}
-						cubeClass={{ utilClass: 'margin-block-start-1' }}
-					>
-						<Icon>{ICON_SEARCH}</Icon>
+					<Button on:click={() => openModal(NAVBAR_SEARCH_MODAL_ID)}>
+						<Icon>
+							{ICON_SEARCH}
+						</Icon>
 					</Button>
 				{/if}
-
-				<NavbarSearch {showStickyInput} />
 			</Flexy>
 
 			<div data-mobile>
-				<Button on:click={() => openModal(NAVBAR_MODAL_ID)}>
-					<Icon>
-						{ICON_BARS}
-					</Icon>
-				</Button>
+				<Flexy gap={2}>
+					<Button on:click={() => openModal(NAVBAR_MODAL_ID)}>
+						<Icon>
+							{ICON_BARS}
+						</Icon>
+					</Button>
+					<Button on:click={() => openModal(NAVBAR_SEARCH_MODAL_ID)}>
+						<Icon>
+							{ICON_SEARCH}
+						</Icon>
+					</Button>
+				</Flexy>
 			</div>
 
 			<div data-desktop>
@@ -160,5 +169,8 @@
 				<LinkListItem to={WEB_SIGNUP_URL} name="Sign up" />
 			</LinkList>
 		{/if}
+	</Modal>
+	<Modal id={NAVBAR_SEARCH_MODAL_ID} withBackground={false}>
+		<NavbarSearch state="relative" />
 	</Modal>
 {/key}
