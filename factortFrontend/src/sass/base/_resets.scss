@@ -126,6 +126,12 @@ img[data-small='true'] {
 	object-fit: contain;
 }
 
+canvas {
+	display: inline-block;
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
+}
+
 // Misc
 [class*='flex'] {
 	display: flex;

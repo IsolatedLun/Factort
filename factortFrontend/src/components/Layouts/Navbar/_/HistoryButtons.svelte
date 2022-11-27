@@ -104,6 +104,7 @@
 		<Button workCondition={postsAmount > 0 && idx - 1 >= 0} on:click={decrementIndex}>
 			<Icon>{ICON_CARET_LEFT}</Icon>
 		</Button>
+
 		<Tooltip
 			workCondition={postsAmount > 1 || selectedPost?.id !== -1}
 			explicitShow={recentlyChangedIndex}
@@ -123,7 +124,7 @@
 
 			<div class="[ navbar__history-tooltip ]" slot="tooltip">
 				<p class="[ fs-450 text-center margin-block-end-1 ]" data-typo-underline="true">
-					Next Post:
+					Selected Post:
 				</p>
 				<p>{selectedPost?.title}</p>
 
@@ -131,13 +132,27 @@
 					<p>[{idx + 1}/{postsAmount}]</p>
 					<p>{selectedPost?.date_visited}</p>
 				</Flexy>
-				<Flexy justify="space-between" cubeClass={{ utilClass: 'margin-block-start-2 fs-300' }}>
+				<Flexy
+					justify="space-between"
+					cubeClass={{ utilClass: 'margin-block-start-2 fs-300' }}
+					gap={3}
+				>
 					<Button variant="downvote" secondaryVariant="small" on:click={clearHistory}
 						>Clear history</Button
 					>
-					<Button variant="primary" secondaryVariant="small" on:click={removeFromHistory}
-						>Delete</Button
-					>
+
+					<Flexy>
+						<Button variant="primary" secondaryVariant="small" on:click={removeFromHistory}
+							>Delete</Button
+						>
+						{#if selectedPost && selectedPost.id !== -1}
+							<Button
+								variant="primary"
+								secondaryVariant="small"
+								to={WEB_POST_URL(selectedPost.id, selectedPost.title)}>Open</Button
+							>
+						{/if}
+					</Flexy>
 				</Flexy>
 			</div>
 		</Tooltip>

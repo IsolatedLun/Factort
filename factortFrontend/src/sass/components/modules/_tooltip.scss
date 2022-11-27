@@ -4,7 +4,7 @@
 	max-width: 25vw;
 
 	.tooltip {
-		@include transformCenter($bottom: 38%);
+		@include transformCenter($bottom: 20%);
 
 		width: max-content;
 	}

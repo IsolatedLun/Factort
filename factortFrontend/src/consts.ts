@@ -176,3 +176,8 @@ export const WEB_DRAWER_URL = '/drawer';
 // These urls are for the current logged in user
 // my/settings, etc...
 export const WEB_MY_SETTINGS_URL = `/my/settings`;
+
+// ==============
+// Colors
+// ==============
+export const CLR_PRIMARY = 'hsl(210.5 100% 42%)';

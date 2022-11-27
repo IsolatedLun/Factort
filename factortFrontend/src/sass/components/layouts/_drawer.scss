@@ -22,10 +22,6 @@
 		grid-area: canvas;
 
 		canvas {
-			display: inline-block;
-			image-rendering: pixelated;
-			image-rendering: crisp-edges;
-
 			border: $theme-border;
 		}
 	}

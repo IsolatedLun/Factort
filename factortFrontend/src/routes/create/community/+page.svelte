@@ -7,7 +7,7 @@
 	import FormContainer from '../../../components/Modules/Form/FormContainer.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
 	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
-	import { WEB_COMMUNITY_URL } from '../../../consts';
+	import { WEB_COMMUNITY_URL, WEB_DRAWER_URL } from '../../../consts';
 	import { goto } from '$app/navigation';
 	import type { Form_CreateCommunity } from '../types';
 	import { _Create_Community } from '../../../services/create/CreateCommunityFetchers';
@@ -62,6 +62,8 @@
 			}}
 			on:validate={inputChange}
 		/>
+
+		<a href={WEB_DRAWER_URL}>Draw profile</a>
 	</Form>
 	<Form formTitle={'Banner'} formIndex={1} let:inputChange>
 		<div class="[ width-100 ]">

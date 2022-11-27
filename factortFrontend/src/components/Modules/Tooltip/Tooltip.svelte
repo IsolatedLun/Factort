@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { fade, fly, scale } from 'svelte/transition';
 	import Card from '../Card/Card.svelte';
 	import { reboundTooltip } from '../../../utils/contextMenu/contextMenu';
 
@@ -32,13 +32,11 @@
 <div class={_class} bind:this={_this}>
 	<slot />
 
-	<div class="[ z-index-999 ]" data-absolute-hide={!(workCondition && (explicitShow || show))}>
-		<Card
-			cubeClass={{ blockClass: 'tooltip', utilClass: 'pos-absolute z-index-999' }}
-			variant="dark"
-			padding={1}
-		>
-			<slot name="tooltip" />
-		</Card>
-	</div>
+	{#if workCondition && (show || explicitShow)}
+		<div transition:fly class="[ tooltip ] [ pos-absolute z-index-999 ]">
+			<Card variant="dark" padding={1}>
+				<slot name="tooltip" />
+			</Card>
+		</div>
+	{/if}
 </div>

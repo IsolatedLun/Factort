@@ -45,7 +45,7 @@
 
 		_colorConverter.style.color = selectedColor;
 		const color = window.getComputedStyle(_colorConverter).color;
-		const [r, g, b] = invertRGB(stringRGBToArray(color));
+		const [r, g, b] = stringRGBToArray(color);
 
 		ctx.clearRect(0, 0, _overlayCanvas.width, _overlayCanvas.height);
 		ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.65)`;

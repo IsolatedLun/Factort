@@ -1,0 +1,11 @@
+@use '../../abstracts/' as *;
+
+.dynamic-label {
+	.dynamic-label__name {
+		max-width: $dyanmic-label-name-max-width;
+		white-space: nowrap;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

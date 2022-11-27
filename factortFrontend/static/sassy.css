@@ -1328,9 +1328,6 @@
   grid-area: canvas;
 }
 .drawer-container .drawer__canvas canvas {
-  display: inline-block;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
   border: 2px solid var(--clr-input-border);
 }
 .drawer-container .drawer__colors-grid {
@@ -1538,7 +1535,7 @@
 .tooltip-container .tooltip {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 38%);
+  transform: translate(-50%, 20%);
   width: max-content;
 }
 
@@ -1608,6 +1605,13 @@
 }
 .post__comment .comment__expand-button:is(:focus, :hover) {
   background-color: var(--clr-input-border-hover);
+}
+
+.dynamic-label .dynamic-label__name {
+  max-width: 16ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-container .input[data-variant=default] {
@@ -2966,6 +2970,12 @@ video {
 img[data-small=true] {
   width: 100%;
   object-fit: contain;
+}
+
+canvas {
+  display: inline-block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 [class*=flex] {

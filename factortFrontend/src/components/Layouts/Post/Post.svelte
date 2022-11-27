@@ -25,6 +25,7 @@
 	import PostYoutubeUrl from './_/PostYoutubeUrl.svelte';
 	import { isValidYoutubeLink } from '../../../utils/regex/all';
 	import { _Vote_Post } from '../../../services/posts/postFetchers';
+	import AudioVisualizer from '../../../components/Modules/AudioVisualizer/AudioVisualizer.svelte';
 
 	onMount(() => {
 		if (!postElementId) postElementId = crypto.randomUUID();
@@ -125,7 +126,9 @@
 				</div>
 			{/if}
 		{:else if props.content.type === 'audio'}
-			<audio class="[ width-100 ]" controls src={BACKEND_ROOT_URL + props.content.data} />
+			<div class="[ post__audio ]">
+				<AudioVisualizer url={BACKEND_ROOT_URL + props.content.data} />
+			</div>
 		{/if}
 	</section>
 	<Card
