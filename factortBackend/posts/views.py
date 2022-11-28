@@ -1,12 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.core.paginator import Paginator, InvalidPage
+from rest_framework.permissions import IsAuthenticated
 
 from lxml.html.clean import clean_html
 
 from consts import OK, NOT_FOUND, ERR, POSTS_PER_PAGE
-from _utils import simple_pagination_wrapper
+from utils.functions import simple_pagination_wrapper, vote_model
 from . import models
 from . import serializers
 
@@ -198,29 +197,9 @@ class CreatePostView(APIView):
             except KeyError as e:  # This exception occurs when the method is not found
                 return Response(data=f'Someting went terribly wrong: Selected form is invalid', status=ERR)
             except Exception as e:
-                return Response(data=f'Someting went terribly wrong: {str(e)}', status=ERR)
+                return Response(data=f'Someting went terribly wrong', status=ERR)
 
         return Response(data=new_post.id, status=OK)
-
-
-class VotePostView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, req, post_id: int):
-        try:
-            post = models.Post.objects.get(id=post_id)
-            voted_post, created = models.VotedPost.objects.get_or_create(
-                post_id=post_id, user_id=req.user.id)
-
-            post.prestige = req.data['votes']
-            voted_post.action = req.data['action']
-
-            post.save()
-            voted_post.save()
-
-            return Response(status=OK)
-        except Exception as e:
-            return Response(status=ERR)
 
 
 class CommentPostView(APIView):
@@ -238,27 +217,6 @@ class CommentPostView(APIView):
                 new_comment, context={'user': req.user}).data
             return Response(data=serialized_data, status=OK)
 
-        except Exception as e:
-            print(e)
-            return Response(status=ERR)
-
-
-class VoteCommentView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, req, post_id: int, comment_id: int):
-        try:
-            comment = models.PostComment.objects.get(id=comment_id)
-            voted_comment, created = models.VotedComment.objects.get_or_create(
-                comment_id=comment_id, user_id=req.user.id)
-
-            comment.prestige = req.data['votes']
-            voted_comment.action = req.data['action']
-
-            comment.save()
-            voted_comment.save()
-
-            return Response(status=OK)
         except Exception as e:
             return Response(status=ERR)
 
@@ -282,7 +240,65 @@ class ReplyOnCommentPostView(APIView):
             new_comment_reply.save()
 
             serialized_data = serializers.PostCommentReplySerializer(
-                new_comment_reply).data
+                new_comment_reply, context={'user': req.user}).data
             return Response(data=serialized_data, status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+# =======================
+# Vote views
+# =======================
+
+
+class VotePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int):
+        try:
+            vote_model(
+                models.Post,
+                {'id': post_id},
+                models.VotedPost,
+                {'post_id': post_id, 'user_id': req.user.id},
+                req.data
+            )
+
+            return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+
+class VoteCommentView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int, comment_id: int):
+        try:
+            vote_model(
+                models.PostComment,
+                {'post_id': post_id, 'id': comment_id},
+                models.VotedComment,
+                {'comment_id': comment_id, 'user_id': req.user.id},
+                req.data
+            )
+
+            return Response(status=OK)
+        except Exception as e:
+            return Response(status=ERR)
+
+
+class VoteCommentReplyView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, post_id: int, comment_id: int, reply_id: int):
+        try:
+            vote_model(
+                models.PostCommentReply,
+                {'comment_id': comment_id, 'id': reply_id},
+                models.VotedCommentReply,
+                {'reply_id': reply_id, 'user_id': req.user.id},
+                req.data
+            )
+
+            return Response(status=OK)
         except Exception as e:
             return Response(status=ERR)

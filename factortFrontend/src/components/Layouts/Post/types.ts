@@ -36,6 +36,8 @@ export interface Props_PostCommentReply extends Props_DB_Model {
 
 	prestige: number;
 	text: string;
+
+	c_vote_action: E_VoteControllerActions;
 }
 
 export interface Props_PreviewPost extends _Props_Post<number> {}

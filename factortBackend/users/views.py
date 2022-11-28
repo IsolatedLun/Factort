@@ -6,8 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.exceptions import ObjectDoesNotExist
 
 from consts import OK, ERR
-from utils.shorthands import decode_user_id, get_model_or_default
-from utils.helpers import exclude_from_dict
+from utils.shorthands import decode_user_id
 from . import models
 from . import serializers
 
@@ -88,3 +87,30 @@ class UserView(APIView):
                 user, context={'user': req.user}).data
 
             return Response(data=user_serializer, status=OK)
+
+
+class ToggleFollowingView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, req, user_id):
+        try:
+            following, created = models.UserFollower.objects.get_or_create(
+                following_id=user_id, user_id=req.user.id)
+
+            if not created:
+                following.delete()
+
+            return Response(status=OK)
+        except Exception as e:
+            print(e)
+            return Response(status=ERR)
+
+
+class LatestFollowersView(APIView):
+    def get(self, req, user_id):
+        followers = models.UserFollower.objects.filter(
+            following_id=user_id).order_by('-date_created')[0:10]
+        serialized_followers = serializers.cUserSerializer(
+            [x.user for x in followers], many=True).data
+
+        return Response(data={'type': 'user', 'data': serialized_followers}, status=OK)

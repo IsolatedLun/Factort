@@ -39,3 +39,12 @@ class cUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = cUserManager()
+
+
+class UserFollower(models.Model):
+    user = models.ForeignKey(
+        'cUser', on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(
+        'cUser', on_delete=models.CASCADE, related_name='following')
+
+    date_created = models.DateTimeField(auto_now_add=True)

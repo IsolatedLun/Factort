@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { _Reply_On_Comment_Post } from '../../../services/posts/commentFetchers';
+	import {
+		_Reply_On_Comment_Post,
+		_Vote_PostCommentReply
+	} from '../../../services/posts/commentFetchers';
 	import { createEventDispatcher } from 'svelte';
 	import { fly, scale, slide } from 'svelte/transition';
 	import type {
@@ -72,7 +75,9 @@
 			</Button>
 
 			<VoteController
-				voteFn={() => null}
+				id={reply.id}
+				lastVoteAction={reply.c_vote_action}
+				voteFn={_Vote_PostCommentReply}
 				votes={reply.prestige}
 				voteFnArgs={{ replyId: reply.id, commentId: comment.id, postId: comment.post }}
 			/>

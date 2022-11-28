@@ -72,6 +72,7 @@ export const ICON_BARS = '\uf0c9';
 export const ICON_ERROR = '\uf071';
 export const ICON_SETTINGS = '\uf013';
 export const ICON_PLUS = '\uf067';
+export const ICON_MINUS = '\uf068';
 
 export const ICON_EYE = '\uf06e';
 
@@ -120,15 +121,20 @@ export const POSTS_URL = API_URL + '/posts/';
 export const USER_POSTS_URL = (id: Numeric) => API_URL + '/posts/users/' + id;
 export const COMMUNITIES_POSTS_URL = (id: Numeric) => API_URL + '/posts/communities/' + id;
 
-export const POST_URL = (id: number | string) => POSTS_URL + id;
-export const VOTE_POST_URL = (id: number | string) => POSTS_URL + 'vote/' + id;
+export const POST_URL = (id: Numeric) => POSTS_URL + id;
+export const VOTE_POST_URL = (id: Numeric) => POSTS_URL + 'vote/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
 
-export const POST_COMMENT_URL = (id: number | string) => POSTS_URL + 'comment/' + id;
-export const REPLY_POST_COMMENT_URL = (id: number | string, commentId: Numeric) =>
+export const POST_COMMENT_URL = (id: Numeric) => POSTS_URL + 'comment/' + id;
+export const REPLY_POST_COMMENT_URL = (id: Numeric, commentId: Numeric) =>
 	POST_COMMENT_URL(id) + '/reply/' + commentId;
-export const VOTE_POST_COMMENT_URL = (id: number | string, commentId: number | string) =>
+export const VOTE_POST_COMMENT_URL = (id: Numeric, commentId: Numeric) =>
 	POST_URL(id) + '/comment/' + commentId + '/vote';
+export const VOTE_POST_COMMENT_REPLY_URL = (
+	postId: Numeric,
+	commentId: Numeric,
+	replyId: Numeric
+) => POST_URL(postId) + '/comment/' + commentId + '/reply/' + replyId + '/vote';
 // ------------------------------------------
 
 export const COMMUNITIES_URL = API_URL + '/communities/';
@@ -143,6 +149,8 @@ export const COMMUNITY_MISC_LATEST_MEMBERS_URL = (id: number) =>
 
 export const USERS_URL = API_URL + '/users/';
 export const USER_URL = (id: number) => USERS_URL + id;
+export const USER_TOGGLE_FOLLOW_URL = (id: number) => USER_URL(id) + '/toggle-follow';
+export const USER_LATEST_FOLLOWERS_URL = (id: number) => USER_URL(id) + '/followers';
 
 export const SEARCH_URL = API_URL + '/search/';
 export const SEARCH_BAR_URL = SEARCH_URL + 'bar';

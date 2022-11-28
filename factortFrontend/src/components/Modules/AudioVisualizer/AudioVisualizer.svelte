@@ -25,7 +25,7 @@
 			let x = 0;
 			const barWidth = (canvasWidth / analyser.frequencyBinCount) * barWidthMultiplier;
 			for (let i = 0; i < dataArray.length; i++) {
-				let barHeight = dataArray[i] / barHeightDivident;
+				let barHeight = dataArray[i] / barHeightDividend;
 
 				canvasCtx.fillStyle = barColor;
 				canvasCtx.fillRect(x, canvasHeight - barHeight, barWidth, barHeight);
@@ -43,7 +43,7 @@
 	export let backgroundColor = 'black';
 	export let barColor = CLR_PRIMARY;
 	export let barWidthMultiplier = 6;
-	export let barHeightDivident = 2;
+	export let barHeightDividend = 1.5;
 	export let barDistance = 2;
 	export let fftSize = 512;
 

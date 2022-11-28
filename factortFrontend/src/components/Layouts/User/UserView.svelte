@@ -1,33 +1,48 @@
 <script lang="ts">
-	import { _Fetch_User } from '../../../services/users/userFetchers';
-	import { onMount } from 'svelte';
-	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
+	import {
+		_Fetch_User,
+		_Toggle_UserFollower,
+		_User_Latest_Followers
+	} from '../../../services/users/userFetchers';
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import FeedContainer from '../../../components/Layouts/Containers/FeedContainer.svelte';
-	import Post from '../../../components/Layouts/Post/Post.svelte';
 	import Miscellaneuos from '../Miscellaneous/Miscellaneuos.svelte';
 	import {
 		_Fetch_Misc_CommunityAdmins,
 		_Fetch_Misc_CommunityPreviews
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
-	import { ICON_PLUS } from '../../../consts';
+	import { ICON_MINUS, ICON_PLUS } from '../../../consts';
 	import SkeltronUserView from '../../../components/Modules/Skeletron/layouts/SkeltronUserView.svelte';
 	import { _Fetch_User_Posts } from '../../../services/posts/postFetchers';
 	import Card from '../../../components/Modules/Card/Card.svelte';
+	import type { Success_OR_Error__Response } from 'src/services/types';
+	import type { Props_UserView } from './types';
 
 	async function fetchUser() {
-		return await _Fetch_User(Number(id));
+		res = await _Fetch_User(Number(id));
+	}
+
+	function toggleUserFollow() {
+		if (res.type === 'success') {
+			res.data.c_is_following = !res.data.c_is_following;
+			_Toggle_UserFollower(res.data.id);
+
+			if (res.data.c_is_following) res.data.followers++;
+			else res.data.followers--;
+		}
 	}
 
 	export let id: number;
+
+	let res: Success_OR_Error__Response<Props_UserView>;
 </script>
 
 {#await fetchUser()}
 	<SkeltronUserView />
-{:then res}
+{:then _}
 	{#if res.type === 'success'}
 		<div class="[ user-view ]">
 			<header class="[ view__header ] [ margin-inline-auto ]">
@@ -37,13 +52,27 @@
 						baseFontSize={600}
 						variant="view"
 					/>
-					<Flexy>
-						<Button
-							workCondition={!res.data.is_following && $globalStore.userStore.isLogged}
-							secondaryVariant="sausage"
-							variant="primary"
-							icon={ICON_PLUS}>Follow</Button
-						>
+					<Flexy align="center" gap={2}>
+						<p class="[ fs-350 ]">{res.data.followers} followers</p>
+						{#if res.data.c_is_following}
+							<Button
+								workCondition={res.data.c_is_following && $globalStore.userStore.isLogged}
+								secondaryVariant="sausage"
+								variant="downvote"
+								on:click={toggleUserFollow}
+								icon={ICON_MINUS}>Unfollow</Button
+							>
+						{:else}
+							<Button
+								workCondition={!res.data.c_is_following &&
+									$globalStore.userStore.isLogged &&
+									res.data.id !== $globalStore.userStore.user.id}
+								secondaryVariant="sausage"
+								variant="primary"
+								on:click={toggleUserFollow}
+								icon={ICON_PLUS}>Follow</Button
+							>
+						{/if}
 					</Flexy>
 				</Flexy>
 			</header>
@@ -61,6 +90,11 @@
 								title: 'Joined Communities',
 								id,
 								fetchFn: _Fetch_Misc_CommunityPreviews
+							},
+							{
+								title: 'Latest Followers',
+								id,
+								fetchFn: _User_Latest_Followers
 							}
 						]}
 					/>

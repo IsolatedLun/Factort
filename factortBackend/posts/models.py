@@ -103,3 +103,10 @@ class PostCommentReply(models.Model):
         'users.cUser', null=True, blank=True, on_delete=models.CASCADE, related_name='replying_to')
 
     date_created = models.DateTimeField(auto_now_add=True)
+
+
+class VotedCommentReply(models.Model):
+    reply = models.ForeignKey('posts.PostCommentReply',
+                              on_delete=models.CASCADE)
+    user = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
+    action = models.IntegerField(choices=VOTE_CHOICES, default=0)

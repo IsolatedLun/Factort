@@ -8,11 +8,11 @@
 	onMount(() => {
 		_this.addEventListener('mouseenter', () => {
 			show = true;
-			reboundTooltip(_this.querySelector('.tooltip')!);
+			// reboundTooltip(_this.querySelector('.tooltip')!);
 		});
 		_this.addEventListener('mouseleave', () => {
 			show = false;
-			reboundTooltip(_this.querySelector('.tooltip')!);
+			// reboundTooltip(_this.querySelector('.tooltip')!);
 		});
 	});
 
@@ -33,7 +33,7 @@
 	<slot />
 
 	{#if workCondition && (show || explicitShow)}
-		<div transition:fly class="[ tooltip ] [ pos-absolute z-index-999 ]">
+		<div transition:fade class="[ tooltip ] [ pos-absolute z-index-999 ]">
 			<Card variant="dark" padding={1}>
 				<slot name="tooltip" />
 			</Card>

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from utils.shorthands import humanize_date
-from utils.shorthands import get_model_or_default, get_user_or_none
+from utils.shorthands import humanize_date, get_model_or_default
 
 from users import models as userModels
+from users.utils import get_user_or_none
 
 from . import models
 
@@ -119,7 +119,7 @@ class PostCommentSerializer(serializers.ModelSerializer):
         replies = models.PostCommentReply.objects.filter(
             post_id=obj.post.id, comment_id=obj.id)
 
-        return PostCommentReplySerializer(replies, many=True).data
+        return PostCommentReplySerializer(replies, context=self.context, many=True).data
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)
@@ -137,6 +137,17 @@ class PostCommentReplySerializer(serializers.ModelSerializer):
     date_created = serializers.SerializerMethodField(method_name='format_date')
     replying_to = serializers.SerializerMethodField(
         method_name='get_replying_to')
+
+    c_vote_action = serializers.SerializerMethodField(
+        method_name='get_c_vote_action')
+
+    def get_c_vote_action(self, obj):
+        if self.context['user']:
+            voted_reply = get_model_or_default(
+                models.VotedCommentReply, None, reply_id=obj.id, user_id=self.context['user'].id)
+
+            return voted_reply.action if voted_reply else 0
+        return 0
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)

@@ -6,5 +6,5 @@ export interface Props_UserView extends Props_User {
 
 	followers: number;
 
-	is_following: boolean;
+	c_is_following: boolean;
 }

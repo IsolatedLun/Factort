@@ -5,7 +5,6 @@ from django.db import IntegrityError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from consts import OK, ERR
-from utils.helpers import exclude_from_dict
 
 from . import models
 from . import serializers

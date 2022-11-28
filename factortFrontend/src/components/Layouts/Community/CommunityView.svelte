@@ -11,7 +11,7 @@
 		_Toggle_Community_Join
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
-	import { BACKEND_ROOT_URL, ICON_PLUS } from '../../../consts';
+	import { BACKEND_ROOT_URL, ICON_MINUS, ICON_PLUS } from '../../../consts';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import CreatePostHeader from '../CreatePostHeader/CreatePostHeader.svelte';
 	import type { Success_OR_Error__Response } from 'src/services/types';
@@ -87,7 +87,7 @@
 								variant="downvote"
 								secondaryVariant="sausage"
 								workCondition={res.data.owner !== $globalStore.userStore.user.id}
-								icon={ICON_PLUS}
+								icon={ICON_MINUS}
 								on:click={toggleCommunityJoin}>Leave</Button
 							>
 						{:else}

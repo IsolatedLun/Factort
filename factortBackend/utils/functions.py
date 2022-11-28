@@ -28,3 +28,27 @@ def simple_pagination_wrapper(
     ) if paginated_queryset.has_next() else None
 
     return (serialized_queryset, next_page)
+
+
+def vote_model(
+    votable_table: any,
+    table_kwargs: dict,
+    vote_table: any,
+    vote_table_kwargs: dict,
+    req_data: dict
+):
+    votable_model = votable_table.objects.get(**table_kwargs)
+    voted_model, created = vote_table.objects.get_or_create(
+        **vote_table_kwargs)
+
+    if req_data['action'] == 2:
+        votable_model.user.prestige -= 10
+    elif req_data['action'] == 1:
+        votable_model.user.prestige += 10
+
+    votable_model.prestige = req_data['votes']
+    voted_model.action = req_data['action']
+
+    votable_model.save()
+    voted_model.save()
+    votable_model.user.save()
