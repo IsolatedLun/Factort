@@ -1,12 +1,21 @@
+.main-layout {
+	place-items: start;
+}
+
 .main-layout[data-layout='column'] {
+	grid-template-rows: 100%;
 	grid-template-areas:
 		'navigation'
 		'mainContainer';
 }
 
 .main-layout[data-layout='row'] {
-	grid-template-columns: max-content 1fr;
-	grid-template-rows: 100vh;
+	.primary-navbar {
+		position: sticky !important;
+		top: 0 !important;
+		height: 100vh;
+	}
 
+	grid-template-columns: max-content 1fr;
 	grid-template-areas: 'navigation mainContainer';
 }

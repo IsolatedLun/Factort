@@ -21,7 +21,7 @@ export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 export const MIN_TITLE_LEN = 3;
 export const MIN_CONTENT_LEN = 3;
 
-export const LOCAL_POST_HISTORY_CAP = 32;
+export const LOCAL_POST_HISTORY_CAP = 12;
 
 // if currEncloser == [
 // x([) => ]
@@ -101,6 +101,8 @@ export const POST_TYPE_TO_ICON: TypedKeyValue<PostTypes, string> = {
 export const CONTEXT_MENU_ID = 'context-menu';
 export const CREATE_CONTEXT_MENU_ID = (uuid: string) => CONTEXT_MENU_ID + '-' + uuid;
 
+export const CREATE_MODAL_ID = (uuid: string) => 'modal-' + uuid;
+
 export const COMMENT_ID = 'comment';
 export const CREATE_COMMENT_REPLIES_ID = (id: Numeric) => 'comment' + '-replies-' + id;
 
@@ -123,6 +125,8 @@ export const COMMUNITIES_POSTS_URL = (id: Numeric) => API_URL + '/posts/communit
 
 export const POST_URL = (id: Numeric) => POSTS_URL + id;
 export const VOTE_POST_URL = (id: Numeric) => POSTS_URL + 'vote/' + id;
+export const DELETE_POST_URL = (id: Numeric) => POSTS_URL + 'delete/' + id;
+export const UPDATE_POST_URL = (id: Numeric) => POSTS_URL + 'update/' + id;
 export const CREATE_POST_URL = POSTS_URL + 'create';
 
 export const POST_COMMENT_URL = (id: Numeric) => POSTS_URL + 'comment/' + id;

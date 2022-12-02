@@ -4,7 +4,7 @@
 	import type { FileInputStylings, Input_Image_File } from '../../types';
 	import { sizeConvert } from '../../../../../../utils/misc';
 	import { StorageSizes } from '../../../../../../utils/types';
-	import type { ImageDimensions } from 'src/components/Misc/MediaElements/types';
+	import type { ImageDimensions } from '../../../../../../components/Misc/MediaElements/types';
 
 	export let id: string;
 	export let fileData: Input_Image_File;

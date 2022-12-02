@@ -1,4 +1,4 @@
-import type { Complex_Data_Type } from '../../../../types';
+import type { Complex_Data_Type, Numeric } from '../../../../types';
 
 export type InputTypes = 'text' | 'email' | 'password' | 'file';
 
@@ -36,3 +36,5 @@ export type Input_Complex_File_Types =
 	| Input_File
 	| Input_Audio_File
 	| Input_Previewable_File;
+
+export type Props_SelectInputOption = string | { name: string; value: Numeric };

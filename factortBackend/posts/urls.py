@@ -13,8 +13,13 @@ urlpatterns = [
 
     # === Post urls ===
     path('create', views.CreatePostView.as_view(), name='POST=CreatePost'),
+
     path('vote/<int:post_id>',
          views.VotePostView.as_view(), name='POST=VotePost'),
+    path('delete/<int:post_id>',
+         views.DeletePostView.as_view(), name='POST=DeletePost'),
+    path('update/<int:post_id>',
+         views.UpdatePostView.as_view(), name='POST=UpdatePost'),
 
     # ==== Comment Urls ===
     path('comment/<int:post_id>',

@@ -36,7 +36,10 @@ export function emailValidator(): Props_InputValidator<never> {
 
 export function linkValidator(): Props_InputValidator<never> {
 	return {
-		validate: (e: HTMLInputElement) => URL_REGEX.test(e.value),
+		validate: (e: HTMLInputElement) => {
+			console.log(null);
+			return URL_REGEX.test(e.value);
+		},
 		errorText: `Must be a valid link/url. (https://www.google.com)`
 	};
 }

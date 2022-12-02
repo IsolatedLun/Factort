@@ -1,6 +1,9 @@
+import type { E_PostVisibilityTypes } from '../../components/Layouts/Post/types';
+
 export interface Form_CreatePost {
 	title: string;
 	selected: string;
+	visibility: E_PostVisibilityTypes;
 
 	content: string;
 	images: File[];

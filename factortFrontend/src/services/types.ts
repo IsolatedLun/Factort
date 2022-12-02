@@ -3,7 +3,8 @@ import type { Complex_Data_Type } from 'src/types';
 export enum HTTP_METHODS {
 	GET = 'GET',
 	POST = 'POST',
-	DELETE = 'DELETE'
+	DELETE = 'DELETE',
+	PATCH = 'PATCH'
 }
 
 export type HeaderTypes = 'files' | 'json' | 'files+json' | 'auth';

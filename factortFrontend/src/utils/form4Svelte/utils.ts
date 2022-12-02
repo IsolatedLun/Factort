@@ -17,7 +17,7 @@ export function createInputIdWithLabel(label: string) {
  */
 export function bundleInputs(formTitle: string) {
 	const form = document.getElementById(formTitle + '-form') as HTMLFormElement;
-	const inputs = form.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
+	const inputs = form.querySelectorAll('input, .input') as NodeListOf<HTMLInputElement>;
 	let output: KeyValue<boolean> = {};
 
 	inputs.forEach((input) => (output[input.id] = false));

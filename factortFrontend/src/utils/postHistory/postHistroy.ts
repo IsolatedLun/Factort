@@ -9,10 +9,12 @@ import type { Props_VisitedPost } from './types';
 export function addPostToHistory(post: Props_VisitedPost) {
 	let posts = JSON.parse(localStorage.getItem('visitedPosts') ?? '[]') as Props_VisitedPost[];
 
+	// Removing placeholder post
 	if (posts && posts[0] && posts[0].id === -1) posts = posts.slice(1);
 
-	if (posts.length === LOCAL_POST_HISTORY_CAP) {
-		posts[LOCAL_POST_HISTORY_CAP - 1] = post;
+	if (posts.length >= LOCAL_POST_HISTORY_CAP) {
+		posts.shift();
+		posts.push(post);
 	} else {
 		posts.push(post);
 	}

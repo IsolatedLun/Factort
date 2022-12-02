@@ -11,7 +11,9 @@
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import {
 		BACKEND_ROOT_URL,
+		CREATE_MODAL_ID,
 		ICON_COMMENTS,
+		MIN_TITLE_LEN,
 		POST_TYPE_TO_ICON,
 		WEB_POST_URL
 	} from '../../../consts';
@@ -24,16 +26,37 @@
 	import { propOrDefault } from '../../../utils/cubeCss/cubeCss';
 	import PostYoutubeUrl from './_/PostYoutubeUrl.svelte';
 	import { isValidYoutubeLink } from '../../../utils/regex/all';
-	import { _Vote_Post } from '../../../services/posts/postFetchers';
+	import { _Delete_Post, _Update_Post, _Vote_Post } from '../../../services/posts/postFetchers';
 	import AudioVisualizer from '../../../components/Modules/AudioVisualizer/AudioVisualizer.svelte';
+	import Modal from '../../../components/Modules/Modal/Modal.svelte';
+	import { globalStore } from '../../../stores/global';
+	import { closeModal, openModal } from '../../../utils/modal/modal';
+	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
+	import { minLenValidator } from '../../../utils/form4Svelte/validators';
+	import { goto } from '$app/navigation';
 
 	onMount(() => {
 		if (!postElementId) postElementId = crypto.randomUUID();
+		modalId = CREATE_MODAL_ID(postElementId);
 
 		_this.addEventListener('mouseenter', () => _this.focus());
 		_this.addEventListener('mouseleave', () => _this.blur());
 		_this.addEventListener('keypress', handleKeyPress);
 	});
+
+	function deletePost() {
+		_Delete_Post(props.id).then(() => {
+			closeModal(modalId);
+			window.location.replace(WEB_POST_URL(props.id, 'deleted'));
+		});
+	}
+
+	function updatePost() {
+		_Update_Post(props.id, { title: props.title }).then(() => {
+			closeModal(modalId);
+			goto(WEB_POST_URL(props.id, props.title));
+		});
+	}
 
 	function handleContextMenu(e: MouseEvent) {
 		toggleContextMenu(e, postElementId);
@@ -62,6 +85,9 @@
 	let collapsePost = false;
 	let slideshowMode = false;
 
+	let isEditedTitleValid = false;
+	let modalId = '';
+
 	// if the post type is image, this variable is used to change the image index
 	let imageKeyEventIdx: number = 0;
 
@@ -87,7 +113,15 @@
 		<Flexy gap={2} align="start" justify="start">
 			<DynamicLabel props={{ type: 'user', data: props.user }} />
 			<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
-				<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
+				<Flexy gap={2}>
+					<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
+					{#if props.community}
+						<p class="[ fs-300 ] [ clr-text-muted ]">on g/{props.community}</p>
+					{/if}
+					<p class="[ fs-300 ] [ clr-text-muted ]">
+						<i>{props.is_edited ? 'edited' : ''}</i>
+					</p>
+				</Flexy>
 				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-300' }}
 					>{propOrDefault(POST_TYPE_TO_ICON[props.content.type], 'U')}</Icon
 				>
@@ -182,6 +216,24 @@
 				</ContextMenuItem>
 				<ContextMenuItem action={openImageInNewTab}>Open image</ContextMenuItem>
 			{/if}
+			{#if $globalStore.userStore.isLogged && props.user.id === $globalStore.userStore.user.id}
+				<ContextMenuItem action={() => openModal(modalId)}>Edit</ContextMenuItem>
+			{/if}
 		</ContextMenu>
+
+		<Modal id={modalId}>
+			<TextInput
+				label="Title"
+				showLabel={true}
+				bind:value={props.title}
+				bind:valid={isEditedTitleValid}
+				validators={[minLenValidator(MIN_TITLE_LEN)]}
+			/>
+
+			<Flexy cubeClass={{ utilClass: 'margin-block-1' }}>
+				<Button variant="downvote" on:click={deletePost}>Delete post</Button>
+				<Button variant="primary" on:click={updatePost}>Save</Button>
+			</Flexy>
+		</Modal>
 	{/key}
 </div>

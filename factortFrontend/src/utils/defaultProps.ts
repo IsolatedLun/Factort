@@ -1,5 +1,9 @@
 import type { Form_CreateCommunity, Form_CreatePost } from 'src/routes/create/types';
-import type { Props_Post, Props_PreviewPost } from '../components/Layouts/Post/types';
+import {
+	E_PostVisibilityTypes,
+	type Props_Post,
+	type Props_PreviewPost
+} from '../components/Layouts/Post/types';
 import type { Props_User } from '../types';
 import type { MKD_ParsedData } from './markdown/types';
 
@@ -12,7 +16,7 @@ export function createDefaultPost<A, B>(content: A, comments: B | number = 0) {
 		content,
 		comments,
 		community: { type: 'user', data: null },
-		visibility: 'public',
+		visibility: E_PostVisibilityTypes.PUBLIC,
 		date_created: '',
 
 		c_vote_action: 0
@@ -54,6 +58,7 @@ export function createDefaultCreatePostData(): Form_CreatePost {
 	return {
 		title: '',
 		selected: '',
+		visibility: E_PostVisibilityTypes.PUBLIC,
 
 		content: '',
 		images: [],

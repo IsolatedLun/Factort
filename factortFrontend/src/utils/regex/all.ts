@@ -1,7 +1,8 @@
 export const youtubeLinkRegex =
 	/https:\/\/(www.youtube.com|youtu.be)\/(watch\?v=[a-z0-9A-Z]+|[a-z0-9A-Z]+)/;
 
-export const URL_REGEX = /http(s)?:\/\/(www.)?\S+\.\S+/g;
+export const URL_REGEX = new RegExp('(http|https)://');
+// asd
 
 // Functions
 export function isValidYoutubeLink(url: string) {

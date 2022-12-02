@@ -41,10 +41,12 @@ def vote_model(
     voted_model, created = vote_table.objects.get_or_create(
         **vote_table_kwargs)
 
-    if req_data['action'] == 2:
-        votable_model.user.prestige -= 10
-    elif req_data['action'] == 1:
-        votable_model.user.prestige += 10
+    # 2 => Downvote
+    # 1 => Upvote
+    # 0 => Neutral
+
+    difference = votable_model.user.prestige + req_data['votes'] * 10
+    votable_model.user.prestige = difference
 
     votable_model.prestige = req_data['votes']
     voted_model.action = req_data['action']

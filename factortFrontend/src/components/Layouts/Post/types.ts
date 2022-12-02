@@ -2,17 +2,24 @@ import type { E_VoteControllerActions } from '../../../components/Modules/VoteCo
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
 
 export type PostTypes = 'text' | 'images' | 'video' | 'audio' | 'link';
+export enum E_PostVisibilityTypes {
+	PUBLIC,
+	UNLISTED,
+	PRIVATE
+}
 
 interface _Props_Post<CommentType> extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
 	community: Post_Community_Complex_Type;
-	visibility: 'public' | 'unlisted' | 'private';
+	visibility: E_PostVisibilityTypes;
 
 	comments: CommentType;
 
 	title: string;
 	prestige: number;
+
+	is_edited: boolean;
 
 	c_vote_action: E_VoteControllerActions; // 0 = Not voted, 1 = Upvote, 2 = Downvote
 }

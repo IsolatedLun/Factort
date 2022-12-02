@@ -6,6 +6,11 @@
 		@include createInput();
 	}
 
+	select.input[data-variant='default'] {
+		font-family: $main-font;
+		color: $clr-body-text;
+	}
+
 	input[type='checkbox'] {
 		accent-color: $clr-primary;
 	}

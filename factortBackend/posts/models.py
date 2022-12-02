@@ -14,7 +14,7 @@ POST_VISIBILITY_CHOICES = (
 )
 
 VOTE_CHOICES = (
-    (-1, 'Downvote'),
+    (2, 'Downvote'),
     (0, 'Neutral'),
     (1, 'Upvote'),
 )
@@ -36,6 +36,8 @@ class Post(models.Model):
         choices=POST_CONTENT_CHOICES, max_length=16)
     visibility = models.IntegerField(
         choices=POST_VISIBILITY_CHOICES, default=1)
+
+    is_edited = models.BooleanField(default=False)
 
     date_created = models.DateTimeField(auto_now_add=True)
 

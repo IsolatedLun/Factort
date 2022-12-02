@@ -98,6 +98,42 @@ class PostView(APIView):
             return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
 
 
+class DeletePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, req, post_id):
+        try:
+            post = models.Post.objects.get(id=post_id)
+            if post.user.id == req.user.id:
+                post.delete()
+            else:
+                raise Exception()
+
+            return Response(status=OK)
+        except Exception as e:
+            return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
+
+
+class UpdatePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, req, post_id):
+        try:
+            post = models.Post.objects.get(id=post_id)
+            if post.user.id == req.user.id:
+                post.title = req.data['title']
+                post.is_edited = True
+
+                post.save()
+            else:
+                raise Exception()
+
+            return Response(status=OK)
+        except Exception as e:
+            print(req.data)
+            return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
+
+
 class CreatePostView(APIView):
     permission_classes = [IsAuthenticated]
 

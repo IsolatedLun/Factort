@@ -46,7 +46,9 @@
 
 		const { errors: _errors, isValid } = validateInput(target, validators);
 		_this.setAttribute('data-input-valid', String(isValid));
+
 		errors = _errors;
+		valid = isValid;
 	}
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
@@ -55,7 +57,10 @@
 	export let variant = 'default';
 	export let secondaryVariant = 'default';
 	export let placeholder = 'Enter text';
+
 	export let value = '';
+	export let valid = false;
+
 	export let id = '';
 	export let type: InputTypes = 'text';
 	export let label: string;

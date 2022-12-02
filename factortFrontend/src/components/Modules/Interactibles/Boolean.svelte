@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { createObjectCubeClass, createStringCubeCSSClass } from '../../../utils/cubeCss/cubeCss';
 	import type { Props_CubeCSS } from '../../../utils/cubeCss/types';
-	import type { Props_InputValidator } from '../../../utils/form4Svelte/types';
 	import { createEventDispatcher } from 'svelte';
 	import { onMount } from 'svelte';
 	import type { BooleanTypes } from './types';
@@ -32,8 +31,6 @@
 	});
 
 	let _this: HTMLInputElement;
-	let errors: string[] = [];
-	let isInputValid = false;
 
 	const dispatch = createEventDispatcher();
 </script>

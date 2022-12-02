@@ -1,10 +1,6 @@
 <script lang="ts">
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import {
-		emailValidator,
-		linkValidator,
-		minLenValidator
-	} from '../../../utils/form4Svelte/validators';
+	import { linkValidator, minLenValidator } from '../../../utils/form4Svelte/validators';
 	import { _Register_View } from '../../../services/auth/authService';
 	import FileInput from '../../../components/Modules/Interactibles/Inputs/FileInput.svelte';
 	import { createDefaultCreatePostData } from '../../../utils/defaultProps';
@@ -31,6 +27,8 @@
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
 	import { globalStore } from '../../../stores/global';
 	import Card from '../../../components/Modules/Card/Card.svelte';
+	import SelectInput from '../../../components/Modules/Interactibles/Inputs/SelectInput.svelte';
+	import { E_PostVisibilityTypes } from '../../../components/Layouts/Post/types';
 
 	onDestroy(() => {
 		globalStore.update((state) => ({
@@ -48,7 +46,7 @@
 	function createPost() {
 		let _data = { ...data, selected: $formHook.selected.toLowerCase() };
 
-		// Don't forget to assing the newly changed data to _data
+		// Don't forget to assign the newly changed data to _data
 		if (_data.selected === 'images') data.video = null;
 		if (_data.selected === 'video') data.images = [];
 		if (_data.selected === 'text' && markdownMode) _data.content = parseMarkdown(data.content, []);
@@ -175,10 +173,22 @@
 		/>
 		<TextInput
 			label="Link"
+			placeholder="Enter link"
 			showLabel={true}
 			validators={[minLenValidator(1), linkValidator()]}
 			bind:value={data.link}
 			on:validate={inputChange}
 		/>
 	</Form>
+
+	<SelectInput
+		label="Visibility"
+		options={[
+			{ name: 'Public', value: E_PostVisibilityTypes.PUBLIC },
+			{ name: 'Unlisted', value: E_PostVisibilityTypes.UNLISTED },
+			{ name: 'Private', value: E_PostVisibilityTypes.PRIVATE }
+		]}
+		bind:value={data.visibility}
+		cubeClass={{ utilClass: 'margin-block-start-1' }}
+	/>
 </FormContainer>

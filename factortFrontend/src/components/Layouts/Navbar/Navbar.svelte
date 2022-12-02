@@ -67,7 +67,7 @@
 		bind:this={_this}
 		on:contextmenu={handleContextMenu}
 		class="[ primary-navbar ] [ flex flex-direction-column padding-inline-3 padding-block-small 
-			display-block pos-relative ]"
+			width-100 pos-relative ]"
 		aria-labelledby="primaryNavigation"
 		data-row-layout={stickToSide}
 		data-tooltip-parent=""

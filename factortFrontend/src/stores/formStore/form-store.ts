@@ -36,7 +36,7 @@ export function useForm<T>(data: T, formMode: Store_FormTypes): Store_FormHook {
 				let isFormValid = false;
 
 				forms.forEach((form) => {
-					const inputs = form.querySelectorAll('input');
+					const inputs = form.querySelectorAll('input, .input');
 					const completedInputs = Object.values(inputs).filter(
 						(x) => x.getAttribute('data-input-valid') === 'true'
 					);

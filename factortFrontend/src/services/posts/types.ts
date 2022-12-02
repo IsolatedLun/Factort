@@ -12,6 +12,10 @@ export interface Data_VoteAction {
 	votes: number;
 }
 
+export interface Data_UpdatePost {
+	title: string;
+}
+
 export interface Data_ReplyOnComment {
 	text: string;
 	replying_to: number | null;
