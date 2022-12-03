@@ -73,6 +73,7 @@ export const ICON_ERROR = '\uf071';
 export const ICON_SETTINGS = '\uf013';
 export const ICON_PLUS = '\uf067';
 export const ICON_MINUS = '\uf068';
+export const ICON_HISTORY = '\uf1da';
 
 export const ICON_EYE = '\uf06e';
 

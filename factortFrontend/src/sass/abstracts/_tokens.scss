@@ -131,6 +131,23 @@ $difference-downvote-button-border: 2px solid var(--clr-button-difference-downvo
 $difference-downvote-button-background-color-on-hov: var(--clr-button-difference-downvote-hover);
 
 // =================
+// Tags
+// =================
+$tag-padding: 0.3em 0.8em;
+
+$default-tag-background-color: var(--clr-hoverable-400);
+$default-tag-color: $clr-body-text;
+
+$difference-upvote-tag-background-color: var(--clr-button-difference-upvote);
+$difference-upvote-tag-color: var(--clr-button-difference-upvote-color);
+
+$primary-tag-background-color: var(--clr-button-primary-background);
+$primary-tag-color: $clr-body-text;
+
+$difference-downvote-tag-background-color: var(--clr-button-difference-downvote);
+$difference-downvote-tag-color: var(--clr-button-difference-downvote-color);
+
+// =================
 // Cards
 // =================
 $def-card-background-color: var(--clr-card-400);

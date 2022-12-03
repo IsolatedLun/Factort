@@ -1,9 +1,10 @@
 import type { E_VoteControllerActions } from '../../../components/Modules/VoteController/types';
 import type { Complex_Data_Type, Props_DB_Model, Props_User } from '../../../types';
+import type { Props_CommunityPreview } from '../Community/types';
 
 export type PostTypes = 'text' | 'images' | 'video' | 'audio' | 'link';
 export enum E_PostVisibilityTypes {
-	PUBLIC,
+	PUBLIC = 1,
 	UNLISTED,
 	PRIVATE
 }
@@ -50,6 +51,8 @@ export interface Props_PostCommentReply extends Props_DB_Model {
 export interface Props_PreviewPost extends _Props_Post<number> {}
 export interface Props_Post extends _Props_Post<Props_PostComment[]> {}
 
+export type Props_BasePreviewPost = Pick<Props_PreviewPost, 'id' | 'title'>;
+
 interface Post_Content_Video_Data {
 	is_third_party: boolean;
 	url: string;
@@ -71,7 +74,7 @@ type Post_Content_Complex_Type =
 // ==================
 
 // Community types
-type Post_From_Community = Complex_Data_Type<'community', object>; // Posted in a community
+type Post_From_Community = Complex_Data_Type<'community', Props_CommunityPreview>; // Posted in a community
 type Post_From_User = Complex_Data_Type<'user', null>; // Posted outside of a community
 
 type Post_Community_Complex_Type = Post_From_Community | Post_From_User;

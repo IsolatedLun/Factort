@@ -42,6 +42,8 @@
 				if (res.type === 'success') {
 					comments = [...comments, res.data];
 				}
+
+				newCommentText = '';
 			});
 		}
 	}

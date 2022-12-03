@@ -14,6 +14,12 @@ class PostUserSerializer(serializers.ModelSerializer):
                    'groups', 'user_permissions', 'last_login']
 
 
+class BasePostPreviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Post
+        fields = ['title', 'id']
+
+
 class PostPreviewSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     community = serializers.SerializerMethodField(method_name='get_community')
@@ -50,8 +56,8 @@ class PostPreviewSerializer(serializers.ModelSerializer):
         from communities.serializers import CommunityPreviewSerializer
 
         if(obj.community):
-            return {'type': 'community', 'community': CommunityPreviewSerializer(obj.community).data}
-        return {'type': 'user', 'community': None}
+            return {'type': 'community', 'data': CommunityPreviewSerializer(obj.community).data}
+        return {'type': 'user', 'data': None}
 
     def format_date(self, obj):
         return humanize_date(obj)
@@ -65,6 +71,7 @@ class PostSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     user = serializers.SerializerMethodField(method_name='get_user')
     date_created = serializers.SerializerMethodField(method_name='format_date')
+    community = serializers.SerializerMethodField(method_name='get_community')
     comments = serializers.SerializerMethodField(method_name='get_comments')
 
     c_vote_action = serializers.SerializerMethodField(
@@ -86,6 +93,13 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)
+
+    def get_community(self, obj):
+        from communities.serializers import CommunityPreviewSerializer
+
+        if(obj.community):
+            return {'type': 'community', 'data': CommunityPreviewSerializer(obj.community).data}
+        return {'type': 'user', 'data': None}
 
     def get_content(self, obj):
         return obj.content

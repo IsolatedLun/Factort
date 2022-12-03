@@ -23,6 +23,7 @@
 		on:click={() => closeModal(id)}
 		cubeClass={{ utilClass: 'width-100 margin-block-start-1' }}
 		variant="downvote"
+		ariaLabel="Close modal"
 		secondaryVariant="sausage"
 	>
 		<Icon>{ICON_TIMES}</Icon>

@@ -10,7 +10,7 @@ from . import models
 from . import serializers
 
 from users.models import cUser
-from communities.models import Community
+from communities.models import Community, CommunityMember
 
 
 class PostsView(APIView):
@@ -19,7 +19,7 @@ class PostsView(APIView):
 
         data, next_page = simple_pagination_wrapper(
             models.Post,
-            None,
+            {'visibility': 1},
             serializers.PostPreviewSerializer,
             {'context': {'user': c_user}},
             req.data['page'],
@@ -67,7 +67,7 @@ class CommunityPostsView(APIView):
 
         data, next_page = simple_pagination_wrapper(
             models.Post,
-            {'community_id': community_id},
+            {'community_id': community_id, 'visibility': 1},
             serializers.PostPreviewSerializer,
             {'context': {'user': c_user}},
             req.data['page'],
@@ -146,6 +146,10 @@ class CreatePostView(APIView):
         post_type = data['selected']
 
         if(data['community_id'] != '-1'):
+            # If the user is not a member, then don't create a post
+            if not CommunityMember.objects.filter(user_id=req.user.id).exists():
+                return Response(data=f'You must be a member of this community', status=ERR)
+
             models.CommunityPost.objects.create(
                 post_id=new_post.id, community_id=data['community_id'])
 
@@ -221,6 +225,9 @@ class CreatePostView(APIView):
             method = locals()[method_name]
 
             method()
+
+            print(req.data)
+            new_post.visibility = req.data.get('visibility', 1)
             new_post.save()
 
         # Since we need to run some code before handling the exception

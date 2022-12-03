@@ -1521,6 +1521,8 @@
   transform: translate(-50%, -50%);
   min-width: 25vw;
   color: var(--clr-text-accent);
+  max-height: 85vh;
+  overflow-y: auto;
 }
 .main-modal::backdrop {
   background-color: var(--clr-misc-modal-background, rgba(0, 0, 0, 0.65));
@@ -1621,6 +1623,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.tag {
+  padding: 0.3em 0.8em;
+}
+.tag[data-variant=default] {
+  background-color: var(--clr-hoverable-400);
+  color: var(--clr-text-accent);
+}
+.tag[data-variant=upvote] {
+  background-color: var(--clr-button-difference-upvote);
+  color: var(--clr-button-difference-upvote-color);
+}
+.tag[data-variant=downvote] {
+  background-color: var(--clr-button-difference-downvote);
+  color: var(--clr-button-difference-downvote-color);
 }
 
 .input-container .input[data-variant=default] {
@@ -1899,6 +1917,11 @@
 }
 .markdown .spoiler:is(:hover, :focus) {
   color: white;
+}
+.markdown ul,
+.markdown ol {
+  margin-block: 0.5em;
+  margin-inline-start: 1.5em;
 }
 
 .media-scroller {

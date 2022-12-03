@@ -48,7 +48,7 @@
 			data-work-condition={workCondition && !isFetching}
 			data-async-loading={isFetching}
 			data-allow-outline={allowOutline}
-			aria-hidden={workCondition}
+			aria-disabled={!workCondition}
 			aria-label={ariaLabel}
 		>
 			{#if icon}
@@ -74,8 +74,8 @@
 		data-work-condition={workCondition && !isFetching}
 		data-async-loading={isFetching}
 		data-allow-outline={allowOutline}
-		aria-hidden={workCondition}
 		aria-label={ariaLabel}
+		aria-disabled={!workCondition}
 	>
 		{#if icon}
 			<Flexy gap={2}>

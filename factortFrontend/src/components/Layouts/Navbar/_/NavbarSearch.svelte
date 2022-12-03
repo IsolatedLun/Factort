@@ -4,7 +4,7 @@
 	import type { Data_SearchResults } from 'src/services/search/types';
 	import Flexy from '../../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import TextInput from '../../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
-	import { ICON_SEARCH, SEARCH_TIMEOUT } from '../../../../consts';
+	import { ICON_SEARCH, SEARCH_TIMEOUT, WEB_POST_URL } from '../../../../consts';
 	import Card from '../../../../components/Modules/Card/Card.svelte';
 	import type { TextInputDropdownDisplayModes } from '../../../../components/Modules/Interactibles/Inputs/types';
 	import SkeletronUser from '../../../../components/Modules/Skeletron/components/SkeletronUser.svelte';
@@ -25,7 +25,7 @@
 	export let state: TextInputDropdownDisplayModes = 'absolute';
 	export let hide: boolean = false;
 
-	let results: Data_SearchResults = { users: [], communities: [] };
+	let results: Data_SearchResults = { users: [], communities: [], posts: [] };
 	let query: string = '';
 	let countdownTimeout: NodeJS.Timeout;
 	let isCountingDown = false;
@@ -85,6 +85,35 @@
 					cubeClass={{ utilClass: 'width-100 text-center' }}
 					variant="error-difference"
 					padding={1}>No communities found</Card
+				>
+			{/if}
+
+			{#if isCountingDown}
+				<SkeletronUser />
+			{/if}
+		</Flexy>
+
+		<Flexy
+			cubeClass={{ utilClass: 'width-100 margin-block-start-1 clr-text-muted padding-block-end-1' }}
+			use={(e) => e.setAttribute('data-typo-underline', 'true')}
+		>
+			<p><b>POSTS</b></p>
+			<p class="[ clr-text-muted fs-300 ]" aria-hidden="true">(Top 3 results)</p>
+		</Flexy>
+		<Flexy cubeClass={{ utilClass: 'fs-350' }} useColumn={true} gap={2}>
+			<ol class="[ margin-inline-start-2 ]">
+				{#each results.posts as post}
+					<li>
+						<a href={WEB_POST_URL(post.id, post.title)}>{post.title}</a>
+					</li>
+				{/each}
+			</ol>
+
+			{#if results.posts.length === 0 && !isCountingDown}
+				<Card
+					cubeClass={{ utilClass: 'width-100 text-center' }}
+					variant="error-difference"
+					padding={1}>No posts found</Card
 				>
 			{/if}
 

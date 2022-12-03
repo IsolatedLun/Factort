@@ -6,7 +6,9 @@
 	import Button from '../../Modules/Interactibles/Buttons/Button.svelte';
 	import Icon from '../../Modules/Icon/Icon.svelte';
 	import {
+		CREATE_MODAL_ID,
 		ICON_BARS,
+		ICON_HISTORY,
 		ICON_SEARCH,
 		ICON_SETTINGS,
 		NAVBAR_CM_ID,
@@ -57,7 +59,7 @@
 	}
 
 	let stickToSide = false;
-	let showMobileInput = true;
+	let historyModalId = CREATE_MODAL_ID('user-post-history');
 
 	let _this: HTMLElement;
 </script>
@@ -88,31 +90,34 @@
 			</TypoHeader>
 
 			<Flexy useColumn={stickToSide} gap={2}>
-				<HistoryButtons {stickToSide} />
+				<HistoryButtons {historyModalId} {stickToSide} />
 
-				<div data-hide={stickToSide}>
+				<div data-hide={stickToSide} data-desktop>
 					<NavbarSearch />
 				</div>
 
-				{#if stickToSide}
+				<div data-hide={!stickToSide}>
 					<Button on:click={() => openModal(NAVBAR_SEARCH_MODAL_ID)}>
 						<Icon>
 							{ICON_SEARCH}
 						</Icon>
 					</Button>
-				{/if}
+				</div>
 			</Flexy>
 
 			<div data-mobile>
 				<Flexy gap={2}>
-					<Button on:click={() => openModal(NAVBAR_MODAL_ID)}>
-						<Icon>
-							{ICON_BARS}
-						</Icon>
+					<Button on:click={() => openModal(historyModalId)} ariaLabel="Open history">
+						<Icon>{ICON_HISTORY}</Icon>
 					</Button>
-					<Button on:click={() => openModal(NAVBAR_SEARCH_MODAL_ID)}>
+					<Button on:click={() => openModal(NAVBAR_SEARCH_MODAL_ID)} ariaLabel="Open Search">
 						<Icon>
 							{ICON_SEARCH}
+						</Icon>
+					</Button>
+					<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open more options">
+						<Icon>
+							{ICON_BARS}
 						</Icon>
 					</Button>
 				</Flexy>
@@ -123,7 +128,7 @@
 					<div class="[ navbar__user ]">
 						<Flexy gap={2} useColumn={stickToSide}>
 							<DynamicLabel props={{ type: 'user', data: $globalStore.userStore.user }} />
-							<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open More Options"
+							<Button on:click={() => openModal(NAVBAR_MODAL_ID)} ariaLabel="Open more options"
 								><Icon>{ICON_SETTINGS}</Icon></Button
 							>
 						</Flexy>

@@ -7,6 +7,9 @@
 	min-width: $modal-min-width;
 	color: var(--clr-text-accent);
 
+	max-height: 85vh;
+	overflow-y: auto;
+
 	&::backdrop {
 		background-color: $modal-background-color;
 	}

@@ -1,0 +1,20 @@
+@use '../../abstracts/' as *;
+
+.tag {
+	padding: $tag-padding;
+
+	&[data-variant='default'] {
+		background-color: $default-tag-background-color;
+		color: $default-tag-color;
+	}
+
+	&[data-variant='upvote'] {
+		background-color: $difference-upvote-tag-background-color;
+		color: $difference-upvote-tag-color;
+	}
+
+	&[data-variant='downvote'] {
+		background-color: $difference-downvote-tag-background-color;
+		color: $difference-downvote-tag-color;
+	}
+}

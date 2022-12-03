@@ -4,7 +4,7 @@
 	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
 	import { createDefaultPost } from '../../../utils/defaultProps';
 	import ContextMenu from '../ContextMenu/ContextMenu.svelte';
-	import type { Props_PreviewPost } from './types';
+	import { E_PostVisibilityTypes, type Props_PreviewPost } from './types';
 	import { onMount } from 'svelte';
 	import { toggleContextMenu } from '../../../utils/contextMenu/contextMenu';
 	import ContextMenuItem from '../ContextMenu/ContextMenuItem.svelte';
@@ -15,6 +15,7 @@
 		ICON_COMMENTS,
 		MIN_TITLE_LEN,
 		POST_TYPE_TO_ICON,
+		WEB_COMMUNITY_URL,
 		WEB_POST_URL
 	} from '../../../consts';
 	import Icon from '../../../components/Modules/Icon/Icon.svelte';
@@ -34,6 +35,7 @@
 	import TextInput from '../../../components/Modules/Interactibles/Inputs/TextInput.svelte';
 	import { minLenValidator } from '../../../utils/form4Svelte/validators';
 	import { goto } from '$app/navigation';
+	import Tag from '../../../components/Modules/Tag/Tag.svelte';
 
 	onMount(() => {
 		if (!postElementId) postElementId = crypto.randomUUID();
@@ -113,14 +115,23 @@
 		<Flexy gap={2} align="start" justify="start">
 			<DynamicLabel props={{ type: 'user', data: props.user }} />
 			<Flexy cubeClass={{ utilClass: 'width-100' }} justify="space-between">
-				<Flexy gap={2}>
+				<Flexy gap={2} align="center">
 					<p class="[ fs-300 ] [ clr-text-muted ]">{props.date_created}</p>
-					{#if props.community}
-						<p class="[ fs-300 ] [ clr-text-muted ]">on g/{props.community}</p>
+					{#if props.community && props.community.type === 'community'}
+						<Tag>
+							on
+							<a href={WEB_COMMUNITY_URL(props.community.data.id, props.community.data.name)}
+								>g/{props.community.data.name}</a
+							>
+						</Tag>
 					{/if}
-					<p class="[ fs-300 ] [ clr-text-muted ]">
-						<i>{props.is_edited ? 'edited' : ''}</i>
-					</p>
+
+					{#if props.is_edited}
+						<Tag variant="downvote">Edited</Tag>
+					{/if}
+					{#if props.visibility === E_PostVisibilityTypes.UNLISTED}
+						<Tag variant="upvote">Unlisted</Tag>
+					{/if}
 				</Flexy>
 				<Icon cubeClass={{ utilClass: 'clr-text-primary fs-300' }}
 					>{propOrDefault(POST_TYPE_TO_ICON[props.content.type], 'U')}</Icon
