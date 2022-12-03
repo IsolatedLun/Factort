@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createInputIdWithLabel, underscoreizeLabel } from '../../../../utils/form4Svelte/utils';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		createObjectCubeClass,
 		createStringCubeCSSClass
@@ -22,10 +22,11 @@
 		const target = e.target as HTMLSelectElement;
 
 		value = target.value;
+		dispatch('change', value);
 	}
 
 	export let cubeClass: Props_CubeCSS = createObjectCubeClass();
-	export let options: Props_SelectInputOption[];
+	export let options: Props_SelectInputOption<any>[];
 	export let id = '';
 	export let label: string;
 	export let value: Numeric = '';
@@ -40,6 +41,8 @@
 	});
 
 	let _this: HTMLSelectElement;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div class={_class}>

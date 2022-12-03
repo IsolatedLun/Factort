@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Model
 
 from typing import TypeVar
 
@@ -6,19 +7,27 @@ T = TypeVar('T')
 
 
 def simple_pagination_wrapper(
-    table: any,
+    table: Model,
     table_kwargs: dict,
     serializer: any,
     serializer_kwargs: dict,
     curr_page: int,
-    per_page: int
+    per_page: int,
+    sort_by: str = None
 ) -> tuple[T, int]:
+    """
+        A pagination wrapper for all models.\n
+        Returns a serialized queryset with the next page index
+    """
     queryset = None
 
     if(table_kwargs):
         queryset = table.objects.filter(**table_kwargs)
     else:
         queryset = table.objects.all()
+
+    if sort_by:
+        queryset = queryset.order_by(sort_by)
 
     paginated_queryset = Paginator(queryset, per_page).get_page(curr_page)
     serialized_queryset = serializer(

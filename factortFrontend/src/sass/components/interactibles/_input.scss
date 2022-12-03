@@ -9,6 +9,8 @@
 	select.input[data-variant='default'] {
 		font-family: $main-font;
 		color: $clr-body-text;
+
+		cursor: pointer;
 	}
 
 	input[type='checkbox'] {

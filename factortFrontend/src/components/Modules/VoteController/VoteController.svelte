@@ -8,8 +8,9 @@
 	import { _Vote_Post } from '../../../services/posts/postFetchers';
 	import { E_VoteControllerActions } from './types';
 	import { globalStore } from '../../../stores/global';
-	import type { Success_OR_Error__Response } from 'src/services/types';
-	import type { KeyValue } from 'src/types';
+	import type { Success_OR_Error__Response } from '../../../services/types';
+	import type { KeyValue } from '../../../types';
+	import { formatNumber } from '../../../utils/misc';
 
 	onMount(() => {
 		currAction = lastVoteAction ?? 0;
@@ -76,7 +77,7 @@
 			? 'clr-button-difference-upvote-color'
 			: 'clr-button-difference-downvote-color'}
 	>
-		{votes}
+		{formatNumber(votes)}
 	</p>
 	<Button
 		on:click={handleDownvote}

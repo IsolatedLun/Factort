@@ -11,33 +11,39 @@ import {
 } from '../../consts';
 import { HTTP_METHODS } from '../types';
 import { createHeaders, createResponse } from '../utils';
-import type { Data_UpdatePost, Data_VoteAction, PaginatedResponse } from './types';
+import type {
+	Data_Pagination,
+	Data_PaginationWithoutID,
+	Data_UpdatePost,
+	Data_VoteAction,
+	PaginatedResponse
+} from './types';
 
 /**
  * @summary Fetches the feed for the user/anonymous
  */
-export async function _Fetch_Posts(data: { id: Numeric; page: number }) {
+export async function _Fetch_Posts(data: Data_PaginationWithoutID) {
 	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
 		POSTS_URL,
-		{ page: data['page'] },
+		{ page: data['page'], sort_by: data['sortBy'] },
 		HTTP_METHODS.POST,
 		createHeaders({}, ['auth'])
 	);
 }
 
-export async function _Fetch_User_Posts(data: { id: Numeric; page: number }) {
+export async function _Fetch_User_Posts(data: Data_Pagination) {
 	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
 		USER_POSTS_URL(data['id']),
-		{ page: data['page'] },
+		{ page: data['page'], sort_by: data['sortBy'] },
 		HTTP_METHODS.POST,
 		createHeaders({}, ['auth'])
 	);
 }
 
-export async function _Fetch_Community_Posts(data: { id: Numeric; page: number }) {
+export async function _Fetch_Community_Posts(data: Data_Pagination) {
 	return await createResponse<any, PaginatedResponse<Props_PreviewPost>>(
 		COMMUNITIES_POSTS_URL(data['id']),
-		{ page: data['page'] },
+		{ page: data['page'], sort_by: data['sortBy'] },
 		HTTP_METHODS.POST,
 		createHeaders({}, ['auth'])
 	);

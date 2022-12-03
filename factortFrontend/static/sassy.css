@@ -1654,6 +1654,7 @@
 .input-container select.input[data-variant=default] {
   font-family: "Poppins", sans-serif;
   color: var(--clr-text-accent);
+  cursor: pointer;
 }
 .input-container input[type=checkbox] {
   accent-color: var(--clr-text-primary);

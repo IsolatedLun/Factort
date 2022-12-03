@@ -4,7 +4,10 @@
 	import Flexy from '../../../components/Modules/BoxLayouts/Flexy.svelte';
 	import Card from '../../../components/Modules/Card/Card.svelte';
 	import type { PaginatedResponse, PaginationFetcherFn } from 'src/services/posts/types';
-	import type { KeyValue } from 'src/types';
+	import type { KeyValue } from '../../../types';
+	import SelectInput from '../../../components/Modules/Interactibles/Inputs/SelectInput.svelte';
+	import type { SortByTypes } from './types';
+	import type { Props_SelectInputOption } from 'src/components/Modules/Interactibles/Inputs/types';
 
 	onMount(() => {
 		let options = {
@@ -23,20 +26,25 @@
 	) {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
-				_fetch();
+				if (!isFetching) _fetch();
 				break;
 			}
 		}
 	}
 
 	// This function is a wrapper for the fetchFn
-	// It is called everytime the observer detects an intersection (at the bottom of the posts)
-	// It receives the next_page_number and posts, if the next_page_number is null
+	// It is called everytime the observer detects an intersection (at the bottom of the items)
+	// It receives the next_page_number and items, if the next_page_number is null
 	// Then we have reached the end and don't send a request again
 	async function _fetch() {
-		if (end) return;
+		isFetching = true;
 
-		const res = (await fetchFn({ ...fetchFnArgs, page })) as Success_OR_Error__Response<
+		if (end) {
+			page = 1;
+			return;
+		}
+
+		const res = (await fetchFn({ ...fetchFnArgs, page, sortBy })) as Success_OR_Error__Response<
 			PaginatedResponse<any>
 		>;
 
@@ -48,6 +56,20 @@
 			if (res.data.next_page) page = res.data.next_page;
 			else end = true;
 		}
+
+		isFetching = false;
+	}
+
+	function updateSortBy(value: SortByTypes) {
+		// Resetting all values
+		sortBy = value;
+		end = false;
+		isSuccess = false;
+		isFetching = false;
+		page = 1;
+		_items = [];
+
+		if (!isFetching) _fetch();
 	}
 
 	export let skeletronComponent: typeof SvelteComponent;
@@ -63,7 +85,23 @@
 	let observer;
 	let end: boolean = false;
 	let isSuccess: boolean = false;
+	let sortBy: SortByTypes = '-date_created';
+
+	// This bool is crucial to avoid fetching the same page twice
+	let isFetching: boolean = false;
+
+	let sortByChoices: Props_SelectInputOption<SortByTypes>[] = [
+		{ name: 'Latest', value: '-date_created' },
+		{ name: 'Top', value: '-prestige' },
+		{ name: 'Most viewed', value: '-views' },
+		{ name: 'Controversial', value: 'prestige' },
+		{ name: 'Old', value: 'date_created' }
+	];
 </script>
+
+<div class="[ margin-block-1 ]">
+	<SelectInput label="Sort by" options={sortByChoices} on:change={(e) => updateSortBy(e.detail)} />
+</div>
 
 {#await _fetch()}
 	<Flexy gap={2} useColumn={true}>
@@ -76,7 +114,7 @@
 				<svelte:component this={itemComponent} props={item} />
 			{/each}
 		</Flexy>
-	{:else}
+	{:else if end && _items.length === 0}
 		<Card
 			cubeClass={{ utilClass: 'text-center margin-block-2' }}
 			variant="error-difference"
@@ -87,8 +125,8 @@
 	{/if}
 {/await}
 
-{#if !end}
-	<div id="post-intersection" class="[ margin-block-start-2 ]" bind:this={_div} aria-hidden="true">
+<div id="post-intersection" class="[ margin-block-start-2 ]" bind:this={_div} aria-hidden="true">
+	{#if !end}
 		<svelte:component this={skeletronComponent} />
-	</div>
-{/if}
+	{/if}
+</div>

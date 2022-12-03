@@ -37,4 +37,4 @@ export type Input_Complex_File_Types =
 	| Input_Audio_File
 	| Input_Previewable_File;
 
-export type Props_SelectInputOption = string | { name: string; value: Numeric };
+export type Props_SelectInputOption<T> = T extends null ? string : { name: string; value: T };

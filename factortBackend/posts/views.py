@@ -17,13 +17,16 @@ class PostsView(APIView):
     def post(self, req):
         c_user = req.user if req.user.is_authenticated else None
 
+        print(req.data)
+
         data, next_page = simple_pagination_wrapper(
             models.Post,
             {'visibility': 1},
             serializers.PostPreviewSerializer,
             {'context': {'user': c_user}},
             req.data['page'],
-            POSTS_PER_PAGE
+            POSTS_PER_PAGE,
+            req.data.get('sort_by', None)
         )
 
         return Response(data={'data': data, 'next_page': next_page}, status=OK)
@@ -49,13 +52,16 @@ class UserPostsView(APIView):
     def post(self, req, user_id: int):
         c_user = req.user if req.user.is_authenticated else None
 
+        print(req.data)
+
         data, next_page = simple_pagination_wrapper(
             models.Post,
             {'user_id': user_id},
             serializers.PostPreviewSerializer,
             {'context': {'user': c_user}},
             req.data['page'],
-            POSTS_PER_PAGE
+            POSTS_PER_PAGE,
+            req.data.get('sort_by', None)
         )
 
         return Response(data={'data': data, 'next_page': next_page}, status=OK)
@@ -71,7 +77,8 @@ class CommunityPostsView(APIView):
             serializers.PostPreviewSerializer,
             {'context': {'user': c_user}},
             req.data['page'],
-            POSTS_PER_PAGE
+            POSTS_PER_PAGE,
+            req.data.get('sort_by', None)
         )
 
         return Response(data={'data': data, 'next_page': next_page}, status=OK)
@@ -130,7 +137,6 @@ class UpdatePostView(APIView):
 
             return Response(status=OK)
         except Exception as e:
-            print(req.data)
             return Response(data={'detail': 'Post not found'}, status=NOT_FOUND)
 
 

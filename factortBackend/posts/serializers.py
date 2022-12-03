@@ -7,6 +7,21 @@ from users.utils import get_user_or_none
 from . import models
 
 
+def _get_c_vote_action(voted_table, self, obj):
+    """
+        Gets the vote state of the current user on the voted model
+    """
+    if self.context.get('user', False):
+        voted_post = get_model_or_default(
+            voted_table, None, post_id=obj.id, user_id=self.context['user'].id)
+
+        return voted_post.action if voted_post else 0
+    return 0
+
+# ===============================
+# ===============================
+
+
 class PostUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = userModels.cUser
@@ -31,12 +46,7 @@ class PostPreviewSerializer(serializers.ModelSerializer):
         method_name='get_c_vote_action')
 
     def get_c_vote_action(self, obj):
-        if self.context['user']:
-            voted_post, created = models.VotedPost.objects.get_or_create(
-                post_id=obj.id, user_id=self.context['user'].id)
-
-            return voted_post.action
-        return 0
+        return _get_c_vote_action(models.VotedPost, self, obj)
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)
@@ -78,12 +88,7 @@ class PostSerializer(serializers.ModelSerializer):
         method_name='get_c_vote_action')
 
     def get_c_vote_action(self, obj):
-        if self.context['user']:
-            voted_post = get_model_or_default(
-                models.VotedPost, None, post_id=obj.id, user_id=self.context['user'].id)
-
-            return voted_post.action if voted_post else 0
-        return 0
+        return _get_c_vote_action(models.VotedPost, self, obj)
 
     def get_comments(self, obj):
         comments = models.PostComment.objects.filter(
@@ -122,12 +127,7 @@ class PostCommentSerializer(serializers.ModelSerializer):
         method_name='get_c_vote_action')
 
     def get_c_vote_action(self, obj):
-        if self.context['user']:
-            voted_comment = get_model_or_default(
-                models.VotedComment, None, comment_id=obj.id, user_id=self.context['user'].id)
-
-            return voted_comment.action if voted_comment else 0
-        return 0
+        return _get_c_vote_action(models.VotedComment, self, obj)
 
     def get_replies(self, obj):
         replies = models.PostCommentReply.objects.filter(
@@ -156,12 +156,7 @@ class PostCommentReplySerializer(serializers.ModelSerializer):
         method_name='get_c_vote_action')
 
     def get_c_vote_action(self, obj):
-        if self.context['user']:
-            voted_reply = get_model_or_default(
-                models.VotedCommentReply, None, reply_id=obj.id, user_id=self.context['user'].id)
-
-            return voted_reply.action if voted_reply else 0
-        return 0
+        return _get_c_vote_action(models.VotedCommentReply, self, obj)
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)

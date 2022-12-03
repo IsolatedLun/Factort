@@ -34,3 +34,7 @@ A fully functional Open-Source social media application packed with many feature
 ## Registration
 
 <img src="./README_FILES/sign_up.png" width="1024"/>
+
+## Drawer
+
+<img src="./README_FILES/drawer.png" width="1024"/>

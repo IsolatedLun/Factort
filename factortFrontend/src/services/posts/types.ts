@@ -1,11 +1,7 @@
-import type {
-	Props_Post,
-	Props_PostComment,
-	Props_PostCommentReply,
-	Props_PreviewPost
-} from 'src/components/Layouts/Post/types';
+import type { Numeric } from '../../types';
 import type { E_VoteControllerActions } from '../../components/Modules/VoteController/types';
 import type { Success_OR_Error__Response } from '../types';
+import type { SortByTypes } from '../../components/Layouts/Paginator/types';
 
 export interface Data_VoteAction {
 	action: E_VoteControllerActions;
@@ -20,6 +16,17 @@ export interface Data_ReplyOnComment {
 	text: string;
 	replying_to: number | null;
 }
+
+export interface Data_Pagination {
+	id: Numeric;
+	page: Numeric;
+	sortBy: SortByTypes;
+}
+
+export type Data_PaginationWithoutID = Omit<Data_Pagination, 'id'>;
+
+// =======================================
+// =======================================
 
 export interface PaginatedResponse<T> {
 	next_page: number | null;
