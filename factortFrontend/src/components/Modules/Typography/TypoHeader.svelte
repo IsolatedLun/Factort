@@ -8,10 +8,12 @@
 	export let underline = false;
 	export let cubeClass = createObjectCubeClass();
 	export let spacing = 1;
+	export let lineClamp: number = -1;
 	export let spacingPosition: 'start' | 'end' = 'end';
+	export let wordBreakOnMobile = false;
 
 	let combinedCubeClass = combineObjectCubeClasses(cubeClass, {
-		utilClass: ` margin-block-${spacingPosition}-${spacing} `
+		utilClass: ` margin-block-${spacingPosition}-${spacing}`
 	});
 </script>
 
@@ -20,7 +22,11 @@
 	cubeClass={{ ...combinedCubeClass }}
 	fontWeight="heading"
 	fontSize={fontHeadingSize}
-	use={(e) => e.setAttribute('data-typo-underline', String(underline))}
+	{lineClamp}
+	use={(e) => {
+		e.setAttribute('data-typo-underline', String(underline));
+		e.setAttribute('data-work-break-all-mobile', String(wordBreakOnMobile));
+	}}
 >
 	<slot />
 </Typography>

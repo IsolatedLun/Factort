@@ -20,6 +20,7 @@
 	import Card from '../../../components/Modules/Card/Card.svelte';
 	import type { Success_OR_Error__Response } from 'src/services/types';
 	import type { Props_UserView } from './types';
+	import { formatNumber } from '../../../utils/misc';
 
 	async function fetchUser() {
 		res = await _Fetch_User(Number(id));
@@ -53,7 +54,7 @@
 						variant="view"
 					/>
 					<Flexy align="center" gap={2}>
-						<p class="[ fs-350 ]">{res.data.followers} followers</p>
+						<p class="[ fs-350 ]">{formatNumber(res.data.followers)} followers</p>
 						{#if res.data.c_is_following}
 							<Button
 								workCondition={res.data.c_is_following && $globalStore.userStore.isLogged}
@@ -78,9 +79,10 @@
 			</header>
 
 			<FeedContainer
-				title="Latest Posts"
+				title="posts"
 				fetchFn={_Fetch_User_Posts}
 				fetchFnArgs={{ id }}
+				showSortBy={true}
 				cubeClass={{ utilClass: 'margin-block-start-5' }}
 			>
 				<section slot="misc" class="[ width-100 ]" data-desktop>

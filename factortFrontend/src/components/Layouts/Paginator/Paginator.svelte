@@ -18,6 +18,8 @@
 
 		observer = new IntersectionObserver(handleIntersection, options);
 		observer.observe(_div);
+
+		sortByName = sortByChoices[0].name;
 	});
 
 	function handleIntersection(
@@ -44,9 +46,11 @@
 			return;
 		}
 
-		const res = (await fetchFn({ ...fetchFnArgs, page, sortBy })) as Success_OR_Error__Response<
-			PaginatedResponse<any>
-		>;
+		const res = (await fetchFn({
+			...fetchFnArgs,
+			page,
+			sortBy
+		})) as Success_OR_Error__Response<PaginatedResponse<any>>;
 
 		if (res.type === 'success') {
 			isSuccess = true;
@@ -69,6 +73,9 @@
 		page = 1;
 		_items = [];
 
+		let sortByValue = sortByChoices.find((x) => x.value === value);
+		if (sortByValue) sortByName = sortByValue.name;
+
 		if (!isFetching) _fetch();
 	}
 
@@ -78,6 +85,7 @@
 	export let fetchFn: PaginationFetcherFn<any>;
 	export let fetchFnArgs: KeyValue<string | number> = {};
 	export let errText: string = 'No items found';
+	export let sortByName: string = '';
 
 	let _items: any[] = [];
 	let _div: HTMLElement;

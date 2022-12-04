@@ -104,7 +104,9 @@
 			<ol class="[ margin-inline-start-2 ]">
 				{#each results.posts as post}
 					<li>
-						<a href={WEB_POST_URL(post.id, post.title)}>{post.title}</a>
+						<p class="[ text-ellipsis-2 ]">
+							<a href={WEB_POST_URL(post.id, post.title)}>{post.title}</a>
+						</p>
 					</li>
 				{/each}
 			</ol>

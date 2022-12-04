@@ -5,6 +5,7 @@
 	import Profile from '../../../components/Modules/User/Profile.svelte';
 	import type { DynamicLabelVariants, Props_DynamicLabel_Complex_Type } from './types';
 	import { WEB_COMMUNITY_URL, WEB_USER_URL } from '../../../consts';
+	import { formatNumber } from '../../../utils/misc';
 
 	export let cubeClass = createObjectCubeClass();
 	export let props: Props_DynamicLabel_Complex_Type;
@@ -39,8 +40,10 @@
 			</p>
 			<Typography
 				fontSize={statFontSize}
-				cubeClass={{ blockClass: 'dynamic-label__stat', utilClass: `fs-${statFontSize}` }}
-				>{props.data.prestige} prestige</Typography
+				cubeClass={{
+					blockClass: 'dynamic-label__stat',
+					utilClass: `fs-${statFontSize} whitespace-nowrap`
+				}}>{formatNumber(props.data.prestige)} prestige</Typography
 			>
 		</Flexy>
 	</Flexy>
@@ -60,8 +63,10 @@
 			{:else}
 				{props.data.name}
 			{/if}
-			<Typography fontSize={statFontSize} cubeClass={{ blockClass: 'dynamic-label__stat' }}
-				>{props.data.members} members</Typography
+			<Typography
+				fontSize={statFontSize}
+				cubeClass={{ blockClass: 'dynamic-label__stat', utilClass: 'whitespace-nowrap' }}
+				>{formatNumber(props.data.members)} members</Typography
 			>
 		</Flexy>
 	</Flexy>

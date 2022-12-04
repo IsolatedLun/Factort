@@ -38,6 +38,9 @@
 		border: $theme-border-dark;
 		border-radius: $border-radius-cubed;
 
+		overflow-y: auto;
+		overflow-x: hidden;
+
 		pointer-events: all;
 		opacity: 0;
 		transform: translateY(10%) scale(0);
@@ -102,7 +105,7 @@
 @media screen and (min-width: $breakpoint-medium) {
 	.input-container {
 		.input__dropdown {
-			max-height: 25vw;
+			max-height: $input-dropdown-max-height;
 		}
 	}
 }

@@ -19,6 +19,7 @@
 	import SkeletronCommunityView from '../../../components/Modules/Skeletron/layouts/SkeletronCommunityView.svelte';
 	import { _Fetch_Community_Posts } from '../../../services/posts/postFetchers';
 	import Card from '../../../components/Modules/Card/Card.svelte';
+	import { formatNumber } from '../../../utils/misc';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -81,7 +82,7 @@
 				>
 					<p><small>g/</small> <big>{res.data.name}</big></p>
 					<Flexy align="center" gap={2}>
-						<p>{res.data.members} <small>members</small></p>
+						<p>{formatNumber(res.data.members)} <small>members</small></p>
 						{#if (hasJoinedCommunity || res.data.owner === $globalStore.userStore.user.id) && $globalStore.userStore.isLogged}
 							<Button
 								variant="downvote"

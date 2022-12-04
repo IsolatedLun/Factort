@@ -18,7 +18,7 @@
 		const target = e.target as HTMLImageElement;
 		dispatch('dimensions', { x: target.naturalWidth, y: target.naturalHeight });
 
-		if (target.naturalWidth <= 750 && target.naturalHeight <= 1000 && autoContain) {
+		if ((target.naturalWidth <= 750 || target.naturalHeight <= 1000) && autoContain) {
 			containImage = true;
 		}
 	}

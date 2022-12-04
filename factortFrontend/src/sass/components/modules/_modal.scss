@@ -9,6 +9,7 @@
 
 	max-height: 85vh;
 	overflow-y: auto;
+	overflow-x: hidden;
 
 	&::backdrop {
 		background-color: $modal-background-color;

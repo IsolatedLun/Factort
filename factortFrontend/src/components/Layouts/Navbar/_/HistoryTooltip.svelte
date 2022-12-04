@@ -13,7 +13,7 @@
 
 <div class="[ navbar__history-tooltip ]">
 	<p class="[ fs-450 text-center margin-block-end-1 ]" data-typo-underline="true">Selected Post:</p>
-	<p>{selectedPost?.title}</p>
+	<p class="[ text-ellipsis-2 ]">{selectedPost?.title}</p>
 
 	<Flexy cubeClass={{ utilClass: 'margin-block-start-2 fs-300 clr-text-muted' }}>
 		<p>[{idx + 1}/{postsAmount}]</p>

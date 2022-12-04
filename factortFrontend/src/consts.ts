@@ -20,6 +20,8 @@ export const CREATE_YOUTUBE_IFRAME = (link: string) =>
 
 export const MIN_TITLE_LEN = 3;
 export const MIN_CONTENT_LEN = 3;
+export const MAX_PREVIEW_POST_TEXT_LEN = 64;
+export const MAX_FORMATTED_NUMBER_DIGISTS = 2;
 
 export const LOCAL_POST_HISTORY_CAP = 12;
 

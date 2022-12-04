@@ -13,6 +13,7 @@
 		BACKEND_ROOT_URL,
 		CREATE_MODAL_ID,
 		ICON_COMMENTS,
+		MAX_PREVIEW_POST_TEXT_LEN,
 		MIN_TITLE_LEN,
 		POST_TYPE_TO_ICON,
 		WEB_COMMUNITY_URL,
@@ -142,6 +143,8 @@
 			h={2}
 			fontHeadingSize={500}
 			spacingPosition={'start'}
+			lineClamp={3}
+			wordBreakOnMobile={true}
 			cubeClass={{ blockClass: 'post__title' }}
 		>
 			{props.title} <span class="[ visually-hidden ]">posted by {props.user.username}</span>
@@ -150,9 +153,19 @@
 	<section class="[ post__content ]">
 		<h2 class="[ visually-hidden ]">Post content</h2>
 		{#if props.content.type === 'text'}
-			<article class="[ markdown ] [ padding-2 ]">
+			<article
+				class="[ markdown ] [ {!isInThread && props.content.data.length > MAX_PREVIEW_POST_TEXT_LEN
+					? 'text-ellipsis-3'
+					: ''} ] [ padding-2 ]"
+			>
 				{@html props.content.data}
 			</article>
+
+			{#if !isInThread && props.content.data.length > MAX_PREVIEW_POST_TEXT_LEN}
+				<div class="[ margin-block-1 margin-inline-3 ]">
+					<a href={WEB_POST_URL(props.id, props.title)}>Continue reading...</a>
+				</div>
+			{/if}
 		{:else if props.content.type === 'images'}
 			<PostImages
 				on:keyChange={(e) => (imageKeyEventIdx = e.detail.value)}

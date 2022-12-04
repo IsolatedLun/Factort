@@ -1,5 +1,5 @@
 import type { KeyValue } from '../types';
-import { BIT_COUNTS, CREATE_YOUTUBE_IFRAME } from '../consts';
+import { BIT_COUNTS, CREATE_YOUTUBE_IFRAME, MAX_FORMATTED_NUMBER_DIGISTS } from '../consts';
 import { youtubeLinkRegex } from './regex/all';
 import type { StorageSizes } from './types';
 
@@ -64,7 +64,9 @@ export function getUrlParams(url: string): KeyValue<string> {
 }
 
 export function formatNumber(n: number) {
-	return new Intl.NumberFormat('en', { notation: 'compact', minimumSignificantDigits: 1 }).format(
-		n
-	);
+	return new Intl.NumberFormat('en', {
+		notation: 'compact',
+		minimumSignificantDigits: 1,
+		maximumSignificantDigits: MAX_FORMATTED_NUMBER_DIGISTS
+	}).format(n);
 }

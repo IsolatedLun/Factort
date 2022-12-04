@@ -26,15 +26,17 @@
 	white-space: nowrap;
 }
 
+.word-break-all {
+	word-break: break-all;
+}
+
 @for $i from 1 through 5 {
 	.text-ellipsis-#{$i} {
 		display: -webkit-box;
 		-webkit-line-clamp: $i;
 		-webkit-box-orient: vertical;
 
-		word-break: break-all;
 		overflow: hidden;
-		hyphens: auto;
 	}
 }
 

@@ -14,11 +14,13 @@
 	export let fetchFnArgs: KeyValue<string | number> = {};
 
 	export let title: string;
+	export let showSortBy: boolean = false;
 
 	let _class = createStringCubeCSSClass(cubeClass, {
 		blockClass: 'feed-container',
 		utilClass: 'grid gap-2'
 	});
+	let sortBy: string = '';
 </script>
 
 <div class={_class} data-grid-collapse="true">
@@ -28,12 +30,25 @@
 		</header>
 
 		{#if title}
-			<TypoHeader>{title}</TypoHeader>
+			<TypoHeader>
+				{#if showSortBy}
+					{sortBy}
+				{:else}
+					<span class="[ visually-hidden ]">{sortBy} </span>
+				{/if}
+				{title}
+			</TypoHeader>
 		{:else}
-			<h2 class="[ visually-hidden ]">Posts</h2>
+			<h2 class="[ visually-hidden ]">{sortBy} Posts</h2>
 		{/if}
 
-		<Paginator {fetchFn} {fetchFnArgs} itemComponent={Post} skeletronComponent={SkeletronPost} />
+		<Paginator
+			{fetchFn}
+			{fetchFnArgs}
+			itemComponent={Post}
+			skeletronComponent={SkeletronPost}
+			bind:sortByName={sortBy}
+		/>
 	</section>
 
 	<section class="[ width-100 ]">
