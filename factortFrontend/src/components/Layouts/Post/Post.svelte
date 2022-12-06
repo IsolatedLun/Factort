@@ -23,6 +23,7 @@
 
 	import PostImages from './_/PostImages.svelte';
 	import PostVideo from './_/PostVideo.svelte';
+	import PostLink from './_/PostLink.svelte';
 	import DynamicLabel from '../../../components/Modules/Misc/DynamicLabel.svelte';
 	import VoteController from '../../../components/Modules/VoteController/VoteController.svelte';
 	import { propOrDefault } from '../../../utils/cubeCss/cubeCss';
@@ -75,7 +76,8 @@
 	}
 
 	function openImageInNewTab() {
-		window.open(BACKEND_ROOT_URL + props.content.data[imageKeyEventIdx], '_blank');
+		if (props.content.type === 'images')
+			window.open(BACKEND_ROOT_URL + props.content.data[imageKeyEventIdx], '_blank');
 	}
 
 	export let props: Props_PreviewPost = createDefaultPost({
@@ -176,12 +178,10 @@
 		{:else if props.content.type === 'video'}
 			<PostVideo videoSrc={props.content.data} isThirdParty={false} />
 		{:else if props.content.type === 'link'}
-			{#if isValidYoutubeLink(props.content.data)}
-				<PostYoutubeUrl videoUrl={props.content.data} />
+			{#if isValidYoutubeLink(props.content.data.url)}
+				<PostYoutubeUrl videoUrl={props.content.data.url} />
 			{:else}
-				<div class="[ padding-2 ]">
-					<a target="_blank" href={props.content.data}>{props.content.data}</a>
-				</div>
+				<PostLink data={props.content.data} />
 			{/if}
 		{:else if props.content.type === 'audio'}
 			<div class="[ post__audio ]">
@@ -213,7 +213,7 @@
 			<Flexy>
 				<Button variant="difference" secondaryVariant="small" selected={true}>
 					<Flexy align="center">
-						<p>{Array.isArray(props.comments) ? props.comments.length : props.comments}</p>
+						<p>{props.comment_count}</p>
 						<Icon>{ICON_COMMENTS}</Icon>
 					</Flexy>
 				</Button>

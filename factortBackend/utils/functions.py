@@ -1,6 +1,9 @@
 from django.core.paginator import Paginator
 from django.db.models import Model
 
+import requests
+from bs4 import BeautifulSoup
+
 from typing import TypeVar
 
 T = TypeVar('T')
@@ -63,3 +66,28 @@ def vote_model(
     votable_model.save()
     voted_model.save()
     votable_model.user.save()
+
+
+def get_opengraph_meta_tags(url: str):
+    try:
+        req = requests.get(url)
+        bs4 = BeautifulSoup(req.text, 'lxml')
+        meta_tags = bs4.select(
+            '*[property*="og"]:not([property="og:image:width"], \
+                [property="og:image:height"], [property="og:type"])'
+        )
+
+        out = {'url': url}
+        for x in meta_tags:
+            _property = '_'.join(x.get('property', '').split(':')[1::])
+            out[_property] = x['content']
+
+        return out
+    except Exception as e:
+        print(e)
+        return {
+            'url': url,
+            'site_name': None,
+            'description': None,
+            'image': None
+        }

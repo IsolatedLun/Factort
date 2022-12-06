@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from lxml.html.clean import clean_html
 
 from consts import OK, NOT_FOUND, ERR, POSTS_PER_PAGE
-from utils.functions import simple_pagination_wrapper, vote_model
+from utils.functions import simple_pagination_wrapper, vote_model, get_opengraph_meta_tags
 from . import models
 from . import serializers
 
@@ -185,7 +185,8 @@ class CreatePostView(APIView):
                 data['content']), 'type': post_type}
 
         def _create_link_post():
-            new_post.content = {'data': data['link'], 'type': post_type}
+            og_data = get_opengraph_meta_tags(data['link'])
+            new_post.content = {'data': og_data, 'type': post_type}
 
         def _create_video_post():
             # Because there is always a single video file
@@ -249,6 +250,15 @@ class CreatePostView(APIView):
                 return Response(data=f'Someting went terribly wrong', status=ERR)
 
         return Response(data=new_post.id, status=OK)
+
+
+class CreateLinkPostPreview(APIView):
+    # permission_classes = [IsAuthenticated]
+
+    def post(self, req):
+        og_tags = get_opengraph_meta_tags(req.data.get('url', None))
+
+        return Response(data=og_tags, status=OK)
 
 
 class CommentPostView(APIView):

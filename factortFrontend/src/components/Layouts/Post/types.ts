@@ -9,16 +9,17 @@ export enum E_PostVisibilityTypes {
 	PRIVATE
 }
 
-interface _Props_Post<CommentType> extends Props_DB_Model {
+interface _Props_Post extends Props_DB_Model {
 	user: Props_User;
 	content: Post_Content_Complex_Type;
 	community: Post_Community_Complex_Type;
 	visibility: E_PostVisibilityTypes;
 
-	comments: CommentType;
-
 	title: string;
 	prestige: number;
+
+	comment_count: number;
+	comments: Props_PostComment[];
 
 	is_edited: boolean;
 
@@ -48,14 +49,16 @@ export interface Props_PostCommentReply extends Props_DB_Model {
 	c_vote_action: E_VoteControllerActions;
 }
 
-export interface Props_PreviewPost extends _Props_Post<number> {}
-export interface Props_Post extends _Props_Post<Props_PostComment[]> {}
+export type Props_PreviewPost = _Props_Post & Omit<_Props_Post, 'comments'>;
+export type Props_Post = _Props_Post;
 
 export type Props_BasePreviewPost = Pick<Props_PreviewPost, 'id' | 'title'>;
 
-interface Post_Content_Video_Data {
-	is_third_party: boolean;
+export interface Post_Content_Link_Data {
 	url: string;
+	site_name?: string;
+	image?: string;
+	description?: string;
 }
 
 // Content types
@@ -63,7 +66,7 @@ type Post_Content_Text = Complex_Data_Type<'text', string>;
 type Post_Content_Images = Complex_Data_Type<'images', string[]>;
 type Post_Content_Video = Complex_Data_Type<'video', string>;
 type Post_Content_Audio = Complex_Data_Type<'audio', string>;
-type Post_Content_Link = Complex_Data_Type<'link', string>;
+type Post_Content_Link = Complex_Data_Type<'link', Post_Content_Link_Data>;
 
 type Post_Content_Complex_Type =
 	| Post_Content_Text

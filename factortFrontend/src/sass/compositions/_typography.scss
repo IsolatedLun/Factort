@@ -30,6 +30,10 @@
 	word-break: break-all;
 }
 
+.whitespace-preline {
+	white-space: pre-line;
+}
+
 @for $i from 1 through 5 {
 	.text-ellipsis-#{$i} {
 		display: -webkit-box;

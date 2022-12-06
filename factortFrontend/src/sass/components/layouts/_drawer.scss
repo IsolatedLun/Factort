@@ -17,8 +17,8 @@
 	}
 
 	.drawer__canvas {
-		width: 488px;
-		height: 488px;
+		width: $canvas-size;
+		height: $canvas-size;
 		grid-area: canvas;
 
 		canvas {

@@ -53,6 +53,10 @@ a {
 	&[data-variant='default'] {
 		text-decoration: underline;
 	}
+
+	&[data-secondary-variant='bright'] {
+		color: $clr-link-bright;
+	}
 }
 
 :focus:where([data-target], [data-allow-outline='true']),

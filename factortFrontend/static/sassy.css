@@ -1275,13 +1275,14 @@
 }
 .post .post__iframe-container iframe {
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 16/9;
 }
 .post:is(:hover) {
   border: 2px solid var(--clr-input-border-hover);
 }
 .post .post__images {
-  width: 100%;
+  max-width: 100%;
   aspect-ratio: 16/9;
 }
 .post .post__images img {
@@ -1297,7 +1298,7 @@
   z-index: 9999;
 }
 .post .post__images .images__dots .dot {
-  width: 0.85rem;
+  max-width: 0.85rem;
   aspect-ratio: 1;
   border: 2px solid var(--clr-input-border);
 }
@@ -1309,7 +1310,11 @@
   background-color: var(--clr-input-border-hover);
 }
 .post .post__video iframe {
-  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16/9;
+}
+.post .post__link .link__og-image {
+  max-width: 16rem;
   aspect-ratio: 16/9;
 }
 
@@ -1965,6 +1970,10 @@
 
 .word-break-all {
   word-break: break-all;
+}
+
+.whitespace-preline {
+  white-space: pre-line;
 }
 
 .text-ellipsis-1 {
@@ -2936,6 +2945,9 @@ a {
 }
 a[data-variant=default] {
   text-decoration: underline;
+}
+a[data-secondary-variant=bright] {
+  color: var(--clr-misc-link-bright);
 }
 
 :focus:where([data-target], [data-allow-outline="true"]),

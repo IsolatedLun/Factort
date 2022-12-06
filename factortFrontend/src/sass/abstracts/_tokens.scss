@@ -151,6 +151,8 @@ $difference-downvote-tag-color: var(--clr-button-difference-downvote-color);
 // =================
 // Cards
 // =================
+$clr-link-bright: var(--clr-misc-link-bright);
+
 $def-card-background-color: var(--clr-card-400);
 $def-card-border: $theme-border;
 $def-card-border-radius: $border-radius-cubed;
@@ -175,7 +177,7 @@ $primary-difference-card-border: 2px solid $clr-primary;
 // =================
 // Drawer
 // =================
-$canvas-width: 488px;
+$canvas-size: 488px;
 
 $color-cube-width: 32px;
 $color-cube-border: 2px solid var(--clr-text-difference);

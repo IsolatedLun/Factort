@@ -1,26 +1,28 @@
-import type { Form_CreateCommunity, Form_CreatePost } from 'src/routes/create/types';
+import type { Form_CreateCommunity, Form_CreatePost } from '../routes/create/types';
 import {
 	E_PostVisibilityTypes,
 	type Props_Post,
-	type Props_PreviewPost
+	type Props_PostComment
 } from '../components/Layouts/Post/types';
 import type { Props_User } from '../types';
 import type { MKD_ParsedData } from './markdown/types';
 
-export function createDefaultPost<A, B>(content: A, comments: B | number = 0) {
+export function createDefaultPost<A>(content: A, comments: Props_PostComment[] = []) {
 	return {
 		id: 0,
 		user: createDefaultUser(),
 		title: 'A default title',
 		prestige: 0,
 		content,
+		comment_count: comments.length,
 		comments,
 		community: { type: 'user', data: null },
 		visibility: E_PostVisibilityTypes.PUBLIC,
+		is_edited: false,
 		date_created: '',
 
 		c_vote_action: 0
-	} as Props_PreviewPost;
+	} as Props_Post;
 }
 
 export function createDefaultUser() {

@@ -18,6 +18,15 @@ def _get_c_vote_action(voted_table, self, obj):
         return voted_post.action if voted_post else 0
     return 0
 
+
+def _get_count_comments(self, obj):
+    comment_count = models.PostComment.objects.filter(
+        post_id=obj.id).count()
+    comment_replies_count = models.PostCommentReply.objects.filter(
+        post_id=obj.id).count()
+
+    return comment_count + comment_replies_count
+
 # ===============================
 # ===============================
 
@@ -39,7 +48,7 @@ class PostPreviewSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField(method_name='get_content')
     community = serializers.SerializerMethodField(method_name='get_community')
     user = serializers.SerializerMethodField(method_name='get_user')
-    comments = serializers.SerializerMethodField(
+    comment_count = serializers.SerializerMethodField(
         method_name='get_count_comments')
     date_created = serializers.SerializerMethodField(method_name='format_date')
     c_vote_action = serializers.SerializerMethodField(
@@ -52,12 +61,7 @@ class PostPreviewSerializer(serializers.ModelSerializer):
         return get_user_or_none(obj, PostUserSerializer)
 
     def get_count_comments(self, obj):
-        comment_count = models.PostComment.objects.filter(
-            post_id=obj.id).count()
-        comment_replies_count = models.PostCommentReply.objects.filter(
-            post_id=obj.id).count()
-
-        return comment_count + comment_replies_count
+        return _get_count_comments(self, obj)
 
     def get_content(self, obj):
         return obj.content
@@ -83,6 +87,8 @@ class PostSerializer(serializers.ModelSerializer):
     date_created = serializers.SerializerMethodField(method_name='format_date')
     community = serializers.SerializerMethodField(method_name='get_community')
     comments = serializers.SerializerMethodField(method_name='get_comments')
+    comment_count = serializers.SerializerMethodField(
+        method_name='get_count_comments')
 
     c_vote_action = serializers.SerializerMethodField(
         method_name='get_c_vote_action')
@@ -95,6 +101,9 @@ class PostSerializer(serializers.ModelSerializer):
             post_id=obj.id)
 
         return PostCommentSerializer(comments, context=self.context, many=True).data
+
+    def get_count_comments(self, obj):
+        return _get_count_comments(self, obj)
 
     def get_user(self, obj):
         return get_user_or_none(obj, PostUserSerializer)

@@ -45,7 +45,7 @@ PRIORITY 2
     - Image post (up to 12 images) [DONE]
     - Video post [DONE]
     - Voice post (with cool wavelength animation when user plays audio) [DONE 1/2]
-    - Link post (with the preview of the link's page) [DONE 1/2]
+    - Link post (with the preview of the link's page) [DONE]
 
     - Voting system like reddit [DONE]
     - Users can post individually or in their communities [DONE]

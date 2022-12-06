@@ -19,6 +19,7 @@
 
 	.post__iframe-container iframe {
 		width: 100%;
+		max-width: 100%;
 		aspect-ratio: 16 / 9;
 	}
 
@@ -29,7 +30,7 @@
 	// Image Post
 	// ============
 	.post__images {
-		width: 100%;
+		max-width: 100%;
 		aspect-ratio: 16 / 9;
 
 		img {
@@ -45,7 +46,7 @@
 			z-index: 9999;
 
 			.dot {
-				width: $post-dot-width;
+				max-width: $post-dot-width;
 				aspect-ratio: 1;
 
 				border: $theme-border;
@@ -66,7 +67,16 @@
 	// ============
 	.post__video {
 		iframe {
-			width: 100%;
+			max-width: 100%;
+			aspect-ratio: 16 / 9;
+		}
+	}
+
+	// Link Post
+	// ============
+	.post__link {
+		.link__og-image {
+			max-width: 16rem;
 			aspect-ratio: 16 / 9;
 		}
 	}

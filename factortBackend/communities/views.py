@@ -59,7 +59,12 @@ class CreateCommunityView(APIView):
 
         try:
             new_community = models.Community.objects.create(
-                owner=req.user, name=data['name'], profile=files['profile'], banner=files['banner'])
+                owner=req.user,
+                name=data['name'],
+                profile=files['profile'],
+                banner=files['banner'],
+                about=data['about']
+            )
             owner = models.CommunityMember.objects.create(
                 user=req.user, community_id=new_community.id, is_owner=True, is_moderator=True)
 

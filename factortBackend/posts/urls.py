@@ -13,6 +13,8 @@ urlpatterns = [
 
     # === Post urls ===
     path('create', views.CreatePostView.as_view(), name='POST=CreatePost'),
+    path('create/preview/link', views.CreateLinkPostPreview.as_view(),
+         name='POST=CreateLinkPostPreview'),
 
     path('vote/<int:post_id>',
          views.VotePostView.as_view(), name='POST=VotePost'),

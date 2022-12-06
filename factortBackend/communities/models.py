@@ -5,6 +5,7 @@ class Community(models.Model):
     owner = models.ForeignKey('users.cUser', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=64, unique=True)
+    about = models.TextField(default='')
 
     profile = models.ImageField(
         upload_to='communities/profiles/', default='profiles/def.png')

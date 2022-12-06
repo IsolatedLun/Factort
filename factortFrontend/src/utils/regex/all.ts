@@ -1,5 +1,5 @@
 export const youtubeLinkRegex =
-	/https:\/\/(www.youtube.com|youtu.be)\/(watch\?v=[a-z0-9A-Z]+|[a-z0-9A-Z]+)/;
+	/https:\/\/(www.youtube.com|youtu.be)\/(watch\?v=[a-z0-9A-Z_]+|[a-z0-9A-Z_]+)/;
 
 export const URL_REGEX = new RegExp('(http|https)://');
 // asd

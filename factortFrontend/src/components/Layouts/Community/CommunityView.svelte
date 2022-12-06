@@ -20,6 +20,7 @@
 	import { _Fetch_Community_Posts } from '../../../services/posts/postFetchers';
 	import Card from '../../../components/Modules/Card/Card.svelte';
 	import { formatNumber } from '../../../utils/misc';
+	import MiscellaneuosTab from '../Miscellaneous/_/MiscellaneuosTab.svelte';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -131,7 +132,20 @@
 								fetchFn: _Fetch_Misc_CommunityLatestMembers
 							}
 						]}
-					/>
+					>
+						<MiscellaneuosTab title={'About'}>
+							<article
+								class="[ markdown ] [ whitespace-preline padding-1 ]"
+								data-typo-underline="true"
+							>
+								{res.data.about}
+							</article>
+
+							<div class="[ padding-1 padding-inline-2 ]">
+								<p class="[ clr-text-muted ]"><b>Created</b> {res.data.date_created}</p>
+							</div>
+						</MiscellaneuosTab>
+					</Miscellaneuos>
 				</section>
 			</FeedContainer>
 		</div>
