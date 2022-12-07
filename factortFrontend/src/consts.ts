@@ -25,6 +25,8 @@ export const MAX_FORMATTED_NUMBER_DIGISTS = 2;
 
 export const LOCAL_POST_HISTORY_CAP = 12;
 
+export const COMMUNITY_ABOUT_MARKDOWN_CONSTRAINTS = ['#'];
+
 // if currEncloser == [
 // x([) => ]
 // y(]) => [

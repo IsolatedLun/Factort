@@ -46,6 +46,7 @@
 			z-index: 9999;
 
 			.dot {
+				width: $post-dot-width;
 				max-width: $post-dot-width;
 				aspect-ratio: 1;
 

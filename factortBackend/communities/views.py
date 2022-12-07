@@ -4,6 +4,8 @@ from django.db.models import Q
 from django.db import IntegrityError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from lxml.html.clean import clean_html
+
 from consts import OK, ERR
 
 from . import models
@@ -63,14 +65,13 @@ class CreateCommunityView(APIView):
                 name=data['name'],
                 profile=files['profile'],
                 banner=files['banner'],
-                about=data['about']
+                about=clean_html(data['about'])
             )
             owner = models.CommunityMember.objects.create(
                 user=req.user, community_id=new_community.id, is_owner=True, is_moderator=True)
 
             return Response(data=new_community.id, status=OK)
         except IntegrityError as e:
-            print(e)
             unique_variable = str(e).split(
                 '.')[1] if 'UNIQUE' in str(e) else 'unknown'
 

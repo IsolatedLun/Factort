@@ -6,6 +6,7 @@ from lxml.html.clean import clean_html
 
 from consts import OK, NOT_FOUND, ERR, POSTS_PER_PAGE
 from utils.functions import simple_pagination_wrapper, vote_model, get_opengraph_meta_tags
+from utils.core import create_images_post, create_link_post, create_video_post, create_audio_post
 from . import models
 from . import serializers
 
@@ -163,21 +164,9 @@ class CreatePostView(APIView):
                 id=data['community_id'])
 
         def _create_images_post():
-            images = []
-
-            # =========================
-            # Assertions
-            # =========================
-            if len(files.getlist('images[]')) == 0:
-                raise Exception('There must be atleast 1 image')
-            # =========================
-
-            for x in files.getlist('images[]'):
-                images.append(models.PostImage.objects.create(
-                    image=x, post_id=new_post.id).image.url
-                )
-
-            new_post.content = {'data': images, 'type': post_type}
+            content = create_images_post(
+                new_post, post_type, files, models.PostImage)
+            new_post.content = content
 
         def _create_text_post():
             # Received data is in html, so we clean it
@@ -185,45 +174,18 @@ class CreatePostView(APIView):
                 data['content']), 'type': post_type}
 
         def _create_link_post():
-            og_data = get_opengraph_meta_tags(data['link'])
-            new_post.content = {'data': og_data, 'type': post_type}
+            content = create_link_post(data['link'], post_type)
+            new_post.content = content
 
         def _create_video_post():
-            # Because there is always a single video file
-            video_file = None
-
-            # =========================
-            # Assertions
-            # =========================
-            try:
-                video_file = next(files.values())
-            except Exception as e:
-                raise Exception('No video file found')
-            # =========================
-
-            video_model = models.PostVideo.objects.create(
-                video=video_file, post_id=new_post.id)
-
-            new_post.content = {
-                'data': video_model.video.url, 'type': post_type}
+            content = create_video_post(
+                new_post, post_type, files, models.PostVideo)
+            new_post.content = content
 
         def _create_audio_post():
-            # Because there is always a single video file
-            audio_file = None
-
-            # =========================
-            # Assertions
-            # =========================
-            try:
-                audio_file = next(files.values())
-            except Exception as e:
-                raise Exception('No audio file found')
-
-            audio_model = models.PostAudio.objects.create(
-                audio=audio_file, post_id=new_post.id)
-
-            new_post.content = {
-                'data': audio_model.audio.url, 'type': post_type}
+            content = create_audio_post(
+                new_post, post_type, files, models.PostAudio)
+            new_post.content = content
 
         # Here, we create the dynamic string name of the function
         # retreive the function from the local symbol table and call it
@@ -233,7 +195,6 @@ class CreatePostView(APIView):
 
             method()
 
-            print(req.data)
             new_post.visibility = req.data.get('visibility', 1)
             new_post.save()
 

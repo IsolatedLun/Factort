@@ -7,12 +7,19 @@
 	import FormContainer from '../../../components/Modules/Form/FormContainer.svelte';
 	import { useForm } from '../../../stores/formStore/form-store';
 	import TextArea from '../../../components/Modules/Interactibles/Inputs/TextArea.svelte';
-	import { WEB_COMMUNITY_URL, WEB_DRAWER_URL } from '../../../consts';
+	import {
+		WEB_COMMUNITY_URL,
+		WEB_DRAWER_URL,
+		COMMUNITY_ABOUT_MARKDOWN_CONSTRAINTS
+	} from '../../../consts';
 	import { goto } from '$app/navigation';
 	import type { Form_CreateCommunity } from '../types';
 	import { _Create_Community } from '../../../services/create/CreateCommunityFetchers';
 	import { preCheck_Community } from '../../../utils/preChecks';
 	import { StorageSizes } from '../../../utils/types';
+	import Boolean from '../../../components/Modules/Interactibles/Boolean.svelte';
+	import TypoHeader from '../../../components/Modules/Typography/TypoHeader.svelte';
+	import { parseMarkdown } from '../../../utils/markdown/markdownParser';
 
 	function createCommunity() {
 		let _data = { ...data };
@@ -34,6 +41,8 @@
 	let data: Form_CreateCommunity = createDefaultCreateCommunityData();
 	let formHook = useForm(data, 'counter');
 	let errorMessage: string = '';
+
+	let markdownMode = false;
 </script>
 
 <FormContainer {formHook} mode="counter" {errorMessage} on:submit={createCommunity}>
@@ -45,6 +54,7 @@
 			bind:value={data.name}
 			on:validate={inputChange}
 		/>
+
 		<TextArea
 			label="About"
 			showLabel={true}
@@ -52,6 +62,14 @@
 			bind:value={data.about}
 			on:validate={inputChange}
 		/>
+		<Boolean label="Markdown mode" bind:value={markdownMode} />
+		{#if markdownMode}
+			<TypoHeader underline={true} spacing={0}>Result</TypoHeader>
+			<article class="[ markdown ] [  ]">
+				{@html parseMarkdown(data.about, COMMUNITY_ABOUT_MARKDOWN_CONSTRAINTS)}
+			</article>
+		{/if}
+
 		<FileInput
 			label="Profile"
 			expectedFile="image"

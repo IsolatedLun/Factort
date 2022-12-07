@@ -18,10 +18,9 @@ export function preCheck__Post(data: Form_CreatePost): Props_PreCheckedData_Comp
 		else {
 			for (let i = 0; i < data.images.length; i++) {
 				if (err) break;
-				else {
-					const res = fileTypeValidator('image');
-					if (!res.validate(data.images[i])) err = res.errorText;
-				}
+
+				const res = fileTypeValidator('image');
+				if (!res.validate(data.images[i])) err = res.errorText;
 			}
 		}
 	}

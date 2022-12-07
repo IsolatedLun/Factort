@@ -15,5 +15,6 @@ export interface Props_MiscellaneousSection {
 
 	fetchFn:
 		| ((...args: any) => Promise<Success_OR_Error__Response<MiscellaneuosTypeComplexTypes>>)
+		| any
 		| null;
 }

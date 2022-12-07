@@ -11,7 +11,12 @@
 		_Toggle_Community_Join
 	} from '../../../services/communities/communityFetchers';
 	import { globalStore } from '../../../stores/global';
-	import { BACKEND_ROOT_URL, ICON_MINUS, ICON_PLUS } from '../../../consts';
+	import {
+		BACKEND_ROOT_URL,
+		ICON_MINUS,
+		ICON_PLUS,
+		COMMUNITY_ABOUT_MARKDOWN_CONSTRAINTS
+	} from '../../../consts';
 	import Button from '../../../components/Modules/Interactibles/Buttons/Button.svelte';
 	import CreatePostHeader from '../CreatePostHeader/CreatePostHeader.svelte';
 	import type { Success_OR_Error__Response } from 'src/services/types';
@@ -21,6 +26,7 @@
 	import Card from '../../../components/Modules/Card/Card.svelte';
 	import { formatNumber } from '../../../utils/misc';
 	import MiscellaneuosTab from '../Miscellaneous/_/MiscellaneuosTab.svelte';
+	import { parseMarkdown } from '../../../utils/markdown/markdownParser';
 
 	// When the user's mouse enters the 'create post for the community' section
 	// We add the community data to the global store
@@ -135,10 +141,10 @@
 					>
 						<MiscellaneuosTab title={'About'}>
 							<article
-								class="[ markdown ] [ whitespace-preline padding-1 ]"
+								class="[ markdown ] [ whitespace-preline padding-1 fs-350 ]"
 								data-typo-underline="true"
 							>
-								{res.data.about}
+								{@html parseMarkdown(res.data.about, COMMUNITY_ABOUT_MARKDOWN_CONSTRAINTS)}
 							</article>
 
 							<div class="[ padding-1 padding-inline-2 ]">

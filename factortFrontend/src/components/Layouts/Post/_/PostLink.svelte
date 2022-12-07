@@ -8,7 +8,6 @@
 
 	onMount(() => {
 		const emptyDataCount = Object.values(data).filter((x) => x === null || x === undefined).length;
-		console.log(data);
 
 		// We decrement by 1, since the url property is always not empty
 		hasEnoughOgData =
